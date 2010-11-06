@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1115</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Exif Reader</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <widget class="QTreeView" name="folderView">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>261</width>
+     <height>761</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="debugOutput">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>500</y>
+     <width>381</width>
+     <height>291</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTreeWidget" name="exifTree">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>30</y>
+     <width>821</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <column>
+    <property name="text">
+     <string notr="true">IFD</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>IFD Offset</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>IFD Code</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Data Type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Value Length</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Value Offset</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Value</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Default Value</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>JPEG Flag</string>
+    </property>
+   </column>
+   <item>
+    <property name="text">
+     <string>Characteristics</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Basic Information</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>ImageWidth</string>
+      </property>
+      <property name="toolTip">
+       <string>Image Width</string>
+      </property>
+      <property name="text">
+       <string>100</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ImageHeight</string>
+      </property>
+      <property name="toolTip">
+       <string>Image Height</string>
+      </property>
+      <property name="text">
+       <string>101</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>BitsPerSample</string>
+      </property>
+      <property name="toolTip">
+       <string>Number of bits per component</string>
+      </property>
+      <property name="text">
+       <string>102</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>8 8 8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Compression</string>
+      </property>
+      <property name="toolTip">
+       <string>Compression scheme used for image</string>
+      </property>
+      <property name="text">
+       <string>103</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>PhotometricInterpretation</string>
+      </property>
+      <property name="toolTip">
+       <string>Pixel Composition</string>
+      </property>
+      <property name="text">
+       <string>106</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Orientation</string>
+      </property>
+      <property name="toolTip">
+       <string>Image orientation</string>
+      </property>
+      <property name="text">
+       <string>112</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SamplesPerPixel</string>
+      </property>
+      <property name="toolTip">
+       <string>Number of samples per pixel</string>
+      </property>
+      <property name="text">
+       <string>115</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>PlanarConfiguration</string>
+      </property>
+      <property name="toolTip">
+       <string>Image data arrangement</string>
+      </property>
+      <property name="text">
+       <string>11C</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>YCbCrSubSampling</string>
+      </property>
+      <property name="toolTip">
+       <string>Sumbsampling ration of Y to C</string>
+      </property>
+      <property name="text">
+       <string>212</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>YCbCrPositioning</string>
+      </property>
+      <property name="toolTip">
+       <string>Y and C positioning</string>
+      </property>
+      <property name="text">
+       <string>213</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>XResolution</string>
+      </property>
+      <property name="toolTip">
+       <string>Width resolution</string>
+      </property>
+      <property name="text">
+       <string>11A</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Rational</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>72</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>YResolution</string>
+      </property>
+      <property name="toolTip">
+       <string>Height Resolution</string>
+      </property>
+      <property name="text">
+       <string>11B</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Rational</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>72</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ResolutionUnit</string>
+      </property>
+      <property name="toolTip">
+       <string>Unit for image resolution</string>
+      </property>
+      <property name="text">
+       <string>128</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Offset Records</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>StripOffsets</string>
+      </property>
+      <property name="toolTip">
+       <string>Image data location</string>
+      </property>
+      <property name="text">
+       <string>111</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>RowsPerStrip</string>
+      </property>
+      <property name="toolTip">
+       <string>Number of rows per strip</string>
+      </property>
+      <property name="text">
+       <string>116</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>StripByteCounts</string>
+      </property>
+      <property name="toolTip">
+       <string>Bytes per compressed strip</string>
+      </property>
+      <property name="text">
+       <string>117</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>JPEGInterchangeFormat</string>
+      </property>
+      <property name="toolTip">
+       <string>Offset to Image</string>
+      </property>
+      <property name="text">
+       <string>201</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Long</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>JPEGInterchangeFormatLength</string>
+      </property>
+      <property name="toolTip">
+       <string>Bytes for actual image data</string>
+      </property>
+      <property name="text">
+       <string>202</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Long</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Characteristics</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image Metadata</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>DateTime</string>
+      </property>
+      <property name="toolTip">
+       <string>Date/Time image last modified</string>
+      </property>
+      <property name="text">
+       <string>132</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ImageDescription</string>
+      </property>
+      <property name="toolTip">
+       <string>Title of Image</string>
+      </property>
+      <property name="text">
+       <string>10E</string>
+      </property>
+      <property name="toolTip">
+       <string>Title of image</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Make</string>
+      </property>
+      <property name="toolTip">
+       <string>Camera Manufacturer</string>
+      </property>
+      <property name="text">
+       <string>10F</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Model</string>
+      </property>
+      <property name="toolTip">
+       <string>Camera model</string>
+      </property>
+      <property name="text">
+       <string>110</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Software</string>
+      </property>
+      <property name="toolTip">
+       <string>Software used to digitize image</string>
+      </property>
+      <property name="text">
+       <string>131</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Artist</string>
+      </property>
+      <property name="toolTip">
+       <string>Photographer</string>
+      </property>
+      <property name="text">
+       <string>13B</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Copyright</string>
+      </property>
+      <property name="toolTip">
+       <string>Copyright holder</string>
+      </property>
+      <property name="text">
+       <string>8298</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Exif Attributes</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Exif Version</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Exif Version</string>
+      </property>
+      <property name="text">
+       <string>9000</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Undefined</string>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>0230</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>FlashPix Version</string>
+      </property>
+      <property name="text">
+       <string>A000</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Undefined</string>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>0100</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Color Data</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Color Space</string>
+      </property>
+      <property name="text">
+       <string>A001</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Short</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Gamma</string>
+      </property>
+      <property name="text">
+       <string>A500</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Rational</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Configuration</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Components Configuration</string>
+      </property>
+      <property name="text">
+       <string>9101</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Compress Mode</string>
+      </property>
+      <property name="text">
+       <string>9102</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Valid Width</string>
+      </property>
+      <property name="text">
+       <string>A002</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Valid Height</string>
+      </property>
+      <property name="text">
+       <string>A003</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Comments</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>User Comments</string>
+      </property>
+      <property name="text">
+       <string>9286</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Undefined</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MakerNote</string>
+      </property>
+      <property name="text">
+       <string>927C</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Undefined</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sound File</string>
+     </property>
+     <property name="text">
+      <string>A004</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Date and Time</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <item>
+      <property name="text">
+       <string>Date/Time Taken</string>
+      </property>
+      <property name="text">
+       <string>9003</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Date/Time Digitized</string>
+      </property>
+      <property name="text">
+       <string>9004</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Modified Subseconds</string>
+      </property>
+      <property name="text">
+       <string>9290</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Taken Subseconds</string>
+      </property>
+      <property name="text">
+       <string>9291</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Digitized Subseconds</string>
+      </property>
+      <property name="text">
+       <string>9292</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>Picture Conditions</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Camera Information</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Image ID</string>
+      </property>
+      <property name="text">
+       <string>A420</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Camera Owner</string>
+      </property>
+      <property name="text">
+       <string>A430</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Cameria Serial</string>
+      </property>
+      <property name="text">
+       <string>A431</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Lens Specification</string>
+      </property>
+      <property name="text">
+       <string>A432</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Rational</string>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Lense Make</string>
+      </property>
+      <property name="text">
+       <string>A433</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Lense Model</string>
+      </property>
+      <property name="text">
+       <string>A434</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>ASCII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Lense Serial</string>
+      </property>
+      <property name="text">
+       <string>A435</string>
+      </property>
+     </item>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>XP Attributes</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Title</string>
+     </property>
+     <property name="text">
+      <string>9C9B</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Comment</string>
+     </property>
+     <property name="text">
+      <string>9C9C</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Author</string>
+     </property>
+     <property name="text">
+      <string>9C9D</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Keywords</string>
+     </property>
+     <property name="text">
+      <string>9C9E</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Subject</string>
+     </property>
+     <property name="text">
+      <string>9C9F</string>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Interoperability</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>GPS</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>GPS Version</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>North/South Latitude</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Latitude</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>East/West Longitude</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Longitude</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Altitude References</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Altitude</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GPS Time</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GPS Satellites</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Receiver Status</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Measurement Mode</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Speed Unit</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Precision</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GPS Unit Speed</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Movement Reference</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Movement Direction</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image Direction Ref</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image Direction</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Geodetic Survey</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Destination Latitude Ref</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Destination Latitude</string>
+     </property>
+    </item>
+   </item>
+  </widget>
+  <widget class="QLabel" name="exifTreeLabel">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>10</y>
+     <width>81</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>Exif Data Tree</string>
+   </property>
+   <property name="buddy">
+    <cstring>exifTree</cstring>
+   </property>
+  </widget>
+  <widget class="QLabel" name="debugLabel">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>480</y>
+     <width>81</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>Debug Output</string>
+   </property>
+   <property name="buddy">
+    <cstring>debugOutput</cstring>
+   </property>
+  </widget>
+  <widget class="QLabel" name="folderLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>71</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>Folder View</string>
+   </property>
+   <property name="buddy">
+    <cstring>folderView</cstring>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>500</y>
+     <width>431</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Exif Version</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>FlashPix Version</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Width</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Height</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Thumbnail?</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>X Resolution</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Y Resolution</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Resolution Unit</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Last Modified</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Title</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Camera Make</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Camera Model</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Software</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Photographer</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Copyright</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="exifTreeLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>480</y>
+     <width>71</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>Exif Data List</string>
+   </property>
+   <property name="buddy">
+    <cstring>exifTree</cstring>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
