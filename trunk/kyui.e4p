@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project kyui -->
-<!-- Saved: 2010-11-06, 12:07:35 -->
+<!-- Saved: 2010-11-06, 12:33:19 -->
 <!-- Copyright (C) 2010 Jonathan Harper, mnijph@gmail.com -->
 <Project version="5.1">
   <Language></Language>
@@ -16,16 +16,65 @@
     <Source>main.pyw</Source>
     <Source>__init__.py</Source>
     <Source>DebugBox.pyw</Source>
+    <Source>Utilities/utilities.py</Source>
+    <Source>Utilities/__init__.py</Source>
+    <Source>Settings/keypresser_rc.py</Source>
+    <Source>Settings/keys.py</Source>
+    <Source>Settings/actiontest.pyw</Source>
+    <Source>Settings/addremovelistwidget.pyw</Source>
+    <Source>Settings/catcher.pyw</Source>
+    <Source>Settings/keypresser.pyw</Source>
+    <Source>Settings/settings_shortcuts.pyw</Source>
+    <Source>QFontWidget/fontextender.py</Source>
+    <Source>QFontWidget/fontgroupbox.py</Source>
+    <Source>QFontWidget/qfontpreviewwidget.py</Source>
+    <Source>QFontWidget/qfontwidget.py</Source>
+    <Source>QFontWidget/qsimplefontwidget.py</Source>
+    <Source>QFontWidget/qsimplefontwidget_toolbartest.py</Source>
+    <Source>QFontWidget/__init__.py</Source>
+    <Source>QFontWidget/fontwidgetdemo.pyw</Source>
+    <Source>Icons/icons_rc.py</Source>
+    <Source>MimeIcons/mimeicons_rc.py</Source>
+    <Source>Icons/__init__.py</Source>
+    <Source>Settings/__init__.py</Source>
   </Sources>
   <Forms>
+    <Form>Ui Files/addremoveitemlistwidget.ui</Form>
+    <Form>Ui Files/breadcrumb.ui</Form>
+    <Form>Ui Files/colorpicker.ui</Form>
+    <Form>Ui Files/colorpicker_adobe.ui</Form>
+    <Form>Ui Files/colorpicker_expanded.ui</Form>
+    <Form>Ui Files/docktest.ui</Form>
+    <Form>Ui Files/exif.ui</Form>
+    <Form>Ui Files/fontexpanding.ui</Form>
+    <Form>Ui Files/fontgroupbox.ui</Form>
+    <Form>Ui Files/fontgroupbox2.ui</Form>
+    <Form>Ui Files/graphicsview.ui</Form>
+    <Form>Ui Files/mainwindow.ui</Form>
+    <Form>Ui Files/mainwindow_test.ui</Form>
+    <Form>Ui Files/mdi.ui</Form>
+    <Form>Ui Files/qfontwidget.ui</Form>
+    <Form>Ui Files/ribbon.ui</Form>
+    <Form>Ui Files/settings.ui</Form>
+    <Form>Ui Files/settings_itempicker.ui</Form>
+    <Form>Ui Files/settings_shortcuts.ui</Form>
+    <Form>Ui Files/test.ui</Form>
+    <Form>Ui Files/toolbarcommands.ui</Form>
+    <Form>Ui Files/view.ui</Form>
+    <Form>Settings/keypresscatcher.ui</Form>
   </Forms>
   <Translations>
   </Translations>
   <Resources>
+    <Resource>Settings/keypresser.qrc</Resource>
+    <Resource>MimeIcons/mimeicons.qrc</Resource>
+    <Resource>Icons/icons.qrc</Resource>
   </Resources>
   <Interfaces>
   </Interfaces>
   <Others>
+    <Other>Icons</Other>
+    <Other>MimeIcons</Other>
   </Others>
   <MainScript>main.pyw</MainScript>
   <Vcs>
