@@ -1,0 +1,94 @@
+<RCC>
+  <qresource prefix="File">
+    <file>history.png</file>
+    <file>close.png</file>
+    <file>exit.png</file>
+    <file>openfolder.png</file>
+    <file>print.png</file>
+  </qresource>
+  <qresource prefix="Edit">
+    <file>addfolder.png</file>
+    <file>removefolder.png</file>
+    <file>addbookmark.png</file>
+    <file>removebookmark.png</file>
+    <file>editimage.png</file>
+    <file>add.png</file>
+    <file>copy.png</file>
+    <file>cut.png</file>
+    <file>metadata.png</file>
+    <file>paste.png</file>
+    <file>remove.png</file>
+  </qresource>
+  <qresource prefix="View">
+    <file>actualsize.png</file>
+    <file>end.png</file>
+    <file>fit.png</file>
+    <file>fitheight.png</file>
+    <file>fitwidth.png</file>
+    <file>fullscreen.png</file>
+    <file>next.png</file>
+    <file>previous.png</file>
+    <file>reload.png</file>
+    <file>slideshow.png</file>
+    <file>start.png</file>
+    <file>zoomin.png</file>
+    <file>zoomout.png</file>
+  </qresource>
+  <qresource prefix="Window">
+    <file>debugmode.png</file>
+    <file>newtab.png</file>
+    <file>removetab.png</file>
+    <file>thumbnail.png</file>
+  </qresource>
+  <qresource prefix="Settings">
+    <file>up.png</file>
+    <file>down.png</file>
+    <file>favoritesfolder_16x16.png</file>
+    <file>favoritesfolder_22x22.png</file>
+    <file>favoritesfolder_32x32.png</file>
+    <file>display.png</file>
+    <file>preferences.png</file>
+    <file>shortcuts.png</file>
+  </qresource>
+  <qresource prefix="Windows">
+    <file>win_recentplaces.png</file>
+    <file>win_archivefolder.png</file>
+    <file>win_cdrom.png</file>
+    <file>win_closedfolder.png</file>
+    <file>win_computer.png</file>
+    <file>win_favoritesfolder.png</file>
+    <file>win_imagefile.png</file>
+    <file>win_library.png</file>
+    <file>win_localdrive.png</file>
+    <file>win_network.png</file>
+    <file>win_openfolder.png</file>
+    <file>win_photofolder.png</file>
+    <file>win_userfolder.png</file>
+  </qresource>
+  <qresource prefix="Misc">
+    <file>editclear.png</file>
+    <file>add.png</file>
+    <file>remove.png</file>
+    <file>erase.png</file>
+    <file>closebutton.png</file>
+    <file>closetab.png</file>
+    <file>photo.png</file>
+    <file>camera.png</file>
+    <file>photoviewer.png</file>
+    <file>favoritesfolder.png</file>
+    <file>imagefolder.png</file>
+    <file>archivefolder.png</file>
+    <file>critical.png</file>
+    <file>favorite.png</file>
+    <file>debug.png</file>
+    <file>email.png</file>
+    <file>find.png</file>
+    <file>help.png</file>
+    <file>image.png</file>
+    <file>imagefolder.png</file>
+    <file>imageinfo.png</file>
+    <file>info.png</file>
+    <file>qtlogo.png</file>
+    <file>warning.png</file>
+  </qresource>
+</RCC>
