@@ -1,0 +1,23 @@
+<RCC>
+  <qresource prefix="MimeFolder">
+    <file>folder_closed.png</file>
+    <file>folder_image.png</file>
+    <file>folder_open.png</file>
+    <file>folder_preview.png</file>
+    <file>folder_search.png</file>
+    <file>folder_shortcut.png</file>
+    <file>folder_user.png</file>
+  </qresource>
+  <qresource prefix="MimeFile">
+    <file>file_compressed.png</file>
+    <file>file_generic.png</file>
+    <file>file_image.png</file>
+  </qresource>
+  <qresource prefix="MimeSystem">
+    <file>system_computer.png</file>
+    <file>system_drive.png</file>
+    <file>system_library.png</file>
+    <file>system_network.png</file>
+    <file>system_recyclebin.png</file>
+  </qresource>
+</RCC>
