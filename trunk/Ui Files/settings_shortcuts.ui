@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>453</width>
+    <height>474</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Shortcut Key Settings</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>6</y>
+     <width>441</width>
+     <height>461</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="layout">
+    <property name="spacing">
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QTreeWidget" name="shortcutsTree">
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>22</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerItem</enum>
+      </property>
+      <property name="rootIsDecorated">
+       <bool>false</bool>
+      </property>
+      <property name="uniformRowHeights">
+       <bool>true</bool>
+      </property>
+      <property name="itemsExpandable">
+       <bool>false</bool>
+      </property>
+      <attribute name="headerDefaultSectionSize">
+       <number>200</number>
+      </attribute>
+      <attribute name="headerMinimumSectionSize">
+       <number>20</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Setting</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Shortcut</string>
+       </property>
+      </column>
+      <item>
+       <property name="text">
+        <string>Open</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/File/openfolder.png</normaloff>:/File/openfolder.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+O</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Close</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/File/close.png</normaloff>:/File/close.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+W</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Print</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/File/print.png</normaloff>:/File/print.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+P</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Exit</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/File/exit.png</normaloff>:/File/exit.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+Q</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Add Bookmark</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Edit/addbookmark.png</normaloff>:/Edit/addbookmark.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Remove Bookmark</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Edit/removebookmark.png</normaloff>:/Edit/removebookmark.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+Shift+B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Edit Metadata</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Edit/metadata.png</normaloff>:/Edit/metadata.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+M</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Open External Viewer</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Edit/editimage.png</normaloff>:/Edit/editimage.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+I</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Open Windows Explorer</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Windows/win_library.png</normaloff>:/Windows/win_library.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+E</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Slideshow Mode</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/slideshow.png</normaloff>:/View/slideshow.png</iconset>
+       </property>
+       <property name="text">
+        <string>Space</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Zoom In</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/zoomin.png</normaloff>:/View/zoomin.png</iconset>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Zoom Out</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/zoomout.png</normaloff>:/View/zoomout.png</iconset>
+       </property>
+       <property name="text">
+        <string>+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Actual Size</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/actualsize.png</normaloff>:/View/actualsize.png</iconset>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Fit to Screen</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/fit.png</normaloff>:/View/fit.png</iconset>
+       </property>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Fit to Screen Height</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/fitheight.png</normaloff>:/View/fitheight.png</iconset>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Fit to Screen Width</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/fitwidth.png</normaloff>:/View/fitwidth.png</iconset>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Fullscreen Mode</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/fullscreen.png</normaloff>:/View/fullscreen.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>View First Image in Folder</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/start.png</normaloff>:/View/start.png</iconset>
+       </property>
+       <property name="text">
+        <string>Home</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>View Previous Image in Folder</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/previous.png</normaloff>:/View/previous.png</iconset>
+       </property>
+       <property name="text">
+        <string>PgUp</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>View Next Image in Folder</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/next.png</normaloff>:/View/next.png</iconset>
+       </property>
+       <property name="text">
+        <string>PgDown</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>View Last Image in Folder</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/end.png</normaloff>:/View/end.png</iconset>
+       </property>
+       <property name="text">
+        <string>End</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Reload Image</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/reload.png</normaloff>:/View/reload.png</iconset>
+       </property>
+       <property name="text">
+        <string>F5</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Folder Browser</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Windows/win_photofolder.png</normaloff>:/Windows/win_photofolder.png</iconset>
+       </property>
+       <property name="text">
+        <string>B</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Thumbnail Browser</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Window/thumbnail.png</normaloff>:/Window/thumbnail.png</iconset>
+       </property>
+       <property name="text">
+        <string>T</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Debug Output</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Window/debugmode.png</normaloff>:/Window/debugmode.png</iconset>
+       </property>
+       <property name="text">
+        <string>D</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Open New Tab</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Window/newtab.png</normaloff>:/Window/newtab.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+T</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Close Tab</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Window/removetab.png</normaloff>:/Window/removetab.png</iconset>
+       </property>
+       <property name="text">
+        <string>Ctrl+F4</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="shortcutBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>85</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Change Shortcut Key</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>421</width>
+         <height>56</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="shortcutLayout">
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="catcher">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::ClickFocus</enum>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::PreventContextMenu</enum>
+          </property>
+          <property name="acceptDrops">
+           <bool>false</bool>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="clearButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Clear the current key combination</string>
+          </property>
+          <property name="text">
+           <string>Clear</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../Settings/keypresser.qrc">
+            <normaloff>:/keypresser/erase.png</normaloff>:/keypresser/erase.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <spacer name="spacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="undoButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Undo</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../Settings/keypresser.qrc">
+            <normaloff>:/keypresser/undo.png</normaloff>:/keypresser/undo.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="setButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../Settings/keypresser.qrc">
+            <normaloff>:/keypresser/set.png</normaloff>:/keypresser/set.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="buttonFrame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="buttonRestoreDefaults">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>9</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Restore settings on the current tab to their default values</string>
+         </property>
+         <property name="text">
+          <string>Restore Defaults</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+D</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>88</width>
+           <height>18</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../Icons/icons.qrc"/>
+  <include location="../Settings/keypresser.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>446</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>236</x>
+     <y>470</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>445</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

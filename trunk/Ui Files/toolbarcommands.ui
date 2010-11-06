@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>387</width>
+    <height>427</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTreeWidget" name="treeWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>256</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="dragEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="dragDropMode">
+    <enum>QAbstractItemView::InternalMove</enum>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>16</width>
+     <height>16</height>
+    </size>
+   </property>
+   <attribute name="headerVisible">
+    <bool>false</bool>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>Actions</string>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+     </font>
+    </property>
+   </column>
+   <item>
+    <property name="text">
+     <string>File</string>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+     </font>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+    <item>
+     <property name="text">
+      <string>Open</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/File/openfolder.png</normaloff>:/File/openfolder.png</iconset>
+     </property>
+     <property name="flags">
+      <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled|ItemIsTristate</set>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Close</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/File/close.png</normaloff>:/File/close.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Print</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/File/print.png</normaloff>:/File/print.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Open in External Viewer</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/Edit/editimage.png</normaloff>:/Edit/editimage.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Open in Explorer</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/Windows/win_library.png</normaloff>:/Windows/win_library.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Edit Metadata</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/Edit/editimage.png</normaloff>:/Edit/editimage.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/File/exit.png</normaloff>:/File/exit.png</iconset>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Navigation</string>
+    </property>
+    <property name="checkState">
+     <enum>Unchecked</enum>
+    </property>
+    <item>
+     <property name="text">
+      <string>Add Bookmark</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/Edit/addbookmark.png</normaloff>:/Edit/addbookmark.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Remove Bookmark</string>
+     </property>
+     <property name="checkState">
+      <enum>Unchecked</enum>
+     </property>
+     <property name="icon">
+      <iconset resource="../Icons/icons.qrc">
+       <normaloff>:/Edit/removebookmark.png</normaloff>:/Edit/removebookmark.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Previous Image</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Next Image</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>First Image</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Last Image</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Reload Image</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Slideshow Mode</string>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>View</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Fullscreen</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zoom In</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zoom Out</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>View Actual Size</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fit to Screen</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fit to Screen Height</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fit to Screen Width</string>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Window</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>New Tab</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Close Tab</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Thumbnail Browser</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Folder Browser</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Debug Viewer</string>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Help</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>About LIDS</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>About Qt</string>
+     </property>
+    </item>
+   </item>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>371</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>30</y>
+     <width>30</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="buttonLayout">
+    <property name="spacing">
+     <number>1</number>
+    </property>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>50</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="addButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>Add to tooltip list</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../Icons/icons.qrc">
+        <normaloff>:/Misc/add.png</normaloff>:/Misc/add.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="removeButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>Remove from tooltip list</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../Icons/icons.qrc">
+        <normaloff>:/Misc/remove.png</normaloff>:/Misc/remove.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>15</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="upButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>Move item up</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../Icons/icons.qrc">
+        <normaloff>:/Settings/up.png</normaloff>:/Settings/up.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="downButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>Move item down</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../Icons/icons.qrc">
+        <normaloff>:/Settings/down.png</normaloff>:/Settings/down.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../Icons/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

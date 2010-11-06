@@ -1,0 +1,1505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>451</width>
+    <height>546</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Settings</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/SettingsMenu/settings_preferences.png</normaloff>:/SettingsMenu/settings_preferences.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 9pt &quot;Segoe UI&quot;;</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>431</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>1</number>
+    </property>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="currentIndex">
+       <number>6</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="usesScrollButtons">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="tabBasic">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Settings/preferences.png</normaloff>:/Settings/preferences.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Basic Settings</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Allows changing general settings</string>
+       </attribute>
+       <widget class="QGroupBox" name="fontGroupBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>351</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>These settings control the font and size for most of the application.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;These two settings will change the font used and font size throughout the application. Changing the font is not recommended, but is available if desired. The font size can be increased or reduced to suit your preference.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;Commonly used options are:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;Segoe UI, 9pt (Default with Windows 7)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Tahoma'; font-size:8pt;&quot;&gt;MS Shell Dlg 2, 8pt (Used on older versions of Windows)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Verdana'; font-size:9pt;&quot;&gt;Verdana, 9pt&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Tahoma'; font-size:9pt;&quot;&gt;Tahoma, 9pt&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="title">
+         <string>Font Settings</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="layoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>295</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="fontLabel">
+            <property name="text">
+             <string>Font</string>
+            </property>
+            <property name="buddy">
+             <cstring>fontComboBox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFontComboBox" name="fontComboBox">
+            <property name="styleSheet">
+             <string notr="true">font: 9pt &quot;Segoe UI&quot;;</string>
+            </property>
+            <property name="writingSystem">
+             <enum>QFontDatabase::Latin</enum>
+            </property>
+            <property name="fontFilters">
+             <set>QFontComboBox::AllFonts</set>
+            </property>
+            <property name="currentFont">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="fontSizeLabel">
+            <property name="text">
+             <string>Size</string>
+            </property>
+            <property name="buddy">
+             <cstring>fontSizeSpinBox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="fontSizeSpinBox">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 9pt &quot;Segoe UI&quot;;</string>
+            </property>
+            <property name="suffix">
+             <string/>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>32</number>
+            </property>
+            <property name="value">
+             <number>9</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="toolBarBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>351</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Toolbar Settings</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <widget class="QGroupBox" name="buttonLabelsBox">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>121</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Changing this option will determine whether toolbar buttons have labels to explain what they do, and where the text is located relative to the button.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Changing this option will either remove text associated with toolbar buttons or relocate it relative to the toolbar icon. If you are familiar with what button icon does, removing the text (Icon Only) can save space and reduce clutter.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Placing text beneath the toolbar buttons (Text Under Icon) uses minimal space and is the recommended option.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The option for placing text to the right of the icon (Text Beside Icon) is also available, but is not recommended, as it uses quite a bit of space. It will, however, make the make significantly larger and therefore easier to reach with the mouse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="title">
+          <string>Button Labels</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <widget class="QLabel" name="iconSizeLabel">
+          <property name="geometry">
+           <rect>
+            <x>13</x>
+            <y>22</y>
+            <width>85</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>108</width>
+            <height>71</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QRadioButton" name="radioButton">
+             <property name="text">
+              <string>Icon Only</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_2">
+             <property name="text">
+              <string>Text Under Icon</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_3">
+             <property name="text">
+              <string>Text Beside Icon</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QGroupBox" name="iconSizeBox">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>20</y>
+           <width>201</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>This setting changes the size of the icons within the main toolbars. Icons are included to demonstrate the size of each icon.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Changing the icon size on the main toolbar allows you to make the icons smaller to save space, or larger to be easier to see and reach. Changing this setting will also adjust the font size of the text with each toolbar button to coincide with the new button size.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Making the icon size and font smaller can save space, but has the disadvantage of being harder to see and a smaller target for the mouse to click. Larger buttons take up more space, but are easier to see and reach with the mouse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="title">
+          <string>Icon Size</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>11</x>
+            <y>20</y>
+            <width>181</width>
+            <height>71</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="radioButton_4">
+             <property name="text">
+              <string>16 x 16</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../Icons/icons.qrc">
+               <normaloff>:/Settings/favoritesfolder_16x16.png</normaloff>:/Settings/favoritesfolder_16x16.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QRadioButton" name="radioButton_6">
+             <property name="text">
+              <string>32 x 32</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../Icons/icons.qrc">
+               <normaloff>:/Settings/favoritesfolder_32x32.png</normaloff>:/Settings/favoritesfolder_32x32.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="radioButton_5">
+             <property name="text">
+              <string>22 x 22</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../Icons/icons.qrc">
+               <normaloff>:/Settings/favoritesfolder_22x22.png</normaloff>:/Settings/favoritesfolder_22x22.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>22</width>
+               <height>22</height>
+              </size>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QCheckBox" name="groupButtonsCheckBox">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>130</y>
+           <width>181</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Enabling this will merge similar buttons (such as zoom options) on the toolbar into a single drop-down button</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;By enabling this option, certain similar types of buttons--like zooming, help, and bookmarking--under a single dropdown button. Clicking the group button acts like clicking on a menu in the menubar: the button looks like a normal toolbar button, but has an arrow next to it to show that it opens a menu. The menu it opens will contain all of the normal toolbar buttons.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;The advantage of enabling this option is that it will save space on the toolbars, reducing clutter. The disadvantage is that some options you may frequently use will require an extra button click to reach.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Group SimilarToolbar  Buttons</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabFavorites">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Misc/favoritesfolder.png</normaloff>:/Misc/favoritesfolder.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Favorite Folders</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Lists and allows editing of bookmarked folders</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>1</y>
+          <width>421</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="tabFavoritesLayout">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
+         <item>
+          <widget class="QTreeWidget" name="bookmarksTree">
+           <property name="dragDropMode">
+            <enum>QAbstractItemView::DropOnly</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectItems</enum>
+           </property>
+           <property name="textElideMode">
+            <enum>Qt::ElideMiddle</enum>
+           </property>
+           <property name="rootIsDecorated">
+            <bool>false</bool>
+           </property>
+           <property name="uniformRowHeights">
+            <bool>true</bool>
+           </property>
+           <property name="itemsExpandable">
+            <bool>false</bool>
+           </property>
+           <property name="expandsOnDoubleClick">
+            <bool>false</bool>
+           </property>
+           <attribute name="headerShowSortIndicator" stdset="0">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="headerShowSortIndicator" stdset="0">
+            <bool>true</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Bookmark</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../Icons/icons.qrc">
+              <normaloff>:/Misc/favorite.png</normaloff>:/Misc/favorite.png</iconset>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Location</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../Icons/icons.qrc">
+              <normaloff>:/Windows/win_photofolder.png</normaloff>:/Windows/win_photofolder.png</iconset>
+            </property>
+           </column>
+           <item>
+            <property name="text">
+             <string>Test</string>
+            </property>
+            <property name="text">
+             <string>D:\Pics\Incoming</string>
+            </property>
+            <property name="flags">
+             <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="buttonLayout">
+           <item>
+            <widget class="QPushButton" name="buttonAdd">
+             <property name="toolTip">
+              <string>Add a new bookmarked location</string>
+             </property>
+             <property name="text">
+              <string>Add</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../Icons/icons.qrc">
+               <normaloff>:/Edit/add.png</normaloff>:/Edit/add.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="shortcut">
+              <string>Alt+E</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="buttonRemove">
+             <property name="toolTip">
+              <string>Remove a currently bookmarked folder</string>
+             </property>
+             <property name="text">
+              <string>Remove</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../Icons/icons.qrc">
+               <normaloff>:/Edit/remove.png</normaloff>:/Edit/remove.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="shortcut">
+              <string>Alt+E</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="spacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="buttonExplore">
+             <property name="toolTip">
+              <string>Open the currently selected bookmark in Windows Explorer</string>
+             </property>
+             <property name="text">
+              <string>Explore</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../Icons/icons.qrc">
+               <normaloff>:/Windows/win_library.png</normaloff>:/Windows/win_library.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="shortcut">
+              <string>Alt+E</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabView">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Settings/display.png</normaloff>:/Settings/display.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Display Settings</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Settings for image scaling, background colors, et cetera</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>258</width>
+          <height>215</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="tabViewLayout">
+         <item>
+          <widget class="QLabel" name="debugOutputLabel">
+           <property name="text">
+            <string>QSettings Data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="debugOutput">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="acceptRichText">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabSlideshow">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/slideshow.png</normaloff>:/View/slideshow.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Slideshow Configuration</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Change the way slideshows behave</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tabThumbnails">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Window/thumbnail.png</normaloff>:/Window/thumbnail.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Thumbnail Settings</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Change how image thumbnails appear</string>
+       </attribute>
+       <widget class="QGroupBox" name="thumbSizeGroupBox">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>5</y>
+          <width>421</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Thumnail Size</string>
+        </property>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>371</width>
+           <height>111</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="thumbSizeLayout" rowstretch="0,0,0">
+          <property name="spacing">
+           <number>15</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="widthLabel">
+            <property name="text">
+             <string>Width</string>
+            </property>
+            <property name="buddy">
+             <cstring>widthSpinBox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="widthSpinBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>32</number>
+            </property>
+            <property name="maximum">
+             <number>384</number>
+            </property>
+            <property name="value">
+             <number>128</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QSlider" name="heightSlider">
+            <property name="minimum">
+             <number>32</number>
+            </property>
+            <property name="maximum">
+             <number>384</number>
+            </property>
+            <property name="pageStep">
+             <number>20</number>
+            </property>
+            <property name="value">
+             <number>92</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="invertedControls">
+             <bool>false</bool>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksAbove</enum>
+            </property>
+            <property name="tickInterval">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="heightSpinBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>32</number>
+            </property>
+            <property name="maximum">
+             <number>384</number>
+            </property>
+            <property name="value">
+             <number>92</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QSlider" name="widthSlider">
+            <property name="minimum">
+             <number>32</number>
+            </property>
+            <property name="maximum">
+             <number>384</number>
+            </property>
+            <property name="pageStep">
+             <number>20</number>
+            </property>
+            <property name="value">
+             <number>128</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="invertedControls">
+             <bool>false</bool>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksAbove</enum>
+            </property>
+            <property name="tickInterval">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="paddingSpinBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>32</number>
+            </property>
+            <property name="value">
+             <number>16</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QSlider" name="paddingSlider">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>32</number>
+            </property>
+            <property name="pageStep">
+             <number>8</number>
+            </property>
+            <property name="value">
+             <number>16</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="invertedControls">
+             <bool>false</bool>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksAbove</enum>
+            </property>
+            <property name="tickInterval">
+             <number>2</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="heightLabel">
+            <property name="text">
+             <string>Height</string>
+            </property>
+            <property name="buddy">
+             <cstring>heightSpinBox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="paddingLabel">
+            <property name="text">
+             <string>Padding</string>
+            </property>
+            <property name="buddy">
+             <cstring>paddingSpinBox</cstring>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="thumbPreviewLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>160</y>
+          <width>256</width>
+          <height>256</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../Icons/icons.qrc">:/Misc/photoviewer.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::NoTextInteraction</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabFullscreen">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/View/fullscreen.png</normaloff>:/View/fullscreen.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Fullscreen Settings</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Change how the program behaves in fullscreen mode</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tabShortcuts">
+       <attribute name="icon">
+        <iconset resource="../Icons/icons.qrc">
+         <normaloff>:/Settings/shortcuts.png</normaloff>:/Settings/shortcuts.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <attribute name="toolTip">
+        <string>Shortcut Keys</string>
+       </attribute>
+       <attribute name="whatsThis">
+        <string>Change shortcut keys for various actions</string>
+       </attribute>
+       <widget class="QTreeWidget" name="treeShortcuts">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>441</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectItems</enum>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="horizontalScrollMode">
+         <enum>QAbstractItemView::ScrollPerItem</enum>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
+        </property>
+        <attribute name="headerDefaultSectionSize">
+         <number>200</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>20</number>
+        </attribute>
+        <attribute name="headerDefaultSectionSize">
+         <number>200</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>20</number>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Setting</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Shortcut</string>
+         </property>
+        </column>
+        <item>
+         <property name="text">
+          <string>Open</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/File/openfolder.png</normaloff>:/File/openfolder.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+O</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Close</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/File/close.png</normaloff>:/File/close.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Print</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/File/print.png</normaloff>:/File/print.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+P</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Exit</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/File/exit.png</normaloff>:/File/exit.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+Q</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Add Bookmark</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Edit/addbookmark.png</normaloff>:/Edit/addbookmark.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+B</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Remove Bookmark</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Edit/removebookmark.png</normaloff>:/Edit/removebookmark.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+Shift+B</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Edit Metadata</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Edit/metadata.png</normaloff>:/Edit/metadata.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+M</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Open External Viewer</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Edit/editimage.png</normaloff>:/Edit/editimage.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+I</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Open Windows Explorer</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Windows/win_library.png</normaloff>:/Windows/win_library.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+E</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Slideshow Mode</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/slideshow.png</normaloff>:/View/slideshow.png</iconset>
+         </property>
+         <property name="text">
+          <string>Space</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Zoom In</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/zoomin.png</normaloff>:/View/zoomin.png</iconset>
+         </property>
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Zoom Out</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/zoomout.png</normaloff>:/View/zoomout.png</iconset>
+         </property>
+         <property name="text">
+          <string>+</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Actual Size</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/actualsize.png</normaloff>:/View/actualsize.png</iconset>
+         </property>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Fit to Screen</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/fit.png</normaloff>:/View/fit.png</iconset>
+         </property>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Fit to Screen Height</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/fitheight.png</normaloff>:/View/fitheight.png</iconset>
+         </property>
+         <property name="text">
+          <string>3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Fit to Screen Width</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/fitwidth.png</normaloff>:/View/fitwidth.png</iconset>
+         </property>
+         <property name="text">
+          <string>4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Fullscreen Mode</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/fullscreen.png</normaloff>:/View/fullscreen.png</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>View First Image in Folder</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/start.png</normaloff>:/View/start.png</iconset>
+         </property>
+         <property name="text">
+          <string>Home</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>View Previous Image in Folder</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/previous.png</normaloff>:/View/previous.png</iconset>
+         </property>
+         <property name="text">
+          <string>PgUp</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>View Next Image in Folder</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/next.png</normaloff>:/View/next.png</iconset>
+         </property>
+         <property name="text">
+          <string>PgDown</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>View Last Image in Folder</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/end.png</normaloff>:/View/end.png</iconset>
+         </property>
+         <property name="text">
+          <string>End</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Reload Image</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/View/reload.png</normaloff>:/View/reload.png</iconset>
+         </property>
+         <property name="text">
+          <string>F5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Folder Browser</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Windows/win_photofolder.png</normaloff>:/Windows/win_photofolder.png</iconset>
+         </property>
+         <property name="text">
+          <string>B</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Thumbnail Browser</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Window/thumbnail.png</normaloff>:/Window/thumbnail.png</iconset>
+         </property>
+         <property name="text">
+          <string>T</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Debug Output</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Window/debugmode.png</normaloff>:/Window/debugmode.png</iconset>
+         </property>
+         <property name="text">
+          <string>D</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Open New Tab</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Window/newtab.png</normaloff>:/Window/newtab.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+T</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Close Tab</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons/icons.qrc">
+           <normaloff>:/Window/removetab.png</normaloff>:/Window/removetab.png</iconset>
+         </property>
+         <property name="text">
+          <string>Ctrl+F4</string>
+         </property>
+        </item>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="buttonFrame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="buttonRestoreDefaults">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>9</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Restore settings on the current tab to their default values</string>
+         </property>
+         <property name="text">
+          <string>Restore Defaults</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+D</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>88</width>
+           <height>18</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>bookmarksTree</tabstop>
+  <tabstop>buttonAdd</tabstop>
+  <tabstop>buttonRemove</tabstop>
+  <tabstop>buttonExplore</tabstop>
+  <tabstop>debugOutput</tabstop>
+  <tabstop>widthSpinBox</tabstop>
+  <tabstop>widthSlider</tabstop>
+  <tabstop>heightSpinBox</tabstop>
+  <tabstop>heightSlider</tabstop>
+  <tabstop>paddingSpinBox</tabstop>
+  <tabstop>paddingSlider</tabstop>
+  <tabstop>treeShortcuts</tabstop>
+  <tabstop>buttonRestoreDefaults</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../Icons/icons.qrc"/>
+  <include location="../Icons/icons.qrc"/>
+  <include location="../Icons/icons.qrc"/>
+  <include location="../Icons/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>heightSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>heightSpinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widthSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widthSpinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>102</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>paddingSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>paddingSpinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

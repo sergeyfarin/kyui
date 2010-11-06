@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>441</width>
+    <height>331</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>421</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Available Items</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="2">
+     <layout class="QVBoxLayout" name="buttonLayout">
+      <property name="spacing">
+       <number>1</number>
+      </property>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>50</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="addButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Add to tooltip list</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../Icons/icons.qrc">
+          <normaloff>:/Misc/add.png</normaloff>:/Misc/add.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removeButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Remove from tooltip list</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../Icons/icons.qrc">
+          <normaloff>:/Misc/remove.png</normaloff>:/Misc/remove.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>15</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="upButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Move item up</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../Icons/icons.qrc">
+          <normaloff>:/Settings/up.png</normaloff>:/Settings/up.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="downButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Move item down</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../Icons/icons.qrc">
+          <normaloff>:/Settings/down.png</normaloff>:/Settings/down.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Added Items</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QListWidget" name="sourceList">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <item>
+       <property name="text">
+        <string>File Name</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">File name</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>File Name (without extension)</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">File name (without extension)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>File Path</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Full file path</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>File Size</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">File size (in KB)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>File Format</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Image file type/format</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Image Properties</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Image dimensions and depth (length x width x bit depth)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Creation Date</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">File creation date</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Last Modified</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Date file last modified</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>File Index</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">File index in folder (as currently sorted)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>File Index/Total</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true">File index in folder of total number of images</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QListWidget" name="destList">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../Icons/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
