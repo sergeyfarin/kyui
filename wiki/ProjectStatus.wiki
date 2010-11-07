@@ -14,7 +14,7 @@ QSimpleFontWidget and QFontPreviewWidget
 
 [http://kyui.googlecode.com/files/fontwidgetdemo.png]
 
-== Action ShortcutKey Editor ==
+== Action Shortcut Key Editor ==
 
 === Introduction ===
 
