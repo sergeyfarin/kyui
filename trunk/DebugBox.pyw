@@ -9,7 +9,15 @@ class DebugBox(QPlainTextEdit):
         self.setReadOnly(True)
         self.setFrameShape(QFrame.Panel)
         self.setFrameShadow(QFrame.Sunken)
-
     
-    def printMessage(self, text):
-            self.appendPlainText(text)
+    def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
+        if msgType == QtDebugMsg:
+            self.appendPlainText('Debug: ' + bytes.decode(text))
+        elif msgType == QtWarningMsg:
+            self.appendPlainText('Warning: ' + bytes.decode(text))
+        elif msgType == QtCriticalMsg:
+            print('Critical: ' + bytes.decode(text))
+        elif msgType == QtFataMsg:
+            print('Fatal: ' + bytes.decode(text))
+        else:
+            print('Unknown Error: ' + bytes.decode(text))
