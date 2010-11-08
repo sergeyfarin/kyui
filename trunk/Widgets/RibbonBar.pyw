@@ -8,12 +8,12 @@ class KyRibbonBar(QTabWidget):
         self.setDocumentMode(False)
         self.setElideMode(Qt.ElideNone)
         self.setUsesScrollButtons(False)
-        self.__menuWidget = None
         
     def menuWidget(self) -> QWidget:
-        return self.__menuWidget
+        return self.cornerWidget(Qt.TopLeftCorner)
     
     def setMenuWidget(self, widget : QWidget = None) -> None:
+        widget.setParent(self)
         self.setCornerWidget(widget, Qt.TopLeftCorner)
         
     def addRibbonTab(self, text : str, icon : QIcon = None) -> QToolBar:

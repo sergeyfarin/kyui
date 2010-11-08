@@ -1,6 +1,6 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from .Icons import SettingsIcons, IconSet
+from .IconSet2 import SettingsIcons, IconSet
 #from settings_default import DefaultSettings
 
 ###################################

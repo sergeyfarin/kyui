@@ -2,7 +2,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 class DebugBox(QPlainTextEdit):
-    def __init__(self, text = None, parent = None):
+    def __init__(self, parent : QWidget = None, text : str = None):
         super().__init__(parent)
         if text:
             self.setPlainText(text)
