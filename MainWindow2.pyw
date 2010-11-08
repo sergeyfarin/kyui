@@ -1,6 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from Icons import IconSet
+
+from IconSet2 import IconSet
 from DebugBox import DebugBox
 
 from Widgets.ButtonBox2 import *
