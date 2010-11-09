@@ -7,7 +7,7 @@ class DebugBox(QPlainTextEdit):
         if text:
             self.setPlainText(text)
         self.setReadOnly(True)
-        self.setFrameShape(QFrame.Panel)
+        self.setFrameShape(QFrame.StyledPanel)
         self.setFrameShadow(QFrame.Sunken)
     
     def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
