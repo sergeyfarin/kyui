@@ -23,7 +23,8 @@ class KyMainWindow(QMainWindow):
         self.__setupActions()
         self.__setupRibbon()
         
-        qDebug('Setup Completed.')
+        self.printDebugData()
+        
         
     def __setupUi(self) -> None:
         self.setCentralWidget(QWidget())
@@ -62,3 +63,21 @@ class KyMainWindow(QMainWindow):
         for action in self.actionDict:
             self.actionDict[action].setParent(self)
             self.actionDict[action].setFont(font)
+
+    def printDebugData(self):
+        tabBar = self.ribbonBar.tabBar()
+        
+        def formatQSize(size):
+            return str.format('({}, {})', size.width(), size.height())
+        
+        printableSize = formatQSize(tabBar.sizeHint())
+        qDebug('SizeHint = ' + printableSize)
+        
+        printableSize = formatQSize(tabBar.minimumSizeHint())
+        qDebug('MinimumSizeHint = ' + printableSize)
+        
+        printableSize = formatQSize(tabBar.tabSizeHint(0))
+        qDebug('Tab0 SizeHint = ' + printableSize)
+        
+        printableSize = formatQSize(tabBar.tabSizeHint(1))
+        qDebug('Tab1 SizeHint = ' + printableSize)

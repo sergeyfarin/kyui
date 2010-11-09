@@ -1,9 +1,14 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from .RibbonTabBar import KyRibbonTabBar
+
 class KyRibbonBar(QTabWidget):
     def __init__(self, parent : QWidget = None):
         super().__init__(parent)
+        
+        self.setTabBar(KyRibbonTabBar(self))
+        
         self.setMovable(False)
         self.setDocumentMode(False)
         self.setElideMode(Qt.ElideNone)

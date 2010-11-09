@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project kyui -->
-<!-- Saved: 2010-11-06, 21:14:46 -->
+<!-- Saved: 2010-11-08, 15:28:17 -->
 <!-- Copyright (C) 2010 Jonathan Harper, mnijph@gmail.com -->
 <Project version="5.1">
   <Language></Language>
@@ -43,6 +43,14 @@
     <Source>Widgets/RibbonBar.pyw</Source>
     <Source>Widgets/__init__.py</Source>
     <Source>Widgets/MenuButton.pyw</Source>
+    <Source>SizePolicies.pyw</Source>
+    <Source>Widgets/ButtonBox.pyw</Source>
+    <Source>Widgets/ButtonBox2.pyw</Source>
+    <Source>MainWindow2.pyw</Source>
+    <Source>TestItems/__init__.py</Source>
+    <Source>TestItems/ActionTest.pyw</Source>
+    <Source>IconSet2.pyw</Source>
+    <Source>Widgets/RibbonTabBar.pyw</Source>
   </Sources>
   <Forms>
     <Form>Ui Files/addremoveitemlistwidget.ui</Form>
@@ -68,6 +76,7 @@
     <Form>Ui Files/toolbarcommands.ui</Form>
     <Form>Ui Files/view.ui</Form>
     <Form>Settings/keypresscatcher.ui</Form>
+    <Form>Ui Files/buttonbox.ui</Form>
   </Forms>
   <Translations>
   </Translations>
