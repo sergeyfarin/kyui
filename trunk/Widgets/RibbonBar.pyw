@@ -5,14 +5,12 @@ from .RibbonTabBar import KyRibbonTabBar
 
 class KyRibbonBar(QTabWidget):
     def __init__(self, parent : QWidget = None):
-        super().__init__(parent)
-        
+        super().__init__(parent)        
         self.setTabBar(KyRibbonTabBar(self))
-        
         self.setMovable(False)
         self.setDocumentMode(False)
         self.setElideMode(Qt.ElideNone)
-        self.setUsesScrollButtons(False)
+        self.setUsesScrollButtons(True)
         
     def menuWidget(self) -> QWidget:
         return self.cornerWidget(Qt.TopLeftCorner)
