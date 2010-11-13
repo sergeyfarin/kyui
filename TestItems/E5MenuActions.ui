@@ -35,7 +35,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabFile">
      <attribute name="title">
@@ -450,7 +450,7 @@
        <rect>
         <x>280</x>
         <y>0</y>
-        <width>271</width>
+        <width>251</width>
         <height>92</height>
        </rect>
       </property>
@@ -620,6 +620,10 @@ p, li { white-space: pre-wrap; }
           <property name="text">
            <string>Line Tools</string>
           </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>16</width>
@@ -630,7 +634,7 @@ p, li { white-space: pre-wrap; }
            <enum>QToolButton::MenuButtonPopup</enum>
           </property>
           <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonTextUnderIcon</enum>
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
           </property>
           <property name="autoRaise">
            <bool>true</bool>
@@ -775,9 +779,9 @@ Automatic Spellcheck</string>
      <widget class="QGroupBox" name="groupBox_18">
       <property name="geometry">
        <rect>
-        <x>560</x>
+        <x>540</x>
         <y>0</y>
-        <width>91</width>
+        <width>141</width>
         <height>91</height>
        </rect>
       </property>
@@ -790,98 +794,332 @@ Automatic Spellcheck</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="layoutWidget_4">
+      <widget class="QToolButton" name="toolButton_103">
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>20</y>
-         <width>90</width>
-         <height>71</height>
+         <y>60</y>
+         <width>91</width>
+         <height>22</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QToolButton" name="toolButton_73">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>44</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Goto
-Line</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="popupMode">
-           <enum>QToolButton::InstantPopup</enum>
-          </property>
-          <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonTextUnderIcon</enum>
-          </property>
-          <property name="autoRaise">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="toolButton_74">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>44</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Goto
-Brace</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/gotoBrace.png</normaloff>:/Edit/gotoBrace.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="popupMode">
-           <enum>QToolButton::InstantPopup</enum>
-          </property>
-          <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonTextUnderIcon</enum>
-          </property>
-          <property name="autoRaise">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Syntax Error</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/gotoBrace.png</normaloff>:/Edit/gotoBrace.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="toolButton_120">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>18</y>
+         <width>44</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Clear</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::MenuButtonPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="toolButton_73">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>21</y>
+         <width>81</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Line</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="toolButton_74">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>40</y>
+         <width>91</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Brace</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/gotoBrace.png</normaloff>:/Edit/gotoBrace.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_26">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>0</y>
+        <width>121</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Previous</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <widget class="QToolButton" name="toolButton_108">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>60</y>
+         <width>91</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Bookmark</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="toolButton_102">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>21</y>
+         <width>121</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Warning Message</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="toolButton_109">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>40</y>
+         <width>141</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Uncovered Line</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../Resources/Icons/ericActions.qrc">
+         <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
       </widget>
      </widget>
     </widget>
@@ -2693,9 +2931,9 @@ Project</string>
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabCVS">
+    <widget class="QWidget" name="tabVcs">
      <attribute name="title">
-      <string>Repository*</string>
+      <string>VCS</string>
      </attribute>
      <widget class="QGroupBox" name="groupBox_21">
       <property name="geometry">
@@ -2715,183 +2953,174 @@ Project</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QToolButton" name="toolButton_83">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>0</x>
          <y>20</y>
-         <width>51</width>
-         <height>61</height>
+         <width>201</width>
+         <height>70</height>
         </rect>
        </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Checkout</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsCheckout.png</normaloff>:/Vcs/vcsCheckout.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButton_84">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>20</y>
-         <width>44</width>
-         <height>66</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Export
-Project</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsExport.png</normaloff>:/Vcs/vcsExport.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButton_81">
-       <property name="geometry">
-        <rect>
-         <x>1</x>
-         <y>21</y>
-         <width>44</width>
-         <height>68</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Update</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsUpdate.png</normaloff>:/Vcs/vcsUpdate.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButton_82">
-       <property name="geometry">
-        <rect>
-         <x>45</x>
-         <y>21</y>
-         <width>51</width>
-         <height>68</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Commit
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="toolButton_81">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Update</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsUpdate.png</normaloff>:/Vcs/vcsUpdate.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_82">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Commit
 Changes</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsCommit.png</normaloff>:/Vcs/vcsCommit.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsCommit.png</normaloff>:/Vcs/vcsCommit.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_83">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Checkout</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsCheckout.png</normaloff>:/Vcs/vcsCheckout.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_84">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Export
+Project</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsExport.png</normaloff>:/Vcs/vcsExport.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_22">
@@ -3174,139 +3403,136 @@ Changes</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QToolButton" name="toolButton_85">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>20</y>
-         <width>44</width>
-         <height>61</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Add
-File</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsAdd.png</normaloff>:/Vcs/vcsAdd.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButton_92">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>20</y>
-         <width>44</width>
-         <height>61</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Remove
-File</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsRemove.png</normaloff>:/Vcs/vcsRemove.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::DelayedPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QToolButton" name="toolButton_93">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>20</y>
-         <width>71</width>
+         <width>188</width>
          <height>71</height>
         </rect>
        </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>44</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Properties</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Resources/Icons/ericActions.qrc">
-         <normaloff>:/Vcs/vcsRepo.png</normaloff>:/Vcs/vcsRepo.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::MenuButtonPopup</enum>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="toolButton_85">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Add
+File</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsAdd.png</normaloff>:/Vcs/vcsAdd.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_92">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Remove
+File</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsRemove.png</normaloff>:/Vcs/vcsRemove.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_93">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Properties</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Vcs/vcsRepo.png</normaloff>:/Vcs/vcsRepo.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::MenuButtonPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>
@@ -3338,7 +3564,7 @@ File</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -3649,7 +3875,7 @@ Tool</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -3869,7 +4095,7 @@ Split</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>1</x>
@@ -3993,7 +4219,7 @@ Profile</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -4070,7 +4296,7 @@ Viewer</string>
           </property>
           <property name="icon">
            <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Window/viewProfileDebug.png</normaloff>:/Window/viewProfileDebug.png</iconset>
+            <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4151,7 +4377,7 @@ Viewer</string>
           </property>
           <property name="icon">
            <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Window/viewProfileDebug.png</normaloff>:/Window/viewProfileDebug.png</iconset>
+            <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4178,11 +4404,821 @@ Viewer</string>
      <attribute name="title">
       <string>Preferences*</string>
      </attribute>
+     <widget class="QToolButton" name="toolButton_114">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>70</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>44</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Next Bookmark</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../Resources/Icons/ericActions.qrc">
+        <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::InstantPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_115">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>50</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>44</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Next Uncovered Line</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../Resources/Icons/ericActions.qrc">
+        <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::InstantPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_116">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>50</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>44</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Previous Warning</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../Resources/Icons/ericActions.qrc">
+        <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::InstantPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_117">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>30</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>44</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Next Warning</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../Resources/Icons/ericActions.qrc">
+        <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::InstantPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_118">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>30</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>44</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Previous Warning</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../Resources/Icons/ericActions.qrc">
+        <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::InstantPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_119">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>70</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>44</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Previous Warning</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../Resources/Icons/ericActions.qrc">
+        <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::InstantPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabHelp">
      <attribute name="title">
       <string>Help*</string>
      </attribute>
+     <widget class="QGroupBox" name="groupBox_24">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>0</y>
+        <width>141</width>
+        <height>92</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>About</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="layoutWidget_6">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>19</y>
+         <width>137</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="toolButton_94">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>About eric5</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Help/eric.png</normaloff>:/Help/eric.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_95">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>About Qt</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Help/helpAboutQt.png</normaloff>:/Help/helpAboutQt.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_96">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Version Information</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_25">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>231</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Documentation</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>231</width>
+         <height>70</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="toolButton_99">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Help
+Viewer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Help/help.png</normaloff>:/Help/help.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_100">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Eric
+API</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Help/eric.png</normaloff>:/Help/eric.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_97">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Python</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Help/preferences-python.png</normaloff>:/Help/preferences-python.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_98">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Qt4</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Help/helpAboutQt.png</normaloff>:/Help/helpAboutQt.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_101">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>PyQt4</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Edit/editDelete.png</normaloff>:/Edit/editDelete.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_27">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>0</y>
+        <width>181</width>
+        <height>92</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Updates</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>181</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_10">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0" rowspan="3">
+         <widget class="QToolButton" name="toolButton_106">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Report
+Bug</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Tools/bug.png</normaloff>:/Tools/bug.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="toolButton_107">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Request Feature</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Tools/editor.png</normaloff>:/Tools/editor.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QToolButton" name="toolButton_104">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Check For Updates</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Window/viewProfileEdit.png</normaloff>:/Window/viewProfileEdit.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QToolButton" name="toolButton_105">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Available Versions</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
+            <normaloff>:/Window/viewProfileDebug.png</normaloff>:/Window/viewProfileDebug.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -4192,7 +5228,7 @@ Viewer</string>
      <x>0</x>
      <y>0</y>
      <width>1076</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
