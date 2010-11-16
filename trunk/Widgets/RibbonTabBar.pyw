@@ -32,8 +32,9 @@ class KyRibbonTabBar(QTabBar):
         
     def resizeEvent(self, event : QResizeEvent) -> None:
         size = event.size()
-        if size < self.sizeHint():
+        if size.width() < self.sizeHint().width():
             tabRects = self._calculateTabRects(size)
+        super().resizeEvent(event)
         event.accept()
         
     def _calculateTabRects(self, size: QSize) -> tuple:

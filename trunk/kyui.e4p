@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project kyui -->
-<!-- Saved: 2010-11-11, 13:18:42 -->
+<!-- Saved: 2010-11-15, 16:06:33 -->
 <!-- Copyright (C) 2010 Jonathan Harper, mnijph@gmail.com -->
 <Project version="5.1">
   <Language></Language>
@@ -52,6 +52,8 @@
     <Source>IconSet2.pyw</Source>
     <Source>Widgets/RibbonTabBar.pyw</Source>
     <Source>TestItems/E5Ribbon.pyw</Source>
+    <Source>TestItems/E5UserInterface.py</Source>
+    <Source>TestItems/E5Action.py</Source>
   </Sources>
   <Forms>
     <Form>Ui Files/addremoveitemlistwidget.ui</Form>
@@ -80,6 +82,8 @@
     <Form>Ui Files/buttonbox.ui</Form>
     <Form>TestItems/E5MenuActions.ui</Form>
     <Form>TestItems/E5ToolBarDialog.ui</Form>
+    <Form>TestItems/E5Ribbon.ui</Form>
+    <Form>TestItems/E5RibbonTree.ui</Form>
   </Forms>
   <Translations>
   </Translations>
