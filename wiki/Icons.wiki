@@ -2,7 +2,7 @@
 
 = Icons =
 
-Poorly designed icons suffer from failing to be obvious: they do not _look like_ the functionality they represent. If a tooltip is necessary to inform a user of the icon's purpose, it has already failed by wasting the user's time. He or she could have instead navigated a menu to find the same functionality. At their core, labeled or otherwise, tool buttons are iconic: they must quickly inform a user of what they do. Menus provide icons to assist, but these are secondary to text.
+Poorly designed icons suffer from failing to be obvious: they do not _look like_ the functionality they represent. If a tooltip is _necessary_ to inform a user of the icon's purpose, it has already failed by wasting the user's time. He or she could have instead navigated a menu to find the same functionality. At their core--labeled or otherwise--tool buttons are iconic: they must quickly inform a user of what they do. Menus provide icons to assist, but these are secondary to text.
 
 == History ==
 
