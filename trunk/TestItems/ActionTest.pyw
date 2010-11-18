@@ -1,7 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from .IconSet2 import SettingsIcons, IconSet
-from .Widgets.RibbonAction import KyRibbonAction
+from .Widgets.Action import KyAction
 
 ###################################
 #   Toolbars
@@ -84,8 +84,8 @@ class ActionTestClass(QObject):
         actionList = []
         
         # File menu
-        actionOpen = QAction(icon=IconSet.Folder(), text='&Open...', parent=self, 
-                        objectname = 'actionOpen', toolTip='Open a new image or folder')
+        actionOpen = KyAction(icon=IconSet.Folder(), text='&Open...', parent=self, 
+                        objectName = 'actionOpen', toolTip='Open a new image or folder')
         
         actionClose = QAction(IconSet.Close(), '&Close', self)
         actionClose.setObjectName('actionClose')
