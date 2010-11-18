@@ -3,8 +3,9 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-class KyRibbonAction(QAction):
-    def __init__(self, parent : QWidget = None,
+class KyAction(QAction):
+    def __init__(self,
+                 parent : QWidget = None,
                  text : str = None, 
                  icon : QIcon = None,
                  actionGroup : QActionGroup = None, 
@@ -16,10 +17,12 @@ class KyRibbonAction(QAction):
                  iconVisibleInMenu : bool = None,
                  objectName : str = None, 
                  shortcut : QKeySequence = None,
-                 shortcuts : list(QKeySequence) = None, 
+                 shortcut2 : QKeySequence = None, 
                  statusTip : str = None,
+                 trigger : pyqtSignal = None, 
                  toolTip : str = None,
-                 userData : object = None):
+                 userData = None, 
+                 whatsThis : str = None):
         if text:
             if icon:
                 super().__init__(icon, text, parent)
@@ -29,10 +32,11 @@ class KyRibbonAction(QAction):
             self.setCheckable(checkable)
             if checked:
                 self.setChecked(checked)
-        if shortcuts:
-            self.setShortcuts(shortcut)
-        elif shortcut:
-            self.setShortcut(shortcut)
+        if shortcut:
+            if not shortcut2:
+                self.setShortcut(shortcut)
+            else:
+                self.setShortcuts((shortcut, shortcut2))
         if actionGroup: self.setActionGroup(actionGroup)
         if enabled: self.setEnabled(enabled)
         if font: self.setFont(font)
@@ -41,4 +45,7 @@ class KyRibbonAction(QAction):
         if objectName : self.setObjectName(objectName)
         if statusTip: self.setStatusTip(statusTip)
         if toolTip: self.setToolTip(toolTip)
+        if trigger:
+            self.connect(self, SIGNAL('triggered()'), trigger)
         if userData: self.setUserData(userData)
+        if whatsThis: self.setWhatsThis(whatsThis)
