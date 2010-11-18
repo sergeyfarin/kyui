@@ -2,11 +2,12 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from DebugBox import DebugBox
-from IconSet2 import IconSet
+from IconSet2 import IconSet, E5Icons
 from Widgets.RibbonBar import KyRibbonBar
 from Widgets.MenuButton import KyMenuButton
 
 from TestItems.ActionTest import ActionTestClass
+from Utilities.utilities import strFromQSize
 
 
 class KyMainWindow(QMainWindow):
@@ -18,16 +19,19 @@ class KyMainWindow(QMainWindow):
         self.setWindowIcon(IconSet.QtLogo())
         self.setFont(QFont('Segoe UI', 9, QFont.Normal, False))
         
+        self.iconPath = './E5Icons/'
+        self.iconCache = E5Icons(self.iconPath)
+        
         self.__setupUi()
+        
+#        self.printIconCacheNames(self.iconCache)
+        
+    def __setupUi(self) -> None:
         self.__setupDebugDock()
         self.__setupActions()
         self.__setupRibbon()
-        
-        self.printDebugData()
-        
-        
-    def __setupUi(self) -> None:
-        self.setCentralWidget(QWidget())
+        self.__setupTreeWidget()
+        self.setCentralWidget(self.treeWidget)
         
     def __setupDebugDock(self) -> None:
         debugDock = QDockWidget('Debug Output', self)
@@ -62,22 +66,22 @@ class KyMainWindow(QMainWindow):
         font = QFont('Segoe UI', 9, QFont.Normal, False)
         for action in self.actionDict:
             self.actionDict[action].setParent(self)
-            self.actionDict[action].setFont(font)
-
-    def printDebugData(self):
-        tabBar = self.ribbonBar.tabBar()
+    
+    def __setupTreeWidget(self):
+        self.treeWidget = QTreeWidget(self)
+        self.treeWidget.setColumnCount(2)
+        self.treeWidget.setHeaderLabels(['Filename', 'Dimensions'])
         
-        def formatQSize(size):
-            return str.format('({}, {})', size.width(), size.height())
-        
-        printableSize = formatQSize(tabBar.sizeHint())
-        qDebug('SizeHint = ' + printableSize)
-        
-        printableSize = formatQSize(tabBar.minimumSizeHint())
-        qDebug('MinimumSizeHint = ' + printableSize)
-        
-        printableSize = formatQSize(tabBar.tabSizeHint(0))
-        qDebug('Tab0 SizeHint = ' + printableSize)
-        
-        printableSize = formatQSize(tabBar.tabSizeHint(1))
-        qDebug('Tab1 SizeHint = ' + printableSize)
+        reader = QImageReader()
+        iconFiles = self.iconCache.iconNames()
+        for filename in iconFiles:
+            reader.setFileName(self.iconPath + filename)
+            size = strFromQSize(reader.size(), 'wxh')
+            item = QTreeWidgetItem(self.treeWidget, [filename, size])
+    
+    def printIconCacheNames(self, cache):
+        icons = cache.iconNames()
+        iconStr = ''
+        for icon in icons:
+            iconStr += '\n' + icon
+        qDebug('Icons:' + iconStr)

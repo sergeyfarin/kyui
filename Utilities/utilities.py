@@ -6,6 +6,20 @@ filterReturns = {'JPEG' : 'JPG'}
 
 imageTypes = ['JPG', 'JPEG', 'PNG']
 
+strFromQSizeFormat = {
+        'QSize(w, h)' : 'QSize({} ,{})',
+        '(w, h)' : '({}, {})',
+        'wxh' : '{}x{}',
+        '(wxh)' : '({}x{})'}
+
+def strFromQSize(size : QSize = None, format : strFromQSizeFormat = None) -> str:
+    assert isinstance(size, QSize)
+    assert format in strFromQSizeFormat.keys()
+    w = size.width()
+    h = size.height()
+    return str.format(strFromQSizeFormat[format], w, h)
+    
+
 class Utilities():
     # Parses a file filter from an open file dialog, returning the file type
     # in all caps. Will search filterReturns for common file formats with the
