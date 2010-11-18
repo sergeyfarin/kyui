@@ -1,7 +1,10 @@
+from PyQt4.QtCore import QDir
 from PyQt4.QtGui import *
 
 from Icons import icons_rc
 from MimeIcons import mimeicons_rc
+
+DefaultIconPath = './E5Icons/'
 
 class IconSet(object):
     def Camera(): return QIcon(':/Misc/camera.png')
@@ -83,3 +86,27 @@ class SettingsIcons(object):
     def Shortcuts(): return QIcon(':/Settings/shortcuts.png')
     def Preferences(): return QIcon(':/Settings/preferences.png')
     def Display(): return QIcon(':/Settings/display.png')
+    
+class E5Icons(object):
+    def __init__(self, path = DefaultIconPath):
+        self.setPath(path)
+            
+    def icon(self, name : str = None) -> QIcon:
+        if name in self.cache:
+            return QIcon(self.cache[name])
+        return QIcon()
+    
+    def iconNames(self) -> [QIcon]:
+        return self.dir.entryList()
+    
+    def pixmap(self, name : str = None) -> QPixmap:
+        if name in self.cache:
+            return self.cache[file]
+        return QPixmap()
+    
+    def setPath(self, path):
+        self.dir = QDir(path, '*.png', QDir.Name, QDir.Files)
+        icons = self.dir.entryList()
+        self.cache = {}
+        for file in icons:
+            self.cache[file] = QPixmap(path + file)
