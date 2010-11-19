@@ -23,6 +23,8 @@ class KyAction(QAction):
                  toolTip : str = None,
                  userData = None, 
                  whatsThis : str = None):
+        if actionGroup:
+            parent = actionGroup
         if text:
             if icon:
                 super().__init__(icon, text, parent)
