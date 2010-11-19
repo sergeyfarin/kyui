@@ -10,23 +10,24 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from .Widgets.Action import KyAction
-from .IconSet import E5Icons
+#from .IconSet2 import E5Icons
 
 
-class E5ActionCreator(QObject):
-    def __init__(self, target):
-        iconCache = E5Icons('../E5Icons/')
+class E5ActionCreator():
+    def initActions(target):
+        iconCache = target.iconCache
         target.actions = []
         target.wizardsActions = []
         
-        target.fileExitAct = KyAction(parent=target, 
+        target.fileExitAct = KyAction(\
+                parent=target, 
                 iconText=target.tr('Quit'),
-                icon=iconCache.icon("exit.png"),
+                icon=iconCache.icon("fileExit.png"),
                 text=target.tr('&Quit'),
                 shortcut=QKeySequence(target.tr("Ctrl+Q")),
                 objectName='quit', 
                 statusTip=target.tr('Quit the Eric5 IDE'))
-        target.exitAct.setWhatsThis(target.tr(
+        target.fileExitAct.setWhatsThis(target.tr(
             """<b>Quit the IDE</b>"""
             """<p>This quits the IDE. Any unsaved changes may be saved first."""
             """ Any Python program being debugged will be stopped and the"""
@@ -37,9 +38,9 @@ class E5ActionCreator(QObject):
         target.viewProfileActGrp.setObjectName("viewprofiles")
         target.viewProfileActGrp.setExclusive(True)
         
-        target.setEditProfileAct = KyAction(parent=target.viewProfileActGrp, 
+        target.setEditProfileAct = KyAction(\
                 iconText=target.tr('Edit Profile'),
-                icon=iconCache.icon("viewProfileEdit.png"),
+#                icon=iconCache.icon("viewProfileEdit.png"),
                 text=target.tr('Edit Profile'),
                 actionGroup=target.viewProfileActGrp,
                 objectName='edit_profile',
@@ -53,9 +54,8 @@ class E5ActionCreator(QObject):
         target.actions.append(target.setEditProfileAct)
         
         target.setDebugProfileAct = KyAction(\
-                parent=target.viewProfileActGrp, 
                 iconText=target.tr('Debug Profile'),
-                icon=iconCache.icon("viewProfileDebug.png"),
+#                icon=iconCache.icon("viewProfileDebug.png"),
                 text=target.tr('Debug Profile'),
                 actionGroup=target.viewProfileActGrp, 
                 objectName='debug_profile',
@@ -340,7 +340,7 @@ class E5ActionCreator(QObject):
         target.whatsThisAct = KyAction(\
                 parent=target,
                 iconText=target.tr('What\'s This?'),
-                icon=iconCache.icon("whatsThis.png"),
+#                icon=iconCache.icon("whatsThis.png"),
                 text=target.tr('&What\'s This?'), 
                 shortcut=QKeySequence(target.tr("Shift+F1")),
                 objectName='whatsThis', 
@@ -357,7 +357,7 @@ class E5ActionCreator(QObject):
         target.helpviewerAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Helpviewer'),
-                icon=iconCache.icon("help.png"),
+#                icon=iconCache.icon("help.png"),
                 text=target.tr('&Helpviewer...'), 
                 shortcut=QKeySequence(target.tr("F1")),
                 objectName='helpviewer', 
@@ -372,10 +372,10 @@ class E5ActionCreator(QObject):
             """ in the Qt help collection.</p>"""))
         target.actions.append(target.helpviewerAct)
         
-        target.__initQtDocActions()
-        target.__initPythonDocAction()
-        target.__initEricDocAction()
-        target.__initPySideDocActions()
+#        self.initQtDocActions(target)
+#        self.initPythonDocAction(target)
+#        self.initEricDocAction(target)
+#        self.initPySideDocActions(target)
       
         target.versionAct = KyAction(\
                 parent=target,
@@ -431,9 +431,9 @@ class E5ActionCreator(QObject):
                              ))
         target.actions.append(target.requestFeatureAct)
 
-        target.utActGrp = QActionGroup(self)
+        target.utActGrp = QActionGroup(target)
         
-        target.utDialogAct = KyAction(parent=target.utActGrp,
+        target.utDialogAct = KyAction(\
                 iconText=target.tr('Unittest'), 
                 icon=iconCache.icon("unittest.png"),
                 text=target.tr('&Unittest...'),
@@ -446,9 +446,9 @@ class E5ActionCreator(QObject):
             """ ability to select and run a unittest suite.</p>"""))
         target.actions.append(target.utDialogAct)
 
-        target.utRestartAct = KyAction(parent=target.utActGrp,
+        target.utRestartAct = KyAction(\
                 iconText=target.tr('Restart Unittest'),
-                icon=iconCache.icon("unittestRestart.png"),
+#                icon=iconCache.icon("unittestRestart.png"),
                 text=target.tr('&Restart Unittest...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest_restart', 
@@ -459,9 +459,9 @@ class E5ActionCreator(QObject):
             """<p>Restart the unittest performed last.</p>"""))
         target.actions.append(target.utRestartAct)
         
-        target.utScriptAct = KyAction(parent=target.utActGrp,
+        target.utScriptAct = KyAction(\
                 iconText=target.tr('Unittest Script'),
-                icon=iconCache.icon("unittestScript.png"),
+#                icon=iconCache.icon("unittestScript.png"),
                 text=target.tr('Unittest &Script...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest_script', 
@@ -472,9 +472,9 @@ class E5ActionCreator(QObject):
             """<p>Run unittest with current script.</p>"""))
         target.actions.append(target.utScriptAct)
         
-        target.utProjectAct = KyAction(parent=target.utActGrp, 
+        target.utProjectAct = KyAction(\
                 iconText=target.tr('Unittest Project'),
-                icon=iconCache.icon("unittestProject.png"),
+#                icon=iconCache.icon("unittestProject.png"),
                 text=target.tr('Unittest &Project...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest_project', 
@@ -489,7 +489,7 @@ class E5ActionCreator(QObject):
         target.designer4Act = KyAction(parent=target, 
                 toolTip=target.tr('Qt-Designer 4'),
                 iconText='Designer 4', 
-                icon=iconCache.icon("designer4.png"),
+                icon=iconCache.icon("toolsQtDesigner.png"),
                 text=target.tr('&Designer 4...'),
                 objectName='qt_designer4', 
                 statusTip=target.tr('Start Qt-Designer 4'))
@@ -500,7 +500,7 @@ class E5ActionCreator(QObject):
 
         target.linguist4Act = KyAction(parent=target, 
                 iconText=target.tr('Linguist 4'),
-                icon=iconCache.icon("linguist4.png"),
+                icon=iconCache.icon("toolsQtLinguist.png"),
                 text=target.tr('&Linguist 4...'),
                 objectName='qt_linguist4', 
                 statusTip=target.tr('Start Qt-Linguist 4'))
@@ -511,7 +511,7 @@ class E5ActionCreator(QObject):
     
         target.uipreviewerAct = KyAction(parent=target, 
                 iconText=target.tr('UI Previewer'), 
-                icon=iconCache.icon("uiPreviewer.png"),
+                icon=iconCache.icon("mimeDesigner.png"),
                 text=target.tr('&UI Previewer...'),
                 objectName='ui_previewer', 
                 statusTip=target.tr('Start the UI Previewer'))
@@ -522,7 +522,7 @@ class E5ActionCreator(QObject):
         
         target.trpreviewerAct = KyAction(parent=target,
                 iconText=target.tr('Translations Previewer'), 
-                icon=iconCache.icon("trPreviewer.png"),
+                icon=iconCache.icon("mimeLinguist.png"),
                 text=target.tr('&Translations Previewer...'),
                 objectName='tr_previewer', 
                 statusTip=target.tr('Start the Translations Previewer'))
@@ -533,7 +533,7 @@ class E5ActionCreator(QObject):
         
         target.diffAct = KyAction(parent=target,
                 iconText=target.tr('Compare Files'),
-                icon=iconCache.icon("diffFiles.png"),
+#                icon=iconCache.icon("diffFiles.png"),
                 text=target.tr('&Compare Files...'),
                 objectName='diff_files', 
                 statusTip=target.tr('Compare two files'))
@@ -556,7 +556,7 @@ class E5ActionCreator(QObject):
 
         target.sqlBrowserAct = KyAction(parent=target,
                 iconText=target.tr('SQL Browser'),
-                icon=iconCache.icon("sqlBrowser.png"),
+#                icon=iconCache.icon("sqlBrowser.png"),
                 text=target.tr('SQL &Browser...'), 
                 objectName='sql_browser', 
                 statusTip=target.tr('Browse a SQL database'))
@@ -567,7 +567,7 @@ class E5ActionCreator(QObject):
 
         target.miniEditorAct = KyAction(parent=target,
                 iconText=target.tr('Mini Editor'),
-                icon=iconCache.icon("editor.png"),
+#                icon=iconCache.icon("editor.png"),
                 text=target.tr('Mini &Editor...'), 
                 objectName='mini_editor', 
                 statusTip=target.tr('Mini Editor'))
@@ -589,7 +589,7 @@ class E5ActionCreator(QObject):
 
         target.iconEditorAct = KyAction(parent=target,
                 iconText=target.tr('Icon Editor'),
-                icon=iconCache.icon("iconEditor.png"),
+#                icon=iconCache.icon("iconEditor.png"),
                 text=target.tr('&Icon Editor...'), 
                 objectName='icon_editor', 
                 statusTip=target.tr('Start the eric5 Icon Editor'))
@@ -600,7 +600,7 @@ class E5ActionCreator(QObject):
 
         target.prefAct = KyAction(parent=target,
                 iconText=target.tr('Preferences'),
-                icon=iconCache.icon("configure.png"),
+#                icon=iconCache.icon("configure.png"),
                 text=target.tr('&Preferences...'),
                 objectName='preferences', 
                 statusTip=target.tr('Set the prefered configuration'))
@@ -612,7 +612,7 @@ class E5ActionCreator(QObject):
 
         target.prefExportAct = KyAction(parent=target,
                 iconText=target.tr('Export Preferences'),
-                icon=iconCache.icon("configureExport.png"),
+#                icon=iconCache.icon("configureExport.png"),
                 text=target.tr('E&xport Preferences...'),
                 objectName='export_preferences', 
                 statusTip=target.tr('Export the current configuration'))
@@ -623,7 +623,7 @@ class E5ActionCreator(QObject):
 
         target.prefImportAct = KyAction(parent=target,
                 iconText=target.tr('Import Preferences'),
-                icon=iconCache.icon("configureImport.png"),
+#                icon=iconCache.icon("configureImport.png"),
                 text=target.tr('I&mport Preferences...'),
                 objectName='import_preferences', 
                 statusTip=target.tr('Import a previously exported configuration'))
@@ -644,7 +644,7 @@ class E5ActionCreator(QObject):
 
         target.showExternalToolsAct = KyAction(parent=target,
                 iconText=target.tr('External tools'),
-                icon=iconCache.icon("showPrograms.png"),
+#                icon=iconCache.icon("showPrograms.png"),
                 text=target.tr('Show external &tools'),
                 objectName='show_external_tools', 
                 statusTip=target.tr('Reload the API information'))
@@ -656,7 +656,7 @@ class E5ActionCreator(QObject):
 
         target.configViewProfilesAct = KyAction(parent=target,
                 iconText=target.tr('View Profiles'),
-                icon=iconCache.icon("configureViewProfiles.png"),
+#                icon=iconCache.icon("configureViewProfiles.png"),
                 text=target.tr('&View Profiles...'),
                 objectName='view_profiles', 
                 statusTip=target.tr('Configure view profiles'))
@@ -669,7 +669,7 @@ class E5ActionCreator(QObject):
 
         target.configToolBarsAct = KyAction(parent=target,
                 iconText=target.tr('Toolbars'),
-                icon=iconCache.icon("toolbarsConfigure.png"),
+#                icon=iconCache.icon("toolbarsConfigure.png"),
                 text=target.tr('Tool&bars...'),
                 objectName='configure_toolbars', 
                 statusTip=target.tr('Configure toolbars'))
@@ -682,7 +682,7 @@ class E5ActionCreator(QObject):
 
         target.shortcutsAct = KyAction(parent=target,
                 iconText=target.tr('Keyboard Shortcuts'),
-                icon=iconCache.icon("configureShortcuts.png"),
+#                icon=iconCache.icon("configureShortcuts.png"),
                 text=target.tr('Keyboard &Shortcuts...'),
                 objectName='keyboard_shortcuts', 
                 statusTip=target.tr('Set the keyboard shortcuts'))
@@ -694,7 +694,7 @@ class E5ActionCreator(QObject):
 
         target.exportShortcutsAct = KyAction(parent=target,
                 iconText=target.tr('Export Keyboard Shortcuts'),
-                icon=iconCache.icon("exportShortcuts.png"),
+#                icon=iconCache.icon("exportShortcuts.png"),
                 text=target.tr('&Export Keyboard Shortcuts...'),
                 objectName='export_keyboard_shortcuts', 
                 statusTip=target.tr('Export the keyboard shortcuts'))
@@ -705,7 +705,7 @@ class E5ActionCreator(QObject):
 
         target.importShortcutsAct = KyAction(parent=target,
                 iconText=target.tr('Import Keyboard Shortcuts'),
-                icon=iconCache.icon("importShortcuts.png"),
+#                icon=iconCache.icon("importShortcuts.png"),
                 text=target.tr('&Import Keyboard Shortcuts...'),
                 objectName='import_keyboard_shortcuts', 
                 statusTip=target.tr('Import the keyboard shortcuts'))
@@ -746,7 +746,7 @@ class E5ActionCreator(QObject):
         
         target.pluginInfoAct = KyAction(parent=target,
                 iconText=target.tr('Plugins'),
-                icon=iconCache.icon("plugin.png"),
+#                icon=iconCache.icon("plugin.png"),
                 text=target.tr('&Plugins...'), 
                 objectName='plugin_infos', 
                 statusTip=target.tr('Show Plugin Infos'))
@@ -758,7 +758,7 @@ class E5ActionCreator(QObject):
         
         target.pluginInstallAct = KyAction(parent=target,
                 iconText=target.tr('Install Plugins'),
-                icon=iconCache.icon("pluginInstall.png"),
+#                icon=iconCache.icon("pluginInstall.png"),
                 text=target.tr('&Install Plugins...'),
                 objectName='plugin_install', 
                 statusTip=target.tr('Install Plugins'))
@@ -769,7 +769,7 @@ class E5ActionCreator(QObject):
         
         target.pluginDeinstallAct = KyAction(parent=target,
                 iconText=target.tr('Uninstall Plugin'),
-                icon=iconCache.icon("pluginUninstall.png"),
+#                icon=iconCache.icon("pluginUninstall.png"),
                 text=target.tr('&Uninstall Plugin...'),
                 objectName='plugin_deinstall', 
                 statusTip=target.tr('Uninstall Plugin'))
@@ -780,7 +780,7 @@ class E5ActionCreator(QObject):
 
         target.pluginRepoAct = KyAction(parent=target,
                 iconText=target.tr('Plugin Repository'),
-                icon=iconCache.icon("pluginRepository.png"),
+#                icon=iconCache.icon("pluginRepository.png"),
                 text=target.tr('Plugin &Repository...'),
                 objectName='plugin_repository', 
                 statusTip=target.tr('Show Plugins available for download'))
@@ -790,10 +790,10 @@ class E5ActionCreator(QObject):
             """available on the Internet.</p>"""))
         target.actions.append(target.pluginRepoAct)
         
-        target.__initViewManagerActions()
-        target.__initDebuggerActions()
-        target.__initProjectActions()
-        target.__initMultiProjectActions()
+        E5ActionCreator.initViewManagerActions(target)
+        E5ActionCreator.initDebuggerActions(target)
+#        E5ActionCreator.initProjectActions(target)
+        E5ActionCreator.initMultiprojectActions(target)
     
 
         target.qt4DocAct = KyAction(parent=target, 
@@ -871,7 +871,7 @@ class E5ActionCreator(QObject):
         except ImportError:
             target.pysideDocAct = None
       
-    def __initViewManagerActions(self):
+    def initViewManagerActions(target):
         """
         Public method defining the user interface actions.
         """
@@ -896,122 +896,115 @@ class E5ActionCreator(QObject):
             "window"    : target.windowActions, 
         }
         
-#        target.__initWindowActions()
-        target.__initFileActions()
-        target.__initEditActions()
-        target.__initSearchActions()
-        target.__initViewActions()
-        target.__initMacroActions()
-        target.__initBookmarkActions()
-        target.__initSpellingActions()
+#        target.initWindowActions()
+        E5ActionCreator.initFileActions(target)
+        E5ActionCreator.initEditActions(target)
+        E5ActionCreator.initSearchActions(target)
+        E5ActionCreator.initViewActions(target)
+        E5ActionCreator.initMacroActions(target)
+        E5ActionCreator.initBookmarkActions(target)
+        E5ActionCreator.initSpellingActions(target)
         
     ##################################################################
     ## Initialize the file related actions, file menu and toolbar
     ##################################################################
     
-    def __initFileActions(self):
+    def initFileActions(target):
         """
         Private method defining the user interface actions for file handling.
         """
         target.newAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'New'),
-                icon=target.iconCache.icon("new.png"),
-                text=target.tr('ViewManager', '&New'),
-                shortcut=QKeySequence(target.tr('ViewManager', "Ctrl+N", "File|New")),
+                iconText=target.tr('New', 'ViewManager'),
+#                icon=target.iconCache.icon("fileNew.png"),
+                text=target.tr('&New', 'ViewManager'),
+                shortcut=QKeySequence(target.tr("Ctrl+N", "File|New")),
                 objectName='vm_file_new', 
-                statusTip=target.tr('ViewManager', 'Open an empty editor window'))
-        target.newAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Open an empty editor window', 'ViewManager'))
+        target.newAct.setWhatsThis(target.tr( 
             """<b>New</b>"""
             """<p>An empty editor window will be created.</p>"""))
         target.fileActions.append(target.newAct)
         
         target.openAct = KyAction(parent=target,
-                iconText=target.tr('ViewManager', 'Open'),
-                icon=target.iconCache.icon("open.png"),
-                text=target.tr('ViewManager', '&Open...'),
-                shortcut=QKeySequence(target.tr('ViewManager', "Ctrl+O", "File|Open")), 
+                iconText=target.tr('Open'),
+                icon=target.iconCache.icon("fileOpen.png"),
+                text=target.tr('&Open...'),
+                shortcut=QKeySequence(target.tr("Ctrl+O", "File|Open")), 
                 objectName='vm_file_open', 
-                statusTip=target.tr('ViewManager', 'Open a file'))
-        target.openAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Open a file'))
+        target.openAct.setWhatsThis(target.tr(
             """<b>Open a file</b>"""
             """<p>You will be asked for the name of a file to be opened"""
             """ in an editor window.</p>"""))
         target.fileActions.append(target.openAct)
         
-        target.closeActGrp = createActionGroup(self)
+        target.closeActGrp = QActionGroup(target)
         
         target.closeAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Close'),
-                icon=target.iconCache.icon("close.png"),
-                text=target.tr('ViewManager', '&Close'),
-                shortcut=QKeySequence(target.tr('ViewManager', "Ctrl+W", "File|Close")), 
-                actionGroup=target.closeActGrp,
+                actionGroup=target.closeActGrp, 
+                iconText=target.tr('Close'),
+                icon=target.iconCache.icon("fileClose.png"),
+                text=target.tr('&Close'),
+                shortcut=QKeySequence(target.tr("Ctrl+W", "File|Close")), 
                 objectName='vm_file_close', 
-                statusTip=target.tr('ViewManager', 'Close the current window'))
-        target.closeAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Close the current window'))
+        target.closeAct.setWhatsThis(target.tr(
             """<b>Close Window</b>"""
             """<p>Close the current window.</p>"""))
         target.fileActions.append(target.closeAct)
         
         target.closeAllAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Close All'),
-                text=target.tr('ViewManager', 'Clos&e All'),
+                iconText=target.tr('Close All'),
+                text=target.tr('Clos&e All'),
                 actionGroup=target.closeActGrp, 
                 objectName='vm_file_close_all', 
-                statusTip=target.tr('ViewManager', 'Close all editor windows'))
-        target.closeAllAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Close all editor windows'))
+        target.closeAllAct.setWhatsThis(target.tr(
             """<b>Close All Windows</b>"""
             """<p>Close all editor windows.</p>"""))
         target.fileActions.append(target.closeAllAct)
         
         target.closeActGrp.setEnabled(False)
         
-        target.saveActGrp = QActionGroup(self)
+        target.saveActGrp = QActionGroup(target)
         
         target.saveAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Save'),
+                iconText=target.tr('Save'),
                 icon=target.iconCache.icon("fileSave.png"),
-                text=target.tr('ViewManager', '&Save'),
-                shortcut=QKeySequence(target.tr('ViewManager',
-                    "Ctrl+S", "File|Save")), 
+                text=target.tr('&Save'),
+                shortcut=QKeySequence(target.tr("Ctrl+S", "File|Save")), 
                 actionGroup=target.saveActGrp, 
                 objectName='vm_file_save', 
-                statusTip=target.tr('ViewManager', 'Save the current file'))
-        target.saveAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Save the current file'))
+        target.saveAct.setWhatsThis(target.tr(
             """<b>Save File</b>"""
             """<p>Save the contents of current editor window.</p>"""))
         target.fileActions.append(target.saveAct)
         
         target.saveAsAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Save As'),
+                iconText=target.tr('Save As'),
                 icon=target.iconCache.icon("fileSaveAs.png"),
-                text=target.tr('ViewManager', 'Save &as...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                    "Shift+Ctrl+S", "File|Save As")), 
+                text=target.tr('Save &as...'),
+                shortcut=QKeySequence(target.tr("Shift+Ctrl+S", "File|Save As")), 
                 actionGroup=target.saveActGrp, 
                 objectName='vm_file_save_as', 
-                statusTip=target.tr('ViewManager',
+                statusTip=target.tr(
                         'Save the current file to a new one'))
-        target.saveAsAct.setWhatsThis(target.tr('ViewManager', 
+        target.saveAsAct.setWhatsThis(target.tr(
             """<b>Save File as</b>"""
             """<p>Save the contents of current editor window to a new file."""
             """ The file can be entered in a file selection dialog.</p>"""))
         target.fileActions.append(target.saveAsAct)
         
         target.saveAllAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Save All'),
+                iconText=target.tr('Save All'),
                 icon=target.iconCache.icon("fileSaveAll.png"),
-                text=target.tr('ViewManager', 'Save a&ll...'),
+                text=target.tr('Save a&ll...'),
                 actionGroup=target.saveActGrp, 
                 objectName='vm_file_save_all', 
-                statusTip=target.tr('ViewManager', 'Save all files'))
-        target.saveAllAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Save all files'))
+        target.saveAllAct.setWhatsThis(target.tr(
             """<b>Save All Files</b>"""
             """<p>Save the contents of all editor windows.</p>"""))
         target.fileActions.append(target.saveAllAct)
@@ -1020,13 +1013,13 @@ class E5ActionCreator(QObject):
 
         target.saveToProjectAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Save to Project'),
-                icon=target.iconCache.icon("fileSaveProject.png"),
-                text=target.tr('ViewManager', 'Save to Pro&ject'),
+                iconText=target.tr('Save to Project'),
+#                icon=target.iconCache.icon("fileSaveToProject.png"),
+                text=target.tr('Save to Pro&ject'),
                 objectName='vm_file_save_to_project', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                     'Save the current file to the current project'))
-        target.saveToProjectAct.setWhatsThis(target.tr('ViewManager', 
+        target.saveToProjectAct.setWhatsThis(target.tr(
             """<b>Save to Project</b>"""
             """<p>Save the contents of the current editor window to the"""
             """ current project. After the file has been saved, it is"""
@@ -1036,14 +1029,13 @@ class E5ActionCreator(QObject):
         
         target.printAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Print'),
-                icon=target.iconCache.icon("print.png"),
-                text=target.tr('ViewManager', '&Print'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+P", "File|Print")), 
+                iconText=target.tr('Print'),
+#                icon=target.iconCache.icon("filePrint.png"),
+                text=target.tr('&Print'),
+                shortcut=QKeySequence(target.tr("Ctrl+P", "File|Print")), 
                 objectName='vm_file_print', 
-                statusTip=target.tr('ViewManager', 'Print the current file'))
-        target.printAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Print the current file'))
+        target.printAct.setWhatsThis(target.tr(
             """<b>Print File</b>"""
             """<p>Print the contents of current editor window.</p>"""))
         target.printAct.setEnabled(False)
@@ -1051,13 +1043,13 @@ class E5ActionCreator(QObject):
         
         target.printPreviewAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Print Preview'),
-                icon=target.iconCache.icon("printPreview.png"),
-                text=target.tr('ViewManager', 'Print Preview'),
+                iconText=target.tr('Print Preview'),
+#                icon=target.iconCache.icon("printPreview.png"),
+                text=target.tr('Print Preview'),
                 objectName='vm_file_print_preview', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                     'Print preview of the current file'))
-        target.printPreviewAct.setWhatsThis(target.tr('ViewManager', 
+        target.printPreviewAct.setWhatsThis(target.tr(
             """<b>Print Preview</b>"""
             """<p>Print preview of the current editor window.</p>"""))
         target.printPreviewAct.setEnabled(False)
@@ -1065,384 +1057,339 @@ class E5ActionCreator(QObject):
         
         target.findFileNameAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Search File'),
-                text=target.tr('ViewManager', 'Search &File...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Alt+Ctrl+F", "File|Search File")), 
+                iconText=target.tr('Search File'),
+                text=target.tr('Search &File...'),
+                shortcut=QKeySequence(target.tr("Alt+Ctrl+F", "File|Search File")), 
                 objectName='vm_file_search_file', 
-                statusTip=target.tr('ViewManager', 'Search for a file'))
-        target.findFileNameAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Search for a file'))
+        target.findFileNameAct.setWhatsThis(target.tr(
             """<b>Search File</b>"""
             """<p>Search for a file.</p>"""))
         target.fileActions.append(target.findFileNameAct)
         
-    def __initEditActions(self):
+    def initEditActions(target):
         """
         Private method defining the user interface actions for the edit commands.
         """
-        target.editActGrp = QActionGroup(self)
+        target.editActGrp = QActionGroup(target)
         
         target.undoAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Undo'),
-                icon=target.iconCache.icon("editUndo.png"),
-                text=target.tr('ViewManager', '&Undo'),
-                shortcut=QKeySequence(target.tr('ViewManager',
-                        "Ctrl+Z", "Edit|Undo")), 
-                shortcuts2=QKeySequence(target.tr('ViewManager',
-                        "Alt+Backspace", "Edit|Undo")), 
+                iconText=target.tr('Undo'),
+#                icon=target.iconCache.icon("editUndo.png"),
+                text=target.tr('&Undo'),
+                shortcut=QKeySequence(target.tr("Ctrl+Z", "Edit|Undo")), 
+                shortcut2=QKeySequence(target.tr("Alt+Backspace", "Edit|Undo")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_undo', 
-                statusTip=target.tr('ViewManager', 'Undo the last change'))
-        target.undoAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Undo the last change'))
+        target.undoAct.setWhatsThis(target.tr(
             """<b>Undo</b>"""
             """<p>Undo the last change done in the current editor.</p>"""))
         target.editActions.append(target.undoAct)
         
-        target.redoAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Redo'),
-                icon=target.iconCache.icon("editRedo.png"),
-                text=target.tr('ViewManager', '&Redo'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Shift+Z", "Edit|Redo")), 
+        target.redoAct = KyAction( \
+                iconText=target.tr('Redo'),
+#                icon=target.iconCache.icon("editRedo.png"),
+                text=target.tr('&Redo'),
+                shortcut=QKeySequence(target.tr("Ctrl+Shift+Z", "Edit|Redo")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_redo', 
-                statusTip=target.tr('ViewManager', 'Redo the last change'))
-        target.redoAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Redo the last change'))
+        target.redoAct.setWhatsThis(target.tr(
             """<b>Redo</b>"""
             """<p>Redo the last change done in the current editor.</p>"""))
         target.editActions.append(target.redoAct)
         
         target.revertAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Revert to last saved state'),
-                text=target.tr('ViewManager', 'Re&vert to last saved state'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Y", "Edit|Revert")), 
+                iconText=target.tr('Revert to last saved state'),
+                text=target.tr('Re&vert to last saved state'),
+                shortcut=QKeySequence(target.tr("Ctrl+Y", "Edit|Revert")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_revert', 
-                statusTip=target.tr('ViewManager', 'Revert to last saved state'))
-        target.revertAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Revert to last saved state'))
+        target.revertAct.setWhatsThis(target.tr(
             """<b>Revert to last saved state</b>"""
             """<p>Undo all changes up to the last saved state"""
             """ of the current editor.</p>"""))
         target.editActions.append(target.revertAct)
         
-        target.copyActGrp = createActionGroup(target.editActGrp)
+        target.copyActGrp = QActionGroup(target.editActGrp)
         
         target.cutAct = KyAction(\
-                parent=target,                 
-                iconText=target.tr('ViewManager', 'Cut'),
+                iconText=target.tr('Cut'),
                 icon=target.iconCache.icon("editCut.png"),
-                text=target.tr('ViewManager', 'Cu&t'),
-                shortcut=QKeySequence(target.tr('ViewManager',
-                        "Ctrl+X", "Edit|Cut")),
-                shortcut2=QKeySequence(target.tr('ViewManager', 
-                        "Shift+Del", "Edit|Cut")),
+                text=target.tr('Cu&t'),
+                shortcut=QKeySequence(target.tr("Ctrl+X", "Edit|Cut")),
+                shortcut2=QKeySequence(target.tr("Shift+Del", "Edit|Cut")),
                 actionGroup=target.copyActGrp, 
                 objectName='vm_edit_cut', 
-                statusTip=target.tr('ViewManager', 'Cut the selection'))
-        target.cutAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Cut the selection'))
+        target.cutAct.setWhatsThis(target.tr(
             """<b>Cut</b>"""
             """<p>Cut the selected text of the current editor to the clipboard.</p>"""))
         target.editActions.append(target.cutAct)
         
         target.copyAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Copy'),
+                iconText=target.tr('Copy'),
                 icon=target.iconCache.icon("editCopy.png"),
-                text=target.tr('ViewManager', '&Copy'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+C", "Edit|Copy")), 
-                shortcut2=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Ins", "Edit|Copy")), 
+                text=target.tr('&Copy'),
+                shortcut=QKeySequence(target.tr("Ctrl+C", "Edit|Copy")), 
+                shortcut2=QKeySequence(target.tr("Ctrl+Ins", "Edit|Copy")), 
                 actionGroup=target.copyActGrp, 
                 objectName='vm_edit_copy', 
-                statusTip=target.tr('ViewManager', 'Copy the selection'))
-        target.copyAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Copy the selection'))
+        target.copyAct.setWhatsThis(target.tr(
             """<b>Copy</b>"""
             """<p>Copy the selected text of the current editor to the clipboard.</p>"""))
         target.editActions.append(target.copyAct)
         
         target.pasteAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Paste'),
+                iconText=target.tr('Paste'),
                 icon=target.iconCache.icon("editPaste.png"),
-                text=target.tr('ViewManager', '&Paste'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+V", "Edit|Paste")), 
-                shortcut2=QKeySequence(target.tr('ViewManager', 
-                        "Shift+Ins", "Edit|Paste")), 
+                text=target.tr('&Paste'),
+                shortcut=QKeySequence(target.tr("Ctrl+V", "Edit|Paste")), 
+                shortcut2=QKeySequence(target.tr("Shift+Ins", "Edit|Paste")), 
                 actionGroup=target.copyActGrp, 
                 objectName='vm_edit_paste', 
-                statusTip=target.tr('ViewManager', 'Paste the last cut/copied text'))
-        target.pasteAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Paste the last cut/copied text'))
+        target.pasteAct.setWhatsThis(target.tr(
             """<b>Paste</b>"""
             """<p>Paste the last cut/copied text from the clipboard to"""
             """ the current editor.</p>"""))
         target.editActions.append(target.pasteAct)
         
         target.deleteAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Clear'),
-                icon=target.iconCache.icon("editDelete.png"),
-                text=target.tr('ViewManager', 'Cl&ear'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Alt+Shift+C", "Edit|Clear")), 
+                iconText=target.tr('Clear'),
+#                icon=target.iconCache.icon("editDelete.png"),
+                text=target.tr('Cl&ear'),
+                shortcut=QKeySequence(target.tr("Alt+Shift+C", "Edit|Clear")), 
                 actionGroup=target.copyActGrp, 
                 objectName='vm_edit_clear', 
-                statusTip=target.tr('ViewManager', 'Clear all text'))
-        target.deleteAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Clear all text'))
+        target.deleteAct.setWhatsThis(target.tr(
             """<b>Clear</b>"""
             """<p>Delete all text of the current editor.</p>"""))
         target.editActions.append(target.deleteAct)
         
         target.indentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Indent'),
-                icon=target.iconCache.icon("editIndent.png"),
-                text=target.tr('ViewManager', '&Indent'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+I", "Edit|Indent")), 
+                iconText=target.tr('Indent'),
+#                icon=target.iconCache.icon("editIndent.png"),
+                text=target.tr('&Indent'),
+                shortcut=QKeySequence(target.tr("Ctrl+I", "Edit|Indent")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_indent', 
-                statusTip=target.tr('ViewManager', 'Indent line'))
-        target.indentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Indent line'))
+        target.indentAct.setWhatsThis(target.tr(
             """<b>Indent</b>"""
             """<p>Indents the current line or the lines of the"""
             """ selection by one level.</p>"""))
         target.editActions.append(target.indentAct)
         
         target.unindentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Unindent'),
-                icon=target.iconCache.icon("editUnindent.png"),
-                text=target.tr('ViewManager', 'U&nindent'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Shift+I", "Edit|Unindent")), 
+                iconText=target.tr('Unindent'),
+#                icon=target.iconCache.icon("editUnindent.png"),
+                text=target.tr('U&nindent'),
+                shortcut=QKeySequence(target.tr("Ctrl+Shift+I", "Edit|Unindent")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_unindent', 
-                statusTip=target.tr('ViewManager', 'Unindent line'))
-        target.unindentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Unindent line'))
+        target.unindentAct.setWhatsThis(target.tr(
             """<b>Unindent</b>"""
             """<p>Unindents the current line or the lines of the"""
             """ selection by one level.</p>"""))
         target.editActions.append(target.unindentAct)
         
         target.smartIndentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Smart indent'),
-                icon=target.iconCache.icon("editSmartIndent.png"),
-                text=target.tr('ViewManager', 'Smart indent'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Alt+I", "Edit|Smart indent")), 
+                iconText=target.tr('Smart indent'),
+#                icon=target.iconCache.icon("editSmartIndent.png"),
+                text=target.tr('Smart indent'),
+                shortcut=QKeySequence(target.tr("Ctrl+Alt+I", "Edit|Smart indent")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_smart_indent', 
-                statusTip=target.tr('ViewManager', 'Smart indent Line or Selection'))
-        target.smartIndentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Smart indent Line or Selection'))
+        target.smartIndentAct.setWhatsThis(target.tr(
             """<b>Smart indent</b>"""
             """<p>Indents the current line or the lines of the"""
             """ current selection smartly.</p>"""))
         target.editActions.append(target.smartIndentAct)
         
         target.commentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Comment'),
+                iconText=target.tr('Comment'),
                 icon=target.iconCache.icon("editComment.png"),
-                text=target.tr('ViewManager', 'C&omment'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+M", "Edit|Comment")), 
+                text=target.tr('C&omment'),
+                shortcut=QKeySequence(target.tr("Ctrl+M", "Edit|Comment")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_comment', 
-                statusTip=target.tr('ViewManager', 'Comment Line or Selection'))
-        target.commentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Comment Line or Selection'))
+        target.commentAct.setWhatsThis(target.tr(
             """<b>Comment</b>"""
             """<p>Comments the current line or the lines of the"""
             """ current selection.</p>"""))
         target.editActions.append(target.commentAct)
         
         target.uncommentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Uncomment'),
+                iconText=target.tr('Uncomment'),
                 icon=target.iconCache.icon("editUncomment.png"),
-                text=target.tr('ViewManager', 'Unco&mment'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Alt+Ctrl+M", "Edit|Uncomment")), 
+                text=target.tr('Unco&mment'),
+                shortcut=QKeySequence(target.tr("Alt+Ctrl+M", "Edit|Uncomment")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_uncomment', 
-                statusTip=target.tr('ViewManager', 'Uncomment Line or Selection'))
-        target.uncommentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Uncomment Line or Selection'))
+        target.uncommentAct.setWhatsThis(target.tr(
             """<b>Uncomment</b>"""
             """<p>Uncomments the current line or the lines of the"""
             """ current selection.</p>"""))
         target.editActions.append(target.uncommentAct)
         
         target.streamCommentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Stream Comment'),
-                text=target.tr('ViewManager', 'Stream Comment'),
+                iconText=target.tr('Stream Comment'),
+                icon=target.iconCache.icon("editStreamComment.png"), 
+                text=target.tr('Stream Comment'),
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_stream_comment', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Stream Comment Line or Selection'))
-        target.streamCommentAct.setWhatsThis(target.tr('ViewManager', 
+        target.streamCommentAct.setWhatsThis(target.tr(
             """<b>Stream Comment</b>"""
             """<p>Stream comments the current line or the current selection.</p>"""))
         target.editActions.append(target.streamCommentAct)
         
         target.boxCommentAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Box Comment'),
-                text=target.tr('ViewManager', 'Box Comment'),
+                iconText=target.tr('Box Comment'),
+                text=target.tr('Box Comment'),
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_box_comment', 
-                statusTip=target.tr('ViewManager', 'Box Comment Line or Selection'))
-        target.boxCommentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Box Comment Line or Selection'))
+        target.boxCommentAct.setWhatsThis(target.tr(
             """<b>Box Comment</b>"""
             """<p>Box comments the current line or the lines of the"""
             """ current selection.</p>"""))
         target.editActions.append(target.boxCommentAct)
         
         target.selectBraceAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Select to brace'),
-                text=target.tr('ViewManager', 'Select to &brace'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+E", "Edit|Select to brace")), 
+                iconText=target.tr('Select to brace'),
+                text=target.tr('Select to &brace'),
+                shortcut=QKeySequence(target.tr("Ctrl+E", "Edit|Select to brace")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_select_to_brace', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Select text to the matching brace'))
-        target.selectBraceAct.setWhatsThis(target.tr('ViewManager', 
+        target.selectBraceAct.setWhatsThis(target.tr(
             """<b>Select to brace</b>"""
             """<p>Select text of the current editor to the matching brace.</p>"""))
         target.editActions.append(target.selectBraceAct)
         
         target.selectAllAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Select all'),
-                text=target.tr('ViewManager', '&Select all'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+A", "Edit|Select all")), 
+                iconText=target.tr('Select all'),
+                text=target.tr('&Select all'),
+                shortcut=QKeySequence(target.tr("Ctrl+A", "Edit|Select all")), 
                 actionGroup=target.editActGrp,
                 objectName='vm_edit_select_all', 
-                statusTip=target.tr('ViewManager', 'Select all text'))
-        target.selectAllAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Select all text'))
+        target.selectAllAct.setWhatsThis(target.tr(
             """<b>Select All</b>"""
             """<p>Select all text of the current editor.</p>"""))
         target.editActions.append(target.selectAllAct)
         
         target.deselectAllAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Deselect all'),
-                text=target.tr('ViewManager', '&Deselect all'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Alt+Ctrl+A", "Edit|Deselect all")), 
+                iconText=target.tr('Deselect all'),
+                text=target.tr('&Deselect all'),
+                shortcut=QKeySequence(target.tr("Alt+Ctrl+A", "Edit|Deselect all")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_deselect_all', 
-                statusTip=target.tr('ViewManager', 'Deselect all text'))
-        target.deselectAllAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Deselect all text'))
+        target.deselectAllAct.setWhatsThis(target.tr(
             """<b>Deselect All</b>"""
             """<p>Deselect all text of the current editor.</p>"""))
         target.editActions.append(target.deselectAllAct)
         
         target.convertEOLAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Convert EOL Characters'),
-                text=target.tr('ViewManager', 'Convert EO&L Characters'),
+                iconText=target.tr('Convert EOL Characters'),
+                text=target.tr('Convert EO&L Characters'),
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_convert_eol', 
-                statusTip=target.tr('ViewManager', 'Convert Line End Characters'))
-        target.convertEOLAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Convert Line End Characters'))
+        target.convertEOLAct.setWhatsThis(target.tr(
             """<b>Convert Line End Characters</b>"""
             """<p>Convert the line end characters to the currently set type.</p>"""))
         target.editActions.append(target.convertEOLAct)
         
         target.shortenEmptyAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Shorten empty lines'),
-                text=target.tr('ViewManager', 'Shorten empty lines'),
+                iconText=target.tr('Shorten empty lines'),
+                text=target.tr('Shorten empty lines'),
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_shorten_empty_lines', 
-                statusTip=target.tr('ViewManager', 'Shorten empty lines'))
-        target.shortenEmptyAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Shorten empty lines'))
+        target.shortenEmptyAct.setWhatsThis(target.tr(
             """<b>Shorten empty lines</b>"""
             """<p>Shorten lines consisting solely of whitespace characters.</p>"""))
         target.editActions.append(target.shortenEmptyAct)
         
         target.autoCompleteAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Autocomplete'),
-                text=target.tr('ViewManager', '&Autocomplete'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Space", "Edit|Autocomplete")), 
+                iconText=target.tr('Autocomplete'),
+                text=target.tr('&Autocomplete'),
+                shortcut=QKeySequence(target.tr("Ctrl+Space", "Edit|Autocomplete")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete', 
-                statusTip=target.tr('ViewManager', 'Autocomplete current word'))
-        target.autoCompleteAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Autocomplete current word'))
+        target.autoCompleteAct.setWhatsThis(target.tr(
             """<b>Autocomplete</b>"""
             """<p>Performs an autocompletion of the word containing the cursor.</p>"""))
         target.editActions.append(target.autoCompleteAct)
         
         target.autoCompleteFromDocAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Autocomplete from Document'),
-                text=target.tr('ViewManager', 'Autocomplete from Document'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Autocomplete from Document'),
+                text=target.tr('Autocomplete from Document'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Shift+Space", "Edit|Autocomplete from Document")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete_from_document', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Autocomplete current word from Document'))
-        target.autoCompleteFromDocAct.setWhatsThis(target.tr('ViewManager', 
+        target.autoCompleteFromDocAct.setWhatsThis(target.tr(
             """<b>Autocomplete from Document</b>"""
             """<p>Performs an autocompletion from document of the word"""
             """ containing the cursor.</p>"""))
         target.editActions.append(target.autoCompleteFromDocAct)
         
         target.autoCompleteFromAPIsAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Autocomplete from APIs'),
-                text=target.tr('ViewManager', 'Autocomplete from APIs'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Autocomplete from APIs'),
+                text=target.tr('Autocomplete from APIs'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Alt+Space", 'Edit|Autocomplete from APIs')), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete_from_api', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Autocomplete current word from APIs'))
-        target.autoCompleteFromAPIsAct.setWhatsThis(target.tr('ViewManager', 
+        target.autoCompleteFromAPIsAct.setWhatsThis(target.tr(
             """<b>Autocomplete from APIs</b>"""
             """<p>Performs an autocompletion from APIs of the word containing"""
             """ the cursor.</p>"""))
         target.editActions.append(target.autoCompleteFromAPIsAct)
         
         target.autoCompleteFromAllAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Autocomplete from All'),
-                text=target.tr('ViewManager','Autocomplete from All'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Autocomplete from All'),
+                text=target.tr('Autocomplete from All'),
+                shortcut=QKeySequence(target.tr(
                         "Alt+Shift+Space", "Edit|Autocomplete from All")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete_from_all', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Autocomplete current word from Document and APIs'))
-        target.autoCompleteFromAllAct.setWhatsThis(target.tr('ViewManager', 
+        target.autoCompleteFromAllAct.setWhatsThis(target.tr(
             """<b>Autocomplete from Document and APIs</b>"""
             """<p>Performs an autocompletion from document and APIs"""
             """ of the word containing the cursor.</p>"""))
         target.editActions.append(target.autoCompleteFromAllAct)
         
         target.calltipsAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Calltip'),
-                text=target.tr('ViewManager', '&Calltip'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Alt+Space", "Edit|Calltip")), 
+                iconText=target.tr('Calltip'),
+                text=target.tr('&Calltip'),
+                shortcut=QKeySequence(target.tr("Alt+Space", "Edit|Calltip")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_calltip', 
-                statusTip=target.tr('ViewManager', 'Show Calltips'))
-        target.calltipsAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Show Calltips'))
+        target.calltipsAct.setWhatsThis(target.tr(
             """<b>Calltip</b>"""
             """<p>Show calltips based on the characters immediately to the"""
             """ left of the cursor.</p>"""))
@@ -1451,23 +1398,21 @@ class E5ActionCreator(QObject):
         target.editActGrp.setEnabled(False)
         target.copyActGrp.setEnabled(False)
         
-    def __initSearchActions(self):
+    def initSearchActions(target):
         """
         Private method defining the user interface actions for the search commands.
         """
-        target.searchActGrp = QActionGroup(self)
+        target.searchActGrp = QActionGroup(target)
         
         target.searchAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Search'),
+                iconText=target.tr('Search'),
                 icon=target.iconCache.icon("find.png"),
-                text=target.tr('ViewManager', '&Search...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+F", "Search|Search")), 
+                text=target.tr('&Search...'),
+                shortcut=QKeySequence(target.tr("Ctrl+F", "Search|Search")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search', 
-                statusTip=target.tr('ViewManager', 'Search for a text'))
-        target.searchAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Search for a text'))
+        target.searchAct.setWhatsThis(target.tr(
             """<b>Search</b>"""
             """<p>Search for some text in the current editor. A"""
             """ dialog is shown to enter the searchtext and options"""
@@ -1475,65 +1420,59 @@ class E5ActionCreator(QObject):
         target.searchActions.append(target.searchAct)
         
         target.searchNextAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Search next'),
+                iconText=target.tr('Search next'),
                 icon=target.iconCache.icon("findNext.png"),
-                text=target.tr('ViewManager', 'Search &next'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "F3", "Search|Search next")), 
+                text=target.tr('Search &next'),
+                shortcut=QKeySequence(target.tr("F3", "Search|Search next")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_next', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Search next occurrence of text'))
-        target.searchNextAct.setWhatsThis(target.tr('ViewManager', 
+        target.searchNextAct.setWhatsThis(target.tr(
             """<b>Search next</b>"""
             """<p>Search the next occurrence of some text in the current editor."""
             """ The previously entered searchtext and options are reused.</p>"""))
         target.searchActions.append(target.searchNextAct)
         
         target.searchPrevAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Search previous'),
-                icon=target.iconCache.icon("findPrev.png"),
-                text=target.tr('ViewManager', 'Search &previous'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Search previous'),
+                icon=target.iconCache.icon("findPrevious.png"),
+                text=target.tr('Search &previous'),
+                shortcut=QKeySequence(target.tr(
                         "Shift+F3", "Search|Search previous")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_previous', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Search previous occurrence of text'))
-        target.searchPrevAct.setWhatsThis(target.tr('ViewManager', 
+        target.searchPrevAct.setWhatsThis(target.tr(
             """<b>Search previous</b>"""
             """<p>Search the previous occurrence of some text in the current editor."""
             """ The previously entered searchtext and options are reused.</p>"""))
         target.searchActions.append(target.searchPrevAct)
         
         target.searchClearMarkersAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Clear search markers'),
+                iconText=target.tr('Clear search markers'),
                 icon=target.iconCache.icon("findClear.png"),
-                text=target.tr('ViewManager', 'Clear search markers'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                text=target.tr('Clear search markers'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+3", "Search|Clear search markers")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_clear_search_markers', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Clear all displayed search markers'))
-        target.searchClearMarkersAct.setWhatsThis(target.tr('ViewManager', 
+        target.searchClearMarkersAct.setWhatsThis(target.tr(
             """<b>Clear search markers</b>"""
             """<p>Clear all displayed search markers.</p>"""))
         target.searchActions.append(target.searchClearMarkersAct)
         
         target.replaceAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Replace'),
-                text=target.tr('ViewManager', '&Replace...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+R", "Search|Replace")), 
+                iconText=target.tr('Replace'),
+                text=target.tr('&Replace...'),
+                shortcut=QKeySequence(target.tr("Ctrl+R", "Search|Replace")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_replace', 
-                statusTip=target.tr('ViewManager', 'Replace some text'))
-        target.replaceAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Replace some text'))
+        target.replaceAct.setWhatsThis(target.tr(
             """<b>Replace</b>"""
             """<p>Search for some text in the current editor and replace it. A"""
             """ dialog is shown to enter the searchtext, the replacement text"""
@@ -1541,16 +1480,15 @@ class E5ActionCreator(QObject):
         target.searchActions.append(target.replaceAct)
         
         target.quickSearchAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Quicksearch'),
-                icon=target.iconCache.icon("quickFindNext.png"),
-                text=target.tr('ViewManager', '&Quicksearch'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Quicksearch'),
+#                icon=target.iconCache.icon("quickFindNext.png"),
+                text=target.tr('&Quicksearch'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Shift+K", "Search|Quicksearch")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_quicksearch', 
-                statusTip=target.tr('ViewManager', 'Perform a quicksearch'))
-        target.quickSearchAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Perform a quicksearch'))
+        target.quickSearchAct.setWhatsThis(target.tr(
             """<b>Quicksearch</b>"""
             """<p>This activates the quicksearch function of the IDE by"""
             """ giving focus to the quicksearch entry field. If this field"""
@@ -1559,65 +1497,59 @@ class E5ActionCreator(QObject):
         target.searchActions.append(target.quickSearchAct)
         
         target.quickSearchBackAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Quicksearch backwards'),
-                icon=target.iconCache.icon("quickFindPrev.png"),
-                text=target.tr('ViewManager', 'Quicksearch &backwards'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Quicksearch backwards'),
+#                icon=target.iconCache.icon("quickFindPrev.png"),
+                text=target.tr('Quicksearch &backwards'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Shift+J", "Search|Quicksearch backwards")),
                 actionGroup=target.searchActGrp, 
                 objectName='vm_quicksearch_backwards', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Perform a quicksearch backwards'))
-        target.quickSearchBackAct.setWhatsThis(target.tr('ViewManager', 
+        target.quickSearchBackAct.setWhatsThis(target.tr(
             """<b>Quicksearch backwards</b>"""
             """<p>This searches the previous occurrence of the quicksearch text.</p>"""))
         target.searchActions.append(target.quickSearchBackAct)
         
         target.quickSearchExtendAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Quicksearch extend'),
-                icon=target.iconCache.icon("quickFindExtend.png"),
-                text=target.tr('ViewManager', 'Quicksearch e&xtend'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Quicksearch extend'),
+#                icon=target.iconCache.icon("quickFindExtend.png"),
+                text=target.tr('Quicksearch e&xtend'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Shift+H", "Search|Quicksearch extend")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_quicksearch_extend', 
-                statusTip=target.tr('ViewManager',
+                statusTip=target.tr(
                         'Extend the quicksearch to the end of the current word'))
-        target.quickSearchExtendAct.setWhatsThis(target.tr('ViewManager', 
+        target.quickSearchExtendAct.setWhatsThis(target.tr(
             """<b>Quicksearch extend</b>"""
             """<p>This extends the quicksearch text to the end of the word"""
             """ currently found.</p>"""))
         target.searchActions.append(target.quickSearchExtendAct)
         
-        target.gotoAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Goto Line'),
-                icon=target.iconCache.icon("goto.png"),
-                text=target.tr('ViewManager', '&Goto Line...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+G", "Search|Goto Line")), 
+        target.gotoLineAct = KyAction(\
+                iconText=target.tr('Goto Line'),
+                icon=target.iconCache.icon("gotoLine.png"),
+                text=target.tr('&Goto Line...'),
+                shortcut=QKeySequence(target.tr("Ctrl+G", "Search|Goto Line")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_goto_line', 
-                statusTip=target.tr('ViewManager', 'Goto Line'))
-        target.gotoAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Goto Line'))
+        target.gotoLineAct.setWhatsThis(target.tr(
             """<b>Goto Line</b>"""
             """<p>Go to a specific line of text in the current editor."""
             """ A dialog is shown to enter the linenumber.</p>"""))
-        target.searchActions.append(target.gotoAct)
+        target.searchActions.append(target.gotoLineAct)
         
         target.gotoBraceAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Goto Brace'),
+                iconText=target.tr('Goto Brace'),
                 icon=target.iconCache.icon("gotoBrace.png"),
-                text=target.tr('ViewManager', 'Goto &Brace'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+L", "Search|Goto Brace")), 
+                text=target.tr('Goto &Brace'),
+                shortcut=QKeySequence(target.tr("Ctrl+L", "Search|Goto Brace")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_goto_brace', 
-                statusTip=target.tr('ViewManager', 'Goto Brace'))
-        target.gotoBraceAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Goto Brace'))
+        target.gotoBraceAct.setWhatsThis(target.tr(
             """<b>Goto Brace</b>"""
             """<p>Go to the matching brace in the current editor.</p>"""))
         target.searchActions.append(target.gotoBraceAct)
@@ -1626,15 +1558,15 @@ class E5ActionCreator(QObject):
         
         target.searchFilesAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Search in Files'),
-                icon=target.iconCache.icon("projectFind.png"),
-                text=target.tr('ViewManager', 'Search in &Files...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Search in Files'),
+#                icon=target.iconCache.icon("projectFind.png"),
+                text=target.tr('Search in &Files...'),
+                shortcut=QKeySequence(target.tr(
                         "Shift+Ctrl+F", "Search|Search Files")), 
                 objectName='vm_search_in_files', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Search for a text in files'))
-        target.searchFilesAct.setWhatsThis(target.tr('ViewManager', 
+        target.searchFilesAct.setWhatsThis(target.tr(
             """<b>Search in Files</b>"""
             """<p>Search for some text in the files of a directory tree"""
             """ or the project. A dialog is shown to enter the searchtext"""
@@ -1643,14 +1575,14 @@ class E5ActionCreator(QObject):
         
         target.replaceFilesAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Replace in Files'),
-                text=target.tr('ViewManager', 'Replace in F&iles...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Replace in Files'),
+                text=target.tr('Replace in F&iles...'),
+                shortcut=QKeySequence(target.tr(
                         "Shift+Ctrl+R", "Search|Replace in Files")), 
                 objectName='vm_replace_in_files', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                     'Search for a text in files and replace it'))
-        target.replaceFilesAct.setWhatsThis(target.tr('ViewManager', 
+        target.replaceFilesAct.setWhatsThis(target.tr(
             """<b>Replace in Files</b>"""
             """<p>Search for some text in the files of a directory tree"""
             """ or the project and replace it. A dialog is shown to enter"""
@@ -1658,130 +1590,122 @@ class E5ActionCreator(QObject):
             """ search and to display the result.</p>"""))
         target.searchActions.append(target.replaceFilesAct)
         
-    def __initViewActions(self):
+    def initViewActions(target):
         """
         Private method defining the user interface actions for the view commands.
         """
-        target.viewActGrp = createActionGroup(self)
-        target.viewFoldActGrp = createActionGroup(self)
+        target.viewActGrp = QActionGroup(target)
+        target.viewFoldActGrp = QActionGroup(target)
         
         target.zoomInAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Zoom in'),
+                iconText=target.tr('Zoom in'),
                 icon=target.iconCache.icon("zoomIn.png"),
-                text=target.tr('ViewManager', 'Zoom &in'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl++", "View|Zoom in")), 
+                text=target.tr('Zoom &in'),
+                shortcut=QKeySequence(target.tr("Ctrl++", "View|Zoom in")), 
                 actionGroup=target.viewActGrp, 
                 objectName='vm_view_zoom_in', 
-                statusTip=target.tr('ViewManager', 'Zoom in on the text'))
-        target.zoomInAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Zoom in on the text'))
+        target.zoomInAct.setWhatsThis(target.tr(
                 """<b>Zoom in</b>"""
                 """<p>Zoom in on the text. This makes the text bigger.</p>"""))
         target.viewActions.append(target.zoomInAct)
         
         target.zoomOutAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Zoom out'),
+                iconText=target.tr('Zoom out'),
                 icon=target.iconCache.icon("zoomOut.png"),
-                text=target.tr('ViewManager', 'Zoom &out'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+-", "View|Zoom out")), 
+                text=target.tr('Zoom &out'),
+                shortcut=QKeySequence(target.tr("Ctrl+-", "View|Zoom out")), 
                 actionGroup=target.viewActGrp, 
                 objectName='vm_view_zoom_out', 
-                statusTip=target.tr('ViewManager', 'Zoom out on the text'))
-        target.zoomOutAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Zoom out on the text'))
+        target.zoomOutAct.setWhatsThis(target.tr(
                 """<b>Zoom out</b>"""
                 """<p>Zoom out on the text. This makes the text smaller.</p>"""))
         target.viewActions.append(target.zoomOutAct)
         
         target.zoomToAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Zoom'),
+                iconText=target.tr('Zoom'),
                 icon=target.iconCache.icon("zoomTo.png"),
-                text=target.tr('ViewManager', '&Zoom'),
-                shortcut=QKeySequence(target.tr('ViewManager',
-                        "Ctrl+#", "View|Zoom")), 
+                text=target.tr('&Zoom'),
+                shortcut=QKeySequence(target.tr("Ctrl+#", "View|Zoom")), 
                 actionGroup=target.viewActGrp,
                 objectName='vm_view_zoom', 
-                statusTip=target.tr('ViewManager', 'Zoom the text'))
-        target.zoomToAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Zoom the text'))
+        target.zoomToAct.setWhatsThis(target.tr(
                 """<b>Zoom</b>"""
                 """<p>Zoom the text. This opens a dialog where the"""
                 """ desired size can be entered.</p>"""))
         target.viewActions.append(target.zoomToAct)
         
         target.toggleAllAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Toggle all folds'),
-                text=target.tr('ViewManager', 'Toggle &all folds'),
+                iconText=target.tr('Toggle all folds'),
+                text=target.tr('Toggle &all folds'),
                 actionGroup=target.viewFoldActGrp,
                 objectName='vm_view_toggle_all_folds', 
-                statusTip=target.tr('ViewManager', 'Toggle all folds'))
-        target.toggleAllAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Toggle all folds'))
+        target.toggleAllAct.setWhatsThis(target.tr(
                 """<b>Toggle all folds</b>"""
                 """<p>Toggle all folds of the current editor.</p>"""))
         target.viewActions.append(target.toggleAllAct)
         
         target.toggleAllChildrenAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Toggle all folds recursively'),
-                text=target.tr('ViewManager', 'Toggle all &folds recursively'),
+                iconText=target.tr('Toggle all folds recursively'),
+                text=target.tr('Toggle all &folds recursively'),
                 actionGroup=target.viewFoldActGrp, 
                 objectName='vm_view_toggle_all_folds_children', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                     'Toggle all folds (including children)'))
-        target.toggleAllChildrenAct.setWhatsThis(target.tr('ViewManager', 
+        target.toggleAllChildrenAct.setWhatsThis(target.tr(
                 """<b>Toggle all folds (including children)</b>"""
                 """<p>Toggle all folds of the current editor including"""
                 """ all children.</p>"""))
         target.viewActions.append(target.toggleAllChildrenAct)
         
         target.toggleCurrentAct = KyAction(\
-                parent=target,
-                iconText=target.tr('ViewManager', 'Toggle current fold'),
-                text=target.tr('ViewManager', 'Toggle &current fold'),
+                iconText=target.tr('Toggle current fold'),
+                text=target.tr('Toggle &current fold'),
                 actionGroup=target.viewFoldActGrp,
                 objectName='vm_view_toggle_current_fold', 
-                statusTip=target.tr('ViewManager', 'Toggle current fold'))
-        target.toggleCurrentAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Toggle current fold'))
+        target.toggleCurrentAct.setWhatsThis(target.tr(
                 """<b>Toggle current fold</b>"""
                 """<p>Toggle the folds of the current line of the current editor.</p>"""))
         target.viewActions.append(target.toggleCurrentAct)
         
         target.unhighlightAct = KyAction(\
                 parent=target,
-                iconText=target.tr('ViewManager', 'Remove all highlights'),
-                icon=target.iconCache.icon("unhighlight.png"),
-                text=target.tr('ViewManager', 'Remove all highlights'),
+                iconText=target.tr('Remove all highlights'),
+#                icon=target.iconCache.icon("unhighlight.png"),
+                text=target.tr('Remove all highlights'),
                 objectName='vm_view_unhighlight', 
-                statusTip=target.tr('ViewManager', 'Remove all highlights'))
-        target.unhighlightAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Remove all highlights'))
+        target.unhighlightAct.setWhatsThis(target.tr(
                 """<b>Remove all highlights</b>"""
                 """<p>Remove the highlights of all editors.</p>"""))
         target.viewActions.append(target.unhighlightAct)
         
         target.splitViewAct = KyAction(\
                 parent=target,
-                iconText=target.tr('ViewManager', 'Split view'),
-                icon=target.iconCache.icon("splitVertical.png"),
-                text=target.tr('ViewManager', '&Split view'),
+                iconText=target.tr('Split view'),
+                icon=target.iconCache.icon("splitNew.png"),
+                text=target.tr('&Split view'),
                 objectName='vm_view_split_view', 
-                statusTip=target.tr('ViewManager', 'Add a split to the view'))
-        target.splitViewAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Add a split to the view'))
+        target.splitViewAct.setWhatsThis(target.tr(
                 """<b>Split view</b>"""
                 """<p>Add a split to the view.</p>"""))
         target.viewActions.append(target.splitViewAct)
         
         target.splitOrientationAct = KyAction(\
                 parent=target,
-                iconText=target.tr('ViewManager', 'Arrange horizontally'),
-                text=target.tr('ViewManager', 'Arrange &horizontally'),
+                iconText=target.tr('Arrange Left-Right'),
+                icon=target.iconCache.icon("arrangeLeftRight.png"),
+                text=target.tr('Arrange Splits Left-Right'),
                 objectName='vm_view_arrange_horizontally',
                 checkable=True, 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Arrange the splitted views horizontally'))
-        target.splitOrientationAct.setWhatsThis(target.tr('ViewManager', 
+        target.splitOrientationAct.setWhatsThis(target.tr(
                 """<b>Arrange horizontally</b>"""
                 """<p>Arrange the splitted views horizontally.</p>"""))
         target.splitOrientationAct.setChecked(False)
@@ -1789,311 +1713,298 @@ class E5ActionCreator(QObject):
         
         target.splitRemoveAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Remove split'),
-                icon=target.iconCache.icon("remsplitVertical.png"),
-                text=target.tr('ViewManager', '&Remove split'),
+                iconText=target.tr('Remove split'),
+                icon=target.iconCache.icon("splitRemove.png"),
+                text=target.tr('&Remove split'),
                 objectName='vm_view_remove_split', 
-                statusTip=target.tr('ViewManager', 'Remove the current split'))
-        target.splitRemoveAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Remove the current split'))
+        target.splitRemoveAct.setWhatsThis(target.tr(
                 """<b>Remove split</b>"""
                 """<p>Remove the current split.</p>"""))
         target.viewActions.append(target.splitRemoveAct)
         
         target.nextSplitAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Next split'),
-                text=target.tr('ViewManager', '&Next split'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+Alt+N", "View|Next split")), 
+                iconText=target.tr('Next split'),
+                icon=target.iconCache.icon("splitNext.png"),
+                text=target.tr('&Next split'),
+                shortcut=QKeySequence(target.tr("Ctrl+Alt+N", "View|Next split")), 
                 objectName='vm_next_split', 
-                statusTip=target.tr('ViewManager', 'Move to the next split'))
-        target.nextSplitAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Move to the next split'))
+        target.nextSplitAct.setWhatsThis(target.tr(
                 """<b>Next split</b>"""
                 """<p>Move to the next split.</p>"""))
         target.viewActions.append(target.nextSplitAct)
         
         target.prevSplitAct = KyAction(\
                 parent=target, 
-                iconText=target.tr('ViewManager', 'Previous split'),
-                text=target.tr('ViewManager', '&Previous split'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
+                iconText=target.tr('Previous split'),
+                icon=target.iconCache.icon("splitPrev.png"),
+                text=target.tr('&Previous split'),
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Alt+P", "View|Previous split")), 
                 objectName='vm_previous_split', 
-                statusTip=target.tr('ViewManager', 'Move to the previous split'))
-        target.prevSplitAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Move to the previous split'))
+        target.prevSplitAct.setWhatsThis(target.tr(
                 """<b>Previous split</b>"""
                 """<p>Move to the previous split.</p>"""))
         target.viewActions.append(target.prevSplitAct)
         
-        target.viewActGrp.setEnabled(False)
-        target.viewFoldActGrp.setEnabled(False)
-        target.unhighlightAct.setEnabled(False)
-        target.splitViewAct.setEnabled(False)
-        target.splitOrientationAct.setEnabled(False)
-        target.splitRemoveAct.setEnabled(False)
-        target.nextSplitAct.setEnabled(False)
-        target.prevSplitAct.setEnabled(False)
+#        target.viewActGrp.setEnabled(False)
+#        target.viewFoldActGrp.setEnabled(False)
+#        target.unhighlightAct.setEnabled(False)
+#        target.splitViewAct.setEnabled(False)
+#        target.splitOrientationAct.setEnabled(False)
+#        target.splitRemoveAct.setEnabled(False)
+#        target.nextSplitAct.setEnabled(False)
+#        target.prevSplitAct.setEnabled(False)
 
-    def __initMacroActions(self):
+    def initMacroActions(target):
         """
         Private method defining the user interface actions for the macro commands.
         """
-        target.macroActGrp = createActionGroup(self)
+        target.macroActGrp = QActionGroup(target)
 
         target.macroStartRecAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Start Macro Recording'),
-                text=target.tr('ViewManager', 'S&tart Macro Recording'),
+                iconText=target.tr('Start Macro Recording'),
+                icon=target.iconCache.icon("macroStartRecording.png"),
+                text=target.tr('S&tart Macro Recording'),
                 actionGroup=target.macroActGrp, 
                 objectName='vm_macro_start_recording', 
-                statusTip=target.tr('ViewManager', 'Start Macro Recording'))
-        target.macroStartRecAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Start Macro Recording'))
+        target.macroStartRecAct.setWhatsThis(target.tr(
                 """<b>Start Macro Recording</b>"""
                 """<p>Start recording editor commands into a new macro.</p>"""))
         target.macroActions.append(target.macroStartRecAct)
         
         target.macroStopRecAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Stop Macro Recording'),
-                text=target.tr('ViewManager', 'Sto&p Macro Recording'),
+                iconText=target.tr('Stop Macro Recording'),
+                icon=target.iconCache.icon("macroStopRecording.png"),
+                text=target.tr('Sto&p Macro Recording'),
                 actionGroup=target.macroActGrp, 
                 objectName='vm_macro_stop_recording', 
-                statusTip=target.tr('ViewManager', 'Stop Macro Recording'))
-        target.macroStopRecAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Stop Macro Recording'))
+        target.macroStopRecAct.setWhatsThis(target.tr(
                 """<b>Stop Macro Recording</b>"""
                 """<p>Stop recording editor commands into a new macro.</p>"""))
         target.macroActions.append(target.macroStopRecAct)
         
         target.macroRunAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Run Macro'),
-                text=target.tr('ViewManager', '&Run Macro'),
+                iconText=target.tr('Run Macro'),
+                icon=target.iconCache.icon("macroRun.png"),
+                text=target.tr('&Run Macro'),
                 actionGroup=target.macroActGrp, 
                 objectName='vm_macro_run', 
-                statusTip=target.tr('ViewManager', 'Run Macro'))
-        target.macroRunAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Run Macro'))
+        target.macroRunAct.setWhatsThis(target.tr(
                 """<b>Run Macro</b>"""
                 """<p>Run a previously recorded editor macro.</p>"""))
         target.macroActions.append(target.macroRunAct)
         
         target.macroDeleteAct = KyAction(
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Delete Macro'),
-                text=target.tr('ViewManager', '&Delete Macro'),
+                iconText=target.tr('Delete Macro'),
+                icon=target.iconCache.icon("macroDelete.png"),
+                text=target.tr('&Delete Macro'),
                 actionGroup=target.macroActGrp, 
                 objectName='vm_macro_delete', 
-                statusTip=target.tr('ViewManager', 'Delete Macro'))
-        target.macroDeleteAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Delete Macro'))
+        target.macroDeleteAct.setWhatsThis(target.tr(
                 """<b>Delete Macro</b>"""
                 """<p>Delete a previously recorded editor macro.</p>"""))
         target.macroActions.append(target.macroDeleteAct)
         
         target.macroLoadAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Load Macro'),
-                text=target.tr('ViewManager', '&Load Macro'),
+                iconText=target.tr('Load Macro'),
+                icon=target.iconCache.icon("macroLoad.png"),
+                text=target.tr('&Load Macro'),
                 actionGroup=target.macroActGrp, 
                 objectName='vm_macro_load', 
-                statusTip=target.tr('ViewManager', 'Load Macro'))
-        target.macroLoadAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Load Macro'))
+        target.macroLoadAct.setWhatsThis(target.tr(
                 """<b>Load Macro</b>"""
                 """<p>Load an editor macro from a file.</p>"""))
         target.macroActions.append(target.macroLoadAct)
         
         target.macroSaveAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Save Macro'),
-                text=target.tr('ViewManager', '&Save Macro'),
+                iconText=target.tr('Save Macro'),
+                icon=target.iconCache.icon("macroSave.png"),
+                text=target.tr('&Save Macro'),
                 actionGroup=target.macroActGrp, 
                 objectName='vm_macro_save', 
-                statusTip=target.tr('ViewManager', 'Save Macro'))
-        target.macroSaveAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Save Macro'))
+        target.macroSaveAct.setWhatsThis(target.tr(
                 """<b>Save Macro</b>"""
                 """<p>Save a previously recorded editor macro to a file.</p>"""))
         target.macroActions.append(target.macroSaveAct)
         
         target.macroActGrp.setEnabled(False)
 
-    def __initBookmarkActions(self):
+    def initBookmarkActions(target):
         """
         Private method defining the user interface actions for the bookmarks commands.
         """
-        target.bookmarkActGrp = createActionGroup(self)
-
+        target.bookmarkActGrp = QActionGroup(target)
+        
         target.bookmarkToggleAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Toggle Bookmark'),
+                iconText=target.tr('Toggle Bookmark'),
                 icon=target.iconCache.icon("bookmarkToggle.png"),
-                text=target.tr('ViewManager', '&Toggle Bookmark'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                                "Alt+Ctrl+T", "Bookmark|Toggle")),
+                text=target.tr('&Toggle Bookmark'),
+                shortcut=QKeySequence(target.tr("Alt+Ctrl+T", "Bookmark|Toggle")),
                 actionGroup=target.bookmarkActGrp,
                 objectName='vm_bookmark_toggle', 
-                statusTip=target.tr('ViewManager', 'Toggle Bookmark'))
-        target.bookmarkToggleAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Toggle Bookmark'))
+        target.bookmarkToggleAct.setWhatsThis(target.tr(
                 """<b>Toggle Bookmark</b>"""
                 """<p>Toggle a bookmark at the current line of the current editor.</p>"""))
         target.bookmarkActions.append(target.bookmarkToggleAct)
         
         target.bookmarkNextAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Next Bookmark'),
+                iconText=target.tr('Next Bookmark'),
                 icon=target.iconCache.icon("bookmarkNext.png"),
-                text=target.tr('ViewManager', '&Next Bookmark'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+PgDown", "Bookmark|Next")),
+                text=target.tr('&Next Bookmark'),
+                shortcut=QKeySequence(target.tr("Ctrl+PgDown", "Bookmark|Next")),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_bookmark_next', 
-                statusTip=target.tr('ViewManager', 'Next Bookmark'))
-        target.bookmarkNextAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Next Bookmark'))
+        target.bookmarkNextAct.setWhatsThis(target.tr(
                 """<b>Next Bookmark</b>"""
                 """<p>Go to next bookmark of the current editor.</p>"""))
         target.bookmarkActions.append(target.bookmarkNextAct)
         
         target.bookmarkPreviousAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Previous Bookmark'),
+                iconText=target.tr('Previous Bookmark'),
                 icon=target.iconCache.icon("bookmarkPrevious.png"),
-                text=target.tr('ViewManager', '&Previous Bookmark'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Ctrl+PgUp", "Bookmark|Previous")),
+                text=target.tr('&Previous Bookmark'),
+                shortcut=QKeySequence(target.tr("Ctrl+PgUp", "Bookmark|Previous")),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_bookmark_previous', 
-                statusTip=target.tr('ViewManager', 'Previous Bookmark'))
-        target.bookmarkPreviousAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Previous Bookmark'))
+        target.bookmarkPreviousAct.setWhatsThis(target.tr(
                 """<b>Previous Bookmark</b>"""
                 """<p>Go to previous bookmark of the current editor.</p>"""))
         target.bookmarkActions.append(target.bookmarkPreviousAct)
         
         target.bookmarkClearAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Clear Bookmarks'),
-                text=target.tr('ViewManager', '&Clear Bookmarks'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Alt+Ctrl+C", "Bookmark|Clear")), 
+                iconText=target.tr('Clear Bookmarks'),
+                icon=target.iconCache.icon("bookmarkClear.png"),
+                text=target.tr('&Clear Bookmarks'),
+                shortcut=QKeySequence(target.tr("Alt+Ctrl+C", "Bookmark|Clear")), 
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_bookmark_clear', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
             'Clear Bookmarks'))
-        target.bookmarkClearAct.setWhatsThis(target.tr('ViewManager', 
+        target.bookmarkClearAct.setWhatsThis(target.tr(
                 """<b>Clear Bookmarks</b>"""
                 """<p>Clear bookmarks of all editors.</p>"""))
         target.bookmarkActions.append(target.bookmarkClearAct)
         
         target.syntaxErrorGotoAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Goto Syntax Error'),
-                icon=target.iconCache.icon("syntaxErrorGoto.png"),
-                text=target.tr('ViewManager', '&Goto Syntax Error'),
+                iconText=target.tr('Goto Syntax Error'),
+                icon=target.iconCache.icon("gotoSyntaxError.png"),
+                text=target.tr('&Goto Syntax Error'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_syntaxerror_goto', 
-                statusTip=target.tr('ViewManager', 'Goto Syntax Error'))
-        target.syntaxErrorGotoAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Goto Syntax Error'))
+        target.syntaxErrorGotoAct.setWhatsThis(target.tr(
                 """<b>Goto Syntax Error</b>"""
                 """<p>Go to next syntax error of the current editor.</p>"""))
         target.bookmarkActions.append(target.syntaxErrorGotoAct)
         
         target.syntaxErrorClearAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Clear Syntax Errors'),
-                text=target.tr('ViewManager', 'Clear &Syntax Errors'),
+                iconText=target.tr('Clear Syntax Errors'),
+#                icon=target.iconCache.icon("syntaxErrorClear.png"),
+                text=target.tr('Clear &Syntax Errors'),
                 actionGroup=target.bookmarkActGrp,
                 objectName='vm_syntaxerror_clear', 
-                statusTip=target.tr('ViewManager', 'Clear Syntax Errors'))
-        target.syntaxErrorClearAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Clear Syntax Errors'))
+        target.syntaxErrorClearAct.setWhatsThis(target.tr(
                 """<b>Clear Syntax Errors</b>"""
                 """<p>Clear syntax errors of all editors.</p>"""))
         target.bookmarkActions.append(target.syntaxErrorClearAct)
         
         target.warningsNextAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Next warning message'),
+                iconText=target.tr('Next warning message'),
                 icon=target.iconCache.icon("warningNext.png"),
-                text=target.tr('ViewManager', '&Next warning message'),
+                text=target.tr('&Next warning message'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_warning_next', 
-                statusTip=target.tr('ViewManager', 'Next warning message'))
-        target.warningsNextAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Next warning message'))
+        target.warningsNextAct.setWhatsThis(target.tr(
                 """<b>Next warning message</b>"""
                 """<p>Go to next line of the current editor"""
                 """ having a py3flakes warning.</p>"""))
         target.bookmarkActions.append(target.warningsNextAct)
         
         target.warningsPreviousAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Previous warning message'),
+                iconText=target.tr('Previous warning message'),
                 icon=target.iconCache.icon("warningPrev.png"),
-                text=target.tr('ViewManager', '&Previous warning message'),
+                text=target.tr('&Previous warning message'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_warning_previous', 
-                statusTip=target.tr('ViewManager', 'Previous warning message'))
-        target.warningsPreviousAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Previous warning message'))
+        target.warningsPreviousAct.setWhatsThis(target.tr(
                 """<b>Previous warning message</b>"""
                 """<p>Go to previous line of the current editor"""
                 """ having a py3flakes warning.</p>"""))
         target.bookmarkActions.append(target.warningsPreviousAct)
         
         target.warningsClearAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Clear Warning Messages'),
-                text=target.tr('ViewManager', 'Clear &Warning Messages'),
+                iconText=target.tr('Clear Warning Messages'),
+#                icon=target.iconCache.icon("warningClear"),
+                text=target.tr('Clear &Warning Messages'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_warnings_clear', 
-                statusTip=target.tr('ViewManager', 'Clear Warning Messages'))
-        target.warningsClearAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Clear Warning Messages'))
+        target.warningsClearAct.setWhatsThis(target.tr(
                 """<b>Clear Warning Messages</b>"""
                 """<p>Clear py3flakes warning messages of all editors.</p>"""))
         target.bookmarkActions.append(target.warningsClearAct)
         
         target.notCoveredNextAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Next uncovered line'),
-                icon=target.iconCache.icon("notCoveredNext.png"),
-                text=target.tr('ViewManager', '&Next uncovered line'),
+                iconText=target.tr('Next uncovered line'),
+                icon=target.iconCache.icon("flagNext.png"),
+                text=target.tr('&Next uncovered line'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_uncovered_next', 
-                statusTip=target.tr('ViewManager', 'Next uncovered line'))
-        target.notCoveredNextAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Next uncovered line'))
+        target.notCoveredNextAct.setWhatsThis(target.tr(
                 """<b>Next uncovered line</b>"""
                 """<p>Go to next line of the current editor marked as not covered.</p>"""))
         target.bookmarkActions.append(target.notCoveredNextAct)
         
         target.notCoveredPreviousAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Previous uncovered line'),
-                icon=target.iconCache.icon("notCoveredPrev.png"),
-                text=target.tr('ViewManager', '&Previous uncovered line'),
+                iconText=target.tr('Previous uncovered line'),
+                icon=target.iconCache.icon("flagPrevious.png"),
+                text=target.tr('&Previous uncovered line'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_uncovered_previous', 
-                statusTip=target.tr('ViewManager', 'Previous uncovered line'))
-        target.notCoveredPreviousAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Previous uncovered line'))
+        target.notCoveredPreviousAct.setWhatsThis(target.tr(
                 """<b>Previous uncovered line</b>"""
                 """<p>Go to previous line of the current editor marked"""
                 """ as not covered.</p>"""))
         target.bookmarkActions.append(target.notCoveredPreviousAct)
         
         target.taskNextAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Next Task'),
+                iconText=target.tr('Next Task'),
                 icon=target.iconCache.icon("taskNext.png"),
-                text=target.tr('ViewManager', '&Next Task'),
+                text=target.tr('&Next Task'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_task_next', 
-                statusTip=target.tr('ViewManager', 'Next Task'))
-        target.taskNextAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Next Task'))
+        target.taskNextAct.setWhatsThis(target.tr(
                 """<b>Next Task</b>"""
                 """<p>Go to next line of the current editor having a task.</p>"""))
         target.bookmarkActions.append(target.taskNextAct)
         
         target.taskPreviousAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Previous Task'),
-                icon=target.iconCache.icon("taskPrev.png"),
-                text=target.tr('ViewManager', '&Previous Task'),
+                iconText=target.tr('Previous Task'),
+                icon=target.iconCache.icon("taskPrevious.png"),
+                text=target.tr('&Previous Task'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_task_previous', 
-                statusTip=target.tr('ViewManager', 'Previous Task'))
-        target.taskPreviousAct.setWhatsThis(target.tr('ViewManager', 
+                statusTip=target.tr('Previous Task'))
+        target.taskPreviousAct.setWhatsThis(target.tr(
                 """<b>Previous Task</b>"""
                 """<p>Go to previous line of the current editor having a task.</p>"""
                 ))
@@ -2101,45 +2012,42 @@ class E5ActionCreator(QObject):
         
         target.bookmarkActGrp.setEnabled(False)
 
-    def __initSpellingActions(self):
+    def initSpellingActions(target):
         """
         Private method to initialize the spell checking actions.
         """
-        target.spellingActGrp = createActionGroup(self)
+        target.spellingActGrp = QActionGroup(target)
         
         target.spellCheckAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Spell check'),
-                icon=target.iconCache.icon("spellchecking.png"),
-                text=target.tr('ViewManager', '&Spell Check...'),
-                shortcut=QKeySequence(target.tr('ViewManager', 
-                        "Shift+F7", "Spelling|Spell Check")), 
+                iconText=target.tr('Spell check'),
+#                icon=target.iconCache.icon("spellchecking.png"),
+                text=target.tr('&Spell Check...'),
+                shortcut=QKeySequence(target.tr("Shift+F7", "Spelling|Spell Check")), 
                 actionGroup=target.spellingActGrp, 
                 objectName='vm_spelling_spellcheck', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         'Perform spell check of current editor'))
-        target.spellCheckAct.setWhatsThis(target.tr('ViewManager', 
+        target.spellCheckAct.setWhatsThis(target.tr(
                 """<b>Spell check</b>"""
                 """<p>Perform a spell check of the current editor.</p>"""))
         target.spellingActions.append(target.spellCheckAct)
         
         target.autoSpellCheckAct = KyAction(\
-                parent=target, 
-                iconText=target.tr('ViewManager', 'Automatic spell checking'),
-                icon=target.iconCache.icon("autospellchecking.png"),
-                text=target.tr('ViewManager', '&Automatic spell checking'),
+                iconText=target.tr('Automatic spell checking'),
+#                icon=target.iconCache.icon("autospellchecking.png"),
+                text=target.tr('&Automatic spell checking'),
                 actionGroup=target.spellingActGrp, 
                 objectName='vm_spelling_autospellcheck', 
-                statusTip=target.tr('ViewManager', 
+                statusTip=target.tr(
                         '(De-)Activate automatic spell checking'))
-        target.autoSpellCheckAct.setWhatsThis(target.tr('ViewManager', 
+        target.autoSpellCheckAct.setWhatsThis(target.tr(
                 """<b>Automatic spell checking</b>"""
                 """<p>Activate or deactivate the automatic spell checking function of"""
                 """ all editors.</p>"""))
         target.autoSpellCheckAct.setCheckable(True)
         target.spellingActions.append(target.autoSpellCheckAct)
 
-    def __initDebuggerActions(self):
+    def initDebuggerActions(target):
         """
         Method defining the user interface actions.
         """
@@ -2148,7 +2056,7 @@ class E5ActionCreator(QObject):
         target.dbgRunScriptAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Run Script'),
-                icon=target.iconCache.icon("runScript.png"),
+                icon=target.iconCache.icon("scriptRun.png"),
                 text=target.tr('&Run Script...'),
                 shortcut=QKeySequence(target.tr('F2')),
                 objectName='dbg_run_script',
@@ -2162,7 +2070,7 @@ class E5ActionCreator(QObject):
         target.dbgRunProjectAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Run Project'),
-                icon=target.iconCache.icon("runProject.png"),
+#                icon=target.iconCache.icon("runProject.png"),
                 text=target.tr('Run &Project...'),
                 shortcut=QKeySequence(target.tr('Shift+F2')), 
                 objectName='dbg_run_project', 
@@ -2178,7 +2086,7 @@ class E5ActionCreator(QObject):
         target.dbgCoverageScriptAct = KyAction(
                 parent=target, 
                 iconText=target.tr('Coverage run of Script'),
-                icon=target.iconCache.icon("coverageScript.png"),
+                icon=target.iconCache.icon("scriptCoverage.png"),
                 text=target.tr('Coverage run of Script...'), 
                 objectName='dbg_coverage_script', 
                 statusTip=target.tr('Perform a coverage run of the current Script'))
@@ -2192,7 +2100,7 @@ class E5ActionCreator(QObject):
         target.dbgCoverageProjectAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Coverage run of Project'),
-                icon=target.iconCache.icon("coverageProject.png"),
+#                icon=target.iconCache.icon("projectCoverage.png"),
                 text=target.tr('Coverage run of Project...'),
                 objectName='dbg_coverage_project', 
                 statusTip=target.tr('Perform a coverage run of the current Project'))
@@ -2207,7 +2115,7 @@ class E5ActionCreator(QObject):
         target.dbgProfileScriptAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Profile Script'),
-                icon=target.iconCache.icon("profileScript.png"),
+                icon=target.iconCache.icon("scriptProfile.png"),
                 text=target.tr('Profile Script...'),
                 objectName='dbg_profile_script', 
                 statusTip=target.tr('Profile the current Script'))
@@ -2220,7 +2128,7 @@ class E5ActionCreator(QObject):
         target.dbgProfileProjectAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Profile Project'),
-                icon=target.iconCache.icon("profileProject.png"),
+#                icon=target.iconCache.icon("projectProfile.png"),
                 text=target.tr('Profile Project...'),
                 objectName='dbg_profile_project', 
                 statusTip=target.tr('Profile the current Project'))
@@ -2234,9 +2142,9 @@ class E5ActionCreator(QObject):
         target.dbgDebugScriptAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Debug Script'),
-                icon=target.iconCache.icon("debugScript.png"),
+                icon=target.iconCache.icon("scriptDebug.png"),
                 text=target.tr('&Debug Script...'),
-                shortcut=QKeySequence(target.tr('Debugger', 'F5')), 
+                shortcut=QKeySequence(target.tr('F5')), 
                 objectName='dbg_debug_script', 
                 statusTip=target.tr('Debug the current Script'), 
                 whatsThis=target.tr(
@@ -2249,7 +2157,7 @@ class E5ActionCreator(QObject):
         target.dbgDebugProjectAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Debug Project'),
-                icon=target.iconCache.icon("debugProject.png"),
+                icon=target.iconCache.icon("projectDebug.png"),
                 text=target.tr('Debug &Project...'),
                 shortcut=QKeySequence(target.tr('Shift+F5')), 
                 objectName='dbg_debug_project', 
@@ -2266,7 +2174,7 @@ class E5ActionCreator(QObject):
                 parent=target, 
                 iconText=target.tr('Restart Script'),
                 icon=target.iconCache.icon("restart.png"),
-                text=target.tr('Restart Script'),
+                text=target.tr('scriptRestart'),
                 shortcut=QKeySequence(target.tr('F4')), 
                 objectName='dbg_restart_script', 
                 statusTip=target.tr('Restart the last debugged script'), 
@@ -2280,7 +2188,7 @@ class E5ActionCreator(QObject):
         target.stopAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Stop Script'),
-                icon=target.iconCache.icon("stopScript.png"),
+                icon=target.iconCache.icon("scriptStop.png"),
                 text=target.tr('Stop Script'),
                 shortcut=QKeySequence(target.tr('Shift+F10')), 
                 objectName='dbg_stop_script', 
@@ -2290,12 +2198,11 @@ class E5ActionCreator(QObject):
                 """<p>This stops the script running in the debugger backend.</p>"""))
         target.dbgActions.append(target.stopAct)
 
-        target.dbgActGrp = QActionGroup(self)
+        target.dbgActGrp = QActionGroup(target)
 
         target.dbgContAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Continue'),
-                icon=target.iconCache.icon("continue.png"),
+#                icon=target.iconCache.icon("debugContinue.png"),
                 text=target.tr('&Continue'),
                 shortcut=QKeySequence(target.tr('F6')), 
                 actionGroup=target.dbgActGrp,
@@ -2310,9 +2217,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgContAct)
 
         target.dbgContCrsrAct = KyAction(\
-                parent=target,
                 iconText=target.tr('Continue to Cursor'),
-                icon=target.iconCache.icon("continueToCursor.png"),
+#                icon=target.iconCache.icon("debugContinueToCursor.png"),
                 text=target.tr('Continue &To Cursor'),
                 shortcut=QKeySequence(target.tr('Shift+F6')), 
                 actionGroup=target.dbgActGrp,
@@ -2326,9 +2232,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgContCrsrAct)
 
         target.dbgSingleStepAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Single Step'),
-                icon=target.iconCache.icon("step.png"),
+#                icon=target.iconCache.icon("debugStep.png"),
                 text=target.tr('Sin&gle Step'),
                 shortcut=QKeySequence(target.tr('F7')), 
                 actionGroup=target.dbgActGrp,
@@ -2343,9 +2248,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgSingleStepAct)
 
         target.dbgStepOverAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Step Over'),
-                icon=target.iconCache.icon("stepOver.png"),
+#                icon=target.iconCache.icon("debugStepOver.png"),
                 text=target.tr('Step &Over'),
                 shortcut=QKeySequence(target.tr('F8')), 
                 actionGroup=target.dbgActGrp,
@@ -2361,9 +2265,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgStepOverAct)
 
         target.dbgStepOutAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Step Out'),
-                icon=target.iconCache.icon("stepOut.png"),
+#                icon=target.iconCache.icon("debugStepOut.png"),
                 text=target.tr('Step Ou&t'),
                 shortcut=QKeySequence(target.tr('F9')), 
                 actionGroup=target.dbgActGrp,
@@ -2378,9 +2281,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgStepOutAct)
 
         target.dbgStopAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Stop'),
-                icon=target.iconCache.icon("stepQuit.png"),
+#                icon=target.iconCache.icon("debugStop.png"),
                 text=target.tr('&Stop'),
                 shortcut=QKeySequence(target.tr('F10')), 
                 actionGroup=target.dbgActGrp,
@@ -2391,12 +2293,12 @@ class E5ActionCreator(QObject):
             """<p>Stop the running debugging session.</p>"""))
         target.dbgActions.append(target.dbgStopAct)
         
-        target.dbgContextActGrp = QActionGroup(self)
+        target.dbgContextActGrp = QActionGroup(target)
 
         target.dbgEvalAct = KyAction(\
-                parent=target,
                 iconText=target.tr('Evaluate'),
                 text=target.tr('E&valuate...'),
+                icon=target.iconCache.icon("debugContextExecute.png"),
                 actionGroup=target.dbgContextActGrp,
                 objectName='dbg_evaluate', 
                 statusTip=target.tr('Evaluate in current context'))
@@ -2408,8 +2310,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgEvalAct)
         
         target.dbgExecAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Execute'),
+                icon=target.iconCache.icon("debugContextExecute2.png"),
                 text=target.tr('E&xecute...'),
                 actionGroup=target.dbgContextActGrp,
                 objectName='dbg_execute', 
@@ -2424,6 +2326,7 @@ class E5ActionCreator(QObject):
         target.dbgFilterAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Variables Type Filter'),
+                icon=target.iconCache.icon("debugFilter.png"),
                 text=target.tr('Varia&bles Type Filter...'), 
                 objectName='dbg_variables_filter', 
                 statusTip=target.tr('Configure variables type filter'))
@@ -2446,7 +2349,7 @@ class E5ActionCreator(QObject):
             """ listed are highlighted during a debugging session.</p>"""
             """<p>Please note, that all unhandled exceptions are highlighted"""
             """ indepent from the filter list.</p>"""))
-        target.dbgActions.append(target.dbgExcpIgnoreAct)
+        target.dbgActions.append(target.dbgExcpFilterAct)
         
         target.dbgExcpIgnoreAct = KyAction(\
                 parent=target, 
@@ -2461,14 +2364,14 @@ class E5ActionCreator(QObject):
             """<p>Please note, that unhandled exceptions cannot be ignored.</p>"""))
         target.dbgActions.append(target.dbgExcpIgnoreAct)
 
-        target.dbgBpActGrp = QActionGroup(self)
+        target.dbgBpActGrp = QActionGroup(target)
 
         target.dbgToggleBpAct = KyAction(\
-                parent=target,
                 iconText=target.tr('Toggle Breakpoint'),
                 icon=target.iconCache.icon("breakpointToggle.png"),
                 text=target.tr('Toggle Breakpoint'), 
-                shortcut=QKeySequence(target.tr("Shift+F11","Debug|Toggle Breakpoint")),
+                shortcut=QKeySequence(target.tr(
+                        "Shift+F11", "Debug|Toggle Breakpoint")),
                 actionGroup=target.dbgBpActGrp,
                 objectName='dbg_toggle_breakpoint', 
                 statusTip=target.tr('Toggle Breakpoint'))
@@ -2479,9 +2382,8 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgToggleBpAct)
         
         target.dbgEditBpAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Edit Breakpoint'),
-                icon=target.iconCache.icon("cBreakpointToggle.png"),
+                icon=target.iconCache.icon("breakpointEdit.png"),
                 text=target.tr('Edit Breakpoint...'),
                 shortcut=QKeySequence(target.tr(
                         "Shift+F12", "Debug|Edit Breakpoint")),
@@ -2495,11 +2397,10 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgEditBpAct)
 
         target.dbgNextBpAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Next Breakpoint'),
                 icon=target.iconCache.icon("breakpointNext.png"),
                 text=target.tr('Next Breakpoint'),
-                shortcut=QKeySequence(target.tr('Debugger',
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Shift+PgDown","Debug|Next Breakpoint")),
                 actionGroup=target.dbgBpActGrp, 
                 objectName='dbg_next_breakpoint', 
@@ -2510,11 +2411,10 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgNextBpAct)
 
         target.dbgPrevBpAct = KyAction(\
-                parent=target,
                 iconText=target.tr('Previous Breakpoint'),
                 icon=target.iconCache.icon("breakpointPrevious.png"),
                 text=target.tr('Previous Breakpoint'),
-                shortcut=QKeySequence(target.tr('Debugger', 
+                shortcut=QKeySequence(target.tr( 
                         "Ctrl+Shift+PgUp","Debug|Previous Breakpoint")), 
                 actionGroup=target.dbgBpActGrp, 
                 objectName='dbg_previous_breakpoint', 
@@ -2525,10 +2425,10 @@ class E5ActionCreator(QObject):
         target.dbgActions.append(target.dbgPrevBpAct)
 
         target.dbgClrBpAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('Clear Breakpoints'),
+                icon=target.iconCache.icon("breakpointClear.png"),
                 text=target.tr('Clear Breakpoints'),
-                shortcut=QKeySequence(target.tr('Debugger', 
+                shortcut=QKeySequence(target.tr(
                         "Ctrl+Shift+C","Debug|Clear Breakpoints")),
                 actionGroup=target.dbgBpActGrp, 
                 objectName='dbg_clear_breakpoint', 
@@ -2552,14 +2452,15 @@ class E5ActionCreator(QObject):
 #        target.dbgRestartAct.setEnabled(False)
 #        target.dbgStopAct.setEnabled(False)
 
-    def __initMultiprojectActions(self):
+    def initMultiprojectActions(target):
         
-        target.mpActGrp = QActionGroup(self)
+        target.mpActions = []
+        
+        target.mpActGrp = QActionGroup(target)
         
         target.mpNewAct = KyAction(\
-                parent=target, 
                 iconText=target.tr('New Multiproject'),
-                icon=target.iconCache.icon("multiProjectNew.png"),
+#                icon=target.iconCache.icon("multiProjectNew.png"),
                 text=target.tr('&New...'),
                 actionGroup=target.mpActGrp,
                 objectName='multi_project_new', 
@@ -2571,9 +2472,8 @@ class E5ActionCreator(QObject):
         target.mpActions.append(target.mpNewAct)
 
         target.mpOpenAct = KyAction(\
-                parent=target,
                 iconText=target.tr('Open Multiproject'),
-                icon=target.iconCache.icon("multiProjectOpen.png"),
+#                icon=target.iconCache.icon("multiProjectOpen.png"),
                 text=target.tr('&Open...'),
                 actionGroup=target.mpActGrp,
                 objectName='multi_project_open', 
@@ -2581,12 +2481,12 @@ class E5ActionCreator(QObject):
                 whatsThis=target.tr(
                     """<b>Open...</b>"""
                     """<p>This opens an existing multiproject.</p>"""))
-        target.mpActions.append(eslf.mpOpenAct)
+        target.mpActions.append(target.mpOpenAct)
 
         target.mpCloseAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Close Multiproject'),
-                icon=target.iconCache.icon("multiProjectClose.png"),
+#                icon=target.iconCache.icon("multiProjectClose.png"),
                 text=target.tr('&Close'), 
                 objectName='multi_project_close', 
                 statusTip=target.tr('Close the current multiproject'), 
@@ -2598,7 +2498,7 @@ class E5ActionCreator(QObject):
         target.mpSaveAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Save Multiproject'),
-                icon=target.iconCache.icon("multiProjectSave.png"),
+#                icon=target.iconCache.icon("multiProjectSave.png"),
                 text=target.tr('&Save'),
                 objectName='multi_project_save', 
                 statusTip=target.tr('Save the current multiproject'),
@@ -2610,7 +2510,7 @@ class E5ActionCreator(QObject):
         target.mpSaveAsAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Save Multiproject As'),
-                icon=target.iconCache.icon("multiProjectSaveAs.png"),
+#                icon=target.iconCache.icon("multiProjectSaveAs.png"),
                 text=target.tr('Save &As...'), 
                 objectName='multi_project_save_as', 
                 statusTip=target.tr('Save the current multiproject to a new file'), 
@@ -2622,7 +2522,7 @@ class E5ActionCreator(QObject):
         target.mpAddAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Add project to multiproject'),
-                icon=target.iconCache.icon("fileProject.png"),
+#                icon=target.iconCache.icon("fileProject.png"),
                 text=target.tr('Add &project...'),
                 objectName='multi_project_add_project', 
                 statusTip=target.tr('Add a project to the current multiproject'), 
@@ -2635,7 +2535,7 @@ class E5ActionCreator(QObject):
         target.mpPropsAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Multiproject Properties'),
-                icon=target.iconCache.icon("multiProjectProps.png"),
+#                icon=target.iconCache.icon("multiProjectProps.png"),
                 text=target.tr('&Properties...'), 
                 objectName='multi_project_properties', 
                 statusTip=target.tr('Show the multiproject properties'), 

@@ -6,7 +6,7 @@ from IconSet2 import IconSet, E5Icons
 from Widgets.RibbonBar import KyRibbonBar
 from Widgets.MenuButton import KyMenuButton
 
-from TestItems.ActionTest import ActionTestClass
+from TestItems.E5InitActions import E5ActionCreator
 from Utilities.utilities import strFromQSize
 
 
@@ -19,12 +19,12 @@ class KyMainWindow(QMainWindow):
         self.setWindowIcon(IconSet.QtLogo())
         self.setFont(QFont('Segoe UI', 9, QFont.Normal, False))
         
+        self.mainPath = QDir.currentPath()
+        
         self.iconPath = './E5Icons/'
         self.iconCache = E5Icons(self.iconPath)
         
         self.__setupUi()
-        
-#        self.printIconCacheNames(self.iconCache)
         
     def __setupUi(self) -> None:
         self.__setupDebugDock()
@@ -61,11 +61,7 @@ class KyMainWindow(QMainWindow):
         self.ribbonBar = ribbonBar
         
     def __setupActions(self) -> None:
-        atc = ActionTestClass(None)
-        self.actionDict = atc.actionDict()
-        font = QFont('Segoe UI', 9, QFont.Normal, False)
-        for action in self.actionDict:
-            self.actionDict[action].setParent(self)
+        E5ActionCreator.initActions(self)
     
     def __setupTreeWidget(self):
         self.treeWidget = QTreeWidget(self)
