@@ -3,12 +3,40 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+class ArgumentsError(RuntimeError):
+    """
+    Class implementing an exception raised if the wrong type
+    or combination of arguments are given.
+    """
+    def __init__(self, error):
+        """
+        Constructor
+        """
+        self.errorMessage = str(error)
+        
+    def __repr__(self):
+        """
+        Private method returning a representation of the exception.
+        
+        @return string representing the error message
+        """
+        return str(self.errorMessage)
+        
+    def __str__(self):
+        """
+        Private method returning a string representation of the exception.
+        
+        @return string representing the error message
+        """
+        return str(self.errorMessage)
+
 class KyAction(QAction):
     def __init__(self,
                  parent : QWidget = None,
                  text : str = None, 
                  icon : QIcon = None,
-                 actionGroup : QActionGroup = None, 
+                 actionGroup : QActionGroup = None,
+                 menu : QMenu = None, 
                  checkable : bool = None,
                  checked : bool = None,
                  enabled : bool = None,
@@ -51,3 +79,5 @@ class KyAction(QAction):
             self.connect(self, SIGNAL('triggered()'), trigger)
         if userData: self.setUserData(userData)
         if whatsThis: self.setWhatsThis(whatsThis)
+        
+        if menu: menu.addAction(self)
