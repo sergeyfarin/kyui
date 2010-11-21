@@ -19,8 +19,6 @@ class KyMainWindow(QMainWindow):
         self.setWindowIcon(IconSet.QtLogo())
         self.setFont(QFont('Segoe UI', 9, QFont.Normal, False))
         
-        self.mainPath = QDir.currentPath()
-        
         self.iconPath = './E5Icons/'
         self.iconCache = E5Icons(self.iconPath)
         
@@ -75,7 +73,7 @@ class KyMainWindow(QMainWindow):
             size = strFromQSize(reader.size(), 'wxh')
             item = QTreeWidgetItem(self.treeWidget, [filename, size])
     
-    def printIconCacheNames(self, cache):
+    def printIconCacheNames(self, cache) -> None:
         icons = cache.iconNames()
         iconStr = ''
         for icon in icons:

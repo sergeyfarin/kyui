@@ -38,7 +38,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabEdit">
      <attribute name="title">
@@ -99,7 +99,7 @@
            <string>Cut</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editCut.png</normaloff>:/Edit/editCut.png</iconset>
           </property>
           <property name="iconSize">
@@ -134,7 +134,7 @@
            <string>Copy</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editCopy.png</normaloff>:/Edit/editCopy.png</iconset>
           </property>
           <property name="iconSize">
@@ -169,7 +169,7 @@
            <string>Paste</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editPaste.png</normaloff>:/Edit/editPaste.png</iconset>
           </property>
           <property name="iconSize">
@@ -244,7 +244,7 @@
            <string>Undo</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editUndo.png</normaloff>:/Edit/editUndo.png</iconset>
           </property>
           <property name="iconSize">
@@ -279,7 +279,7 @@
            <string>Redo</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editRedo.png</normaloff>:/Edit/editRedo.png</iconset>
           </property>
           <property name="iconSize">
@@ -314,8 +314,8 @@
            <string>Revert</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/revert.png</normaloff>:/Edit/revert.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Edit/editRevert.png</normaloff>:/Edit/editRevert.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -535,8 +535,8 @@
 Complete</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/autocomplete.png</normaloff>:/Edit/autocomplete.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Edit/editAutocomplete.png</normaloff>:/Edit/editAutocomplete.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -573,7 +573,7 @@ Complete</string>
            <string>Comment</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editComment.png</normaloff>:/Edit/editComment.png</iconset>
           </property>
           <property name="iconSize">
@@ -611,7 +611,7 @@ Complete</string>
            <string>Uncomment</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Edit/editUncomment.png</normaloff>:/Edit/editUncomment.png</iconset>
           </property>
           <property name="iconSize">
@@ -656,7 +656,7 @@ p, li { white-space: pre-wrap; }
            <string>Line Tools</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset>
             <normaloff>:/Edit/edit_pen.png</normaloff>:/Edit/edit_pen.png</iconset>
           </property>
           <property name="iconSize">
@@ -730,7 +730,7 @@ Automatic Spellcheck</string>
        <rect>
         <x>520</x>
         <y>0</y>
-        <width>101</width>
+        <width>111</width>
         <height>91</height>
        </rect>
       </property>
@@ -748,7 +748,7 @@ Automatic Spellcheck</string>
         <rect>
          <x>0</x>
          <y>20</y>
-         <width>101</width>
+         <width>111</width>
          <height>71</height>
         </rect>
        </property>
@@ -774,8 +774,8 @@ Automatic Spellcheck</string>
            <string>Wizards</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/wizard.png</normaloff>:/Edit/wizard.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Tools/toolsWizard.png</normaloff>:/Tools/toolsWizard.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -812,8 +812,8 @@ Automatic Spellcheck</string>
            <string>Macros</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Macro/macros.png</normaloff>:/Macro/macros.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Macro/macro.png</normaloff>:/Macro/macro.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -822,7 +822,7 @@ Automatic Spellcheck</string>
            </size>
           </property>
           <property name="popupMode">
-           <enum>QToolButton::InstantPopup</enum>
+           <enum>QToolButton::MenuButtonPopup</enum>
           </property>
           <property name="toolButtonStyle">
            <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -838,7 +838,7 @@ Automatic Spellcheck</string>
      <widget class="QGroupBox" name="groupBox_20">
       <property name="geometry">
        <rect>
-        <x>630</x>
+        <x>650</x>
         <y>0</y>
         <width>211</width>
         <height>91</height>
@@ -884,8 +884,8 @@ Automatic Spellcheck</string>
            <string>Search</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Search/find.png</normaloff>:/Search/find.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Find/find.png</normaloff>:/Find/find.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -922,8 +922,8 @@ Automatic Spellcheck</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Search/find_previous.png</normaloff>:/Search/find_previous.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Find/findPrevious.png</normaloff>:/Find/findPrevious.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -960,8 +960,8 @@ Automatic Spellcheck</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Search/find_next.png</normaloff>:/Search/find_next.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Find/findNext.png</normaloff>:/Find/findNext.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -999,8 +999,8 @@ Automatic Spellcheck</string>
 Markers</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Search/find_clear.png</normaloff>:/Search/find_clear.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Find/findClear.png</normaloff>:/Find/findClear.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1076,8 +1076,8 @@ Markers</string>
            <string>Line</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/goto.png</normaloff>:/Edit/goto.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/gotoLine.png</normaloff>:/Goto/gotoLine.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1114,47 +1114,8 @@ Markers</string>
            <string>Brace</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Edit/gotoBrace.png</normaloff>:/Edit/gotoBrace.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="popupMode">
-           <enum>QToolButton::InstantPopup</enum>
-          </property>
-          <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonTextUnderIcon</enum>
-          </property>
-          <property name="autoRaise">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="toolButton_103">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>44</width>
-            <height>22</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Syntax
-Error</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Goto/syntaxError.png</normaloff>:/Goto/syntaxError.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/gotoBrace.png</normaloff>:/Goto/gotoBrace.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1192,8 +1153,47 @@ Error</string>
 Error</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Goto/syntaxErrorGoto.png</normaloff>:/Goto/syntaxErrorGoto.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/gotoSyntaxError.png</normaloff>:/Goto/gotoSyntaxError.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_103">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Clear
+Errors</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/syntaxErrorClear.png</normaloff>:/Goto/syntaxErrorClear.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1264,7 +1264,7 @@ Error</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Goto/warningPrev.png</normaloff>:/Goto/warningPrev.png</iconset>
           </property>
           <property name="iconSize">
@@ -1302,7 +1302,7 @@ Error</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Goto/warningNext.png</normaloff>:/Goto/warningNext.png</iconset>
           </property>
           <property name="iconSize">
@@ -1340,8 +1340,8 @@ Error</string>
            <string>Clear</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Tools/bug.png</normaloff>:/Tools/bug.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/warningClear.png</normaloff>:/Goto/warningClear.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1412,8 +1412,8 @@ Error</string>
            <string>Show</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Bookmarks/bookmark.png</normaloff>:/Bookmarks/bookmark.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Bookmark/bookmark.png</normaloff>:/Bookmark/bookmark.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1450,8 +1450,8 @@ Error</string>
            <string>Toggle</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Bookmarks/bookmark_toggle.png</normaloff>:/Bookmarks/bookmark_toggle.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Bookmark/bookmarkToggle.png</normaloff>:/Bookmark/bookmarkToggle.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1488,8 +1488,8 @@ Error</string>
            <string>Clear</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Bookmarks/bookmark_remove.png</normaloff>:/Bookmarks/bookmark_remove.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Bookmark/bookmarkRemove.png</normaloff>:/Bookmark/bookmarkRemove.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1526,8 +1526,8 @@ Error</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Bookmarks/bookmark_previous.png</normaloff>:/Bookmarks/bookmark_previous.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Bookmark/bookmarkPrevious.png</normaloff>:/Bookmark/bookmarkPrevious.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1564,8 +1564,8 @@ Error</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Bookmarks/bookmark_next.png</normaloff>:/Bookmarks/bookmark_next.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Bookmark/bookmarkNext.png</normaloff>:/Bookmark/bookmarkNext.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1636,8 +1636,8 @@ Error</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Goto/flag_previous.png</normaloff>:/Goto/flag_previous.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/flagPrevious.png</normaloff>:/Goto/flagPrevious.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1674,8 +1674,8 @@ Error</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Goto/flag_next.png</normaloff>:/Goto/flag_next.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Goto/flagNext.png</normaloff>:/Goto/flagNext.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1746,7 +1746,7 @@ Error</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Goto/taskPrevious.png</normaloff>:/Goto/taskPrevious.png</iconset>
           </property>
           <property name="iconSize">
@@ -1784,7 +1784,7 @@ Error</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Goto/taskNext.png</normaloff>:/Goto/taskNext.png</iconset>
           </property>
           <property name="iconSize">
@@ -1862,8 +1862,8 @@ Error</string>
 Script</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Run/restart.png</normaloff>:/Run/restart.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Run/runRestart.png</normaloff>:/Run/runRestart.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1901,8 +1901,8 @@ Script</string>
 Script</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Run/stop_script.png</normaloff>:/Run/stop_script.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Run/runStop.png</normaloff>:/Run/runStop.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1939,8 +1939,8 @@ Script</string>
            <string>Script</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Run/script_run.png</normaloff>:/Run/script_run.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Run/runScript.png</normaloff>:/Run/runScript.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1977,7 +1977,7 @@ Script</string>
            <string>Project</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Run/runProject.png</normaloff>:/Run/runProject.png</iconset>
           </property>
           <property name="iconSize">
@@ -2015,8 +2015,8 @@ Script</string>
            <string>Unittest</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Unittest/unittest.png</normaloff>:/Unittest/unittest.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Unittest/unittestRun.png</normaloff>:/Unittest/unittestRun.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2146,8 +2146,8 @@ Script</string>
 Execute</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Debugger/funct.png</normaloff>:/Debugger/funct.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Debug/debugContextExecute.png</normaloff>:/Debug/debugContextExecute.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2184,8 +2184,8 @@ Execute</string>
            <string>Filters</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Debugger/filter.png</normaloff>:/Debugger/filter.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Debug/debugFilter.png</normaloff>:/Debug/debugFilter.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2360,8 +2360,8 @@ Execute</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Breakpoints/breakpoint_previous.png</normaloff>:/Breakpoints/breakpoint_previous.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Breakpoint/breakpointPrevious.png</normaloff>:/Breakpoint/breakpointPrevious.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2398,8 +2398,8 @@ Execute</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Breakpoints/breakpoint_next.png</normaloff>:/Breakpoints/breakpoint_next.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Breakpoint/breakpointNext.png</normaloff>:/Breakpoint/breakpointNext.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2436,8 +2436,8 @@ Execute</string>
            <string>Toggle</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Breakpoints/breakpoint_toggle.png</normaloff>:/Breakpoints/breakpoint_toggle.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Breakpoint/breakpointToggle.png</normaloff>:/Breakpoint/breakpointToggle.png</iconset>
           </property>
           <property name="popupMode">
            <enum>QToolButton::DelayedPopup</enum>
@@ -2468,8 +2468,8 @@ Execute</string>
            <string>Edit</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Breakpoints/breakpoint_edit.png</normaloff>:/Breakpoints/breakpoint_edit.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Breakpoint/breakpointEdit.png</normaloff>:/Breakpoint/breakpointEdit.png</iconset>
           </property>
           <property name="popupMode">
            <enum>QToolButton::DelayedPopup</enum>
@@ -2500,8 +2500,8 @@ Execute</string>
            <string>Clear</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Breakpoints/breakpoint_clear.png</normaloff>:/Breakpoints/breakpoint_clear.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Breakpoint/breakpointClear.png</normaloff>:/Breakpoint/breakpointClear.png</iconset>
           </property>
           <property name="popupMode">
            <enum>QToolButton::DelayedPopup</enum>
@@ -2571,7 +2571,7 @@ Execute</string>
            <string>Open</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Project/projectOpen.png</normaloff>:/Project/projectOpen.png</iconset>
           </property>
           <property name="iconSize">
@@ -2609,7 +2609,7 @@ Execute</string>
            <string>Save</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Project/projectSave.png</normaloff>:/Project/projectSave.png</iconset>
           </property>
           <property name="iconSize">
@@ -2647,7 +2647,7 @@ Execute</string>
            <string>New</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Project/projectNew.png</normaloff>:/Project/projectNew.png</iconset>
           </property>
           <property name="iconSize">
@@ -2685,7 +2685,7 @@ Execute</string>
            <string>Close</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Project/projectClose.png</normaloff>:/Project/projectClose.png</iconset>
           </property>
           <property name="iconSize">
@@ -2723,8 +2723,8 @@ Execute</string>
            <string>Properties</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Project/projectProps.png</normaloff>:/Project/projectProps.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectProperties.png</normaloff>:/Project/projectProperties.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2796,7 +2796,7 @@ Execute</string>
 File</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset>
             <normaloff>:/Project/projectSources.png</normaloff>:/Project/projectSources.png</iconset>
           </property>
           <property name="iconSize">
@@ -2835,7 +2835,7 @@ File</string>
 Folder</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset>
             <normaloff>:/File/open.png</normaloff>:/File/open.png</iconset>
           </property>
           <property name="iconSize">
@@ -2874,8 +2874,8 @@ Folder</string>
 Translation</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Project/fileLinguist.png</normaloff>:/Project/fileLinguist.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Mime/mimeLinguist.png</normaloff>:/Mime/mimeLinguist.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2913,8 +2913,8 @@ Translation</string>
 For Files</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Search/filefind.png</normaloff>:/Search/filefind.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectFind.png</normaloff>:/Project/projectFind.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2985,8 +2985,8 @@ For Files</string>
            <string>Session</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Project/kwin.png</normaloff>:/Project/kwin.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectSession.png</normaloff>:/Project/projectSession.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3023,8 +3023,8 @@ For Files</string>
            <string>Packagers</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Package/pluginArchive.png</normaloff>:/Package/pluginArchive.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Package/package.png</normaloff>:/Package/package.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3061,8 +3061,8 @@ For Files</string>
            <string>Debugger</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Goto/syntaxError.png</normaloff>:/Goto/syntaxError.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectDebug.png</normaloff>:/Project/projectDebug.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3099,8 +3099,8 @@ For Files</string>
            <string>Documenation</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Project/readme.png</normaloff>:/Project/readme.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectDocs.png</normaloff>:/Project/projectDocs.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3137,8 +3137,8 @@ For Files</string>
            <string>Diagrams</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Project/3d.png</normaloff>:/Project/3d.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectDiagram.png</normaloff>:/Project/projectDiagram.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3175,7 +3175,7 @@ For Files</string>
            <string>Analyze Source</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/View/zoomTo.png</normaloff>:/View/zoomTo.png</iconset>
           </property>
           <property name="iconSize">
@@ -3247,7 +3247,7 @@ For Files</string>
            <string>Open</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Multiproject/multiProjectOpen.png</normaloff>:/Multiproject/multiProjectOpen.png</iconset>
           </property>
           <property name="iconSize">
@@ -3285,7 +3285,7 @@ For Files</string>
            <string>Save</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Multiproject/multiProjectSave.png</normaloff>:/Multiproject/multiProjectSave.png</iconset>
           </property>
           <property name="iconSize">
@@ -3324,8 +3324,8 @@ For Files</string>
 Project</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Project/projectOpen.png</normaloff>:/Project/projectOpen.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Multiproject/multiProjectAdd.png</normaloff>:/Multiproject/multiProjectAdd.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3362,7 +3362,7 @@ Project</string>
            <string>New</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Multiproject/multiProjectNew.png</normaloff>:/Multiproject/multiProjectNew.png</iconset>
           </property>
           <property name="iconSize">
@@ -3400,7 +3400,7 @@ Project</string>
            <string>Close</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/Multiproject/multiProjectClose.png</normaloff>:/Multiproject/multiProjectClose.png</iconset>
           </property>
           <property name="iconSize">
@@ -3438,8 +3438,8 @@ Project</string>
            <string>Properties</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Multiproject/multiProjectProps.png</normaloff>:/Multiproject/multiProjectProps.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Multiproject/multiProjectConfigure.png</normaloff>:/Multiproject/multiProjectConfigure.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3515,8 +3515,8 @@ Project</string>
            <string>Update</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsUpdate.png</normaloff>:/Vcs/vcsUpdate.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsUpdate.png</normaloff>:/VCS/vcsUpdate.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3554,8 +3554,8 @@ Project</string>
 Changes</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsCommit.png</normaloff>:/Vcs/vcsCommit.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsCommit.png</normaloff>:/VCS/vcsCommit.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3592,13 +3592,13 @@ Changes</string>
            <string>Checkout</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsCheckout.png</normaloff>:/Vcs/vcsCheckout.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsCheckout.png</normaloff>:/VCS/vcsCheckout.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>22</width>
-            <height>22</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="popupMode">
@@ -3631,13 +3631,13 @@ Changes</string>
 Project</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsExport.png</normaloff>:/Vcs/vcsExport.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsExport.png</normaloff>:/VCS/vcsExport.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>22</width>
-            <height>22</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="popupMode">
@@ -3657,9 +3657,9 @@ Project</string>
      <widget class="QGroupBox" name="groupBox_22">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>550</x>
         <y>0</y>
-        <width>361</width>
+        <width>481</width>
         <height>91</height>
        </rect>
       </property>
@@ -3677,7 +3677,7 @@ Project</string>
         <rect>
          <x>0</x>
          <y>20</y>
-         <width>361</width>
+         <width>461</width>
          <height>70</height>
         </rect>
        </property>
@@ -3686,7 +3686,7 @@ Project</string>
          <number>2</number>
         </property>
         <item>
-         <widget class="QToolButton" name="toolButton_88">
+         <widget class="QToolButton" name="toolButton_90">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -3700,11 +3700,11 @@ Project</string>
            </size>
           </property>
           <property name="text">
-           <string>Logs</string>
+           <string>Diff</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsLog.png</normaloff>:/Vcs/vcsLog.png</iconset>
+           <iconset>
+            <normaloff>:/Vcs/vcsDiff.png</normaloff>:/Vcs/vcsDiff.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3724,7 +3724,7 @@ Project</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_90">
+         <widget class="QToolButton" name="toolButton_110">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -3738,11 +3738,11 @@ Project</string>
            </size>
           </property>
           <property name="text">
-           <string>Diff</string>
+           <string>Branch</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsDiff.png</normaloff>:/Vcs/vcsDiff.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsBranch.png</normaloff>:/VCS/vcsBranch.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3800,44 +3800,6 @@ Project</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_110">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>44</width>
-            <height>22</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Branch</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsBranch.png</normaloff>:/Vcs/vcsBranch.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="popupMode">
-           <enum>QToolButton::MenuButtonPopup</enum>
-          </property>
-          <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonTextUnderIcon</enum>
-          </property>
-          <property name="autoRaise">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QToolButton" name="toolButton_91">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -3856,7 +3818,7 @@ Project</string>
 Source</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset>
             <normaloff>:/Project/projectViewer.png</normaloff>:/Project/projectViewer.png</iconset>
           </property>
           <property name="iconSize">
@@ -3877,7 +3839,7 @@ Source</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_87">
+         <widget class="QToolButton" name="toolButton_112">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -3891,12 +3853,12 @@ Source</string>
            </size>
           </property>
           <property name="text">
-           <string>Repository
-Browser</string>
+           <string>Execute
+Command</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsRepoBrowser.png</normaloff>:/Vcs/vcsRepoBrowser.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsExecuteCommand.png</normaloff>:/VCS/vcsExecuteCommand.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3916,7 +3878,7 @@ Browser</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_89">
+         <widget class="QToolButton" name="toolButton_115">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -3930,11 +3892,50 @@ Browser</string>
            </size>
           </property>
           <property name="text">
-           <string>Status</string>
+           <string>Command
+Options</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsStatus.png</normaloff>:/Vcs/vcsStatus.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsProperties.png</normaloff>:/VCS/vcsProperties.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_114">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Configure</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsConfigure.png</normaloff>:/VCS/vcsConfigure.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -3961,7 +3962,7 @@ Browser</string>
        <rect>
         <x>210</x>
         <y>0</y>
-        <width>191</width>
+        <width>151</width>
         <height>91</height>
        </rect>
       </property>
@@ -3977,9 +3978,9 @@ Browser</string>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>20</y>
-         <width>191</width>
+         <width>141</width>
          <height>71</height>
         </rect>
        </property>
@@ -4002,17 +4003,16 @@ Browser</string>
            </size>
           </property>
           <property name="text">
-           <string>Add
-File</string>
+           <string>Add</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsAdd.png</normaloff>:/Vcs/vcsAdd.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsAdd.png</normaloff>:/VCS/vcsAdd.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>22</width>
-            <height>22</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="popupMode">
@@ -4041,17 +4041,16 @@ File</string>
            </size>
           </property>
           <property name="text">
-           <string>Remove
-File</string>
+           <string>Remove</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsRemove.png</normaloff>:/Vcs/vcsRemove.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsRemove.png</normaloff>:/VCS/vcsRemove.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>22</width>
-            <height>22</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="popupMode">
@@ -4065,6 +4064,78 @@ File</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_87">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Browser</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsBrowser.png</normaloff>:/VCS/vcsBrowser.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_28">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>0</y>
+        <width>81</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Properties</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>81</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QToolButton" name="toolButton_93">
           <property name="sizePolicy">
@@ -4080,11 +4151,11 @@ File</string>
            </size>
           </property>
           <property name="text">
-           <string>Properties</string>
+           <string>List</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Vcs/vcsRepo.png</normaloff>:/Vcs/vcsRepo.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsListProperties.png</normaloff>:/VCS/vcsListProperties.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4093,10 +4164,230 @@ File</string>
            </size>
           </property>
           <property name="popupMode">
-           <enum>QToolButton::MenuButtonPopup</enum>
+           <enum>QToolButton::DelayedPopup</enum>
           </property>
           <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonTextUnderIcon</enum>
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_116">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Edit</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsEditProperty.png</normaloff>:/VCS/vcsEditProperty.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_117">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Delete</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsDeleteProperty.png</normaloff>:/VCS/vcsDeleteProperty.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_32">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>0</y>
+        <width>81</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Changes</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="layoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>81</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="toolButton_118">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Revert</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsRevert.png</normaloff>:/VCS/vcsRevert.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_119">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Merge</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/VCS/vcsMerge.png</normaloff>:/VCS/vcsMerge.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_120">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Resolve</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
           </property>
           <property name="autoRaise">
            <bool>true</bool>
@@ -4167,13 +4458,13 @@ File</string>
 Tool</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/View/zoomTo.png</normaloff>:/View/zoomTo.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>22</width>
-            <height>22</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="toolButtonStyle">
@@ -4202,13 +4493,13 @@ Tool</string>
            <string>Zoom In</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/zoomin.png</normaloff>:/View/zoomin.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/zoomIn.png</normaloff>:/View/zoomIn.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>16</width>
-            <height>16</height>
+            <width>22</width>
+            <height>22</height>
            </size>
           </property>
           <property name="toolButtonStyle">
@@ -4237,13 +4528,13 @@ Tool</string>
            <string>Zoom Out</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
+           <iconset resource="../E5Icons/e5icons.qrc">
             <normaloff>:/View/zoomout.png</normaloff>:/View/zoomout.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>16</width>
-            <height>16</height>
+            <width>22</width>
+            <height>22</height>
            </size>
           </property>
           <property name="toolButtonStyle">
@@ -4272,13 +4563,13 @@ Tool</string>
            <string>Reset Zoom</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/zoomreset.png</normaloff>:/View/zoomreset.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/zoomReset.png</normaloff>:/View/zoomReset.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>16</width>
-            <height>16</height>
+            <width>22</width>
+            <height>22</height>
            </size>
           </property>
           <property name="toolButtonStyle">
@@ -4474,8 +4765,8 @@ Tool</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/prevsplit.png</normaloff>:/View/prevsplit.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/splitPrev.png</normaloff>:/View/splitPrev.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4509,8 +4800,8 @@ Tool</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/nextsplit.png</normaloff>:/View/nextsplit.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/splitNext.png</normaloff>:/View/splitNext.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4544,8 +4835,8 @@ Tool</string>
            <string>Add</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/view_right.png</normaloff>:/View/view_right.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/splitNew.png</normaloff>:/View/splitNew.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4579,8 +4870,8 @@ Tool</string>
            <string>Remove</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/removesplit.png</normaloff>:/View/removesplit.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/splitRemove.png</normaloff>:/View/splitRemove.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4615,8 +4906,8 @@ Tool</string>
 Left-Right</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/view_left_right.png</normaloff>:/View/view_left_right.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/arrangeLeftRight.png</normaloff>:/View/arrangeLeftRight.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4654,8 +4945,8 @@ Left-Right</string>
 Top-Bottom</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/View/view_top_bottom.png</normaloff>:/View/view_top_bottom.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/View/arrangeTopBottom.png</normaloff>:/View/arrangeTopBottom.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4856,7 +5147,7 @@ Views</string>
      <widget class="QGroupBox" name="groupBox_24">
       <property name="geometry">
        <rect>
-        <x>440</x>
+        <x>570</x>
         <y>0</y>
         <width>141</width>
         <height>92</height>
@@ -4985,7 +5276,7 @@ Views</string>
        <rect>
         <x>10</x>
         <y>0</y>
-        <width>231</width>
+        <width>261</width>
         <height>91</height>
        </rect>
       </property>
@@ -5003,7 +5294,7 @@ Views</string>
         <rect>
          <x>0</x>
          <y>20</y>
-         <width>231</width>
+         <width>266</width>
          <height>70</height>
         </rect>
        </property>
@@ -5069,8 +5360,8 @@ Viewer</string>
 API</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Help/eric.png</normaloff>:/Help/eric.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Doc/docEric.png</normaloff>:/Doc/docEric.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -5107,8 +5398,8 @@ API</string>
            <string>Python</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Help/preferences-python.png</normaloff>:/Help/preferences-python.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Doc/docPython.jpg</normaloff>:/Doc/docPython.jpg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -5145,8 +5436,8 @@ API</string>
            <string>Qt4</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Resources/Icons/ericActions.qrc">
-            <normaloff>:/Help/helpAboutQt.png</normaloff>:/Help/helpAboutQt.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Doc/docQt.png</normaloff>:/Doc/docQt.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -5203,13 +5494,51 @@ API</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_111">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>44</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>PySide</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Doc/docPySide.png</normaloff>:/Doc/docPySide.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextUnderIcon</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_27">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>380</x>
         <y>0</y>
         <width>181</width>
         <height>92</height>
@@ -5399,6 +5728,116 @@ Bug</string>
        </layout>
       </widget>
      </widget>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_26">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>220</y>
+      <width>191</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Information</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="layoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>191</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_16">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QToolButton" name="toolButton_88">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>44</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Logs</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../E5Icons/e5icons.qrc">
+          <normaloff>:/VCS/vcsLog.png</normaloff>:/VCS/vcsLog.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::MenuButtonPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_89">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>44</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Status</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../E5Icons/e5icons.qrc">
+          <normaloff>:/VCS/vcsStatus.png</normaloff>:/VCS/vcsStatus.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::DelayedPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>
@@ -6019,7 +6458,7 @@ Bug</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/File/new.png</normaloff>:/File/new.png</iconset>
    </property>
    <property name="text">
@@ -6031,7 +6470,7 @@ Bug</string>
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/File/open.png</normaloff>:/File/open.png</iconset>
    </property>
    <property name="text">
@@ -6043,7 +6482,7 @@ Bug</string>
   </action>
   <action name="actionClose">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/File/close.png</normaloff>:/File/close.png</iconset>
    </property>
    <property name="text">
@@ -6068,7 +6507,7 @@ Bug</string>
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/File/fileSave.png</normaloff>:/File/fileSave.png</iconset>
    </property>
    <property name="text">
@@ -6080,7 +6519,7 @@ Bug</string>
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/File/fileSaveAs.png</normaloff>:/File/fileSaveAs.png</iconset>
    </property>
    <property name="text">
@@ -6092,7 +6531,7 @@ Bug</string>
   </action>
   <action name="actionSaveAll">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/File/fileSaveAll.png</normaloff>:/File/fileSaveAll.png</iconset>
    </property>
    <property name="text">
@@ -6137,7 +6576,7 @@ Bug</string>
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/File/exit.png</normaloff>:/File/exit.png</iconset>
    </property>
    <property name="text">
@@ -6203,7 +6642,7 @@ Bug</string>
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editUndo.png</normaloff>:/Edit/editUndo.png</iconset>
    </property>
    <property name="text">
@@ -6215,7 +6654,7 @@ Bug</string>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editRedo.png</normaloff>:/Edit/editRedo.png</iconset>
    </property>
    <property name="text">
@@ -6235,7 +6674,7 @@ Bug</string>
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editCut.png</normaloff>:/Edit/editCut.png</iconset>
    </property>
    <property name="text">
@@ -6247,7 +6686,7 @@ Bug</string>
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editCopy.png</normaloff>:/Edit/editCopy.png</iconset>
    </property>
    <property name="text">
@@ -6259,7 +6698,7 @@ Bug</string>
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editPaste.png</normaloff>:/Edit/editPaste.png</iconset>
    </property>
    <property name="text">
@@ -6307,7 +6746,7 @@ Bug</string>
   </action>
   <action name="actionComment">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editComment.png</normaloff>:/Edit/editComment.png</iconset>
    </property>
    <property name="text">
@@ -6425,7 +6864,7 @@ Bug</string>
   </action>
   <action name="actionSearch_Find">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Search/find.png</normaloff>:/Search/find.png</iconset>
    </property>
    <property name="text">
@@ -6573,7 +7012,7 @@ Bug</string>
   </action>
   <action name="actionScript_Restart">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Run/restart.png</normaloff>:/Run/restart.png</iconset>
    </property>
    <property name="text">
@@ -6591,7 +7030,7 @@ Bug</string>
   </action>
   <action name="actionScript_Run">
    <property name="icon">
-    <iconset>
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Run/runScript.png</normaloff>:/Run/runScript.png</iconset>
    </property>
    <property name="text">
@@ -6600,7 +7039,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectRun">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Run/runProject.png</normaloff>:/Run/runProject.png</iconset>
    </property>
    <property name="text">
@@ -6618,7 +7057,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectDebug">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Run/debugProject.png</normaloff>:/Run/debugProject.png</iconset>
    </property>
    <property name="text">
@@ -6636,7 +7075,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectProfile">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Run/profileProject.png</normaloff>:/Run/profileProject.png</iconset>
    </property>
    <property name="text">
@@ -6654,7 +7093,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectCoverageRun">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Run/coverageProject.png</normaloff>:/Run/coverageProject.png</iconset>
    </property>
    <property name="text">
@@ -6779,7 +7218,7 @@ Bug</string>
   </action>
   <action name="actionUnittest">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Unittest/unittest.png</normaloff>:/Unittest/unittest.png</iconset>
    </property>
    <property name="text">
@@ -6788,7 +7227,7 @@ Bug</string>
   </action>
   <action name="actionUnittest_Restart">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Unittest/unittestRestart.png</normaloff>:/Unittest/unittestRestart.png</iconset>
    </property>
    <property name="text">
@@ -6797,7 +7236,7 @@ Bug</string>
   </action>
   <action name="actionUnittest_Script">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Unittest/unittestScript.png</normaloff>:/Unittest/unittestScript.png</iconset>
    </property>
    <property name="text">
@@ -6806,7 +7245,7 @@ Bug</string>
   </action>
   <action name="actionUnittest_Project">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Unittest/unittestProject.png</normaloff>:/Unittest/unittestProject.png</iconset>
    </property>
    <property name="text">
@@ -6815,7 +7254,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_New">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Multiproject/multiProjectNew.png</normaloff>:/Multiproject/multiProjectNew.png</iconset>
    </property>
    <property name="text">
@@ -6824,7 +7263,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Open">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Multiproject/multiProjectOpen.png</normaloff>:/Multiproject/multiProjectOpen.png</iconset>
    </property>
    <property name="text">
@@ -6833,7 +7272,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Close">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Multiproject/multiProjectClose.png</normaloff>:/Multiproject/multiProjectClose.png</iconset>
    </property>
    <property name="text">
@@ -6842,7 +7281,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Save">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Multiproject/multiProjectSave.png</normaloff>:/Multiproject/multiProjectSave.png</iconset>
    </property>
    <property name="text">
@@ -6851,7 +7290,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_SaveAs">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Multiproject/multiProjectSaveAs.png</normaloff>:/Multiproject/multiProjectSaveAs.png</iconset>
    </property>
    <property name="text">
@@ -6865,7 +7304,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Properties">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Multiproject/multiProjectProps.png</normaloff>:/Multiproject/multiProjectProps.png</iconset>
    </property>
    <property name="text">
@@ -6874,7 +7313,7 @@ Bug</string>
   </action>
   <action name="actionProject_New">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Project/projectNew.png</normaloff>:/Project/projectNew.png</iconset>
    </property>
    <property name="text">
@@ -6883,7 +7322,7 @@ Bug</string>
   </action>
   <action name="actionProject_Open">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Project/projectOpen.png</normaloff>:/Project/projectOpen.png</iconset>
    </property>
    <property name="text">
@@ -6892,7 +7331,7 @@ Bug</string>
   </action>
   <action name="actionProject_Close">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Project/projectClose.png</normaloff>:/Project/projectClose.png</iconset>
    </property>
    <property name="text">
@@ -6901,7 +7340,7 @@ Bug</string>
   </action>
   <action name="actionProject_Save">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Project/projectSave.png</normaloff>:/Project/projectSave.png</iconset>
    </property>
    <property name="text">
@@ -6910,7 +7349,7 @@ Bug</string>
   </action>
   <action name="actionProject_SaveAs">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Project/projectSaveAs.png</normaloff>:/Project/projectSaveAs.png</iconset>
    </property>
    <property name="text">
@@ -6939,7 +7378,7 @@ Bug</string>
   </action>
   <action name="actionProjectProperties">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Project/projectProps.png</normaloff>:/Project/projectProps.png</iconset>
    </property>
    <property name="text">
@@ -6948,7 +7387,7 @@ Bug</string>
   </action>
   <action name="actionProjectUserProperties">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Project/projectUserProps.png</normaloff>:/Project/projectUserProps.png</iconset>
    </property>
    <property name="text">
@@ -7216,7 +7655,7 @@ Bug</string>
   </action>
   <action name="actionBookmarks_Show">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Bookmarks/bookmark.png</normaloff>:/Bookmarks/bookmark.png</iconset>
    </property>
    <property name="text">
@@ -7468,7 +7907,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Update">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsUpdate.png</normaloff>:/Vcs/vcsUpdate.png</iconset>
    </property>
    <property name="text">
@@ -7477,7 +7916,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Commit">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsCommit.png</normaloff>:/Vcs/vcsCommit.png</iconset>
    </property>
    <property name="text">
@@ -7486,7 +7925,7 @@ Bug</string>
   </action>
   <action name="actionSvn_New">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsCheckout.png</normaloff>:/Vcs/vcsCheckout.png</iconset>
    </property>
    <property name="text">
@@ -7495,7 +7934,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Export">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsExport.png</normaloff>:/Vcs/vcsExport.png</iconset>
    </property>
    <property name="text">
@@ -7504,7 +7943,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Add">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsAdd.png</normaloff>:/Vcs/vcsAdd.png</iconset>
    </property>
    <property name="text">
@@ -7513,7 +7952,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Remove">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsRemove.png</normaloff>:/Vcs/vcsRemove.png</iconset>
    </property>
    <property name="text">
@@ -7541,7 +7980,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Log">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsLog.png</normaloff>:/Vcs/vcsLog.png</iconset>
    </property>
    <property name="text">
@@ -7560,7 +7999,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Status">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsStatus.png</normaloff>:/Vcs/vcsStatus.png</iconset>
    </property>
    <property name="text">
@@ -7569,7 +8008,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Diff">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsDiff.png</normaloff>:/Vcs/vcsDiff.png</iconset>
    </property>
    <property name="text">
@@ -7588,7 +8027,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Revert">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsRevert.png</normaloff>:/Vcs/vcsRevert.png</iconset>
    </property>
    <property name="text">
@@ -7597,7 +8036,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Merge">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Vcs/vcsMerge.png</normaloff>:/Vcs/vcsMerge.png</iconset>
    </property>
    <property name="text">
@@ -7654,7 +8093,7 @@ Bug</string>
   </action>
   <action name="actionCreatePkgList">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Package/pluginArchiveList.png</normaloff>:/Package/pluginArchiveList.png</iconset>
    </property>
    <property name="text">
@@ -7663,7 +8102,7 @@ Bug</string>
   </action>
   <action name="actionCreatePluginArchive">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Package/pluginArchive.png</normaloff>:/Package/pluginArchive.png</iconset>
    </property>
    <property name="text">
@@ -7672,7 +8111,7 @@ Bug</string>
   </action>
   <action name="actionCreatePluginArchiveSnapshot">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset>
      <normaloff>:/Package/pluginArchiveSnapshot.png</normaloff>:/Package/pluginArchiveSnapshot.png</iconset>
    </property>
    <property name="text">
@@ -7868,7 +8307,7 @@ Bug</string>
   </action>
   <action name="actionUncomment_2">
    <property name="icon">
-    <iconset resource="../../Resources/Icons/ericActions.qrc">
+    <iconset resource="../E5Icons/e5icons.qrc">
      <normaloff>:/Edit/editUncomment.png</normaloff>:/Edit/editUncomment.png</iconset>
    </property>
    <property name="text">
@@ -7908,6 +8347,7 @@ Bug</string>
  </widget>
  <resources>
   <include location="../../Resources/Icons/ericActions.qrc"/>
+  <include location="../E5Icons/e5icons.qrc"/>
  </resources>
  <connections/>
 </ui>
