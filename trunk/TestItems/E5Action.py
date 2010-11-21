@@ -14,8 +14,8 @@ from PyQt4.QtGui import QAction, QActionGroup, QIcon, QKeySequence, qApp
 
 class ArgumentsError(RuntimeError):
     """
-    Class implementing an exception, which is raised, if the wrong number of arguments
-    are given.
+    Class implementing an exception raised if the wrong type
+    or combination of arguments are given.
     """
     def __init__(self, error):
         """

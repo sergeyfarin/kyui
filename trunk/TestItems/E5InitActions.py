@@ -34,21 +34,64 @@ class E5ActionCreator():
             """ preferences will be written to disc.</p>"""))
         target.actions.append(target.fileExitAct)
         
-        E5ActionCreator.initViewManagerActions(target, iconCache)
+        target.editActions = []
+        target.fileActions = []
+        target.searchActions = []
+        target.viewActions = []
+        target.windowActions = []
+        target.macroActions = []
+        target.bookmarkActions = []
+        target.spellingActions = []
+        target.dbgActions = []
+        target.utActions = []
+        target.projectActions = []
+        target.mpActions = []
+        target.profileActions = []
+        target.helpActions = []
+        target.projActions = []
+        target.prefActions = []
+        target.toolActions = []
         
+        
+        target.actionSets = {
+            'Bookmarks'  : target.bookmarkActions, 
+            'Debug'     : target.dbgActions, 
+            'Edit'      : target.editActions, 
+            'File'      : target.fileActions,
+            'Help'      : target.helpActions, 
+            'Macro'     : target.macroActions, 
+            'Multiproject' : target.mpActions,
+            'Preferences'  : target.prefActions, 
+            'Project'   : target.projActions, 
+            'Search'    : target.searchActions, 
+            'Spelling'  : target.spellingActions,
+            'tools'     : target.toolActions, 
+            'unittest'  : target.utActions , 
+            'View'      : target.viewActions, 
+            'Window'    : target.windowActions, 
+        }
+        
+        E5ActionCreator.initBookmarkActions(target, iconCache)
         E5ActionCreator.initDebuggerActions(target, iconCache)
-        E5ActionCreator.initUnittestActions(target, iconCache)
-        E5ActionCreator.initProjectActions(target, iconCache)
+        E5ActionCreator.initEditActions(target, iconCache)
+        E5ActionCreator.initFileActions(target, iconCache)
+        E5ActionCreator.initMacroActions(target, iconCache)
         E5ActionCreator.initMultiprojectActions(target, iconCache)
-        
-        E5ActionCreator.initProfileActions(target, iconCache)
-        E5ActionCreator.initToolActions(target, iconCache)
         E5ActionCreator.initPluginActions(target, iconCache)
+#        E5ActionCreator.initProfileActions(target, iconCache)
+        E5ActionCreator.initProjectActions(target, iconCache)
+        E5ActionCreator.initPreferenceActions(target, iconCache)
+        E5ActionCreator.initSearchActions(target, iconCache)
+        E5ActionCreator.initSpellingActions(target, iconCache)
+        E5ActionCreator.initToolActions(target, iconCache)
+        E5ActionCreator.initUnittestActions(target, iconCache)
+        E5ActionCreator.initViewActions(target, iconCache)
+        E5ActionCreator.initWindowActions(target, iconCache)
         
         E5ActionCreator.initHelpActions(target, iconCache)
         E5ActionCreator.initDocActions(target, iconCache)
     
-    def initProfileActions(target, iconCache):
+    def initWindowActions(target, iconCache):
 
         target.viewProfileActGrp = QActionGroup(target)
         target.viewProfileActGrp.setObjectName("viewprofiles")
@@ -67,7 +110,7 @@ class E5ActionCreator():
             """<p>Activate the "Edit View Profile". Windows being shown,"""
             """ if this profile is active, may be configured with the"""
             """ "View Profile Configuration" dialog.</p>"""))
-        target.actions.append(target.setEditProfileAct)
+        target.windowActions.append(target.setEditProfileAct)
         
         target.setDebugProfileAct = KyAction(\
                 iconText=target.tr('Debug Profile'),
@@ -82,56 +125,41 @@ class E5ActionCreator():
             """<p>Activate the "Debug View Profile". Windows being shown,"""
             """ if this profile is active, may be configured with the"""
             """ "View Profile Configuration" dialog.</p>"""))
-        target.actions.append(target.setDebugProfileAct)
+        target.windowActions.append(target.setDebugProfileAct)
         
         target.pbAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Project Viewer'),
                 text=target.tr('&Project-Viewer'), 
                 objectName='project_viewer',
+                shortcut=QKeySequence(target.tr("Alt+Shift+P")),
                 checkable=True,
                 statusTip=target.tr('Toggle the Project-Viewer window'))
         target.pbAct.setWhatsThis(target.tr(
             """<b>Toggle the Project-Viewer window</b>"""
             """<p>If the Project-Viewer window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.pbAct)
+        target.windowActions.append(target.pbAct)
         
-        target.pbActivateAct = KyAction(\
-                parent=target, 
-                text=target.tr('Activate Project-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+P")),
-                objectName='project_viewer_activate', 
-                checkable=True)
-        target.actions.append(target.pbActivateAct)
-        target.addAction(target.pbActivateAct)
-
         target.mpbAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Multiproject Viewer'), 
                 text=target.tr('&Multiproject-Viewer'),
                 objectName='multi_project_viewer', 
+                shortcut=QKeySequence(target.tr("Alt+Shift+M")),
                 checkable=True, 
-                statusTip=target.tr('Toggle the Multiproject-Viewer window'))
-        target.mpbAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the Multiproject-Viewer window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Multiproject-Viewer window</b>"""
             """<p>If the Multiproject-Viewer window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.mpbAct)
+        target.windowActions.append(target.mpbAct)
         
-        target.mpbActivateAct = KyAction( \
-                parent=target, 
-                text=target.tr('Activate Multiproject-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+M")),
-                objectName='multi_project_viewer_activate',
-                checkable=True)
-        target.actions.append(target.mpbActivateAct)
-        target.addAction(target.mpbActivateAct)
-
         target.debugViewerAct = KyAction( \
                 parent=target, 
                 iconText=target.tr('Debug Viewer'),
                 text=target.tr('&Debug-Viewer'),
+                shortcut=QKeySequence(target.tr("Alt+Shift+D")),
                 objectName='debug_viewer',
                 checkable=True, 
                 statusTip=target.tr('Toggle the Debug-Viewer window'))
@@ -140,77 +168,47 @@ class E5ActionCreator():
             """<p>If the Debug-Viewer window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
         target.actions.append(target.debugViewerAct)
-        
-        target.debugViewerActivateAct = KyAction(parent=target, 
-                text=target.tr('Activate Debug-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+D")),
-                objectName='debug_viewer_activate',
-                checkable=True)
-        target.actions.append(target.debugViewerActivateAct)
-        target.addAction(target.debugViewerActivateAct)
 
         target.shellAct = KyAction(parent=target, 
                 iconText=target.tr('Shell'),
                 text=target.tr('&Shell'),
                 objectName='interpreter_shell',
+                shortcut=QKeySequence(target.tr("Alt+Shift+S")), 
                 checkable=True, 
-                statusTip=target.tr('Toggle the Shell window'))
-        target.shellAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the Shell window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Shell window</b>"""
             """<p>If the Shell window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.shellAct)
+        target.windowActions.append(target.shellAct)
 
-        target.shellActivateAct = KyAction(parent=target, 
-                text=target.tr('Activate Shell'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+S")),
-                objectName='interpreter_shell_activate',
-                checkable=True)
-        target.actions.append(target.shellActivateAct)
-        target.addAction(target.shellActivateAct)
-
-        target.terminalAct = KyAction(parent=target, 
+        target.terminalAct = KyAction(\
+                parent=target, 
                 iconText=target.tr('Terminal'),
                 text=target.tr('Te&rminal'),
                 objectName='terminal',
+                shortcut=QKeySequence(target.tr("Alt+Shift+R")),
                 checkable=True, 
-                statusTip=target.tr('Toggle the Terminal window'))
-        target.terminalAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the Terminal window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Terminal window</b>"""
             """<p>If the Terminal window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.terminalAct)
-
-        target.terminalActivateAct = KyAction(\
-                parent=target, 
-                text=target.tr('Activate Terminal'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+R")),
-                objectName='terminal_activate',
-                checkable=True)
-        target.actions.append(target.terminalActivateAct)
-        target.addAction(target.terminalActivateAct)
+        target.windowActions.append(target.terminalAct)
 
         target.browserAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('File Browser'),
                 text=target.tr('File &Browser'), 
                 objectName='file_browser',
+                shortcut=QKeySequence(target.tr("Alt+Shift+F")),
                 checkable=True, 
-                statusTip=target.tr('Toggle the File-Browser window'))
-        target.browserAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the File-Browser window'), 
+                whatsThis=target.tr(
             """<b>Toggle the File-Browser window</b>"""
             """<p>If the File-Browser window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.browserAct)
-
-        target.browserActivateAct = KyAction(\
-                parent=target,
-                text=target.tr('Activate File-Browser'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+F")),
-                objectName='file_browser_activate',
-                checkable=True)
-        target.actions.append(target.browserActivateAct)
-        target.addAction(target.browserActivateAct)
+        target.windowActions.append(target.browserAct)
 
         target.logViewerAct = KyAction(\
                 parent=target, 
@@ -218,43 +216,27 @@ class E5ActionCreator():
                 text=target.tr('&Log-Viewer'), 
                 objectName='log_viewer',
                 checkable=True, 
-                statusTip=target.tr('Toggle the Log-Viewer window'))
-        target.logViewerAct.setWhatsThis(target.tr(
+                shortcut=QKeySequence(target.tr("Alt+Shift+G")),
+                statusTip=target.tr('Toggle the Log-Viewer window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Log-Viewer window</b>"""
             """<p>If the Log-Viewer window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.logViewerAct)
-
-        target.logViewerActivateAct = KyAction(\
-                parent=target, 
-                text=target.tr('Activate Log-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+G")),
-                objectName='log_viewer_activate',
-                checkable=True)
-        target.actions.append(target.logViewerActivateAct)
-        target.addAction(target.logViewerActivateAct)
+        target.windowActions.append(target.logViewerAct)
 
         target.taskViewerAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Task Viewer'),
                 text=target.tr('T&ask-Viewer'),
                 objectName='task_viewer',
+                shortcut=QKeySequence(target.tr("Alt+Shift+T")),
                 checkable=True, 
-                statusTip=target.tr('Toggle the Task-Viewer window'))
-        target.taskViewerAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the Task-Viewer window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Task-Viewer window</b>"""
             """<p>If the Task-Viewer window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.taskViewerAct)
-
-        target.taskViewerActivateAct = KyAction(\
-                parent=target, 
-                text=target.tr('Activate Task-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+T")),
-                objectName='task_viewer_activate',
-                checkable=True)
-        target.actions.append(target.taskViewerActivateAct)
-        target.addAction(target.taskViewerActivateAct)
+        target.windowActions.append(target.taskViewerAct)
 
         target.templateViewerAct = KyAction(\
                 parent=target,
@@ -262,22 +244,13 @@ class E5ActionCreator():
                 iconText=target.tr('Temp&late-Viewer'),
                 objectName='template_viewer',
                 checkable=True, 
-                statusTip=target.tr('Toggle the Template-Viewer window'))
-        target.templateViewerAct.setWhatsThis(target.tr(
+                shortcut=QKeySequence(target.tr("Alt+Shift+A")),
+                statusTip=target.tr('Toggle the Template-Viewer window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Template-Viewer window</b>"""
             """<p>If the Template-Viewer window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        
-        target.actions.append(target.templateViewerAct)
-
-        target.templateViewerActivateAct = KyAction(\
-                parent=target,
-                text=target.tr('Activate Template-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+A")),
-                objectName='template_viewer_activate', 
-                checkable=True)
-        target.actions.append(target.templateViewerActivateAct)
-        target.addAction(target.templateViewerActivateAct)
+        target.windowActions.append(target.templateViewerAct)
 
         target.vtAct = KyAction(\
                 parent=target,
@@ -285,12 +258,12 @@ class E5ActionCreator():
                 text=target.tr('&Vertical Toolbox'),
                 objectName='vertical_toolbox',
                 checkable=True, 
-                statusTip=target.tr('Toggle the Vertical Toolbox window'))
-        target.vtAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the Vertical Toolbox window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Vertical Toolbox window</b>"""
             """<p>If the Vertical Toolbox window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.vtAct)
+        target.windowActions.append(target.vtAct)
         
         target.htAct = KyAction(\
                 parent=target,
@@ -298,12 +271,12 @@ class E5ActionCreator():
                 text=target.tr('&Horizontal Toolbox'),
                 objectName='horizontal_toolbox',
                 checkable=True, 
-                statusTip=target.tr('Toggle the Horizontal Toolbox window'))
-        target.htAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the Horizontal Toolbox window'), 
+                whatsThis=target.tr(
             """<b>Toggle the Horizontal Toolbox window</b>"""
             """<p>If the Horizontal Toolbox window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.htAct)
+        target.windowActions.append(target.htAct)
         
         target.lsbAct = KyAction(\
                 parent=target,
@@ -316,7 +289,7 @@ class E5ActionCreator():
             """<b>Toggle the left sidebar window</b>"""
             """<p>If the left sidebar window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.lsbAct)
+        target.windowActions.append(target.lsbAct)
         
         target.bsbAct = KyAction(\
                 parent=target,
@@ -324,35 +297,27 @@ class E5ActionCreator():
                 text=target.tr('&Bottom Sidebar'),
                 objectName='bottom_sidebar',
                 checkable=True, 
-                statusTip=target.tr('Toggle the bottom sidebar window'))
-        target.bsbAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Toggle the bottom sidebar window'), 
+                whatsThis=target.tr(
             """<b>Toggle the bottom sidebar window</b>"""
             """<p>If the bottom sidebar window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.bsbAct)
+        target.windowActions.append(target.bsbAct)
         
         target.cooperationViewerAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Cooperation'),
                 text=target.tr('&Cooperation'),
                 objectName='cooperation_viewer',
+                shortcut=QKeySequence(target.tr("Alt+Shift+O")),
                 checkable=True, 
                 statusTip=target.tr('Toggle the Cooperation window'), 
                 whatsThis=target.tr(
             """<b>Toggle the Cooperation window</b>"""
             """<p>If the Cooperation window is hidden then display it."""
             """ If it is displayed then close it.</p>"""))
-        target.actions.append(target.cooperationViewerAct)
-        
-        target.cooperationViewerActivateAct = KyAction(\
-                parent=target, 
-                text=target.tr('Activate Cooperation-Viewer'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+O")),
-                objectName='cooperation_viewer_activate',
-                checkable=True)
-        target.actions.append(target.cooperationViewerActivateAct)
-        target.addAction(target.cooperationViewerActivateAct)
-    
+        target.windowActions.append(target.cooperationViewerAct)
+
     def initHelpActions(target, iconCache):
 
         target.whatsThisAct = KyAction(\
@@ -370,12 +335,12 @@ class E5ActionCreator():
             """ description of what they do and how to use them. In dialogs, this"""
             """ feature can be accessed using the context help button in the"""
             """ titlebar.</p>"""))
-        target.actions.append(target.whatsThisAct)
+        target.helpActions.append(target.whatsThisAct)
 
-        target.helpviewerAct = KyAction(\
+        target.helpViewerAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Helpviewer'),
-#                icon=iconCache.icon("help.png"),
+                icon=iconCache.icon("helpViewer.png"),
                 text=target.tr('&Helpviewer...'), 
                 shortcut=QKeySequence(target.tr("F1")),
                 objectName='helpviewer', 
@@ -388,7 +353,7 @@ class E5ActionCreator():
             """ help and some more features. You may use it to browse the internet"""
             """ as well</p><p>If called with a word selected, this word is search"""
             """ in the Qt help collection.</p>"""))
-        target.actions.append(target.helpviewerAct)
+        target.helpActions.append(target.helpViewerAct)
       
         target.versionAct = KyAction(\
                 parent=target,
@@ -399,7 +364,7 @@ class E5ActionCreator():
                 whatsThis=target.tr(
             """<b>Show Versions</b>"""
             """<p>Display version information.</p>"""))
-        target.actions.append(target.versionAct)
+        target.helpActions.append(target.versionAct)
 
         target.checkUpdateAct = KyAction(\
                 parent=target,
@@ -410,7 +375,7 @@ class E5ActionCreator():
         target.checkUpdateAct.setWhatsThis(target.tr(
             """<b>Check for Updates...</b>"""
             """<p>Checks the internet for updates of eric5.</p>"""))
-        target.actions.append(target.checkUpdateAct)
+        target.helpActions.append(target.checkUpdateAct)
     
         target.showVersionsAct = KyAction(parent=target,
                 iconText=target.tr('Show downloadable versions'),
@@ -421,7 +386,7 @@ class E5ActionCreator():
             """<b>Show downloadable versions...</b>"""
             """<p>Shows the eric5 versions available for download """
             """from the internet.</p>"""))
-        target.actions.append(target.showVersionsAct)
+        target.helpActions.append(target.showVersionsAct)
 
         target.reportBugAct = KyAction(parent=target,
                 iconText=target.tr('Report Bug'),
@@ -431,7 +396,7 @@ class E5ActionCreator():
         target.reportBugAct.setWhatsThis(target.tr(
             """<b>Report Bug...</b>"""
             """<p>Opens a dialog to report a bug.</p>"""))
-        target.actions.append(target.reportBugAct)
+        target.helpActions.append(target.reportBugAct)
         
         target.requestFeatureAct = KyAction(parent=target,
                 iconText=target.tr('Request Feature'),
@@ -442,7 +407,7 @@ class E5ActionCreator():
             """<b>Request Feature...</b>"""
             """<p>Opens a dialog to send a feature request.</p>"""
                              ))
-        target.actions.append(target.requestFeatureAct)
+        target.helpActions.append(target.requestFeatureAct)
         
     def initUnittestActions(target, iconCache):
 
@@ -450,7 +415,7 @@ class E5ActionCreator():
         
         target.utDialogAct = KyAction(\
                 iconText=target.tr('Unittest'), 
-                icon=iconCache.icon("unittest.png"),
+                icon=iconCache.icon("unittestRun.png"),
                 text=target.tr('&Unittest...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest', 
@@ -459,11 +424,11 @@ class E5ActionCreator():
             """<b>Unittest</b>"""
             """<p>Perform unit tests. The dialog gives you the"""
             """ ability to select and run a unittest suite.</p>"""))
-        target.actions.append(target.utDialogAct)
+        target.utActions.append(target.utDialogAct)
 
         target.utRestartAct = KyAction(\
                 iconText=target.tr('Restart Unittest'),
-#                icon=iconCache.icon("unittestRestart.png"),
+                icon=iconCache.icon("unittestRestart.png"),
                 text=target.tr('&Restart Unittest...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest_restart', 
@@ -472,152 +437,162 @@ class E5ActionCreator():
         target.utRestartAct.setWhatsThis(target.tr(
             """<b>Restart Unittest</b>"""
             """<p>Restart the unittest performed last.</p>"""))
-        target.actions.append(target.utRestartAct)
+        target.utActions.append(target.utRestartAct)
         
         target.utScriptAct = KyAction(\
                 iconText=target.tr('Unittest Script'),
-#                icon=iconCache.icon("unittestScript.png"),
+                icon=iconCache.icon("unittestScript.png"),
                 text=target.tr('Unittest &Script...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest_script', 
                 statusTip=target.tr('Run unittest with current script'), 
-                enabled=False)
-        target.utScriptAct.setWhatsThis(target.tr(
+                enabled=False, 
+                whatsThis=target.tr(
             """<b>Unittest Script</b>"""
             """<p>Run unittest with current script.</p>"""))
-        target.actions.append(target.utScriptAct)
+        target.utActions.append(target.utScriptAct)
         
         target.utProjectAct = KyAction(\
                 iconText=target.tr('Unittest Project'),
-#                icon=iconCache.icon("unittestProject.png"),
+                icon=iconCache.icon("unittestProject.png"),
                 text=target.tr('Unittest &Project...'),
                 actionGroup=target.utActGrp,
                 objectName='unittest_project', 
                 enabled=False, 
-                statusTip=target.tr('Run unittest with current project'))
-        target.utProjectAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Run unittest with current project'), 
+                whatsThis=target.tr(
             """<b>Unittest Project</b>"""
             """<p>Run unittest with current project.</p>"""))
-        target.utProjectAct.setEnabled(False)
-        target.actions.append(target.utProjectAct)
+        target.utActions.append(target.utProjectAct)
         
     def initToolActions(target, iconCache):
         
-        target.designer4Act = KyAction(parent=target, 
-                toolTip=target.tr('Qt-Designer 4'),
-                iconText='Designer 4', 
-                icon=iconCache.icon("toolsQtDesigner.png"),
-                text=target.tr('&Designer 4...'),
-                objectName='qt_designer4', 
-                statusTip=target.tr('Start Qt-Designer 4'))
-        target.designer4Act.setWhatsThis(target.tr(
+        target.designerAct = KyAction(\
+                parent=target, 
+                toolTip=target.tr('QtDesigner'),
+                iconText='Designer', 
+                icon=iconCache.icon("toolsDesigner.png"),
+                text=target.tr('Qt&Designer...'),
+                objectName='qt_designer', 
+                statusTip=target.tr('Start QtDesigner'))
+        target.designerAct.setWhatsThis(target.tr(
             """<b>Qt-Designer 4</b>"""
             """<p>Start Qt-Designer 4.</p>"""))
-        target.actions.append(target.designer4Act)
+        target.toolActions.append(target.designerAct)
 
-        target.linguist4Act = KyAction(parent=target, 
-                iconText=target.tr('Linguist 4'),
-                icon=iconCache.icon("toolsQtLinguist.png"),
-                text=target.tr('&Linguist 4...'),
+        target.linguistAct = KyAction(\
+                parent=target, 
+                iconText=target.tr('Linguist'),
+                icon=iconCache.icon("toolsLinguist.png"),
+                text=target.tr('Qt&Linguist ...'),
                 objectName='qt_linguist4', 
-                statusTip=target.tr('Start Qt-Linguist 4'))
-        target.linguist4Act.setWhatsThis(target.tr(
+                statusTip=target.tr('Start QtLinguist'), 
+                whatsThis=target.tr(
             """<b>Qt-Linguist 4</b>"""
             """<p>Start Qt-Linguist 4.</p>"""))
-        target.actions.append(target.linguist4Act)
+        target.toolActions.append(target.linguistAct)
     
-        target.uipreviewerAct = KyAction(parent=target, 
+        target.uiPreviewerAct = KyAction(\
+                parent=target, 
                 iconText=target.tr('UI Previewer'), 
                 icon=iconCache.icon("mimeDesigner.png"),
                 text=target.tr('&UI Previewer...'),
                 objectName='ui_previewer', 
-                statusTip=target.tr('Start the UI Previewer'))
-        target.uipreviewerAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Start the UI Previewer'), 
+                whatsThis=target.tr(
             """<b>UI Previewer</b>"""
             """<p>Start the UI Previewer.</p>"""))
-        target.actions.append(target.uipreviewerAct)
+        target.toolActions.append(target.uiPreviewerAct)
         
-        target.trpreviewerAct = KyAction(parent=target,
+        target.trPreviewerAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Translations Previewer'), 
                 icon=iconCache.icon("mimeLinguist.png"),
                 text=target.tr('&Translations Previewer...'),
                 objectName='tr_previewer', 
-                statusTip=target.tr('Start the Translations Previewer'))
-        target.trpreviewerAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Start the Translations Previewer'), 
+                whatsThis=target.tr(
             """<b>Translations Previewer</b>"""
             """<p>Start the Translations Previewer.</p>"""))
-        target.actions.append(target.trpreviewerAct)
+        target.toolActions.append(target.trPreviewerAct)
         
-        target.diffAct = KyAction(parent=target,
+        target.diffAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Compare Files'),
 #                icon=iconCache.icon("diffFiles.png"),
                 text=target.tr('&Compare Files...'),
                 objectName='diff_files', 
-                statusTip=target.tr('Compare two files'))
-        target.diffAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Compare two files'), 
+                whatsThis=target.tr(
             """<b>Compare Files</b>"""
             """<p>Open a dialog to compare two files.</p>"""))
-        target.actions.append(target.diffAct)
+        target.toolActions.append(target.diffAct)
 
-        target.compareAct = KyAction(parent=target,
+        target.compareAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Compare Files side by side'),
                 icon=iconCache.icon("compareFiles.png"),
                 text=target.tr('Compare Files &side by side...'), 
                 objectName='compare_files', 
-                statusTip=target.tr('Compare two files'))
-        target.compareAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Compare two files'), 
+                whatsThis=target.tr(
             """<b>Compare Files side by side</b>"""
             """<p>Open a dialog to compare two files and show the result"""
             """ side by side.</p>"""))
-        target.actions.append(target.compareAct)
+        target.toolActions.append(target.compareAct)
 
-        target.sqlBrowserAct = KyAction(parent=target,
+        target.sqlBrowserAct = KyAction(\
+                parent=target,
                 iconText=target.tr('SQL Browser'),
 #                icon=iconCache.icon("sqlBrowser.png"),
                 text=target.tr('SQL &Browser...'), 
                 objectName='sql_browser', 
-                statusTip=target.tr('Browse a SQL database'))
-        target.sqlBrowserAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Browse a SQL database'), 
+                whatsThis=target.tr(
             """<b>SQL Browser</b>"""
             """<p>Browse a SQL database.</p>"""))
-        target.actions.append(target.sqlBrowserAct)
+        target.toolActions.append(target.sqlBrowserAct)
 
-        target.miniEditorAct = KyAction(parent=target,
+        target.miniEditorAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Mini Editor'),
 #                icon=iconCache.icon("editor.png"),
                 text=target.tr('Mini &Editor...'), 
                 objectName='mini_editor', 
-                statusTip=target.tr('Mini Editor'))
-        target.miniEditorAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Mini Editor'), 
+                whatsThis=target.tr(
             """<b>Mini Editor</b>"""
             """<p>Open a dialog with a simplified editor.</p>"""))
-        target.actions.append(target.miniEditorAct)
+        target.toolActions.append(target.miniEditorAct)
 
-        target.webBrowserAct = KyAction(parent=target,
+        target.webBrowserAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Web Browser'),
                 icon=iconCache.icon("ericWeb.png"),
                 text=target.tr('&Web Browser...'), 
                 objectName='web_browser', 
-                statusTip=target.tr('Start the eric5 Web Browser'))
-        target.webBrowserAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Start the eric5 Web Browser'), 
+                whatsThis=target.tr(
             """<b>Web Browser</b>"""
             """<p>Browse the Internet with the eric5 Web Browser.</p>"""))
-        target.actions.append(target.webBrowserAct)
+        target.toolActions.append(target.webBrowserAct)
 
-        target.iconEditorAct = KyAction(parent=target,
+        target.iconEditorAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Icon Editor'),
 #                icon=iconCache.icon("iconEditor.png"),
                 text=target.tr('&Icon Editor...'), 
                 objectName='icon_editor', 
-                statusTip=target.tr('Start the eric5 Icon Editor'))
-        target.iconEditorAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Start the eric5 Icon Editor'), 
+                whatsThis=target.tr(
             """<b>Icon Editor</b>"""
             """<p>Starts the eric5 Icon Editor for editing simple icons.</p>"""))
-        target.actions.append(target.iconEditorAct)
+        target.toolActions.append(target.iconEditorAct)
         
     def initPreferenceActions(target, iconCache):
 
-        target.prefAct = KyAction(parent=target,
+        target.prefAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Preferences'),
 #                icon=iconCache.icon("configure.png"),
                 text=target.tr('&Preferences...'),
@@ -627,9 +602,10 @@ class E5ActionCreator():
             """<b>Preferences</b>"""
             """<p>Set the configuration items of the application"""
             """ with your prefered values.</p>"""))
-        target.actions.append(target.prefAct)
+        target.prefActions.append(target.prefAct)
 
-        target.prefExportAct = KyAction(parent=target,
+        target.prefExportAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Export Preferences'),
 #                icon=iconCache.icon("configureExport.png"),
                 text=target.tr('E&xport Preferences...'),
@@ -638,91 +614,99 @@ class E5ActionCreator():
         target.prefExportAct.setWhatsThis(target.tr(
             """<b>Export Preferences</b>"""
             """<p>Export the current configuration to a file.</p>"""))
-        target.actions.append(target.prefExportAct)
+        target.prefActions.append(target.prefExportAct)
 
-        target.prefImportAct = KyAction(parent=target,
+        target.prefImportAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Import Preferences'),
 #                icon=iconCache.icon("configureImport.png"),
                 text=target.tr('I&mport Preferences...'),
                 objectName='import_preferences', 
-                statusTip=target.tr('Import a previously exported configuration'))
-        target.prefImportAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Import a previously exported configuration'), 
+                whatsThis=target.tr(
             """<b>Import Preferences</b>"""
             """<p>Import a previously exported configuration.</p>"""))
-        target.actions.append(target.prefImportAct)
+        target.prefActions.append(target.prefImportAct)
 
-        target.reloadAPIsAct = KyAction(parent=target,
+        target.reloadAPIsAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Reload APIs'),
                 text=target.tr('Reload &APIs'),
                 objectName='reload_apis', 
-                statusTip=target.tr('Reload the API information'))
-        target.reloadAPIsAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Reload the API information'), 
+                whatsThis=target.tr(
             """<b>Reload APIs</b>"""
             """<p>Reload the API information.</p>"""))
-        target.actions.append(target.reloadAPIsAct)
+        target.prefActions.append(target.reloadAPIsAct)
 
-        target.showExternalToolsAct = KyAction(parent=target,
+        target.showExternalToolsAct = KyAction(\
+                parent=target,
                 iconText=target.tr('External tools'),
 #                icon=iconCache.icon("showPrograms.png"),
                 text=target.tr('Show external &tools'),
                 objectName='show_external_tools', 
-                statusTip=target.tr('Reload the API information'))
-        target.showExternalToolsAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Reload the API information'), 
+                whatsThis=target.tr(
             """<b>Show external tools</b>"""
             """<p>Opens a dialog to show the path and versions of all"""
             """ extenal tools used by eric5.</p>"""))
-        target.actions.append(target.showExternalToolsAct)
+        target.prefActions.append(target.showExternalToolsAct)
 
-        target.configViewProfilesAct = KyAction(parent=target,
+        target.configViewProfilesAct = KyAction(\
+                parent=target,
                 iconText=target.tr('View Profiles'),
 #                icon=iconCache.icon("configureViewProfiles.png"),
                 text=target.tr('&View Profiles...'),
                 objectName='view_profiles', 
-                statusTip=target.tr('Configure view profiles'))
-        target.configViewProfilesAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Configure view profiles'), 
+                whatsThis=target.tr(
             """<b>View Profiles</b>"""
             """<p>Configure the view profiles. With this dialog you may"""
             """ set the visibility of the various windows for the predetermined"""
             """ view profiles.</p>"""))
-        target.actions.append(target.configViewProfilesAct)
+        target.prefActions.append(target.configViewProfilesAct)
 
-        target.configToolBarsAct = KyAction(parent=target,
+        target.configToolBarsAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Toolbars'),
 #                icon=iconCache.icon("toolbarsConfigure.png"),
                 text=target.tr('Tool&bars...'),
                 objectName='configure_toolbars', 
-                statusTip=target.tr('Configure toolbars'))
-        target.configToolBarsAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Configure toolbars'), 
+                whatsThis=target.tr(
             """<b>Toolbars</b>"""
             """<p>Configure the toolbars. With this dialog you may"""
             """ change the actions shown on the various toolbars and"""
             """ define your own toolbars.</p>"""))
-        target.actions.append(target.configToolBarsAct)
+        target.prefActions.append(target.configToolBarsAct)
 
-        target.shortcutsAct = KyAction(parent=target,
+        target.shortcutsAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Keyboard Shortcuts'),
 #                icon=iconCache.icon("configureShortcuts.png"),
                 text=target.tr('Keyboard &Shortcuts...'),
                 objectName='keyboard_shortcuts', 
-                statusTip=target.tr('Set the keyboard shortcuts'))
-        target.shortcutsAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Set the keyboard shortcuts'), 
+                whatsThis=target.tr(
             """<b>Keyboard Shortcuts</b>"""
             """<p>Set the keyboard shortcuts of the application"""
             """ with your prefered values.</p>"""))
-        target.actions.append(target.shortcutsAct)
+        target.prefActions.append(target.shortcutsAct)
 
-        target.exportShortcutsAct = KyAction(parent=target,
+        target.exportShortcutsAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Export Keyboard Shortcuts'),
 #                icon=iconCache.icon("exportShortcuts.png"),
                 text=target.tr('&Export Keyboard Shortcuts...'),
                 objectName='export_keyboard_shortcuts', 
-                statusTip=target.tr('Export the keyboard shortcuts'))
-        target.exportShortcutsAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Export the keyboard shortcuts'), 
+                whatsThis=target.tr(
             """<b>Export Keyboard Shortcuts</b>"""
             """<p>Export the keyboard shortcuts of the application.</p>"""))
-        target.actions.append(target.exportShortcutsAct)
+        target.prefActions.append(target.exportShortcutsAct)
 
-        target.importShortcutsAct = KyAction(parent=target,
+        target.importShortcutsAct = KyAction(\
+                parent=target,
                 iconText=target.tr('Import Keyboard Shortcuts'),
 #                icon=iconCache.icon("importShortcuts.png"),
                 text=target.tr('&Import Keyboard Shortcuts...'),
@@ -731,38 +715,7 @@ class E5ActionCreator():
         target.importShortcutsAct.setWhatsThis(target.tr(
             """<b>Import Keyboard Shortcuts</b>"""
             """<p>Import the keyboard shortcuts of the application.</p>"""))
-        target.actions.append(target.importShortcutsAct)
-        
-
-        target.viewmanagerActivateAct = KyAction(parent=target,
-                iconText=target.tr('Activate current editor'),
-                text=target.tr('Activate current editor'),
-                shortcut=QKeySequence(target.tr("Alt+Shift+E")),
-                objectName='viewmanager_activate',
-                checkable=True)
-        target.actions.append(target.viewmanagerActivateAct)
-        target.addAction(target.viewmanagerActivateAct)
-
-        target.nextTabAct = KyAction(parent=target,
-                text=target.tr('Show next'), 
-                shortcut=QKeySequence(target.tr('Ctrl+Alt+Tab')),
-                objectName='view_next_tab')
-        target.actions.append(target.nextTabAct)
-        target.addAction(target.nextTabAct)
-        
-        target.prevTabAct = KyAction(parent=target,
-                text=target.tr('Show previous'), 
-                shortcut=QKeySequence(target.tr('Shift+Ctrl+Alt+Tab')),
-                objectName='view_previous_tab')
-        target.actions.append(target.prevTabAct)
-        target.addAction(target.prevTabAct)
-        
-        target.switchTabAct = KyAction(parent=target,
-                text=target.tr('Switch between tabs'), 
-                shortcut=QKeySequence(target.tr('Ctrl+1')),
-                objectName='switch_tabs')
-        target.actions.append(target.switchTabAct)
-        target.addAction(target.switchTabAct)
+        target.prefActions.append(target.importShortcutsAct)
         
     def initPluginActions(target, iconCache):
         
@@ -776,7 +729,7 @@ class E5ActionCreator():
             """<b>Plugin Infos...</b>"""
             """<p>This opens a dialog, that show some information about"""
             """ loaded plugins.</p>"""))
-        target.actions.append(target.pluginInfoAct)
+        target.prefActions.append(target.pluginInfoAct)
         
         target.pluginInstallAct = KyAction(parent=target,
                 iconText=target.tr('Install Plugins'),
@@ -787,7 +740,7 @@ class E5ActionCreator():
         target.pluginInstallAct.setWhatsThis(target.tr(
             """<b>Install Plugins...</b>"""
             """<p>This opens a dialog to install or update plugins.</p>"""))
-        target.actions.append(target.pluginInstallAct)
+        target.prefActions.append(target.pluginInstallAct)
         
         target.pluginDeinstallAct = KyAction(parent=target,
                 iconText=target.tr('Uninstall Plugin'),
@@ -798,7 +751,7 @@ class E5ActionCreator():
         target.pluginDeinstallAct.setWhatsThis(target.tr(
             """<b>Uninstall Plugin...</b>"""
             """<p>This opens a dialog to uninstall a plugin.</p>"""))
-        target.actions.append(target.pluginDeinstallAct)
+        target.prefActions.append(target.pluginDeinstallAct)
 
         target.pluginRepoAct = KyAction(parent=target,
                 iconText=target.tr('Plugin Repository'),
@@ -810,13 +763,14 @@ class E5ActionCreator():
             """<b>Plugin Repository...</b>"""
             """<p>This opens a dialog, that shows a list of plugins """
             """available on the Internet.</p>"""))
-        target.actions.append(target.pluginRepoAct)
+        target.prefActions.append(target.pluginRepoAct)
         
     
     def initDocActions(target, iconCache):
 
         target.qt4DocAct = KyAction(parent=target, 
                 iconText=target.tr('Qt4'),
+                icon=iconCache.icon("docQt.png"),
                 toolTip=target.tr('Qt4 Documentation'), 
                 text=target.tr('Qt&4 Documentation'),
                 objectName='qt4_documentation', 
@@ -826,10 +780,11 @@ class E5ActionCreator():
             """<p>Display the Qt4 Documentation. Dependant upon your settings, this"""
             """ will either show the help in Eric's internal help viewer, or execute"""
             """ a web browser or Qt Assistant. </p>"""))
-        target.actions.append(target.qt4DocAct)
+        target.helpActions.append(target.qt4DocAct)
       
         target.pyqt4DocAct = KyAction(parent=target, 
                 iconText=target.tr('PyQt4'),
+                icon=iconCache.icon("docPyQt.png"),
                 text=target.tr('P&yQt4 Documentation'), 
                 toolTip=target.tr('PyQt4 Documentation'), 
                 objectName='pyqt4_documentation', 
@@ -839,10 +794,11 @@ class E5ActionCreator():
             """<p>Display the PyQt4 Documentation. Dependant upon your settings, this"""
             """ will either show the help in Eric's internal help viewer, or execute"""
             """ a web browser or Qt Assistant. </p>"""))
-        target.actions.append(target.pyqt4DocAct)
+        target.helpActions.append(target.pyqt4DocAct)
         
         target.pythonDocAct = KyAction(parent=target, 
                 iconText=target.tr('Python'), 
+                icon=iconCache.icon("docPython.png"),
                 toolTip=target.tr('Python Documentation'),
                 text=target.tr('&Python Documentation'), 
                 objectName='python_documentation', 
@@ -855,11 +811,12 @@ class E5ActionCreator():
             """ directory underneath the location of the python executable on"""
             """ Windows and <i>/usr/share/doc/packages/python/html</i> on Unix."""
             """ Set PYTHONDOCDIR in your environment to override this. </p>"""))
-        target.actions.append(target.pythonDocAct)
+        target.helpActions.append(target.pythonDocAct)
         
         target.ericDocAct = KyAction(parent=target, 
                 toolTip=target.tr("Eric API Documentation"),
                 iconText='Eric API', 
+                icon=iconCache.icon("docEric.png"),
                 text=target.tr('&Eric API Documentation'),
                 objectName='eric_documentation', 
                 statusTip=target.tr("Open Eric API Documentation"))
@@ -868,79 +825,35 @@ class E5ActionCreator():
             """<p>Display the Eric API documentation."""
             """ The location for the documentation is the Documentation/Source"""
             """ subdirectory of the eric5 installation directory.</p>"""))
-        target.actions.append(target.ericDocAct)
+        target.helpActions.append(target.ericDocAct)
         
-        target.iconCache = iconCache
-        
-        try:
-            import PySide
-            target.pysideDocAct = KyAction(parent=target,
-                    iconText=target.tr('PySide Documentation'),
-                    text=target.tr('Py&Side Documentation'),
-                    objectName='pyside_documentation', 
-                    statusTip=target.tr('Open PySide Documentation'))
-            target.pysideDocAct.setWhatsThis(target.tr(
-                """<b>PySide Documentation</b>"""
-                """<p>Display the PySide Documentation. Dependant upon your settings, """
-                """this will either show the help in Eric's internal help viewer, or """
-                """execute a web browser or Qt Assistant. </p>"""
-            ))
-            target.actions.append(target.pysideDocAct)
-            del PySide
-        except ImportError:
-            target.pysideDocAct = None
-      
-    def initViewManagerActions(target):
-        """
-        Public method defining the user interface actions.
-        """
-
-        target.editActions = []
-        target.fileActions = []
-        target.searchActions = []
-        target.viewActions = []
-        target.windowActions = []
-        target.macroActions = []
-        target.bookmarkActions = []
-        target.spellingActions = []
-        
-        target.__actions = {
-            "bookmark"  : target.bookmarkActions, 
-            "edit"      : target.editActions, 
-            "file"      : target.fileActions, 
-            "macro"     : target.macroActions, 
-            "search"    : target.searchActions, 
-            "spelling"  : target.spellingActions, 
-            "view"      : target.viewActions, 
-            "window"    : target.windowActions, 
-        }
-        
-#        target.initWindowActions()
-        E5ActionCreator.initFileActions(target)
-        E5ActionCreator.initEditActions(target)
-        E5ActionCreator.initSearchActions(target)
-        E5ActionCreator.initViewActions(target)
-        E5ActionCreator.initMacroActions(target)
-        E5ActionCreator.initBookmarkActions(target)
-        E5ActionCreator.initSpellingActions(target)
-        
-    ##################################################################
-    ## Initialize the file related actions, file menu and toolbar
-    ##################################################################
+        target.pysideDocAct = KyAction(parent=target,
+                iconText=target.tr('PySide Documentation'),
+                icon=iconCache.icon("docPySide.png"),
+                text=target.tr('Py&Side Documentation'),
+                objectName='pyside_documentation', 
+                statusTip=target.tr('Open PySide Documentation'), 
+                whatsThis=target.tr(
+            """<b>PySide Documentation</b>"""
+            """<p>Display the PySide Documentation. Dependant upon your settings, """
+            """this will either show the help in Eric's internal help viewer, or """
+            """execute a web browser or Qt Assistant. </p>"""
+        ))
+        target.helpActions.append(target.pysideDocAct)
     
-    def initFileActions(target):
+    def initFileActions(target, iconCache):
         """
         Private method defining the user interface actions for file handling.
         """
         target.newAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('New', 'ViewManager'),
-#                icon=target.iconCache.icon("fileNew.png"),
+                icon=target.iconCache.icon("fileNew.png"),
                 text=target.tr('&New', 'ViewManager'),
                 shortcut=QKeySequence(target.tr("Ctrl+N", "File|New")),
                 objectName='vm_file_new', 
-                statusTip=target.tr('Open an empty editor window', 'ViewManager'))
-        target.newAct.setWhatsThis(target.tr( 
+                statusTip=target.tr('Open an empty editor window', 'ViewManager'), 
+                whatsThis=target.tr(
             """<b>New</b>"""
             """<p>An empty editor window will be created.</p>"""))
         target.fileActions.append(target.newAct)
@@ -951,8 +864,8 @@ class E5ActionCreator():
                 text=target.tr('&Open...'),
                 shortcut=QKeySequence(target.tr("Ctrl+O", "File|Open")), 
                 objectName='vm_file_open', 
-                statusTip=target.tr('Open a file'))
-        target.openAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Open a file'), 
+                whatsThis=target.tr(
             """<b>Open a file</b>"""
             """<p>You will be asked for the name of a file to be opened"""
             """ in an editor window.</p>"""))
@@ -1037,27 +950,27 @@ class E5ActionCreator():
                 text=target.tr('Save to Pro&ject'),
                 objectName='vm_file_save_to_project', 
                 statusTip=target.tr(
-                    'Save the current file to the current project'))
-        target.saveToProjectAct.setWhatsThis(target.tr(
+                    'Save the current file to the current project'), 
+                enabled=False, 
+                whatsThis=target.tr(
             """<b>Save to Project</b>"""
             """<p>Save the contents of the current editor window to the"""
             """ current project. After the file has been saved, it is"""
             """ automatically added to the current project.</p>"""))
-        target.saveToProjectAct.setEnabled(False)
         target.fileActions.append(target.saveToProjectAct)
         
         target.printAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Print'),
-#                icon=target.iconCache.icon("filePrint.png"),
+                icon=target.iconCache.icon("filePrint.png"),
                 text=target.tr('&Print'),
                 shortcut=QKeySequence(target.tr("Ctrl+P", "File|Print")), 
                 objectName='vm_file_print', 
-                statusTip=target.tr('Print the current file'))
-        target.printAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Print the current file'), 
+                whatsThis=target.tr(
             """<b>Print File</b>"""
             """<p>Print the contents of current editor window.</p>"""))
-        target.printAct.setEnabled(False)
+        
         target.fileActions.append(target.printAct)
         
         target.printPreviewAct = KyAction(\
@@ -1066,39 +979,48 @@ class E5ActionCreator():
 #                icon=target.iconCache.icon("printPreview.png"),
                 text=target.tr('Print Preview'),
                 objectName='vm_file_print_preview', 
-                statusTip=target.tr(
-                    'Print preview of the current file'))
-        target.printPreviewAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Print preview of the current file'), 
+                whatsThis=target.tr(
             """<b>Print Preview</b>"""
             """<p>Print preview of the current editor window.</p>"""))
-        target.printPreviewAct.setEnabled(False)
+        
         target.fileActions.append(target.printPreviewAct)
         
         target.findFileNameAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Search File'),
+                icon=target.iconCache.icon("fileFind.png"),
                 text=target.tr('Search &File...'),
                 shortcut=QKeySequence(target.tr("Alt+Ctrl+F", "File|Search File")), 
                 objectName='vm_file_search_file', 
-                statusTip=target.tr('Search for a file'))
-        target.findFileNameAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Search for a file'), 
+                whatsThis=target.tr(
             """<b>Search File</b>"""
             """<p>Search for a file.</p>"""))
         target.fileActions.append(target.findFileNameAct)
         
-    def initEditActions(target):
+#        target.printAct.setEnabled(False)
+#        target.printPreviewAct.setEnabled(False)
+        
+    def initEditActions(target, iconCache):
         """
         Private method defining the user interface actions for the edit commands.
         """
         target.editActGrp = QActionGroup(target)
+        target.changesActGrp = QActionGroup(target)
+        target.clipActGrp = QActionGroup(target)
+        target.indentActGrp = QActionGroup(target)
+        
+        target.autoCompleteMenu = QMenu()
+        target.commentMenu = QMenu()
         
         target.undoAct = KyAction(\
                 iconText=target.tr('Undo'),
-#                icon=target.iconCache.icon("editUndo.png"),
+                icon=target.iconCache.icon("editUndo.png"),
                 text=target.tr('&Undo'),
                 shortcut=QKeySequence(target.tr("Ctrl+Z", "Edit|Undo")), 
                 shortcut2=QKeySequence(target.tr("Alt+Backspace", "Edit|Undo")), 
-                actionGroup=target.editActGrp, 
+                actionGroup=target.changesActGrp, 
                 objectName='vm_edit_undo', 
                 statusTip=target.tr('Undo the last change'))
         target.undoAct.setWhatsThis(target.tr(
@@ -1111,7 +1033,7 @@ class E5ActionCreator():
                 icon=target.iconCache.icon("editRedo.png"),
                 text=target.tr('&Redo'),
                 shortcut=QKeySequence(target.tr("Ctrl+Shift+Z", "Edit|Redo")), 
-                actionGroup=target.editActGrp, 
+                actionGroup=target.changesActGrp, 
                 objectName='vm_edit_redo', 
                 statusTip=target.tr('Redo the last change'))
         target.redoAct.setWhatsThis(target.tr(
@@ -1120,11 +1042,11 @@ class E5ActionCreator():
         target.editActions.append(target.redoAct)
         
         target.revertAct = KyAction(\
-                iconText=target.tr('Revert to last saved state'),
+                iconText=target.tr('Revert'),
                 icon=target.iconCache.icon("editRevert.png"),
                 text=target.tr('Re&vert to last saved state'),
                 shortcut=QKeySequence(target.tr("Ctrl+Y", "Edit|Revert")), 
-                actionGroup=target.editActGrp, 
+                actionGroup=target.changesActGrp, 
                 objectName='vm_edit_revert', 
                 statusTip=target.tr('Revert to last saved state'))
         target.revertAct.setWhatsThis(target.tr(
@@ -1133,7 +1055,6 @@ class E5ActionCreator():
             """ of the current editor.</p>"""))
         target.editActions.append(target.revertAct)
         
-        target.copyActGrp = QActionGroup(target.editActGrp)
         
         target.cutAct = KyAction(\
                 iconText=target.tr('Cut'),
@@ -1141,7 +1062,7 @@ class E5ActionCreator():
                 text=target.tr('Cu&t'),
                 shortcut=QKeySequence(target.tr("Ctrl+X", "Edit|Cut")),
                 shortcut2=QKeySequence(target.tr("Shift+Del", "Edit|Cut")),
-                actionGroup=target.copyActGrp, 
+                actionGroup=target.clipActGrp, 
                 objectName='vm_edit_cut', 
                 statusTip=target.tr('Cut the selection'))
         target.cutAct.setWhatsThis(target.tr(
@@ -1155,7 +1076,7 @@ class E5ActionCreator():
                 text=target.tr('&Copy'),
                 shortcut=QKeySequence(target.tr("Ctrl+C", "Edit|Copy")), 
                 shortcut2=QKeySequence(target.tr("Ctrl+Ins", "Edit|Copy")), 
-                actionGroup=target.copyActGrp, 
+                actionGroup=target.clipActGrp, 
                 objectName='vm_edit_copy', 
                 statusTip=target.tr('Copy the selection'))
         target.copyAct.setWhatsThis(target.tr(
@@ -1169,7 +1090,7 @@ class E5ActionCreator():
                 text=target.tr('&Paste'),
                 shortcut=QKeySequence(target.tr("Ctrl+V", "Edit|Paste")), 
                 shortcut2=QKeySequence(target.tr("Shift+Ins", "Edit|Paste")), 
-                actionGroup=target.copyActGrp, 
+                actionGroup=target.clipActGrp, 
                 objectName='vm_edit_paste', 
                 statusTip=target.tr('Paste the last cut/copied text'))
         target.pasteAct.setWhatsThis(target.tr(
@@ -1183,7 +1104,7 @@ class E5ActionCreator():
                 icon=target.iconCache.icon("editDelete.png"),
                 text=target.tr('Cl&ear'),
                 shortcut=QKeySequence(target.tr("Alt+Shift+C", "Edit|Clear")), 
-                actionGroup=target.copyActGrp, 
+                actionGroup=target.editActGrp, 
                 objectName='vm_edit_clear', 
                 statusTip=target.tr('Clear all text'))
         target.deleteAct.setWhatsThis(target.tr(
@@ -1196,7 +1117,7 @@ class E5ActionCreator():
 #                icon=target.iconCache.icon("editIndent.png"),
                 text=target.tr('&Indent'),
                 shortcut=QKeySequence(target.tr("Ctrl+I", "Edit|Indent")), 
-                actionGroup=target.editActGrp, 
+                actionGroup=target.indentActGrp, 
                 objectName='vm_edit_indent', 
                 statusTip=target.tr('Indent line'))
         target.indentAct.setWhatsThis(target.tr(
@@ -1210,7 +1131,7 @@ class E5ActionCreator():
 #                icon=target.iconCache.icon("editUnindent.png"),
                 text=target.tr('U&nindent'),
                 shortcut=QKeySequence(target.tr("Ctrl+Shift+I", "Edit|Unindent")), 
-                actionGroup=target.editActGrp, 
+                actionGroup=target.indentActGrp, 
                 objectName='vm_edit_unindent', 
                 statusTip=target.tr('Unindent line'))
         target.unindentAct.setWhatsThis(target.tr(
@@ -1224,7 +1145,7 @@ class E5ActionCreator():
 #                icon=target.iconCache.icon("editSmartIndent.png"),
                 text=target.tr('Smart indent'),
                 shortcut=QKeySequence(target.tr("Ctrl+Alt+I", "Edit|Smart indent")), 
-                actionGroup=target.editActGrp, 
+                actionGroup=target.indentActGrp, 
                 objectName='vm_edit_smart_indent', 
                 statusTip=target.tr('Smart indent Line or Selection'))
         target.smartIndentAct.setWhatsThis(target.tr(
@@ -1352,8 +1273,8 @@ class E5ActionCreator():
                 shortcut=QKeySequence(target.tr("Ctrl+Space", "Edit|Autocomplete")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete', 
-                statusTip=target.tr('Autocomplete current word'))
-        target.autoCompleteAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Autocomplete current word'), 
+                whatsThis=target.tr(
             """<b>Autocomplete</b>"""
             """<p>Performs an autocompletion of the word containing the cursor.</p>"""))
         target.editActions.append(target.autoCompleteAct)
@@ -1366,8 +1287,8 @@ class E5ActionCreator():
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete_from_document', 
                 statusTip=target.tr(
-                        'Autocomplete current word from Document'))
-        target.autoCompleteFromDocAct.setWhatsThis(target.tr(
+                        'Autocomplete current word from Document'), 
+                whatsThis=target.tr(
             """<b>Autocomplete from Document</b>"""
             """<p>Performs an autocompletion from document of the word"""
             """ containing the cursor.</p>"""))
@@ -1381,8 +1302,8 @@ class E5ActionCreator():
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete_from_api', 
                 statusTip=target.tr(
-                        'Autocomplete current word from APIs'))
-        target.autoCompleteFromAPIsAct.setWhatsThis(target.tr(
+                        'Autocomplete current word from APIs'), 
+                whatsThis=target.tr(
             """<b>Autocomplete from APIs</b>"""
             """<p>Performs an autocompletion from APIs of the word containing"""
             """ the cursor.</p>"""))
@@ -1396,8 +1317,8 @@ class E5ActionCreator():
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_autocomplete_from_all', 
                 statusTip=target.tr(
-                        'Autocomplete current word from Document and APIs'))
-        target.autoCompleteFromAllAct.setWhatsThis(target.tr(
+                        'Autocomplete current word from Document and APIs'), 
+                whatsThis=target.tr(
             """<b>Autocomplete from Document and APIs</b>"""
             """<p>Performs an autocompletion from document and APIs"""
             """ of the word containing the cursor.</p>"""))
@@ -1409,17 +1330,17 @@ class E5ActionCreator():
                 shortcut=QKeySequence(target.tr("Alt+Space", "Edit|Calltip")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_calltip', 
-                statusTip=target.tr('Show Calltips'))
-        target.calltipsAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Show Calltips'), 
+                whatsThis=target.tr(
             """<b>Calltip</b>"""
             """<p>Show calltips based on the characters immediately to the"""
             """ left of the cursor.</p>"""))
         target.editActions.append(target.calltipsAct)
         
-        target.editActGrp.setEnabled(False)
-        target.copyActGrp.setEnabled(False)
+#        target.editActGrp.setEnabled(False)
+#        target.copyActGrp.setEnabled(False)
         
-    def initSearchActions(target):
+    def initSearchActions(target, iconCache):
         """
         Private method defining the user interface actions for the search commands.
         """
@@ -1432,8 +1353,8 @@ class E5ActionCreator():
                 shortcut=QKeySequence(target.tr("Ctrl+F", "Search|Search")), 
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search', 
-                statusTip=target.tr('Search for a text'))
-        target.searchAct.setWhatsThis(target.tr(
+                statusTip=target.tr('Search for a text'), 
+                whatsThis=target.tr(
             """<b>Search</b>"""
             """<p>Search for some text in the current editor. A"""
             """ dialog is shown to enter the searchtext and options"""
@@ -1448,8 +1369,8 @@ class E5ActionCreator():
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_next', 
                 statusTip=target.tr(
-                        'Search next occurrence of text'))
-        target.searchNextAct.setWhatsThis(target.tr(
+                        'Search next occurrence of text'), 
+                whatsThis=target.tr(
             """<b>Search next</b>"""
             """<p>Search the next occurrence of some text in the current editor."""
             """ The previously entered searchtext and options are reused.</p>"""))
@@ -1464,8 +1385,8 @@ class E5ActionCreator():
                 actionGroup=target.searchActGrp, 
                 objectName='vm_search_previous', 
                 statusTip=target.tr(
-                        'Search previous occurrence of text'))
-        target.searchPrevAct.setWhatsThis(target.tr(
+                        'Search previous occurrence of text'), 
+                whatsThis=target.tr(
             """<b>Search previous</b>"""
             """<p>Search the previous occurrence of some text in the current editor."""
             """ The previously entered searchtext and options are reused.</p>"""))
@@ -1611,7 +1532,7 @@ class E5ActionCreator():
             """ search and to display the result.</p>"""))
         target.searchActions.append(target.replaceFilesAct)
         
-    def initViewActions(target):
+    def initViewActions(target, iconCache):
         """
         Private method defining the user interface actions for the view commands.
         """
@@ -1780,7 +1701,7 @@ class E5ActionCreator():
 #        target.nextSplitAct.setEnabled(False)
 #        target.prevSplitAct.setEnabled(False)
 
-    def initMacroActions(target):
+    def initMacroActions(target, iconCache):
         """
         Private method defining the user interface actions for the macro commands.
         """
@@ -1860,7 +1781,7 @@ class E5ActionCreator():
         
         target.macroActGrp.setEnabled(False)
 
-    def initBookmarkActions(target):
+    def initBookmarkActions(target, iconCache):
         """
         Private method defining the user interface actions for the bookmarks commands.
         """
@@ -1971,7 +1892,7 @@ class E5ActionCreator():
         
         target.warningsClearAct = KyAction(\
                 iconText=target.tr('Clear Warning Messages'),
-                icon=target.iconCache.icon("warningClear"),
+                icon=target.iconCache.icon("warningClear.png"),
                 text=target.tr('Clear &Warning Messages'),
                 actionGroup=target.bookmarkActGrp, 
                 objectName='vm_warnings_clear', 
@@ -2033,7 +1954,7 @@ class E5ActionCreator():
         
         target.bookmarkActGrp.setEnabled(False)
 
-    def initSpellingActions(target):
+    def initSpellingActions(target, iconCache):
         """
         Private method to initialize the spell checking actions.
         """
@@ -2068,7 +1989,7 @@ class E5ActionCreator():
         target.autoSpellCheckAct.setCheckable(True)
         target.spellingActions.append(target.autoSpellCheckAct)
 
-    def initDebuggerActions(target):
+    def initDebuggerActions(target, iconCache):
         """
         Method defining the user interface actions.
         """
@@ -2475,9 +2396,7 @@ class E5ActionCreator():
 #        target.dbgRestartAct.setEnabled(False)
 #        target.dbgStopAct.setEnabled(False)
 
-    def initMultiprojectActions(target):
-        
-        target.mpActions = []
+    def initMultiprojectActions(target, iconCache):
         
         target.mpActGrp = QActionGroup(target)
         
@@ -2573,387 +2492,387 @@ class E5ActionCreator():
 #        target.mpAddAct.setEnabled(False)
 #        target.mpPropsAct.setEnabled(False)
 
-def initProjectActions(target, iconCache):
-    trUtf8 = target.trUtf8
-    
-    target.projActions = []
-    
-    target.projFileActGrp = QActionGroup(target)
-    
-    target.projNewAct = KyAction(\
-            iconText=trUtf8('New project'),
-            icon=iconCache.icon("projectNew.png"),
-            text=trUtf8('&New...'),
-            actionGroup=target.projFileActGrp,
-            objectName='project_new', 
-            statusTip=trUtf8('Generate a new project'), 
-            whatsThis=trUtf8(
-        """<b>New...</b>"""
-        """<p>This opens a dialog for entering the info for a"""
-        """ new project.</p>"""))
-    target.projActions.append(target.projNewAct)
+    def initProjectActions(target, iconCache):
+        trUtf8 = target.trUtf8
+        
+        target.projActions = []
+        
+        target.projFileActGrp = QActionGroup(target)
+        
+        target.projNewAct = KyAction(\
+                iconText=trUtf8('New project'),
+                icon=iconCache.icon("projectNew.png"),
+                text=trUtf8('&New...'),
+                actionGroup=target.projFileActGrp,
+                objectName='project_new', 
+                statusTip=trUtf8('Generate a new project'), 
+                whatsThis=trUtf8(
+            """<b>New...</b>"""
+            """<p>This opens a dialog for entering the info for a"""
+            """ new project.</p>"""))
+        target.projActions.append(target.projNewAct)
 
-    target.projOpenAct = KyAction(\
-            iconText=trUtf8('Open project'),
-            icon=iconCache.icon("projectOpen.png"),
-            text=trUtf8('&Open...'),
-            actionGroup=target.projFileActGrp,
-            objectName='project_open', 
-            statusTip=trUtf8('Open an existing project'), 
-            whatsThis=trUtf8(
-        """<b>Open...</b>"""
-        """<p>This opens an existing project.</p>"""))
-    target.projActions.append(target.projOpenAct)
+        target.projOpenAct = KyAction(\
+                iconText=trUtf8('Open project'),
+                icon=iconCache.icon("projectOpen.png"),
+                text=trUtf8('&Open...'),
+                actionGroup=target.projFileActGrp,
+                objectName='project_open', 
+                statusTip=trUtf8('Open an existing project'), 
+                whatsThis=trUtf8(
+            """<b>Open...</b>"""
+            """<p>This opens an existing project.</p>"""))
+        target.projActions.append(target.projOpenAct)
 
-    target.projCloseAct = KyAction(\
-            iconText=trUtf8('Close project'),
-            icon=iconCache.icon("projectClose.png"),
-            text=trUtf8('&Close'), 
-            actionGroup=target.projFileActGrp,
-            objectName='project_close', 
-            statusTip=trUtf8('Close the current project'), 
-            whatsThis=trUtf8(
-        """<b>Close</b>"""
-        """<p>This closes the current project.</p>"""))
-    target.projActions.append(target.projOpenAct)
+        target.projCloseAct = KyAction(\
+                iconText=trUtf8('Close project'),
+                icon=iconCache.icon("projectClose.png"),
+                text=trUtf8('&Close'), 
+                actionGroup=target.projFileActGrp,
+                objectName='project_close', 
+                statusTip=trUtf8('Close the current project'), 
+                whatsThis=trUtf8(
+            """<b>Close</b>"""
+            """<p>This closes the current project.</p>"""))
+        target.projActions.append(target.projOpenAct)
 
-    target.projSaveAct = KyAction(\
-            iconText=trUtf8('Save project'),
-            icon=iconCache.icon("projectSave.png"),
-            text=trUtf8('&Save'), 
-            actionGroup=target.projFileActGrp, 
-            objectName='project_save', 
-            statusTip=trUtf8('Save the current project'), 
-            whatsThis=trUtf8(
-        """<b>Save</b>"""
-        """<p>This saves the current project.</p>"""))
-    target.projActions.append(target.projSaveAct)
+        target.projSaveAct = KyAction(\
+                iconText=trUtf8('Save project'),
+                icon=iconCache.icon("projectSave.png"),
+                text=trUtf8('&Save'), 
+                actionGroup=target.projFileActGrp, 
+                objectName='project_save', 
+                statusTip=trUtf8('Save the current project'), 
+                whatsThis=trUtf8(
+            """<b>Save</b>"""
+            """<p>This saves the current project.</p>"""))
+        target.projActions.append(target.projSaveAct)
 
-    target.projSaveAsAct = KyAction(\
-            iconText=trUtf8('Save project as'),
-            icon=iconCache.icon("projectSaveAs.png"),
-            text=trUtf8('Save &as...'),
-            actionGroup=target.projFileActGrp,
-            objectName='project_save_as', 
-            statusTip=trUtf8('Save the current project to a new file'), 
-            whatsThis=trUtf8(
-        """<b>Save as</b>"""
-        """<p>This saves the current project to a new file.</p>"""))
-    target.projActions.append(target.projSaveAsAct)
+        target.projSaveAsAct = KyAction(\
+                iconText=trUtf8('Save project as'),
+                icon=iconCache.icon("projectSaveAs.png"),
+                text=trUtf8('Save &as...'),
+                actionGroup=target.projFileActGrp,
+                objectName='project_save_as', 
+                statusTip=trUtf8('Save the current project to a new file'), 
+                whatsThis=trUtf8(
+            """<b>Save as</b>"""
+            """<p>This saves the current project to a new file.</p>"""))
+        target.projActions.append(target.projSaveAsAct)
 
-    target.projMgmtActGrp = QActionGroup(target)
-    
-    target.projAddFilesAct = KyAction(\
-            iconText=trUtf8('Add files to project'),
-            icon=iconCache.icon("fileMisc.png"),
-            text=trUtf8('Add &files...'),
-            actionGroup=target.projMgmtActGrp,
-            objectName='project_add_file', 
-            statusTip=trUtf8('Add files to the current project'), 
-            whatsThis=trUtf8(
-        """<b>Add files...</b>"""
-        """<p>This opens a dialog for adding files to the current project."""
-        """ The place to add is determined by the file extension.</p>"""))
-    target.projActions.append(target.projAddFilesAct)
+        target.projMgmtActGrp = QActionGroup(target)
+        
+        target.projAddFilesAct = KyAction(\
+                iconText=trUtf8('Add files to project'),
+                icon=iconCache.icon("fileMisc.png"),
+                text=trUtf8('Add &files...'),
+                actionGroup=target.projMgmtActGrp,
+                objectName='project_add_file', 
+                statusTip=trUtf8('Add files to the current project'), 
+                whatsThis=trUtf8(
+            """<b>Add files...</b>"""
+            """<p>This opens a dialog for adding files to the current project."""
+            """ The place to add is determined by the file extension.</p>"""))
+        target.projActions.append(target.projAddFilesAct)
 
-    target.projAddDirAct = KyAction(\
-            iconText=trUtf8('Add directory to project'),
-            icon=iconCache.icon("dirOpen.png"),
-            text=trUtf8('Add directory...'),
-            actionGroup=target.projMgmtActGrp,
-            objectName='project_add_dir', 
-            statusTip=trUtf8('Add a directory to the current project'), 
-            whatsThis=trUtf8(
-        """<b>Add directory...</b>"""
-        """<p>This opens a dialog for adding a directory to """
-        """the current project.</p>"""))
-    target.projActions.append(target.projAddDirAct)
+        target.projAddDirAct = KyAction(\
+                iconText=trUtf8('Add directory to project'),
+                icon=iconCache.icon("dirOpen.png"),
+                text=trUtf8('Add directory...'),
+                actionGroup=target.projMgmtActGrp,
+                objectName='project_add_dir', 
+                statusTip=trUtf8('Add a directory to the current project'), 
+                whatsThis=trUtf8(
+            """<b>Add directory...</b>"""
+            """<p>This opens a dialog for adding a directory to """
+            """the current project.</p>"""))
+        target.projActions.append(target.projAddDirAct)
 
-    target.addLangAct = KyAction(\
-            iconText=trUtf8('Add translation to project'),
-            icon=iconCache.icon("linguist4.png"),
-            text=trUtf8('Add &translation...'),
-            actionGroup=target.projMgmtActGrp,
-            objectName='project_add_translation', 
-            statusTip=trUtf8('Add a translation to the current project'), 
-            whatsThis=trUtf8(
-        """<b>Add translation...</b>"""
-        """<p>This opens a dialog for add a translation"""
-        """ to the current project.</p>"""))
-    target.projActions.append(target.addLangAct)
+        target.addLangAct = KyAction(\
+                iconText=trUtf8('Add translation to project'),
+                icon=iconCache.icon("linguist4.png"),
+                text=trUtf8('Add &translation...'),
+                actionGroup=target.projMgmtActGrp,
+                objectName='project_add_translation', 
+                statusTip=trUtf8('Add a translation to the current project'), 
+                whatsThis=trUtf8(
+            """<b>Add translation...</b>"""
+            """<p>This opens a dialog for add a translation"""
+            """ to the current project.</p>"""))
+        target.projActions.append(target.addLangAct)
 
-    target.projFindNewAct = KyAction(\
-            iconText=trUtf8('Search for new files'),
-            text=trUtf8('Searc&h new files...'),
-            actionGroup=target.projMgmtActGrp,
-            objectName='project_find_new_files', 
-            statusTip=trUtf8('Search for new files in the project directory.'), 
-            whatsThis=trUtf8(
-        """<b>Search new files...</b>"""
-        """<p>This searches for new files (sources, *.ui, *.idl) in """
-        """ the project directory and registered subdirectories.</p>"""))
-    target.projActions.append(target.projFindNewAct)
+        target.projFindNewAct = KyAction(\
+                iconText=trUtf8('Search for new files'),
+                text=trUtf8('Searc&h new files...'),
+                actionGroup=target.projMgmtActGrp,
+                objectName='project_find_new_files', 
+                statusTip=trUtf8('Search for new files in the project directory.'), 
+                whatsThis=trUtf8(
+            """<b>Search new files...</b>"""
+            """<p>This searches for new files (sources, *.ui, *.idl) in """
+            """ the project directory and registered subdirectories.</p>"""))
+        target.projActions.append(target.projFindNewAct)
 
-    target.projPropsAct = KyAction(\
-            iconText=trUtf8('Project properties'),
-            icon=iconCache.icon("projectProps.png"),
-            text=trUtf8('&Properties...'),
-            parent=target, 
-            objectName='project_properties', 
-            statusTip=trUtf8('Show the project properties'), 
-            whatsThis=trUtf8(
-        """<b>Properties...</b>"""
-        """<p>This shows a dialog to edit the project properties.</p>"""))
-    target.projActions.append(target.projPropsAct)
+        target.projPropsAct = KyAction(\
+                iconText=trUtf8('Project properties'),
+                icon=iconCache.icon("projectProps.png"),
+                text=trUtf8('&Properties...'),
+                parent=target, 
+                objectName='project_properties', 
+                statusTip=trUtf8('Show the project properties'), 
+                whatsThis=trUtf8(
+            """<b>Properties...</b>"""
+            """<p>This shows a dialog to edit the project properties.</p>"""))
+        target.projActions.append(target.projPropsAct)
 
-    target.projUserPropsAct = KyAction(\
-            iconText=trUtf8('User project properties'),
-            icon=iconCache.icon("projectUserProps.png"),
-            text=trUtf8('&User Properties...'), 
-            parent=target, 
-            objectName='project_user_properties', 
-            statusTip=trUtf8('Show the user specific project properties'), 
-            whatsThis=trUtf8(
-        """<b>User Properties...</b>"""
-        """<p>This shows a dialog to edit the user specific project properties.</p>"""))
-    target.projActions.append(target.projUserPropsAct)
+        target.projUserPropsAct = KyAction(\
+                iconText=trUtf8('User project properties'),
+                icon=iconCache.icon("projectUserProps.png"),
+                text=trUtf8('&User Properties...'), 
+                parent=target, 
+                objectName='project_user_properties', 
+                statusTip=trUtf8('Show the user specific project properties'), 
+                whatsThis=trUtf8(
+            """<b>User Properties...</b>"""
+            """<p>This shows a dialog to edit the user specific project properties.</p>"""))
+        target.projActions.append(target.projUserPropsAct)
 
-    target.projFileTypesAct = KyAction(\
-            iconText=trUtf8('Filetype Associations'),
-            text=trUtf8('Filetype Associations...'),
-            parent=target, 
-            objectName='project_filetype_associations', 
-            statusTip=trUtf8('Show the project filetype associations'), 
-            whatsThis=trUtf8(
-        """<b>Filetype Associations...</b>"""
-        """<p>This shows a dialog to edit the filetype associations of the project."""
-        """ These associations determine the type (source, form, interface"""
-        """ or others) with a filename pattern. They are used when adding a file"""
-        """ to the project and when performing a search for new files.</p>"""))
-    target.projActions.append(target.projFileTypesAct)
+        target.projFileTypesAct = KyAction(\
+                iconText=trUtf8('Filetype Associations'),
+                text=trUtf8('Filetype Associations...'),
+                parent=target, 
+                objectName='project_filetype_associations', 
+                statusTip=trUtf8('Show the project filetype associations'), 
+                whatsThis=trUtf8(
+            """<b>Filetype Associations...</b>"""
+            """<p>This shows a dialog to edit the filetype associations of the project."""
+            """ These associations determine the type (source, form, interface"""
+            """ or others) with a filename pattern. They are used when adding a file"""
+            """ to the project and when performing a search for new files.</p>"""))
+        target.projActions.append(target.projFileTypesAct)
 
-    target.projLexersAct = KyAction(\
-            iconText=trUtf8('Lexer Associations'),
-            text=trUtf8('Lexer Associations...'),
-            parent=target, 
-            objectName='project_lexer_associations', 
-            statusTip=trUtf8('Show the project lexer associations (overriding defaults)'), 
-            whatsThis=trUtf8(
-        """<b>Lexer Associations...</b>"""
-        """<p>This shows a dialog to edit the lexer associations of the project."""
-        """ These associations override the global lexer associations. Lexers"""
-        """ are used to highlight the editor text.</p>"""))
-    target.projActions.append(target.projLexersAct)
+        target.projLexersAct = KyAction(\
+                iconText=trUtf8('Lexer Associations'),
+                text=trUtf8('Lexer Associations...'),
+                parent=target, 
+                objectName='project_lexer_associations', 
+                statusTip=trUtf8('Show the project lexer associations (overriding defaults)'), 
+                whatsThis=trUtf8(
+            """<b>Lexer Associations...</b>"""
+            """<p>This shows a dialog to edit the lexer associations of the project."""
+            """ These associations override the global lexer associations. Lexers"""
+            """ are used to highlight the editor text.</p>"""))
+        target.projActions.append(target.projLexersAct)
 
-    target.projDbgActGrp = QActionGroup(target)
-    
-    target.projDbgPropsAct = KyAction(\
-            iconText=trUtf8('Debugger Properties'),
-            text=trUtf8('Debugger &Properties...'),
-            actionGroup=target.projDbgActGrp, 
-            objectName='project_debugger_properties', 
-            statusTip=trUtf8('Show the debugger properties'), 
-            whatsThis=trUtf8(
-        """<b>Debugger Properties...</b>"""
-        """<p>This shows a dialog to edit project specific debugger settings.</p>"""))
-    target.projActions.append(target.projDbgPropsAct)
-    
-    target.projDbgLoadAct = KyAction(\
-            iconText=trUtf8('Load'),
-            text=trUtf8('&Load'),
-            actionGroup=target.projDbgActGrp, 
-            objectName='project_debugger_load', 
-            statusTip=trUtf8('Load the debugger properties'), 
-            whatsThis=trUtf8(
-        """<b>Load Debugger Properties</b>"""
-        """<p>This loads the project specific debugger settings.</p>"""))
-    target.projActions.append(target.projDbgLoadAct)
-    
-    target.projDbgSaveAct= KyAction(\
-            iconText=trUtf8('Save'),
-            text=trUtf8('&Save', 'Project Debugger'),
-            actionGroup=target.projDbgActGrp, 
-            objectName='project_debugger_save', 
-            statusTip=trUtf8('Save the debugger properties'), 
-            whatsThis=trUtf8(
-        """<b>Save Debugger Properties</b>"""
-        """<p>This saves the project specific debugger settings.</p>"""))
-    target.projActions.append(target.projDbgSaveAct)
-    
-    target.projDbgDelAct = KyAction(\
-            iconText=trUtf8('Delete'),
-            text=trUtf8('&Delete'),
-            actionGroup=target.projDbgActGrp, 
-            objectName='project_debugger_delete', 
-            statusTip=trUtf8('Delete the debugger properties'), 
-            whatsThis=trUtf8(
-        """<b>Delete Debugger Properties</b>"""
-        """<p>This deletes the file containing the project specific"""
-        """ debugger settings.</p>"""))
-    target.projActions.append(target.projDbgDelAct)
-    
-    target.projDbgResetAct = KyAction(\
-            iconText=trUtf8('Reset'),
-            text=trUtf8('&Reset'),
-            actionGroup=target.projDbgActGrp, 
-            objectName='project_debugger_resets', 
-            statusTip=trUtf8('Reset the debugger properties'), 
-            whatsThis=trUtf8(
-        """<b>Reset Debugger Properties</b>"""
-        """<p>This resets the project specific debugger settings.</p>"""))
-    target.projActions.append(target.projDbgResetAct)
-    
-    target.sessionActGrp = QActionGroup(target)
+        target.projDbgActGrp = QActionGroup(target)
+        
+        target.projDbgPropsAct = KyAction(\
+                iconText=trUtf8('Debugger Properties'),
+                text=trUtf8('Debugger &Properties...'),
+                actionGroup=target.projDbgActGrp, 
+                objectName='project_debugger_properties', 
+                statusTip=trUtf8('Show the debugger properties'), 
+                whatsThis=trUtf8(
+            """<b>Debugger Properties...</b>"""
+            """<p>This shows a dialog to edit project specific debugger settings.</p>"""))
+        target.projActions.append(target.projDbgPropsAct)
+        
+        target.projDbgLoadAct = KyAction(\
+                iconText=trUtf8('Load'),
+                text=trUtf8('&Load'),
+                actionGroup=target.projDbgActGrp, 
+                objectName='project_debugger_load', 
+                statusTip=trUtf8('Load the debugger properties'), 
+                whatsThis=trUtf8(
+            """<b>Load Debugger Properties</b>"""
+            """<p>This loads the project specific debugger settings.</p>"""))
+        target.projActions.append(target.projDbgLoadAct)
+        
+        target.projDbgSaveAct= KyAction(\
+                iconText=trUtf8('Save'),
+                text=trUtf8('&Save', 'Project Debugger'),
+                actionGroup=target.projDbgActGrp, 
+                objectName='project_debugger_save', 
+                statusTip=trUtf8('Save the debugger properties'), 
+                whatsThis=trUtf8(
+            """<b>Save Debugger Properties</b>"""
+            """<p>This saves the project specific debugger settings.</p>"""))
+        target.projActions.append(target.projDbgSaveAct)
+        
+        target.projDbgDelAct = KyAction(\
+                iconText=trUtf8('Delete'),
+                text=trUtf8('&Delete'),
+                actionGroup=target.projDbgActGrp, 
+                objectName='project_debugger_delete', 
+                statusTip=trUtf8('Delete the debugger properties'), 
+                whatsThis=trUtf8(
+            """<b>Delete Debugger Properties</b>"""
+            """<p>This deletes the file containing the project specific"""
+            """ debugger settings.</p>"""))
+        target.projActions.append(target.projDbgDelAct)
+        
+        target.projDbgResetAct = KyAction(\
+                iconText=trUtf8('Reset'),
+                text=trUtf8('&Reset'),
+                actionGroup=target.projDbgActGrp, 
+                objectName='project_debugger_resets', 
+                statusTip=trUtf8('Reset the debugger properties'), 
+                whatsThis=trUtf8(
+            """<b>Reset Debugger Properties</b>"""
+            """<p>This resets the project specific debugger settings.</p>"""))
+        target.projActions.append(target.projDbgResetAct)
+        
+        target.sessionActGrp = QActionGroup(target)
 
-    target.sessionLoadAct = KyAction(\
-            iconText=trUtf8('Load session'),
-            text=trUtf8('Load session'),
-            actionGroup=target.sessionActGrp, 
-            objectName='project_load_session', 
-            statusTip=trUtf8('Load the projects session file.'), 
-            whatsThis=trUtf8(
-        """<b>Load session</b>"""
-        """<p>This loads the projects session file. The session consists"""
-        """ of the following data.<br>"""
-        """- all open source files<br>"""
-        """- all breakpoint<br>"""
-        """- the commandline arguments<br>"""
-        """- the working directory<br>"""
-        """- the exception reporting flag</p>"""))
-    target.projActions.append(target.sessionLoadAct)
+        target.sessionLoadAct = KyAction(\
+                iconText=trUtf8('Load session'),
+                text=trUtf8('Load session'),
+                actionGroup=target.sessionActGrp, 
+                objectName='project_load_session', 
+                statusTip=trUtf8('Load the projects session file.'), 
+                whatsThis=trUtf8(
+            """<b>Load session</b>"""
+            """<p>This loads the projects session file. The session consists"""
+            """ of the following data.<br>"""
+            """- all open source files<br>"""
+            """- all breakpoint<br>"""
+            """- the commandline arguments<br>"""
+            """- the working directory<br>"""
+            """- the exception reporting flag</p>"""))
+        target.projActions.append(target.sessionLoadAct)
 
-    target.sessionSaveAct = KyAction(\
-            iconText=trUtf8('Save session'),
-            text=trUtf8('Save session'),
-            actionGroup=target.sessionActGrp, 
-            objectName='project_save_session', 
-            statusTip=trUtf8('Save the projects session file.'), 
-            whatsThis=trUtf8(
-        """<b>Save session</b>"""
-        """<p>This saves the projects session file. The session consists"""
-        """ of the following data.<br>"""
-        """- all open source files<br>"""
-        """- all breakpoint<br>"""
-        """- the commandline arguments<br>"""
-        """- the working directory<br>"""
-        """- the exception reporting flag</p>"""))
-    target.projActions.append(target.sessionSaveAct)
-    
-    target.sessionDelAct = KyAction(\
-            iconText=trUtf8('Delete session'),
-            text=trUtf8('Delete session'),
-            actionGroup=target.sessionActGrp, 
-            objectName='project_delete_session', 
-            statusTip=trUtf8('Delete the projects session file.'), 
-            whatsThis=trUtf8(
-        """<b>Delete session</b>"""
-        """<p>This deletes the projects session file</p>"""))
-    target.projActions.append(target.sessionDelAct)
-    
-    target.projCodeActGrp = QActionGroup(target)
+        target.sessionSaveAct = KyAction(\
+                iconText=trUtf8('Save session'),
+                text=trUtf8('Save session'),
+                actionGroup=target.sessionActGrp, 
+                objectName='project_save_session', 
+                statusTip=trUtf8('Save the projects session file.'), 
+                whatsThis=trUtf8(
+            """<b>Save session</b>"""
+            """<p>This saves the projects session file. The session consists"""
+            """ of the following data.<br>"""
+            """- all open source files<br>"""
+            """- all breakpoint<br>"""
+            """- the commandline arguments<br>"""
+            """- the working directory<br>"""
+            """- the exception reporting flag</p>"""))
+        target.projActions.append(target.sessionSaveAct)
+        
+        target.sessionDelAct = KyAction(\
+                iconText=trUtf8('Delete session'),
+                text=trUtf8('Delete session'),
+                actionGroup=target.sessionActGrp, 
+                objectName='project_delete_session', 
+                statusTip=trUtf8('Delete the projects session file.'), 
+                whatsThis=trUtf8(
+            """<b>Delete session</b>"""
+            """<p>This deletes the projects session file</p>"""))
+        target.projActions.append(target.sessionDelAct)
+        
+        target.projCodeActGrp = QActionGroup(target)
 
-    target.codeMetricsAct = KyAction(\
-            iconText=trUtf8('Code Metrics'),
-            text=trUtf8('&Code Metrics...'),
-            actionGroup=target.projCodeActGrp,
-            objectName='project_code_metrics', 
-            statusTip=trUtf8(\
-                'Show some code metrics for the project.'), 
-            whatsThis=trUtf8(
-        """<b>Code Metrics...</b>"""
-        """<p>This shows some code metrics for all Python files in the project.</p>"""))
-    target.projActions.append(target.codeMetricsAct)
+        target.codeMetricsAct = KyAction(\
+                iconText=trUtf8('Code Metrics'),
+                text=trUtf8('&Code Metrics...'),
+                actionGroup=target.projCodeActGrp,
+                objectName='project_code_metrics', 
+                statusTip=trUtf8(\
+                    'Show some code metrics for the project.'), 
+                whatsThis=trUtf8(
+            """<b>Code Metrics...</b>"""
+            """<p>This shows some code metrics for all Python files in the project.</p>"""))
+        target.projActions.append(target.codeMetricsAct)
 
-    target.codeCoverageAct = KyAction(\
-            iconText=trUtf8('Python Code Coverage'),
-            text=trUtf8('Code Co&verage...'),
-            actionGroup=target.projCodeActGrp,
-            objectName='project_code_coverage', 
-            statusTip=trUtf8(\
-                'Show code coverage information for the project.'), 
-            whatsThis=trUtf8(
-        """<b>Code Coverage...</b>"""
-        """<p>This shows the code coverage information for all Python files"""
-        """ in the project.</p>"""))
-    target.projActions.append(target.codeCoverageAct)
+        target.codeCoverageAct = KyAction(\
+                iconText=trUtf8('Python Code Coverage'),
+                text=trUtf8('Code Co&verage...'),
+                actionGroup=target.projCodeActGrp,
+                objectName='project_code_coverage', 
+                statusTip=trUtf8(\
+                    'Show code coverage information for the project.'), 
+                whatsThis=trUtf8(
+            """<b>Code Coverage...</b>"""
+            """<p>This shows the code coverage information for all Python files"""
+            """ in the project.</p>"""))
+        target.projActions.append(target.codeCoverageAct)
 
-    target.codeProfileAct = KyAction(\
-            iconText=trUtf8('Profile Data'),
-            text=trUtf8('&Profile Data...'),
-            actionGroup=target.projCodeActGrp,
-            objectName='project_profile_data', 
-            statusTip=trUtf8('Show profiling data for the project.'), 
-            whatsThis=trUtf8(
-        """<b>Profile Data...</b>"""
-        """<p>This shows the profiling data for the project.</p>"""))
-    target.projActions.append(target.codeProfileAct)
+        target.codeProfileAct = KyAction(\
+                iconText=trUtf8('Profile Data'),
+                text=trUtf8('&Profile Data...'),
+                actionGroup=target.projCodeActGrp,
+                objectName='project_profile_data', 
+                statusTip=trUtf8('Show profiling data for the project.'), 
+                whatsThis=trUtf8(
+            """<b>Profile Data...</b>"""
+            """<p>This shows the profiling data for the project.</p>"""))
+        target.projActions.append(target.codeProfileAct)
 
-    target.codeDiagramAct = KyAction(\
-            iconText=trUtf8('Application Diagram'),
-            text=trUtf8('&Application Diagram...'),
-            actionGroup=target.projCodeActGrp,
-            objectName='project_code_diagram', 
-            statusTip=trUtf8('Show a diagram of the project.'), 
-            whatsThis=trUtf8(
-        """<b>Application Diagram...</b>"""
-        """<p>This shows a diagram of the project.</p>"""))
-    target.projActions.append(target.codeDiagramAct)
+        target.codeDiagramAct = KyAction(\
+                iconText=trUtf8('Application Diagram'),
+                text=trUtf8('&Application Diagram...'),
+                actionGroup=target.projCodeActGrp,
+                objectName='project_code_diagram', 
+                statusTip=trUtf8('Show a diagram of the project.'), 
+                whatsThis=trUtf8(
+            """<b>Application Diagram...</b>"""
+            """<p>This shows a diagram of the project.</p>"""))
+        target.projActions.append(target.codeDiagramAct)
 
-    target.pkgActGrp = QActionGroup(target)
+        target.pkgActGrp = QActionGroup(target)
 
-    target.pkgListAct = KyAction(\
-            iconText=trUtf8('Create Package List'),
-            icon=iconCache.icon("pluginArchiveList.png"),
-            text=trUtf8('Create &Package List'),
-            actionGroup=target.pkgActGrp,
-            objectName='project_package_list', 
-            statusTip=trUtf8(\
-                'Create an initial PKGLIST file for an eric5 plugin.'), 
-            whatsThis=trUtf8(
-        """<b>Create Package List</b>"""
-        """<p>This creates an initial list of files to include in an eric5 """
-        """plugin archive. The list is created from the project file.</p>"""))
-    target.projActions.append(target.pkgListAct)
+        target.pkgListAct = KyAction(\
+                iconText=trUtf8('Create Package List'),
+                icon=iconCache.icon("pluginArchiveList.png"),
+                text=trUtf8('Create &Package List'),
+                actionGroup=target.pkgActGrp,
+                objectName='project_package_list', 
+                statusTip=trUtf8(\
+                    'Create an initial PKGLIST file for an eric5 plugin.'), 
+                whatsThis=trUtf8(
+            """<b>Create Package List</b>"""
+            """<p>This creates an initial list of files to include in an eric5 """
+            """plugin archive. The list is created from the project file.</p>"""))
+        target.projActions.append(target.pkgListAct)
 
-    target.pkgArchiveAct = KyAction(\
-            iconText=trUtf8('Create Plugin Archive'),
-            icon=iconCache.icon("pluginArchive.png"),
-            text=trUtf8('Create Plugin &Archive'),
-            actionGroup=target.pkgActGrp,
-            objectName='project_package_archive', 
-            statusTip=trUtf8(\
-                'Create an eric5 plugin archive file.'), 
-            whatsThis=trUtf8(
-        """<b>Create Plugin Archive</b>"""
-        """<p>This creates an eric5 plugin archive file using the list of files """
-        """given in the PKGLIST file. The archive name is built from the main """
-        """script name.</p>"""))
-    target.projActions.append(target.pkgArchiveAct)
+        target.pkgArchiveAct = KyAction(\
+                iconText=trUtf8('Create Plugin Archive'),
+                icon=iconCache.icon("pluginArchive.png"),
+                text=trUtf8('Create Plugin &Archive'),
+                actionGroup=target.pkgActGrp,
+                objectName='project_package_archive', 
+                statusTip=trUtf8(\
+                    'Create an eric5 plugin archive file.'), 
+                whatsThis=trUtf8(
+            """<b>Create Plugin Archive</b>"""
+            """<p>This creates an eric5 plugin archive file using the list of files """
+            """given in the PKGLIST file. The archive name is built from the main """
+            """script name.</p>"""))
+        target.projActions.append(target.pkgArchiveAct)
 
-    target.pkgArchiveSnapAct = KyAction(\
-            iconText=trUtf8('Create Plugin Archive Snapshot'),
-            icon=iconCache.icon("pluginArchiveSnapshot.png"),
-            text=trUtf8('Create Plugin Archive &Snapshot'),
-            actionGroup=target.pkgActGrp,
-            objectName='project_package_snapshot_archive', 
-            statusTip=trUtf8(
-                'Create an eric5 plugin archive file (snapshot release).'), 
-            whatsThis=trUtf8(
-        """<b>Create Plugin Archive (Snapshot)</b>"""
-        """<p>This creates an eric5 plugin archive file using the list of files """
-        """given in the PKGLIST file. The archive name is built from the main """
-        """script name. The version entry of the main script is modified to """
-        """reflect a snapshot release.</p>"""))
-    target.projActions.append(target.pkgArchiveSnapAct)
+        target.pkgArchiveSnapAct = KyAction(\
+                iconText=trUtf8('Create Plugin Archive Snapshot'),
+                icon=iconCache.icon("pluginArchiveSnapshot.png"),
+                text=trUtf8('Create Plugin Archive &Snapshot'),
+                actionGroup=target.pkgActGrp,
+                objectName='project_package_snapshot_archive', 
+                statusTip=trUtf8(
+                    'Create an eric5 plugin archive file (snapshot release).'), 
+                whatsThis=trUtf8(
+            """<b>Create Plugin Archive (Snapshot)</b>"""
+            """<p>This creates an eric5 plugin archive file using the list of files """
+            """given in the PKGLIST file. The archive name is built from the main """
+            """script name. The version entry of the main script is modified to """
+            """reflect a snapshot release.</p>"""))
+        target.projActions.append(target.pkgArchiveSnapAct)
 
-    target.projCloseAct.setEnabled(False)
-    target.projSaveAct.setEnabled(False)
-    target.projSaveAsAct.setEnabled(False)
-    target.projMgmtActGrp.setEnabled(False)
-    target.projPropsAct.setEnabled(False)
-    target.projUserPropsAct.setEnabled(False)
-    target.projFileTypesAct.setEnabled(False)
-    target.projLexersAct.setEnabled(False)
-    target.sessionActGrp.setEnabled(False)
-    target.projDbgActGrp.setEnabled(False)
-    target.pkgActGrp.setEnabled(False)
+#        target.projCloseAct.setEnabled(False)
+#        target.projSaveAct.setEnabled(False)
+#        target.projSaveAsAct.setEnabled(False)
+#        target.projMgmtActGrp.setEnabled(False)
+#        target.projPropsAct.setEnabled(False)
+#        target.projUserPropsAct.setEnabled(False)
+#        target.projFileTypesAct.setEnabled(False)
+#        target.projLexersAct.setEnabled(False)
+#        target.sessionActGrp.setEnabled(False)
+#        target.projDbgActGrp.setEnabled(False)
+#        target.pkgActGrp.setEnabled(False)

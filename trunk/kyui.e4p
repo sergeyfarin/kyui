@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project kyui -->
-<!-- Saved: 2010-11-18, 17:17:31 -->
+<!-- Saved: 2010-11-21, 12:27:57 -->
 <!-- Copyright (C) 2010 Jonathan Harper, mnijph@gmail.com -->
 <Project version="5.1">
   <Language></Language>
@@ -56,6 +56,7 @@
     <Source>Widgets/RibbonActionSet.pyw</Source>
     <Source>Widgets/Action.pyw</Source>
     <Source>TestItems/E5InitActions.py</Source>
+    <Source>Widgets/RibbonToolBar.pyw</Source>
   </Sources>
   <Forms>
     <Form>Ui Files/addremoveitemlistwidget.ui</Form>
@@ -99,6 +100,105 @@
   <Others>
     <Other>Icons</Other>
     <Other>MimeIcons</Other>
+    <Other>E5Icons</Other>
+    <Other>Settings/erase.png</Other>
+    <Other>Settings/set.png</Other>
+    <Other>Settings/undo.png</Other>
+    <Other>Icons/actualsize.png</Other>
+    <Other>Icons/add.png</Other>
+    <Other>Icons/addbookmark.png</Other>
+    <Other>Icons/addfolder.png</Other>
+    <Other>Icons/archivefolder.png</Other>
+    <Other>Icons/camera.png</Other>
+    <Other>Icons/close.png</Other>
+    <Other>Icons/closebutton.png</Other>
+    <Other>Icons/closetab.png</Other>
+    <Other>Icons/copy.png</Other>
+    <Other>Icons/critical.png</Other>
+    <Other>Icons/cut.png</Other>
+    <Other>Icons/debug.png</Other>
+    <Other>Icons/debugmode.png</Other>
+    <Other>Icons/delete.png</Other>
+    <Other>Icons/display.png</Other>
+    <Other>Icons/down.png</Other>
+    <Other>Icons/editclear.png</Other>
+    <Other>Icons/editimage.png</Other>
+    <Other>Icons/email.png</Other>
+    <Other>Icons/end.png</Other>
+    <Other>Icons/erase.png</Other>
+    <Other>Icons/exit.png</Other>
+    <Other>Icons/favorite.png</Other>
+    <Other>Icons/favoritesfolder.png</Other>
+    <Other>Icons/favoritesfolder_16x16.png</Other>
+    <Other>Icons/favoritesfolder_22x22.png</Other>
+    <Other>Icons/favoritesfolder_32x32.png</Other>
+    <Other>Icons/filePython.png</Other>
+    <Other>Icons/find.png</Other>
+    <Other>Icons/fit.png</Other>
+    <Other>Icons/fitheight.png</Other>
+    <Other>Icons/fitwidth.png</Other>
+    <Other>Icons/fullscreen.png</Other>
+    <Other>Icons/help.png</Other>
+    <Other>Icons/history.png</Other>
+    <Other>Icons/image.png</Other>
+    <Other>Icons/imagefolder.png</Other>
+    <Other>Icons/imageinfo.png</Other>
+    <Other>Icons/info.png</Other>
+    <Other>Icons/ipod.png</Other>
+    <Other>Icons/metadata.png</Other>
+    <Other>Icons/newtab.png</Other>
+    <Other>Icons/next.png</Other>
+    <Other>Icons/openfolder.png</Other>
+    <Other>Icons/paste.png</Other>
+    <Other>Icons/photo.png</Other>
+    <Other>Icons/photoviewer.png</Other>
+    <Other>Icons/preferences.png</Other>
+    <Other>Icons/previous.png</Other>
+    <Other>Icons/print.png</Other>
+    <Other>Icons/qtlogo.png</Other>
+    <Other>Icons/reload.png</Other>
+    <Other>Icons/remove.png</Other>
+    <Other>Icons/removebookmark.png</Other>
+    <Other>Icons/removefolder.png</Other>
+    <Other>Icons/removetab.png</Other>
+    <Other>Icons/sample.png</Other>
+    <Other>Icons/shortcuts.png</Other>
+    <Other>Icons/slideshow.png</Other>
+    <Other>Icons/start.png</Other>
+    <Other>Icons/streamcomment.png</Other>
+    <Other>Icons/thumbnail.png</Other>
+    <Other>Icons/up.png</Other>
+    <Other>Icons/warning.png</Other>
+    <Other>Icons/win_archivefolder.png</Other>
+    <Other>Icons/win_cdrom.png</Other>
+    <Other>Icons/win_closedfolder.png</Other>
+    <Other>Icons/win_computer.png</Other>
+    <Other>Icons/win_favoritesfolder.png</Other>
+    <Other>Icons/win_imagefile.png</Other>
+    <Other>Icons/win_library.png</Other>
+    <Other>Icons/win_localdrive.png</Other>
+    <Other>Icons/win_network.png</Other>
+    <Other>Icons/win_openfolder.png</Other>
+    <Other>Icons/win_photofolder.png</Other>
+    <Other>Icons/win_recentplaces.png</Other>
+    <Other>Icons/win_userfolder.png</Other>
+    <Other>Icons/zoomin.png</Other>
+    <Other>Icons/zoomout.png</Other>
+    <Other>MimeIcons/file_compressed.png</Other>
+    <Other>MimeIcons/file_generic.png</Other>
+    <Other>MimeIcons/file_image.png</Other>
+    <Other>MimeIcons/folder_closed.png</Other>
+    <Other>MimeIcons/folder_image.png</Other>
+    <Other>MimeIcons/folder_open.png</Other>
+    <Other>MimeIcons/folder_preview.png</Other>
+    <Other>MimeIcons/folder_search.png</Other>
+    <Other>MimeIcons/folder_shortcut.png</Other>
+    <Other>MimeIcons/folder_user.png</Other>
+    <Other>MimeIcons/system_computer.png</Other>
+    <Other>MimeIcons/system_drive.png</Other>
+    <Other>MimeIcons/system_library.png</Other>
+    <Other>MimeIcons/system_network.png</Other>
+    <Other>MimeIcons/system_recyclebin.png</Other>
   </Others>
   <MainScript>main.pyw</MainScript>
   <Vcs>
@@ -207,7 +307,9 @@
     <FiletypeAssociation pattern="*.pyw3" type="SOURCES" />
     <FiletypeAssociation pattern="*.ui" type="FORMS" />
     <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.png" type="OTHERS" />
     <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS" />
+    <FiletypeAssociation pattern="*.txt" type="OTHERS" />
     <FiletypeAssociation pattern="*.py3" type="SOURCES" />
     <FiletypeAssociation pattern="*.qrc" type="RESOURCES" />
     <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
