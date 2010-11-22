@@ -66,8 +66,8 @@ class KyMainWindow(QMainWindow):
         editTb = ribbonBar.addRibbonTab('Edit')
         editTb.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
-#        for act in self.clipActGrp.actions():
-#            editTb.addAction(act)
+        for act in self.clipActGrp.actions():
+            editTb.addAction(act)
 #        for act in self.indentActGrp.actions():
 #            editTb.addAction(act)
 #        
@@ -114,6 +114,7 @@ class KyMainWindow(QMainWindow):
                 item = QTreeWidgetItem(keyItem, 
                                     [act.objectName(), act.iconText()])
                 item.setIcon(0, act.icon())
+            keyItem.setExpanded(True)
     
     def printIconCacheNames(self, cache) -> None:
         icons = cache.iconNames()
