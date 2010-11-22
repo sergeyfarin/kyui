@@ -66,7 +66,7 @@ class E5ActionCreator():
             'Search'    : target.searchActions, 
             'Spelling'  : target.spellingActions,
             'tools'     : target.toolActions, 
-            'unittest'  : target.utActions , 
+            'Unittest'  : target.utActions , 
             'View'      : target.viewActions, 
             'Window'    : target.windowActions, 
         }
@@ -2864,15 +2864,3 @@ class E5ActionCreator():
             """script name. The version entry of the main script is modified to """
             """reflect a snapshot release.</p>"""))
         target.projActions.append(target.pkgArchiveSnapAct)
-
-#        target.projCloseAct.setEnabled(False)
-#        target.projSaveAct.setEnabled(False)
-#        target.projSaveAsAct.setEnabled(False)
-#        target.projMgmtActGrp.setEnabled(False)
-#        target.projPropsAct.setEnabled(False)
-#        target.projUserPropsAct.setEnabled(False)
-#        target.projFileTypesAct.setEnabled(False)
-#        target.projLexersAct.setEnabled(False)
-#        target.sessionActGrp.setEnabled(False)
-#        target.projDbgActGrp.setEnabled(False)
-#        target.pkgActGrp.setEnabled(False)

@@ -30,8 +30,9 @@ class KyMainWindow(QMainWindow):
         
     def __setupUi(self) -> None:
         self.__setupDebugDock()
-        self.__setupActions()
+        E5ActionCreator.initActions(self)
         self.__setupRibbon()
+        self.__createMenuTree()
         
         self.treeWidget = QTreeWidget(self)
         self.treeWidget.setIconSize(QSize(22, 22))
@@ -47,7 +48,8 @@ class KyMainWindow(QMainWindow):
         
     def __setupRibbon(self) -> None:
         ribbonBar = KyRibbonBar(self)
-        menuButton = KyMenuButton(parent = ribbonBar, icon = IconSet.Folder())
+        menuButton = KyMenuButton(parent = ribbonBar, icon = IconSet.Folder(), 
+                                  text = 'File')
         
         menu = QMenu()
         menu.addAction(self.newAct)
@@ -64,21 +66,21 @@ class KyMainWindow(QMainWindow):
         editTb = ribbonBar.addRibbonTab('Edit')
         editTb.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
-        for act in self.clipActGrp.actions():
-            editTb.addAction(act)
-        for act in self.indentActGrp.actions():
-            editTb.addAction(act)
-        
-        editTb.addAction(self.autoCompleteAct)
-        autoButton = editTb.widgetForAction(self.autoCompleteAct)
-        autoButton.setPopupMode(QToolButton.MenuButtonPopup)
-        
-        menu = QMenu(autoButton)
-        menu.addAction(self.autoCompleteFromDocAct)
-        menu.addAction(self.autoCompleteFromAPIsAct)
-        menu.addAction(self.autoCompleteFromAllAct)
-        menu.addAction(self.calltipsAct)
-        autoButton.setMenu(menu)
+#        for act in self.clipActGrp.actions():
+#            editTb.addAction(act)
+#        for act in self.indentActGrp.actions():
+#            editTb.addAction(act)
+#        
+#        editTb.addAction(self.autoCompleteAct)
+#        autoButton = editTb.widgetForAction(self.autoCompleteAct)
+#        autoButton.setPopupMode(QToolButton.MenuButtonPopup)
+#        
+#        menu = QMenu(autoButton)
+#        menu.addAction(self.autoCompleteFromDocAct)
+#        menu.addAction(self.autoCompleteFromAPIsAct)
+#        menu.addAction(self.autoCompleteFromAllAct)
+#        menu.addAction(self.calltipsAct)
+#        autoButton.setMenu(menu)
         
         bmTb = ribbonBar.addRibbonTab('Bookmarks')
         projTb = ribbonBar.addRibbonTab('Project')
@@ -87,9 +89,6 @@ class KyMainWindow(QMainWindow):
         self.menu = menu
         self.menuButton = menuButton
         self.ribbonBar = ribbonBar
-        
-    def __setupActions(self) -> None:
-        E5ActionCreator.initActions(self)
     
     def displayIconCache(self):
         self.treeWidget.clear()
@@ -122,3 +121,50 @@ class KyMainWindow(QMainWindow):
         for icon in icons:
             iconStr += '\n' + icon
         qDebug('Icons:' + iconStr)
+        
+    def __createMenuTree(self) -> None:
+#        menuTree = QMenu(self)
+        self.editMenu = QMenu('Edit')
+        self.menu.addMenu(self.editMenu)
+        
+        clipMenu = self.editMenu.addMenu('Clipboard')
+        clipMenu.addAction(self.cutAct)
+        clipMenu.addAction(self.copyAct)
+        clipMenu.addAction(self.pasteAct)
+        
+        changesMenu = self.editMenu.addMenu('Changes')
+        changesMenu.addAction(self.undoAct)
+        changesMenu.addAction(self.redoAct)
+        changesMenu.addAction(self.revertAct)
+        
+        indentMenu = self.editMenu.addMenu('Indentation')
+        indentMenu.addAction(self.indentAct)
+        indentMenu.addAction(self.unindentAct)
+        indentMenu.addAction(self.smartIndentAct)
+        
+        editingMenu = self.editMenu.addMenu('Editing')
+        editingMenu.addAction(self.autoCompleteAct)
+        
+        menu = QMenu()
+        menu.addAction(self.autoCompleteFromDocAct)
+        menu.addAction(self.autoCompleteFromAPIsAct)
+        menu.addAction(self.autoCompleteFromAllAct)
+        menu.addAction(self.calltipsAct)
+        self.autoCompleteAct.setMenu(menu)
+        editingMenu.addMenu(menu)
+
+        menu = QMenu()
+        menu.addAction(self.streamCommentAct)
+        menu.addAction(self.boxCommentAct)
+        self.commentAct.setMenu(menu)
+        editingMenu.addMenu(menu)
+        
+        editingMenu.addAction(self.uncommentAct)
+        
+        lineToolMenu = editingMenu.addMenu('Line Tools')
+        lineToolMenu.addAction(self.shortenEmptyAct)
+        lineToolMenu.addAction(self.convertEOLAct)
+        
+        spellingMenu = editingMenu.addMenu('Spelling')
+        spellingMenu.addAction(self.spellCheckAct)
+        spellingMenu.addAction(self.autoSpellCheckAct)
