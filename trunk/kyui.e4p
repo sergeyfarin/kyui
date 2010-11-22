@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project kyui -->
-<!-- Saved: 2010-11-21, 12:27:57 -->
+<!-- Saved: 2010-11-22, 17:45:05 -->
 <!-- Copyright (C) 2010 Jonathan Harper, mnijph@gmail.com -->
 <Project version="5.1">
   <Language></Language>
@@ -57,6 +57,9 @@
     <Source>Widgets/Action.pyw</Source>
     <Source>TestItems/E5InitActions.py</Source>
     <Source>Widgets/RibbonToolBar.pyw</Source>
+    <Source>Widgets/RibbonAction.pyw</Source>
+    <Source>TestItems/ActionModel.pyw</Source>
+    <Source>Widgets/RibbonGroupBox.pyw</Source>
   </Sources>
   <Forms>
     <Form>Ui Files/addremoveitemlistwidget.ui</Form>
@@ -94,6 +97,7 @@
     <Resource>Settings/keypresser.qrc</Resource>
     <Resource>MimeIcons/mimeicons.qrc</Resource>
     <Resource>Icons/icons.qrc</Resource>
+    <Resource>E5Icons/e5icons.qrc</Resource>
   </Resources>
   <Interfaces>
   </Interfaces>
@@ -132,7 +136,6 @@
     <Other>Icons/favoritesfolder_16x16.png</Other>
     <Other>Icons/favoritesfolder_22x22.png</Other>
     <Other>Icons/favoritesfolder_32x32.png</Other>
-    <Other>Icons/filePython.png</Other>
     <Other>Icons/find.png</Other>
     <Other>Icons/fit.png</Other>
     <Other>Icons/fitheight.png</Other>
@@ -199,6 +202,156 @@
     <Other>MimeIcons/system_library.png</Other>
     <Other>MimeIcons/system_network.png</Other>
     <Other>MimeIcons/system_recyclebin.png</Other>
+    <Other>E5Icons/arrangeLeftRight.png</Other>
+    <Other>E5Icons/arrangeTopBottom.png</Other>
+    <Other>E5Icons/bookmark.png</Other>
+    <Other>E5Icons/bookmarkAdd.png</Other>
+    <Other>E5Icons/bookmarkClear.png</Other>
+    <Other>E5Icons/bookmarkEdit.png</Other>
+    <Other>E5Icons/bookmarkNext.png</Other>
+    <Other>E5Icons/bookmarkPrevious.png</Other>
+    <Other>E5Icons/bookmarkToggle.png</Other>
+    <Other>E5Icons/breakpointClear.png</Other>
+    <Other>E5Icons/breakpointEdit.png</Other>
+    <Other>E5Icons/breakpointNext.png</Other>
+    <Other>E5Icons/breakpointPrevious.png</Other>
+    <Other>E5Icons/breakpointToggle.png</Other>
+    <Other>E5Icons/debugContextExecute.png</Other>
+    <Other>E5Icons/debugContextExecute2.png</Other>
+    <Other>E5Icons/debugFilter.png</Other>
+    <Other>E5Icons/docEric.png</Other>
+    <Other>E5Icons/docPySide.png</Other>
+    <Other>E5Icons/docPython.png</Other>
+    <Other>E5Icons/docQt.png</Other>
+    <Other>E5Icons/editAutocomplete.png</Other>
+    <Other>E5Icons/editComment.png</Other>
+    <Other>E5Icons/editCopy.png</Other>
+    <Other>E5Icons/editCut.png</Other>
+    <Other>E5Icons/editDelete.png</Other>
+    <Other>E5Icons/editPaste.png</Other>
+    <Other>E5Icons/editRedo.png</Other>
+    <Other>E5Icons/editRevert.png</Other>
+    <Other>E5Icons/editStreamComment.png</Other>
+    <Other>E5Icons/editUncomment.png</Other>
+    <Other>E5Icons/editUndo.png</Other>
+    <Other>E5Icons/fileExit.png</Other>
+    <Other>E5Icons/fileexport.png</Other>
+    <Other>E5Icons/filefind.png</Other>
+    <Other>E5Icons/fileimport.png</Other>
+    <Other>E5Icons/fileNew.png</Other>
+    <Other>E5Icons/fileOpen.png</Other>
+    <Other>E5Icons/filePrint.png</Other>
+    <Other>E5Icons/fileSave.png</Other>
+    <Other>E5Icons/fileSaveAll.png</Other>
+    <Other>E5Icons/fileSaveAs.png</Other>
+    <Other>E5Icons/filterExceptions.png</Other>
+    <Other>E5Icons/filterVariables.png</Other>
+    <Other>E5Icons/find.png</Other>
+    <Other>E5Icons/findClear.png</Other>
+    <Other>E5Icons/findNext.png</Other>
+    <Other>E5Icons/findPrevious.png</Other>
+    <Other>E5Icons/flagNext.png</Other>
+    <Other>E5Icons/flagPrevious.png</Other>
+    <Other>E5Icons/gotoBrace.png</Other>
+    <Other>E5Icons/gotoLine.png</Other>
+    <Other>E5Icons/gotoSyntaxError.png</Other>
+    <Other>E5Icons/helpViewer.png</Other>
+    <Other>E5Icons/ignoredExceptions.png</Other>
+    <Other>E5Icons/macro.png</Other>
+    <Other>E5Icons/macroDelete.png</Other>
+    <Other>E5Icons/macroLoad.png</Other>
+    <Other>E5Icons/macroRun.png</Other>
+    <Other>E5Icons/macroSave.png</Other>
+    <Other>E5Icons/macroStartRecording.png</Other>
+    <Other>E5Icons/macroStopRecording.png</Other>
+    <Other>E5Icons/mimeDesigner.png</Other>
+    <Other>E5Icons/mimeLinguist.png</Other>
+    <Other>E5Icons/mimePython.png</Other>
+    <Other>E5Icons/mimeRuby.png</Other>
+    <Other>E5Icons/multiProjectAdd.png</Other>
+    <Other>E5Icons/multiProjectClose.png</Other>
+    <Other>E5Icons/multiProjectConfigure.png</Other>
+    <Other>E5Icons/multiProjectNew.png</Other>
+    <Other>E5Icons/multiProjectOpen.png</Other>
+    <Other>E5Icons/multiProjectProperties.png</Other>
+    <Other>E5Icons/multiProjectSave.png</Other>
+    <Other>E5Icons/multiProjectSaveAs.png</Other>
+    <Other>E5Icons/package.png</Other>
+    <Other>E5Icons/packageArchive.png</Other>
+    <Other>E5Icons/packageList.png</Other>
+    <Other>E5Icons/packageSnapshot.png</Other>
+    <Other>E5Icons/projectAddFile.png</Other>
+    <Other>E5Icons/projectAddFolder.png</Other>
+    <Other>E5Icons/projectClose.png</Other>
+    <Other>E5Icons/projectConfigure.png</Other>
+    <Other>E5Icons/projectDebug.png</Other>
+    <Other>E5Icons/projectDiagram.png</Other>
+    <Other>E5Icons/projectDocs.png</Other>
+    <Other>E5Icons/projectFind.png</Other>
+    <Other>E5Icons/projectNew.png</Other>
+    <Other>E5Icons/projectOpen.png</Other>
+    <Other>E5Icons/projectProperties.png</Other>
+    <Other>E5Icons/projectSave.png</Other>
+    <Other>E5Icons/projectSaveAs.png</Other>
+    <Other>E5Icons/projectSession.png</Other>
+    <Other>E5Icons/projectUserProperties.png</Other>
+    <Other>E5Icons/runCoverageScript.png</Other>
+    <Other>E5Icons/runDebugProject.png</Other>
+    <Other>E5Icons/runDebugScript.png</Other>
+    <Other>E5Icons/runProfileProject.png</Other>
+    <Other>E5Icons/runProfileScript.png</Other>
+    <Other>E5Icons/runProject.png</Other>
+    <Other>E5Icons/runRestart.png</Other>
+    <Other>E5Icons/runScript.png</Other>
+    <Other>E5Icons/runStop.png</Other>
+    <Other>E5Icons/splitNew.png</Other>
+    <Other>E5Icons/splitNext.png</Other>
+    <Other>E5Icons/splitPrev.png</Other>
+    <Other>E5Icons/splitRemove.png</Other>
+    <Other>E5Icons/syntaxError.png</Other>
+    <Other>E5Icons/syntaxErrorClear.png</Other>
+    <Other>E5Icons/taskNext.png</Other>
+    <Other>E5Icons/taskPrevious.png</Other>
+    <Other>E5Icons/toolsAssistant.png</Other>
+    <Other>E5Icons/toolsDesigner.png</Other>
+    <Other>E5Icons/toolsLinguist.png</Other>
+    <Other>E5Icons/toolsQtExtended.png</Other>
+    <Other>E5Icons/toolsWizard.png</Other>
+    <Other>E5Icons/unittestProject.png</Other>
+    <Other>E5Icons/unittestRestart.png</Other>
+    <Other>E5Icons/unittestRun.png</Other>
+    <Other>E5Icons/unittestScript.png</Other>
+    <Other>E5Icons/vcsAdd.png</Other>
+    <Other>E5Icons/vcsBranch.png</Other>
+    <Other>E5Icons/vcsBrowser.png</Other>
+    <Other>E5Icons/vcsCheckout.png</Other>
+    <Other>E5Icons/vcsCommit.png</Other>
+    <Other>E5Icons/vcsConfigure.png</Other>
+    <Other>E5Icons/vcsDeleteProperty.png</Other>
+    <Other>E5Icons/vcsEditProperty.png</Other>
+    <Other>E5Icons/vcsExecuteCommand.png</Other>
+    <Other>E5Icons/vcsExport.png</Other>
+    <Other>E5Icons/vcsListProperties.png</Other>
+    <Other>E5Icons/vcsLock.png</Other>
+    <Other>E5Icons/vcsLog.png</Other>
+    <Other>E5Icons/vcsLogin.png</Other>
+    <Other>E5Icons/vcsLogout.png</Other>
+    <Other>E5Icons/vcsMerge.png</Other>
+    <Other>E5Icons/vcsProperties.png</Other>
+    <Other>E5Icons/vcsRemove.png</Other>
+    <Other>E5Icons/vcsRevert.png</Other>
+    <Other>E5Icons/vcsStatus.png</Other>
+    <Other>E5Icons/vcsUnlock.png</Other>
+    <Other>E5Icons/vcsUpdate.png</Other>
+    <Other>E5Icons/viewTerminal.png</Other>
+    <Other>E5Icons/warningClear.png</Other>
+    <Other>E5Icons/warningNext.png</Other>
+    <Other>E5Icons/warningPrev.png</Other>
+    <Other>E5Icons/webEric.png</Other>
+    <Other>E5Icons/zoomin.png</Other>
+    <Other>E5Icons/zoomout.png</Other>
+    <Other>E5Icons/zoomreset.png</Other>
+    <Other>E5Icons/zoomTo.png</Other>
   </Others>
   <MainScript>main.pyw</MainScript>
   <Vcs>
