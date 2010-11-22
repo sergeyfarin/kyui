@@ -68,8 +68,8 @@
     <file>bookmarkEdit.png</file>
     <file>bookmarkNext.png</file>
     <file>bookmarkPrevious.png</file>
-    <file>bookmarkRemove.png</file>
     <file>bookmarkToggle.png</file>
+    <file>bookmarkClear.png</file>
   </qresource>
   <qresource prefix="Breakpoint">
     <file>breakpointClear.png</file>
@@ -121,8 +121,8 @@
   </qresource>
   <qresource prefix="Doc">
     <file>docEric.png</file>
-    <file>docPython.jpg</file>
     <file>docPySide.png</file>
+    <file>docPython.png</file>
     <file>docQt.png</file>
   </qresource>
   <qresource prefix="Help"/>

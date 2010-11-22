@@ -38,7 +38,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabEdit">
      <attribute name="title">
@@ -1489,7 +1489,7 @@ Errors</string>
           </property>
           <property name="icon">
            <iconset resource="../E5Icons/e5icons.qrc">
-            <normaloff>:/Bookmark/bookmarkRemove.png</normaloff>:/Bookmark/bookmarkRemove.png</iconset>
+            <normaloff>:/Bookmark/bookmarkClear.png</normaloff>:/Bookmark/bookmarkClear.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2796,8 +2796,8 @@ Execute</string>
 File</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/Project/projectSources.png</normaloff>:/Project/projectSources.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectAddFile.png</normaloff>:/Project/projectAddFile.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -2835,8 +2835,8 @@ File</string>
 Folder</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/File/open.png</normaloff>:/File/open.png</iconset>
+           <iconset resource="../E5Icons/e5icons.qrc">
+            <normaloff>:/Project/projectAddFolder.png</normaloff>:/Project/projectAddFolder.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -4123,7 +4123,7 @@ Options</string>
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -5399,7 +5399,7 @@ API</string>
           </property>
           <property name="icon">
            <iconset resource="../E5Icons/e5icons.qrc">
-            <normaloff>:/Doc/docPython.jpg</normaloff>:/Doc/docPython.jpg</iconset>
+            <normaloff>:/Doc/docPython.png</normaloff>:/Doc/docPython.png</iconset>
           </property>
           <property name="iconSize">
            <size>
