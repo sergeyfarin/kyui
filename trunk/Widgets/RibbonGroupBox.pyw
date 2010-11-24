@@ -11,39 +11,38 @@ class KyRibbonGroupBox(QGroupBox):
                  parent : QWidget = None, 
                  title : str = None, 
                  icon : QIcon = None, 
-                 iconSize : QSize = None):
+                 lgIconSize : QSize = None, 
+                 smIconSize : QSize = None):
         if title:
             super().__init__(title, parent)
-            self.__tb = QToolButton(self)
-            self.__tb.setText(title)
-            self.__menu = QMenu(title, self.__tb)
+            self.__button = QToolButton(self)
+            self.__button.setText(title)
+            self.__menu = QMenu(title, self.__button)
         else:
             super().__init__(parent)
-            self.__tb = QToolButton(self)
-            self.__menu = QMenu(self.__tb)
+            self.__button = QToolButton(self)
+            self.__menu = QMenu(self.__button)
         if icon:
-            self.__tb.setIcon(icon)
-        if iconSize:
-            self.__tb.setIconSize(iconSize)
-            self.__iconSize = QSize(iconSize)
+            self.__button.setIcon(icon)
+        if lgIconSize:
+            self.__button.setIconSize(lgIconSize)
+            self.__lgIconSize = lgIconSize
+        else:
+            self.__lgIconSize = QSize(32, 32)
+            self.__button.setIconSize(self.__lgIconSize)
         
-        self.__tb.setMenu(self.__menu)
-        self.__tb.setPopupMode(QToolButton.InstantPopupMode)
-        self.__tb.setAutoRaise(True)
-        self.__tb.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.__button.setMenu(self.__menu)
+        self.__button.setPopupMode(QToolButton.InstantPopupMode)
+        self.__button.setAutoRaise(True)
+        self.__button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
         self.setFlat(True)
         self.setAlignment(Qt.AlignHCenter)
         
-        self.__layout = QGridLayout(self)
-        self.__layout.setSpacing(2)
+        self.__layout = RibbonGroupBoxLayout(self)
         
     def addSoloAction(self, act : QAction = None) -> QToolButton:
         if not act:
             return None
-        tb = QToolButton(self)
-        tb.setDefaultAction(act)
-        tb.setText(act.iconText())
-        tb.setIcon(act.icon())
-        tb.setToolTip(act.toolTip())
-        tb.setWhatsThis(act.whatsThis())
+        button = QToolButton(self)
+        button.setDefaultAction(act)
