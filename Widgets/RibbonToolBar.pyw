@@ -1,17 +1,34 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-class KyRibbonToolBar(QToolBar):
+class KyRibbonToolBar(QWidget):
     def __init__(self, 
-                 title : str = None, 
                  parent : QWidget = None, 
-                 iconSize : QSize = None):
-                     
+                 title : str = None, 
+                 orientation : Qt.Orientation = Qt.Horizontal, 
+                 lgIconSize : QSize = None, 
+                 smIconSize : QSize = None):
+        super().__init__(parent)
         if title:
-            super().__init__(title, parent)
-        else:
-            super().__init__(parent)
-        self.setMovable(False)
-        self.setFloatable(False)
-        if iconSize:
+            self.setWindowTitle(title)
+        if lgIconSize:
+            self.__lgIconSize = lgIconSize
             self.setIconSize(iconSize)
+        else:
+            self.__lgIconSize = QSize(32, 32)
+            self.setIconSize(self.__lgIconSize)
+        if smIconSize:
+            self.__smIconSize = smIconSize
+        
+        self.setOrientation(orientation)
+        
+    def sizeHint(self) -> QSize:
+        return super().sizeHint()
+
+    def setOrientation(self, orientation = Qt.Horizontal) -> None:
+        self.__orient = orientation
+        if orientation == Qt.Horizontal:
+            self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        else:
+            self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.update()
