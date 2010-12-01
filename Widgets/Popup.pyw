@@ -3,10 +3,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-class KyToolPopup(QWidget):
-    def __init__(self, parent : QWidget = None):
-        super().__init__(parent)
-        self.setWindowFlags()
+
 
 
 class GenericDialog(QDialog):
@@ -25,8 +22,8 @@ class GenericDialog(QDialog):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
         
-        self.sheet = KySheet(self)
-        self.layout.addWidget(self.sheet)
+        tb = KyToolButton
+#        self.layout.addWidget(self.sheet)
         
         self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok, 
                                           Qt.Horizontal, self)

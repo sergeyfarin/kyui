@@ -25,8 +25,8 @@ class KyRibbonGroupBox(QGroupBox):
         if icon:
             self.__button.setIcon(icon)
         if lgIconSize:
-            self.__button.setIconSize(lgIconSize)
             self.__lgIconSize = lgIconSize
+            self.__button.setIconSize(lgIconSize)
         else:
             self.__lgIconSize = QSize(32, 32)
             self.__button.setIconSize(self.__lgIconSize)

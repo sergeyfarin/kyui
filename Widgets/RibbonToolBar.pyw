@@ -1,16 +1,15 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-class KyRibbonToolBar(QWidget):
+class KyRibbonToolBar(QToolbar):
     def __init__(self, 
                  parent : QWidget = None, 
                  title : str = None, 
-                 orientation : Qt.Orientation = Qt.Horizontal, 
                  lgIconSize : QSize = None, 
                  smIconSize : QSize = None):
         super().__init__(parent)
         if title:
-            self.setWindowTitle(title)
+            self.setTitle(title)
         if lgIconSize:
             self.__lgIconSize = lgIconSize
             self.setIconSize(iconSize)
