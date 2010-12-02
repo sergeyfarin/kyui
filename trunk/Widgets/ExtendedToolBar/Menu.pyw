@@ -12,7 +12,7 @@ class Menu(QMenu):
         if not iconSize:
             super(QMenu, self).addAction(act)
     
-    def paintEvent(self, ev : QPaintEvent) -> None:
+    def paintEvent(self, ev : QPaintEvent):
         p = QPainter(self)
         emptyArea = QRegion(self.rect())
 
@@ -45,19 +45,19 @@ class Menu(QMenu):
 #        if (d.scroll)
 #            menuOpt.menuItemType = QStyleOptionMenuItem.Scroller
 #            menuOpt.state |= QStyle.State_Enabled;
-#            if (d->scroll->scrollFlags & QMenuPrivate.QMenuScroller.ScrollUp) {
-#                menuOpt.rect.setRect(fw, fw, width() - (fw * 2), d->scrollerHeight());
+#            if (d.scroll.scrollFlags & QMenuPrivate.QMenuScroller.ScrollUp) {
+#                menuOpt.rect.setRect(fw, fw, width() - (fw * 2), d.scrollerHeight());
 #                emptyArea -= QRegion(menuOpt.rect);
 #                p.setClipRect(menuOpt.rect);
-#                style()->drawControl(QStyle.CE_MenuScroller, &menuOpt, &p, self);
+#                style().drawControl(QStyle.CE_MenuScroller, &menuOpt, &p, self);
 #            }
-#            if (d->scroll->scrollFlags & QMenuPrivate.QMenuScroller.ScrollDown) {
-#                menuOpt.rect.setRect(fw, height() - d->scrollerHeight() - fw, width() - (fw * 2),
-#                                         d->scrollerHeight());
+#            if (d.scroll.scrollFlags & QMenuPrivate.QMenuScroller.ScrollDown) {
+#                menuOpt.rect.setRect(fw, height() - d.scrollerHeight() - fw, width() - (fw * 2),
+#                                         d.scrollerHeight());
 #                emptyArea -= QRegion(menuOpt.rect);
 #                menuOpt.state |= QStyle.State_DownArrow;
 #                p.setClipRect(menuOpt.rect);
-#                style()->drawControl(QStyle.CE_MenuScroller, &menuOpt, &p, self);
+#                style().drawControl(QStyle.CE_MenuScroller, &menuOpt, &p, self);
 #            }
 #        }
         #draw border
@@ -85,3 +85,60 @@ class Menu(QMenu):
         menuOpt.rect = self.rect()
         menuOpt.menuRect = self.rect();
         self.style().drawControl(QStyle.CE_MenuEmptyArea, menuOpt, p, self)
+        
+    def initStyleOption(option : QStyleOptionMenuItem, action : QAction):
+        if not option or not action:
+            return;
+
+#        Q_D(const QMenu);
+        option.initFrom(self);
+        option.palette = self.palette();
+        option.state = QStyle.State_None;
+        
+        #Check if the item is enabled/active
+        if window().isActiveWindow():
+            option.state |= QStyle.State_Active
+        if self.isEnabled() and action.isEnabled() \
+                and (not action.menu() or action.menu().isEnabled()):
+            option.state |= QStyle.State_Enabled
+        else:
+            option.palette.setCurrentColorGroup(QPalette.Disabled)
+
+        option.font = action.font().resolve(font())
+        option.fontMetrics = QFontMetrics(option.font)
+    
+        ###
+        if (d.currentAction and d.currentAction == action and not d.currentAction.isSeparator()):
+            option.state |= QStyle.State_Selected
+            if d.mouseDown: option.state |= QStyle.State_Sunken 
+            else: option.state |= QStyle.State_None
+        ###
+        option.menuHasCheckableItems = d.hasCheckableItems;
+        if not action.isCheckable():
+            option.checkType = QStyleOptionMenuItem.NotCheckable
+        else:
+            if action.actionGroup() and action.actionGroup().isExclusive():
+                option.checkType = QStyleOptionMenuItem.Exclusive 
+            else: 
+                option.checkType = QStyleOptionMenuItem.NonExclusive;
+            option.checked = action.isChecked()
+            
+        if action.menu():
+            option.menuItemType = QStyleOptionMenuItem.SubMenu
+        elif action.isSeparator():
+            option.menuItemType = QStyleOptionMenuItem.Separator
+        elif self.defaultAction() == action:
+            option.menuItemType = QStyleOptionMenuItem.DefaultItem
+        else:
+            option.menuItemType = QStyleOptionMenuItem.Normal
+        if action.isIconVisibleInMenu():
+            option.icon = action.icon()
+        textAndAccel = action.text();
+        if not textAndAccel.contains('\t'):
+            seq = action.shortcut();
+            if not seq.isEmpty():
+                textAndAccel += QLatin1Char('\t') + seq.toString();
+        option.text = textAndAccel
+        option.tabWidth = d.tabWidth         ###
+        option.maxIconWidth = d.maxIconWidth ###
+        option.menuRect = self.rect()
