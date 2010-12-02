@@ -29,10 +29,11 @@ class ExtendedAction(QAction):
                  ###
                  text : str = None, 
                  icon : QIcon = None,
-                 iconVisibleInMenu : bool = None,
-                 font : QFont = None,
                  enabled : bool = None,
+                 font : QFont = None,
                  iconText: str = None,
+                 iconVisibleInMenu : bool = None,
+                 menuIconSize : QSize = None, 
                  objectName : str = None, 
                  receiver : pyqtSlot = None, 
                 #Note: Only the primary shortcut will appear in a tooltip
@@ -44,7 +45,6 @@ class ExtendedAction(QAction):
                  toolTipTitle : str = None, 
                  userData = None, 
                  whatsThis : str = None, 
-                 
                  
                  ###
                  # These are specific to certain action types
@@ -71,6 +71,11 @@ class ExtendedAction(QAction):
         if font: self.setFont(font)
         if iconText: self.setIconText(iconText)
         if iconVisibleInMenu: self.setIconVisibleInMenu(iconVisibleInMenu)
+        if menuIconSize:
+            self.__menuIconSize = menuIconSize
+        else:
+            self.__menuIconSize = QSize(QStyle.PM_SmallIconSize, 
+                                        QStyle.PM_SmallIconSize)
         if objectName : self.setObjectName(objectName)
         if statusTip: self.setStatusTip(statusTip)
         if receiver:
@@ -136,6 +141,15 @@ class ExtendedAction(QAction):
         super().setText(text)
         if not self.__ttTitle:
             self.__rebuildToolTip
+            
+    def menuIconSize(self) -> QSize:
+        return QSize(self.__menuIconSize)
+        
+    def setMenuIconSize(self, size : QSize):
+        if not isinstance(size, QSize):
+            qWarning('setMenuIconSize requires QSize argument')
+            return
+        self.__menuIconSize = size
     
     def __rebuildToolTip(self) -> None:
         if self.shortcut():
