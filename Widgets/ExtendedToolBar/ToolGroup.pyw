@@ -20,3 +20,6 @@ class ToolGroup(QGroupBox):
             self.setCheckable(checkable)
             if checked:
                 self.setChecked(checked)
+                
+    def paintEvent(self, ev : QPaintEvent) -> None:
+        super().paintEvent(ev)
