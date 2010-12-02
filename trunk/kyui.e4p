@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric5 project file for project kyui -->
-<!-- Saved: 2010-11-22, 17:45:05 -->
+<!-- Saved: 2010-12-02, 12:12:01 -->
 <!-- Copyright (C) 2010 Jonathan Harper, mnijph@gmail.com -->
 <Project version="5.1">
   <Language></Language>
@@ -60,6 +60,19 @@
     <Source>Widgets/RibbonAction.pyw</Source>
     <Source>TestItems/ActionModel.pyw</Source>
     <Source>Widgets/RibbonGroupBox.pyw</Source>
+    <Source>Widgets/RibbonLayout.pyw</Source>
+    <Source>Widgets/Popup.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ExtAction.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ExtToolBar.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/PopupWidget.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/TabbedToolBar.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ToolBarSeparator.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ToolButton.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ToolGroup.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ToolTabBar.pyw</Source>
+    <Source>Widgets/ExtendedToolBar/ActionGroup.py</Source>
+    <Source>Widgets/ExtendedToolBar/Menu.pyw</Source>
+    <Source>Utilities/Painter.pyw</Source>
   </Sources>
   <Forms>
     <Form>Ui Files/addremoveitemlistwidget.ui</Form>
@@ -90,6 +103,7 @@
     <Form>TestItems/E5ToolBarDialog.ui</Form>
     <Form>TestItems/E5Ribbon.ui</Form>
     <Form>TestItems/E5RibbonTree.ui</Form>
+    <Form>Ui Files/ribbon_menu_mockup.ui</Form>
   </Forms>
   <Translations>
   </Translations>
