@@ -31,3 +31,5 @@ class TabbedToolBar(QTabWidget):
         super().setTabText(index)
         self.widget(index).setWindowTitle(text)
         
+    def setTabMenu(self, index = 0, menu : QMenu = None):
+        pass
