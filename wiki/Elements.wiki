@@ -1,0 +1,53 @@
+#summary Key points of kyui's extended widgets
+#labels Featured,Phase-Design
+
+= Introduction =
+
+Since kyui will have a number of widgets packaged together, it is reasonable to provide a list of key features for these widgets.
+
+= Components =
+
+== QMenu Extension ==
+
+QMenu will be extended to provide the following features as part of a larger menu/toolbar project:
+  # Embedding of widgets within menus
+  # The ability to change separators into menu section labels
+  # A better tear-off menu hint
+  # A resize handle for menus large enough to find such a feature useful
+  # Support for sections in the widget, delineated by separators
+  # Support for larger icons and multi-line labels for key menu entries
+
+== ToolGroups ==
+
+ToolGroups are a concept adapted from Microsoft's Ribbon UI and a natural extension of ActionGroups. ToolGroups are a combination of a customized GroupBox and an ActionGroup. They are designed to fit within larger toolbars to provide more visible, logical grouping of related actions. Key features are:
+  # Vertical alignment to allow labels at the bottom of the GroupBox
+  # Adding QActions and QActionGroups to the ToolGroup
+  # A layout manager for the ToolGroup to properly handle the display of actions with toolbuttons
+  # Embedded widgets within the ToolGroup
+  # A dialog launch hint for ToolGroups that need such functionality
+
+== Toolbar Extension ==
+
+QToolBars will be subclassed and provided with the following capabilities to utilize extended QMenus and ToolGroups:
+  # ToolGroups collapsible to ToolButtons with embedded popups, similar to the Ribbon UI's compressed layout scheme
+  # A layout manager capable of utilizing ToolGroups
+
+== Tabbed Toolbars ==
+
+TabbedToolBar is a concept adopted from Microsoft's Ribbon UI and other prior tabbed toolbar interfaces and extended with the following:
+  # Tab context menus that provide traditional MenuBar functionality for quick access without switching tabs
+  # Handling of extended ToolBars popout functionality to allow floating toolbars (combining floating toolbars and torn out menus)
+  # MenuBar-like Alt+[Number] tab switching
+  # More functionality to handle the behavior of extended toolbars and menus
+
+== Pythonic Actions ==
+
+The QAction class has been modified to allow the following:
+  # Initialization using solely keyword arguments to simplify configuration and provide cleaner code
+  # setAlternateShortcut() and alternateShortcut() methods to simplify altering action shortcut keys without requiring list management
+
+== Action Extensions ==
+
+A further extension of the QAction class than Pythonic  will allow the following:
+  # Separators provided titles via setText will become menu group labels when added to menus
+  # Various additions to support the functionality of the above extended widgets
