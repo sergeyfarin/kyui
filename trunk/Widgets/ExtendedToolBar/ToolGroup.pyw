@@ -231,69 +231,60 @@ class ToolGroupBox(QWidget):
                                              QStyle.SC_GroupBoxCheckBox, self))
 
     def paintEvent(self, ev: QPaintEvent) -> None:
-        p = QStylePainter(self)
+        p = QPainter(self)
         opt = QStyleOptionGroupBox()
         self.initStyleOption(opt)
-        p.drawComplexControl(QStyle.CC_GroupBox, opt)
+#        p.drawComplexControl(QStyle.CC_GroupBox, opt)
+        proxy = self.style().proxy()
 
-#        # Draw frame
-#        textRect = proxy()->subControlRect(CC_GroupBox, opt, SC_GroupBoxLabel, widget);
-#        checkBoxRect = proxy()->subControlRect(CC_GroupBox, opt, SC_GroupBoxCheckBox, widget);
-#            if (groupBox->subControls & QStyle.SC_GroupBoxFrame) {
-#                QStyleOptionFrameV2 frame;
-#                frame.QStyleOption.operator=(*groupBox);
-#                frame.features = groupBox->features;
-#                frame.lineWidth = groupBox->lineWidth;
-#                frame.midLineWidth = groupBox->midLineWidth;
-#                frame.rect = proxy()->subControlRect(CC_GroupBox, opt, SC_GroupBoxFrame, widget);
-#                p->save();
-#                QRegion region(groupBox->rect);
-#                if (!groupBox->text.isEmpty()) {
-#                    bool ltr = groupBox->direction == Qt.LeftToRight;
-#                    QRect finalRect;
-#                    if (groupBox->subControls & QStyle.SC_GroupBoxCheckBox) {
-#                        finalRect = checkBoxRect.united(textRect);
-#                        finalRect.adjust(ltr ? -4 : 0, 0, ltr ? 0 : 4, 0);
-#                    } else {
-#                        finalRect = textRect;
-#                    }
-#                    region -= finalRect;
-#                }
-#                p->setClipRegion(region);
-#                proxy()->drawPrimitive(PE_FrameGroupBox, &frame, p, widget);
-#                p->restore();
-#            }
-#
-#            // Draw title
-#            if ((groupBox->subControls & QStyle.SC_GroupBoxLabel) && !groupBox->text.isEmpty()) {
-#                QColor textColor = groupBox->textColor;
-#                if (textColor.isValid())
-#                    p->setPen(textColor);
-#                int alignment = int(groupBox->textAlignment);
-#                if (!proxy()->styleHint(QStyle.SH_UnderlineShortcut, opt, widget))
-#                    alignment |= Qt.TextHideMnemonic;
-#
-#                proxy()->drawItemText(p, textRect,  Qt.TextShowMnemonic | Qt.AlignHCenter | alignment,
-#                             groupBox->palette, groupBox->state & State_Enabled, groupBox->text,
-#                             textColor.isValid() ? QPalette.NoRole : QPalette.WindowText);
-#
-#                if (groupBox->state & State_HasFocus) {
-#                    QStyleOptionFocusRect fropt;
-#                    fropt.QStyleOption.operator=(*groupBox);
-#                    fropt.rect = textRect;
-#                    proxy()->drawPrimitive(PE_FrameFocusRect, &fropt, p, widget);
-#                }
-#            }
-#
-#            // Draw checkbox
-#            if (groupBox->subControls & SC_GroupBoxCheckBox) {
-#                QStyleOptionButton box;
-#                box.QStyleOption.operator=(*groupBox);
-#                box.rect = checkBoxRect;
-#                proxy()->drawPrimitive(PE_IndicatorCheckBox, &box, p, widget);
-#            }
-#        }
-#        break;
+        # Draw frame
+        textRect = proxy.subControlRect(CC_GroupBox, opt, SC_GroupBoxLabel, self)
+        checkBoxRect = proxy.subControlRect(CC_GroupBox, opt, SC_GroupBoxCheckBox, self)
+        if opt.subControls & QStyle.SC_GroupBoxFrame:
+            frame = QStyleOptionFrameV2(opt)
+            frame.features = opt.features
+            frame.lineWidth = opt.lineWidth
+            frame.midLineWidth = opt.midLineWidth
+            frame.rect = proxy.subControlRect(CC_GroupBox, opt, SC_GroupBoxFrame, widget)
+            p.save()
+            region = QRegion(opt.rect)
+            if opt.text:
+                ltr = opt.direction == Qt.LeftToRight
+                finalRect = QRect()
+                if opt.subControls & QStyle.SC_GroupBoxCheckBox:
+                    finalRect = checkBoxRect.united(textRect)
+                    finalRect.adjust((-4 if ltr else 0), 0, (0 if ltr else 4), 0)
+                else:
+                    finalRect = textRect
+                region -= finalRect;
+            p.setClipRegion(region)
+            proxy.drawPrimitive(PE_FrameGroupBox, frame, p, widget)
+            p.restore()
+
+        # Draw title
+        if (opt.subControls & QStyle.SC_GroupBoxLabel) and opt.text:
+            textColor = opt.textColor
+            if textColor.isValid():
+                p.setPen(textColor)
+            alignment = int(opt.textAlignment)
+            if not proxy.styleHint(QStyle.SH_UnderlineShortcut, opt, self):
+                alignment |= Qt.TextHideMnemonic
+
+            proxy.drawItemText(p, textRect,  Qt.TextShowMnemonic | Qt.AlignHCenter | alignment,
+                         opt.palette, opt.state & QStyle.State_Enabled, opt.text,
+                         ( QPalette.NoRole if textColor.isValid() else QPalette.WindowText))
+
+            if opt.state & State_HasFocus:
+                fropt = QStyleOptionFocusRect(opt)
+                fropt.rect = textRect
+                proxy.drawPrimitive(PE_FrameFocusRect, fropt, p, self)
+
+        # Draw checkbox
+        if opt.subControls & SC_GroupBoxCheckBox:
+            box = QStyleOptionButton(opt)
+            box.rect = checkBoxRect
+            proxy.drawPrimitive(PE_IndicatorCheckBox, box, p, self)
+
 
     # Python will automagically pass self to the super(), but we'll implement
     # it anyway for consistancy
@@ -424,7 +415,8 @@ class ToolGroupBox(QWidget):
                     child.setAttribute(Qt.WA_ForceDisabled, False)
 
     def __click(self) -> None:
-        pass
+        self.setChecked(not self.checked())
+        self.clicked.emit(self.checked())
         
 class GenericDialog(QDialog):
     def __init__(self, parent = None):

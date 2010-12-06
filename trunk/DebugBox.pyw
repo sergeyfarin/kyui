@@ -17,7 +17,7 @@ class DebugBox(QPlainTextEdit):
             self.appendPlainText('Warning: ' + bytes.decode(text))
         elif msgType == QtCriticalMsg:
             print('Critical: ' + bytes.decode(text))
-        elif msgType == QtFataMsg:
+        elif msgType == QtFatalMsg:
             print('Fatal: ' + bytes.decode(text))
         else:
             print('Unknown Error: ' + bytes.decode(text))
