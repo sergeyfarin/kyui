@@ -15,18 +15,21 @@ class Menu(QMenu):
     def paintEvent(self, ev : QPaintEvent):
         p = QPainter(self)
         emptyArea = QRegion(self.rect())
-
+        style = self.style()
+        
+        # Draw the panel
         menuOpt = QStyleOptionMenuItem()
         menuOpt.initFrom(self)
         menuOpt.state = QStyle.State_None
-        menuOpt.checkType = QStyleOptionMenuItem.NotCheckable;
-        menuOpt.maxIconWidth = 0;
-        menuOpt.tabWidth = 0;
-        self.style().drawPrimitive(QStyle.PE_PanelMenu, menuOpt, p, self);
-
+        menuOpt.checkType = QStyleOptionMenuItem.NotCheckable
+        menuOpt.maxIconWidth = 0
+        menuOpt.tabWidth = 0
+        style.drawPrimitive(QStyle.PE_PanelMenu, menuOpt, p, self)
+        opt = QStyleOptionMenuItem()
+        
         #draw the items that need updating..
         for act in self.actions():
-            adjustedActionRect = d.actionRects.at(i)
+            adjustedActionRect = self.actionGeometry(act)
             if not ev.rect().intersects(adjustedActionRect) or\
                     d.widgetItems.value(action):
                continue
@@ -35,12 +38,12 @@ class Menu(QMenu):
             emptyArea -= adjustedActionReg
             p.setClipRegion(adjustedActionReg)
 
-            opt = QStyleOptionMenuItem()
+            
             self.initStyleOption(opt, action)
             opt.rect = adjustedActionRect
-            self.style().drawControl(QStyle.CE_MenuItem, opt, p, self)
+            style.drawControl(QStyle.CE_MenuItem, opt, p, self)
 
-        fw = self.style().pixelMetric(QStyle.PM_MenuPanelWidth, None, self)
+        fw = style.pixelMetric(QStyle.PM_MenuPanelWidth, None, self)
         #draw the scroller regions..
 #        if (d.scroll)
 #            menuOpt.menuItemType = QStyleOptionMenuItem.Scroller
@@ -73,9 +76,9 @@ class Menu(QMenu):
             frame.rect = self.rect()
             frame.palette = self.palette()
             frame.state = QStyle.State_None;
-            frame.lineWidth = self.style().pixelMetric(QStyle.PM_MenuPanelWidth)
+            frame.lineWidth = style.pixelMetric(QStyle.PM_MenuPanelWidth)
             frame.midLineWidth = 0;
-            self.style().drawPrimitive(QStyle.PE_FrameMenu, frame, p, self)
+            style.drawPrimitive(QStyle.PE_FrameMenu, frame, p, self)
 
         #finally the rest of the space
         p.setClipRegion(emptyArea)
@@ -84,7 +87,7 @@ class Menu(QMenu):
         menuOpt.checkType = QStyleOptionMenuItem.NotCheckable
         menuOpt.rect = self.rect()
         menuOpt.menuRect = self.rect();
-        self.style().drawControl(QStyle.CE_MenuEmptyArea, menuOpt, p, self)
+        style.drawControl(QStyle.CE_MenuEmptyArea, menuOpt, p, self)
         
     def initStyleOption(option : QStyleOptionMenuItem, action : QAction):
         if not option or not action:
@@ -104,13 +107,13 @@ class Menu(QMenu):
         else:
             option.palette.setCurrentColorGroup(QPalette.Disabled)
 
-        option.font = action.font().resolve(font())
+        option.font = action.font().resolve(self.font())
         option.fontMetrics = QFontMetrics(option.font)
     
-        ###
-        if (d.currentAction and d.currentAction == action and not d.currentAction.isSeparator()):
+        activeAct = self.activeAction()
+        if (activeAct and activeAct == action and not activeAct.isSeparator()):
             option.state |= QStyle.State_Selected
-            if d.mouseDown: option.state |= QStyle.State_Sunken 
+            if d.mouseDown: option.state |= QStyle.State_Sunken  ###
             else: option.state |= QStyle.State_None
         ###
         option.menuHasCheckableItems = d.hasCheckableItems;
