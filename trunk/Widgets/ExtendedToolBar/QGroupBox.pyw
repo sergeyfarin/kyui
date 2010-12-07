@@ -456,6 +456,7 @@ class GenericDialog(QDialog):
         
         gb = QGroupBox('Test2', self)
         gb.setFixedSize(100, 100)
+        gb.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
         self.layout.addWidget(gb)
         
         self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok, 
