@@ -1,4 +1,4 @@
-from PyQt4.QtCore import Qt, QRect, QSize, QPoint, qDebug
+from PyQt4.QtCore import Qt, QRect, QSize, QPoint, qDebug, QSysInfo
 from PyQt4.QtGui import *
 #from PyQt4.QtGui import *
 
@@ -12,12 +12,56 @@ class KyStyle(QStyle):
     
     def __init__(self):
         super().__init__()
-        self.__proxy = QStyleFactory.create('WindowsXP')
+        testWin = QSysInfo.WindowsVersion
+        factory = QStyleFactory()
+        if testWin & QSysInfo.WV_NT_based:
+            if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
+                self.__proxy = QStyleFactory.create('WindowsVista')
+            elif testWin == QSysInfo.WV_XP or QSysInfo.WV_2003:
+                self.__proxy = QStyleFactory.create('WindowsXP')
+            else:
+                self.__proxy = QStyleFactory.create('Windows')
+        else:
+            self.__proxy = QStyleFactory.create('Common')
+        
+    def	combinedLayoutSpacing (self, controls1 : QSizePolicy.ControlTypes, controls2 : QSizePolicy.ControlTypes, orientation : Qt.Orientation, option : QStyleOption = None, widget : QWidget = None ) -> int:
+        return self.__proxy.combinedLayoutSpacing(controls1, controls2, orientation, option, widget)
+    def drawControl(self, element : QStyle.ControlElement, option : QStyleOption, painter : QPainter, widget : QWidget = None ) -> None:
+        self.__proxy.drawControl(element, option, painter, widget)
+    def drawItemPixmap(self, painter : QPainter, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> None:
+        self.__proxy.drawItemPixmap(painter, rectangle, alignment, pixmap)
+    def drawItemText(self, painter : QPainter, rectangle : QRect, alignment : int, palette : QPalette, enabled : bool, text : str, textRole : QPalette.ColorRole = QPalette.NoRole ) -> None:
+        self.__proxy.drawItemText(painter, rectangle, alignment, palette, enabled, text, textRole)
+
+    def generatedIconPixmap(self, iconMode: QIcon.Mode, pixmap : QPixmap, option : QStyleOption ) -> QPixmap:
+        return self.__proxy.generatedIconPixmap(iconMode, pixmap, option)
+    def itemPixmapRect(self, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> QRect:
+        return self.__proxy.itemPixmapRect(rectangle, alignment, pixmap)
+    def itemTextRect(self, metrics : QFontMetrics, rectangle : QRect, alignment : int, enabled : bool, text : str ) -> QRect:
+        return self.__proxy.itemTextRect(metrics, rectangle, alignment, enabled, text)
+    def layoutSpacing(self, control1 : QSizePolicy.ControlType, control2 : QSizePolicy.ControlType, orientation : Qt.Orientation, option : QStyleOption = None, widget : QWidget = None ) -> int:
+        return self.__proxy.layoutSpacing(control1, control2, orientation, option, widget)
+    def pixelMetric(self, metric : QStyle.PixelMetric, option : QStyleOption = None, widget : QWidget = None ) -> int:
+        return self.__proxy.pixelMetric(metric, option, widget)
+    def polish(self, objectToPolish ) -> None:
+        return self.__proxy.polish(objectToPolish)
+    def proxy (self) -> QStyle:
+        return self
+    def sizeFromContents(self, item : QStyle.ContentsType, option : QStyleOption, contentsSize : QSize, widget : QWidget = None ) -> QSize:
+        return self.__proxy.sizeFromContents(item, option, contentsSize, widget)
+    def standardIcon(self, standardIcon : QStyle.StandardPixmap, option : QStyleOption = None, widget : QWidget = None ) -> QIcon:
+        return self.__proxy.standardIcon(standardIcon, option, widget)
+    def standardPalette (self) -> QPalette:
+        return self.__proxy.standardPalette()
+    def styleHint(self, hint : QStyle.StyleHint, option : QStyleOption = None, widget : QWidget = None, returnData : QStyleHintReturn = None ) -> int:
+        return self.__proxy.styleHint(hint, option, widget, returnData)
+    def subElementRect(self, element : QStyle.SubElement, option : QStyleOption, widget : QWidget = None ) -> QRect:
+        return self.__proxy.subElementRect(element, option, widget)
+    def unpolish(self, objectToUnpolish ) -> None:
+        self.__proxy.unpolish(objectToUnpolish)
         
     def drawComplexControl(self, control : QStyle.ComplexControl, opt : QStyleOptionComplex, painter : QPainter, widget : QWidget = None ) -> None:
-        if control != QStyle.CC_GroupBox:
-            self.__proxy.drawComplexControl(control, opt, painter, widget)
-        else:
+        if control == QStyle.CC_GroupBox:
             # Get the text and checkbox rects
             textRect = self.subControlRect(QStyle.CC_GroupBox, opt, QStyle.SC_GroupBoxLabel, widget)
             checkBoxRect = self.subControlRect(QStyle.CC_GroupBox, opt, QStyle.SC_GroupBoxCheckBox, widget)
@@ -64,7 +108,7 @@ class KyStyle(QStyle):
                     fropt = opt
                     fropt.backgroundColor = opt.palette.window().color()
                     fropt.rect = textRect
-                    self.__drawGroupBoxFocusRect(fropt, painter)
+                    self.__drawFocusRect(fropt, painter)
 #                    self.drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, widget)
 
             # Draw checkbox
@@ -73,12 +117,17 @@ class KyStyle(QStyle):
                 box = opt
                 box.rect = checkBoxRect
                 self.drawPrimitive(QStyle.PE_IndicatorCheckBox, box, painter, widget)
+        elif control == QStyle.CC_ToolButton:
+            self.__drawComplexToolButton(control, opt, painter, widget)
+        else:
+            self.__proxy.drawComplexControl(control, opt, painter, widget)
+    
         
     def subControlRect(self, cc : QStyle.ComplexControl, opt : QStyleOptionComplex,
                         sc : QStyle.SubControl, widget : QWidget = None) -> QRect:
         #Handle anything that isn't relevant
         if cc != QStyle.CC_GroupBox:
-            return super().subControlRect(cc, opt, sc, widget)
+            return self.__proxy.subControlRect(cc, opt, sc, widget)
         if not isinstance(opt, QStyleOptionGroupBox):
             return QRect()
         rect = QRect()
@@ -150,27 +199,22 @@ class KyStyle(QStyle):
     def hitTestComplexControl(self, control : QStyle.ComplexControl, option : QStyleOptionComplex, position : QPoint, widget : QWidget = None ) -> QStyle.SubControl:
         if control != QStyle.CC_GroupBox:
             return self.__proxy.hitTestComplexControl(control, option, position, widget)
-#        qDebug('Reached hitTestComplexControl call')
+
         sc = QStyle.SC_None
-        
-        
+                
         for i in range(len(TGB_CtrlList)):
-#            qDebug(str.format('Reached iteration: {}', i))
             r = self.subControlRect(control, option, TGB_CtrlList[i], widget)
             if r.isValid() and r.contains(position):
                 sc = TGB_CtrlList[i]
                 break
         return sc
     
-    def drawPrimitive(self, element : QStyle.PrimitiveElement, option : QStyleOption, painter : QPainter, widget : QWidget = None ) -> None:
-        self.__proxy.drawPrimitive(element, option, painter, widget)
-
-    def __drawGroupBoxFocusRect(self, fropt : QStyleOptionFocusRect, p : QPainter):
+    def __drawFocusRect(self, fropt : QStyleOptionFocusRect, p : QPainter):
             ### check for d->alt_down
             if not fropt.state & QStyle.State_KeyboardFocusChange and not self.styleHint(QStyle.SH_UnderlineShortcut, fropt):
                 return
             r = fropt.rect
-            p.save();
+            p.save()
             p.setBackgroundMode(Qt.TransparentMode)
             bg_col = fropt.backgroundColor
             if not bg_col.isValid():
@@ -204,40 +248,99 @@ class KyStyle(QStyle):
                            frame.rect.height(), frame.palette, True,
                            frame.lineWidth, frame.midLineWidth)
             
-    def	combinedLayoutSpacing (self, controls1 : QSizePolicy.ControlTypes, controls2 : QSizePolicy.ControlTypes, orientation : Qt.Orientation, option : QStyleOption = None, widget : QWidget = None ) -> int:
-        return self.__proxy.combinedLayoutSpacing(controls1, controls2, orientation, option, widget)
+
+        
     
-    def drawControl(self, element : QStyle.ControlElement, option : QStyleOption, painter : QPainter, widget : QWidget = None ) -> None:
-        self.__proxy.drawControl(element, option, painter, widget)
-    def drawItemPixmap(self, painter : QPainter, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> None:
-        self.__proxy.drawItemPixmap(painter, rectangle, alignment, pixmap)
-    def drawItemText(self, painter : QPainter, rectangle : QRect, alignment : int, palette : QPalette, enabled : bool, text : str, textRole : QPalette.ColorRole = QPalette.NoRole ) -> None:
-        self.__proxy.drawItemText(painter, rectangle, alignment, palette, enabled, text, textRole)
+    def drawPrimitive(self, el : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
+#        if el == QStyle.PE_PanelButtonTool:
+#            qDrawShadePanel(p, opt.rect, opt.palette,
+#                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
+#                        opt.palette.brush(QPalette.Button))
+#        elif el == QStyle.PE_FrameFocusRect:
+#            bg = opt.palette.color(QPalette.Button) #QColor
+#            oldPen = p.pen()
+#            if bg:
+#                hsv = bg.getHsv()
+#                if (hsv[2] >= 128): # V
+#                    p.setPen(Qt.black)
+#                else:
+#                    p.setPen(Qt.white)
+#            else:
+#                p.setPen(opt.palette.foreground().color())
+#            focusRect = opt.rect.adjusted(1, 1, -1, -1)
+#            p.drawRect(focusRect.adjusted(0, 0, -1, -1)) #draw pen inclusive
+#            p.setPen(oldPen)
+#        elif el == QStyle.PE_IndicatorButtonDropDown:
+#            qDrawShadePanel(p, opt.rect, opt.palette,
+#                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
+#                    1, opt.palette.brush(QPalette.Button))
+#        elif el == QStyle.PE_IndicatorArrowDown:
+#            ...
+#        elif el == QStyle.PE_PanelButtonTool:
+#            qDrawShadeRect(p, opt.rect, opt.palette,
+#                    opt.state & (State_Sunken | State_On), 1, 0)
+#        else:
+        self.__proxy.drawPrimitive(el, opt, p, widget)
     
-    def generatedIconPixmap(self, iconMode: QIcon.Mode, pixmap : QPixmap, option : QStyleOption ) -> QPixmap:
-        return self.__proxy.generatedIconPixmap(iconMode, pixmap, option)
-    
-    def itemPixmapRect(self, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> QRect:
-        return self.__proxy.itemPixmapRect(rectangle, alignment, pixmap)
-    def itemTextRect(self, metrics : QFontMetrics, rectangle : QRect, alignment : int, enabled : bool, text : str ) -> QRect:
-        return self.__proxy.itemTextRect(metrics, rectangle, alignment, enabled, text)
-    def layoutSpacing(self, control1 : QSizePolicy.ControlType, control2 : QSizePolicy.ControlType, orientation : Qt.Orientation, option : QStyleOption = None, widget : QWidget = None ) -> int:
-        return self.__proxy.layoutSpacing(control1, control2, orientation, option, widget)
-    def pixelMetric(self, metric : QStyle.PixelMetric, option : QStyleOption = None, widget : QWidget = None ) -> int:
-        return self.__proxy.pixelMetric(metric, option, widget)
-    def polish(self, objectToPolish ) -> None:
-        return self.__proxy.polish(objectToPolish)
-    def proxy (self) -> QStyle:
-        return self
-    def sizeFromContents(self, item : QStyle.ContentsType, option : QStyleOption, contentsSize : QSize, widget : QWidget = None ) -> QSize:
-        return self.__proxy.sizeFromContents(item, option, contentsSize, widget)
-    def standardIcon(self, standardIcon : QStyle.StandardPixmap, option : QStyleOption = None, widget : QWidget = None ) -> QIcon:
-        return self.__proxy.standardIcon(standardIcon, option, widget)
-    def standardPalette (self) -> QPalette:
-        return self.__proxy.standardPalette()
-    def styleHint(self, hint : QStyle.StyleHint, option : QStyleOption = None, widget : QWidget = None, returnData : QStyleHintReturn = None ) -> int:
-        return self.__proxy.styleHint(hint, option, widget, returnData)
-    def subElementRect(self, element : QStyle.SubElement, option : QStyleOption, widget : QWidget = None ) -> QRect:
-        return self.__proxy.subElementRect(element, option, widget)
-    def unpolish(self, objectToUnpolish ) -> None:
-        self.__proxy.unpolish(objectToUnpolish)
+    def __drawComplexToolButton(self, cc : QStyle.ComplexControl, tbopt : QStyleOptionToolButton, p : QPainter, widget : QWidget = None):
+        # Get the button rects
+        button = self.subControlRect(cc, tbopt, QStyle.SC_ToolButton, widget)
+        menurect = self.subControlRect(cc, tbopt, QStyle.SC_ToolButtonMenu, widget)
+        
+        # create flags for the button section
+        bflags = tbopt.state & ~QStyle.State_Sunken
+
+        # Determine if the button should be drawn raised
+        if bflags & QStyle.State_AutoRaise:
+            if not (bflags & State_MouseOver) or not(bflags & QStyle.State_Enabled):
+                bflags &= ~State_Raised;
+
+        # Determine if the menu and button portions are sunken
+        mflags = bflags
+        if tbopt.state & QStyle.State_Sunken:
+            if tbopt.activeSubControls & QStyle.SC_ToolButton:
+                bflags |= QStyle.State_Sunken
+            mflags |= QStyle.State_Sunken
+        
+        # Draw the internal button
+        tool = QStyleOption()
+        tool.palette = tbopt.palette
+        if tbopt.subControls & QStyle.SC_ToolButton:
+            if bflags & (QStyle.State_Sunken | QStyle.State_On | QStyle.State_Raised):
+                tool.rect = button
+                tool.state = bflags
+                self.drawPrimitive(QStyle.PE_PanelButtonTool, tool, p, widget)
+
+        # Draw focus rect
+        if tbopt.state & QStyle.State_HasFocus:
+            fr = QStyleOptionFocusRect()
+            fr = tbopt
+            fr.rect.adjust(3, 3, -3, -3)
+            if tbopt.features & QStyleOptionToolButton.MenuButtonPopup:
+                fr.rect.adjust(0, 0, 0 - self.pixelMetric(QStyle.PM_MenuButtonIndicator, tbopt, widget), 0)
+            self.drawPrimitive(QStyle.PE_FrameFocusRect, fr, p, widget)
+        
+        # Draw label and icon
+        label = QStyleOptionToolButton(tbopt);
+        label.state = bflags;
+        fw = self.pixelMetric(QStyle.PM_DefaultFrameWidth, tbopt, widget)
+        label.rect = button.adjusted(fw, fw, -fw, -fw)
+        self.drawControl(QStyle.CE_ToolButtonLabel, label, p, widget)
+        
+        # Toolbuttonpopupmode
+        if tbopt.subControls & QStyle.SC_ToolButtonMenu:
+            tool.rect = menurect
+            tool.state = mflags
+            if mflags & (QStyle.State_Sunken | QStyle.State_On | QStyle.State_Raised):
+                self.drawPrimitive(QStyle.PE_IndicatorButtonDropDown, tool, p, widget)
+            self.drawPrimitive(QStyle.PE_IndicatorArrowDown, tool, p, widget)
+        # Delayed or instant popup with menu
+        elif tbopt.features & QStyleOptionToolButton.HasMenu:
+            mbmetric = self.pixelMetric(QStyle.PM_MenuButtonIndicator, tbopt, widget);
+            mbrect = tbopt.rect
+            newBtn = QStyleOptionToolButton(tbopt)
+            newBtn.rect = QRect(mbrect.right() + 5 - mbmetric, 
+                                mbrect.y() + mbrect.height() - mbmetric + 4, 
+                                mbmetric - 6, 
+                                mbmetric - 6)
+            self.drawPrimitive(QStyle.PE_IndicatorArrowDown, newBtn, p, widget)

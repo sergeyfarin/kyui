@@ -166,3 +166,110 @@ class PainterUtil():
 
         #we found the action
         return actionRects.at(index)
+        
+    def drawToolButton(self, cc, opt, p, widget):
+        if cc != QStyle.CC_ToolButton:
+            return
+        
+        button = self.subControlRect(cc, toolbutton, SC_ToolButton, widget);
+        menuarea = self.subControlRect(cc, toolbutton, SC_ToolButtonMenu, widget);
+
+        bflags = opt.state & ~State_Sunken
+        mflags = bflags
+            autoRaise = flags & State_AutoRaise
+            if autoRaise:
+                if not (bflags & State_MouseOver) or not (bflags & State_Enabled):
+                    bflags &= ~State_Raised
+
+            if opt.state & State_Sunken:
+                if opt.activeSubControls & SC_ToolButton:
+                    bflags |= State_Sunken
+                    mflags |= State_MouseOver | State_Sunken
+                elif opt.activeSubControls & SC_ToolButtonMenu:
+                    mflags |= State_Sunken
+                    bflags |= State_MouseOver
+
+            toolopt = QStyleOption()
+            toolopt.palette = opt.palette
+            if opt.subControls & SC_ToolButton:
+                if flags & (State_Sunken | State_On | State_Raised) or not autoRaise:
+                    if (opt.features & QStyleOptionToolButton.MenuButtonPopup && autoRaise) {
+                        XPThemeData theme(widget, p, QLatin1String("TOOLBAR"));
+                        theme.partId = TP_SPLITBUTTON;
+                        theme.rect = button;
+                        if (!(bflags & State_Enabled))
+                            stateId = TS_DISABLED;
+                        else if (bflags & State_Sunken)
+                            stateId = TS_PRESSED;
+                        else if (bflags & State_MouseOver || !(flags & State_AutoRaise))
+                            stateId = flags & State_On ? TS_HOTCHECKED : TS_HOT;
+                        else if (bflags & State_On)
+                            stateId = TS_CHECKED;
+                        else
+                            stateId = TS_NORMAL;
+                        if (option->direction == Qt.RightToLeft)
+                            theme.mirrorHorizontally = true;
+                        theme.stateId = stateId;
+                        d->drawBackground(theme);
+                    else:
+                        tool.rect = option->rect;
+                        tool.state = bflags;
+                        if autoRaise: # for tool bars
+                            self.drawPrimitive(PE_PanelButtonTool, &tool, p, widget);
+                        else:
+                            self.drawPrimitive(PE_PanelButtonBevel, &tool, p, widget)
+
+            if (opt.state & State_HasFocus) {
+                QStyleOptionFocusRect fr;
+                fr.QStyleOption.operator=(*toolbutton);
+                fr.rect.adjust(3, 3, -3, -3);
+                if (opt.features & QStyleOptionToolButton.MenuButtonPopup)
+                    fr.rect.adjust(0, 0, -self.pixelMetric(QStyle.PM_MenuButtonIndicator,
+                                                      toolbutton, widget), 0);
+                self.drawPrimitive(PE_FrameFocusRect, &fr, p, widget);
+            }
+            QStyleOptionToolButton label = *toolbutton;
+            label.state = bflags;
+            int fw = 2;
+            if (!autoRaise)
+                label.state &= ~State_Sunken;
+            label.rect = button.adjusted(fw, fw, -fw, -fw);
+            self.drawControl(CE_ToolButtonLabel, &label, p, widget);
+
+            if (opt.subControls & SC_ToolButtonMenu) {
+                tool.rect = menuarea;
+                tool.state = mflags;
+                if (autoRaise) {
+                    self.drawPrimitive(PE_IndicatorButtonDropDown, &tool, p, widget);
+                } else {
+                    tool.state = mflags;
+                    menuarea.adjust(-2, 0, 0, 0);
+                    // Draw menu button
+                    if ((bflags & State_Sunken) != (mflags & State_Sunken)){
+                        p->save();
+                        p->setClipRect(menuarea);
+                        tool.rect = option->rect;
+                        self.drawPrimitive(PE_PanelButtonBevel, &tool, p, 0);
+                        p->restore();
+                    }
+                    // Draw arrow
+                    p->save();
+                    p->setPen(option->palette.dark().color());
+                    p->drawLine(menuarea.left(), menuarea.top() + 3,
+                                menuarea.left(), menuarea.bottom() - 3);
+                    p->setPen(option->palette.light().color());
+                    p->drawLine(menuarea.left() - 1, menuarea.top() + 3,
+                                menuarea.left() - 1, menuarea.bottom() - 3);
+
+                    tool.rect = menuarea.adjusted(2, 3, -2, -1);
+                    self.drawPrimitive(PE_IndicatorArrowDown, &tool, p, widget);
+                    p->restore();
+                }
+            elif opt.features & QStyleOptionToolButton.HasMenu:
+                int mbi = self.pixelMetric(PM_MenuButtonIndicator, toolbutton, widget)
+                QRect ir = opt.rect
+                QStyleOptionToolButton newBtn = *toolbutton
+                newBtn.rect = QRect(ir.right() + 4 - mbi, ir.height() - mbi + 4, mbi - 5, mbi - 5)
+                self.drawPrimitive(QStyle.PE_IndicatorArrowDown, &newBtn, p, widget)
+            }
+        }

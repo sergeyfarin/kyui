@@ -33,8 +33,8 @@ class ToolGroupBox(QWidget):
         
     def initStyleOption(self, opt : QStyleOptionGroupBox) -> None:
         window = self.window()
-        opt.version = 1
-        opt.type = QStyleOption.SO_GroupBox
+        opt.version = 2
+        opt.type = QStyleOption.SO_ComplexCustomBase + 15
         
         opt.direction = self.layoutDirection()
         opt.fontMetrics = self.fontMetrics()
@@ -54,25 +54,22 @@ class ToolGroupBox(QWidget):
             opt.state |= QStyle.State_Active
         if self.isWindow():
             opt.state |= QStyle.State_Window
-        if self.__hover:
-            opt.state |= QStyle.State_MouseOver
-#        else:
-#            opt.state &= ~QStyle.State_MouseOver;
-        opt.text = self.__title
+
+        opt.text = self.title()
         opt.lineWidth = 1
         opt.midLineWidth = 0
         opt.textAlignment = Qt.Alignment(self.__align)
         opt.activeSubControls = QStyle.SC_All | self.__pressedControl
         opt.subControls = QStyle.SC_GroupBoxFrame
 
-        if self.__flat:
+        if self.flat():
             opt.features = QStyleOptionFrameV2.Flat
         else:
             opt.features = QStyleOptionFrameV2.FrameFeatures(0x00)
 
-        if self.__checkable:
+        if self.checkable():
             opt.subControls |= QStyle.SC_GroupBoxCheckBox
-            opt.state |= QStyle.State_On if self.__checked else QStyle.State_Off
+            opt.state |= QStyle.State_On if self.checked() else QStyle.State_Off
             if (self.__pressedControl == QStyle.SC_GroupBoxCheckBox
                     or self.__pressedControl == QStyle.SC_GroupBoxLabel) \
                     and (self.__hover or self.__overCheckBox):
@@ -83,7 +80,7 @@ class ToolGroupBox(QWidget):
             opt.textColor = QColor(self.style().styleHint(QStyle.SH_GroupBox_TextLabelColor,
                                        opt, self))
 
-        if self.__title:
+        if self.title():
             opt.subControls |= QStyle.SC_GroupBoxLabel
         
     def minimumSizeHint(self) -> QSize:

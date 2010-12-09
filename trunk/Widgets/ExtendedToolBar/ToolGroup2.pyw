@@ -66,19 +66,27 @@ class ToolGroupBox(QGroupBox):
                  parent : QWidget = None, 
 #                 action : ExtendedAction = None, 
                  alignment : Qt.Alignment = Qt.AlignHCenter | Qt.AlignBottom, 
-                 checkable : bool = False):
+                 checkable : bool = False, 
+                 checked : bool = True):
         if title:
             super().__init__(title, parent)
         else:
             super().__init__(parent)
         self.setAlignment(alignment)
-        self.setCheckable(checkable)
+        if checkable: self.setCheckable(checkable)
+        if not checked: self.setChecked(checked)
 
-    def paintEvent(self, ev: QPaintEvent) -> None:
-        p = QPainter(self)
-        opt = QStyleOptionGroupBox()
-        self.initStyleOption(opt)
-        self.style().drawComplexControl(QStyle.CC_GroupBox, opt, p, self)
+#    def paintEvent(self, ev: QPaintEvent) -> None:
+#        p = QPainter(self)
+#        opt = QStyleOptionGroupBox()
+#        self.initStyleOption(opt)
+#        self.style().drawComplexControl(QStyle.CC_GroupBox, opt, p, self)
+
+#    def initStyleOption(self, opt : QStyleOptionGroupBox):
+#        super().initStyleOption(opt)
+#        opt.type = QStyleOption.SO_ComplexCustomBase
+#        opt.version = 2
+#        opt.alignBottom = False
 
 class DebugBox(QPlainTextEdit):
     def __init__(self, parent : QWidget = None, text : str = None):
