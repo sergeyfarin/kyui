@@ -1,6 +1,7 @@
 from PyQt4.QtCore import Qt, QRect, QSize, QPoint, qDebug, QSysInfo
 from PyQt4.QtGui import *
-#from PyQt4.QtGui import *
+
+from StyleFactory import KyStyleFactory
 
 TGB_CtrlList = [QStyle.SC_GroupBoxCheckBox, 
                 QStyle.SC_GroupBoxLabel, 
@@ -17,20 +18,14 @@ class KyStyle(QStyle):
     CE_ToolButtonIcon = 0x01
     CE_ToolButtonLabel = 0x02
     
-    def __init__(self):
+    def __init__(self, styleName = None):
         super().__init__()
-        testWin = QSysInfo.WindowsVersion
-        factory = QStyleFactory()
-        if testWin & QSysInfo.WV_NT_based:
-            if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
-                self.__proxy = QStyleFactory.create('WindowsVista')
-            elif testWin == QSysInfo.WV_XP or QSysInfo.WV_2003:
-                self.__proxy = QStyleFactory.create('WindowsXP')
-            else:
-                self.__proxy = QStyleFactory.create('Windows')
-        else:
-            self.__proxy = QStyleFactory.create('Common')
         
+        if not styleName:
+            self.__proxy = QStyleFactory.create('Plastique')
+        else:
+            self.__proxy = QStyleFactory.create(styleName)
+
     def	combinedLayoutSpacing (self, controls1 : QSizePolicy.ControlTypes, controls2 : QSizePolicy.ControlTypes, orientation : Qt.Orientation, option : QStyleOption = None, widget : QWidget = None ) -> int:
         return self.__proxy.combinedLayoutSpacing(controls1, controls2, orientation, option, widget)
     def drawControl(self, el : QStyle.ControlElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
@@ -108,12 +103,12 @@ class KyStyle(QStyle):
         else:
             self.__proxy.drawControl(el, opt, p, widget)
         
-        
+    def setProxyStyle(self, proxyStyle : QStyle):
+        self.__proxy = QStyleFactory.create(proxyStyle)
     def drawItemPixmap(self, painter : QPainter, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> None:
         self.__proxy.drawItemPixmap(painter, rectangle, alignment, pixmap)
     def drawItemText(self, painter : QPainter, rectangle : QRect, alignment : int, palette : QPalette, enabled : bool, text : str, textRole : QPalette.ColorRole = QPalette.NoRole ) -> None:
         self.__proxy.drawItemText(painter, rectangle, alignment, palette, enabled, text, textRole)
-
     def generatedIconPixmap(self, iconMode: QIcon.Mode, pixmap : QPixmap, option : QStyleOption ) -> QPixmap:
         return self.__proxy.generatedIconPixmap(iconMode, pixmap, option)
     def itemPixmapRect(self, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> QRect:
@@ -138,6 +133,7 @@ class KyStyle(QStyle):
         return self.__proxy.styleHint(hint, option, widget, returnData)
     def subElementRect(self, element : QStyle.SubElement, option : QStyleOption, widget : QWidget = None ) -> QRect:
         return self.__proxy.subElementRect(element, option, widget)
+        
     def unpolish(self, objectToUnpolish ) -> None:
         self.__proxy.unpolish(objectToUnpolish)
         
@@ -198,8 +194,8 @@ class KyStyle(QStyle):
                 box = opt
                 box.rect = checkBoxRect
                 self.drawPrimitive(QStyle.PE_IndicatorCheckBox, box, painter, widget)
-        elif control == QStyle.CC_ToolButton:
-            self.__drawComplexToolButton(control, opt, painter, widget)
+        elif control == QStyle.CC_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
+            self.__drawVerticalToolButton(control, opt, painter, widget)
         else:
             self.__proxy.drawComplexControl(control, opt, painter, widget)
     
@@ -207,25 +203,20 @@ class KyStyle(QStyle):
     def subControlRect(self, cc : QStyle.ComplexControl, opt : QStyleOptionComplex,
                         sc : QStyle.SubControl, widget : QWidget = None) -> QRect:
         if cc == QStyle.CC_ToolButton:
-            mbi = self.pixelMetric(QStyle.PM_MenuButtonIndicator, opt, widget)
+            if opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon:
+                return self.__proxy.subControlRect(cc, opt, sc, widget)
             rect = opt.rect;
             if sc == QStyle.SC_ToolButton:
                 if ((opt.features
                      & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))
                     == QStyleOptionToolButton.MenuButtonPopup):
-                    if opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-                        rect.adjust(0, 0, 0, 0 - mbi)
-                    else:
-                        rect.adjust(0, 0, 0 - mbi, 0)
+                    rect.adjust(0, 0, 0, rect.height() / 2)
             elif sc == QStyle.SC_ToolButtonMenu:
                 if ((opt.features
                      & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))
                     == QStyleOptionToolButton.MenuButtonPopup):
-                    if opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-                        rect.adjust(0, rect.height() - mbi, 0, 0)
-                    else:
-                        rect.adjust(rect.width() - mbi, 0, 0, 0)
-            return QStyle.visualRect(opt.direction, opt.rect, rect)
+                    rect.adjust(0, rect.height() / 2, 0, 0)
+            return rect
         elif cc == QStyle.CC_GroupBox:
             rect = QRect()
             if sc == QStyle.SC_GroupBoxFrame or sc == QStyle.SC_GroupBoxContents:
@@ -303,7 +294,8 @@ class KyStyle(QStyle):
                 return QStyle.SC_ToolButton
             rect = self.subControlRect(cc, opt, QStyle.SC_ToolButtonMenu, widget)
             if rect.isValid() and rect.contains(pos):
-                return Style.SC_ToolButtonMenu
+                return QStyle.SC_ToolButtonMenu
+            return sc
         elif cc == QStyle.CC_GroupBox:
             for i in range(len(TGB_CtrlList)):
                 r = self.subControlRect(cc, opt, TGB_CtrlList[i], widget)
@@ -353,15 +345,12 @@ class KyStyle(QStyle):
             qDrawShadeRect(p, frame.rect.x(), frame.rect.y(), frame.rect.width(),
                            frame.rect.height(), frame.palette, True,
                            frame.lineWidth, frame.midLineWidth)
-            
-
-        
     
     def drawPrimitive(self, el : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
-        if el == QStyle.PE_PanelButtonTool:
-            qDrawShadePanel(p, opt.rect, opt.palette,
-                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
-                        opt.palette.brush(QPalette.Button))
+#        if el == QStyle.PE_PanelButtonTool:
+#            qDrawShadePanel(p, opt.rect, opt.palette,
+#                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
+#                        opt.palette.brush(QPalette.Button))
 #        elif el == QStyle.PE_FrameFocusRect:
 #            bg = opt.palette.color(QPalette.Button) #QColor
 #            oldPen = p.pen()
@@ -376,36 +365,32 @@ class KyStyle(QStyle):
 #            focusRect = opt.rect.adjusted(1, 1, -1, -1)
 #            p.drawRect(focusRect.adjusted(0, 0, -1, -1)) #draw pen inclusive
 #            p.setPen(oldPen)
-        elif el == QStyle.PE_IndicatorButtonDropDown:
-            qDrawShadePanel(p, opt.rect, opt.palette,
-                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
-                    1, opt.palette.brush(QPalette.Button))
+#        elif el == QStyle.PE_IndicatorButtonDropDown:
+#            qDrawShadePanel(p, opt.rect, opt.palette,
+#                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
+#                    1, opt.palette.brush(QPalette.Button))
 #        elif el == QStyle.PE_IndicatorArrowDown:
 #            ...
 #        elif el == QStyle.PE_PanelButtonTool:
 #            qDrawShadeRect(p, opt.rect, opt.palette,
 #                    opt.state & (State_Sunken | State_On), 1, 0)
-        else:
-            self.__proxy.drawPrimitive(el, opt, p, widget)
+#        else:
+        self.__proxy.drawPrimitive(el, opt, p, widget)
     
-    def __drawToolButton(self, cc, opt, p, widget = None):
+    def __drawVerticalToolButton(self, cc, opt, p, widget = None):
         
         if opt.toolButtonStyle != Qt.ToolButtonIconOnly and opt.text:
             hasText = True
             textSize = opt.fontMetrics.size(Qt.TextShowMnemonic, opt.text + '  ')
         else:
             hasText = False
-        if opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-            vertical = True
-        else:
-            vertical = False
         if opt.icon.isNull():
             hasIcon = False
         else:
             hasIcon = True
             
         # create flags for the button section
-        bflags = tbopt.state & ~QStyle.State_Sunken
+        bflags = opt.state & ~QStyle.State_Sunken
 
         # Determine if the button should be drawn raised
         if bflags & QStyle.State_AutoRaise:
@@ -414,31 +399,24 @@ class KyStyle(QStyle):
 
         # Determine if the menu and button portions are sunken
         mflags = bflags
-        if tbopt.state & QStyle.State_Sunken:
-            if tbopt.activeSubControls & QStyle.SC_ToolButton:
+        if opt.state & QStyle.State_Sunken:
+            if opt.activeSubControls & QStyle.SC_ToolButton:
                 bflags |= QStyle.State_Sunken
             mflags |= QStyle.State_Sunken
         
         if hasText and hasIcon:
-            if vertical:
-                rect1 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)     # Icon
-                rect2 = opt.rect - opt.rect.intersected(rect1)                    # Text
-                arrowRect = QRect(rect2.left(), rect2.bottom() - 6, rect2.width(), 6) # Arrow
-            else:
-                rect1 = opt.rect.adjusted(0, 0, 0 - opt.rect.width() / 2, 0)
-                rect2 = opt.rect - opt.rect.intersected(rect1)
-                arrowRect = QRect(rect2.right() - 6, rect2.top(), 6, rect2.height())
-            qDrawShadePanel(p, rect1, opt.palette,
-                bflags & (QStyle.State_Sunken | QStyle.State_On), 1,
-                opt.palette.brush(QPalette.Button))
-            qDrawShadePanel(p, rect2, opt.palette,
-                mflags & (QStyle.State_Sunken | QStyle.State_On), 1,
-                opt.palette.brush(QPalette.Button))
+            rect1 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)         # Icon
+            rect2 = opt.rect.adjusted(0, 0 - rect1.height(), 0, 0)                # Text
+            arrowRect = QRect(rect2.left(), rect2.bottom() - 9, rect2.width(), 8) # Arrow
+            self.drawPrimitive(QStyle.PE_FrameButtonTool, opt, p, widget)
+#            qDrawShadePanel(p, rect1, opt.palette,
+#                bflags & (QStyle.State_Sunken | QStyle.State_On), 1,
+#                opt.palette.brush(QPalette.Button))
+#            qDrawShadePanel(p, rect2, opt.palette,
+#                mflags & (QStyle.State_Sunken | QStyle.State_On), 1,
+#                opt.palette.brush(QPalette.Button))
         elif hasIcon:
-            if vertical:
-                rect1 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)
-            else:
-                rect1 = opt.rect.adjusted(0, 0, 0 - opt.rect.width() / 2, 0)
+            rect1 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)
             arrowRect = opt.rect - opt.rect.intersected(rect1)
             qDrawShadePanel(p, rect1, opt.palette,
                 bflags & (QStyle.State_Sunken | QStyle.State_On), 1,
@@ -447,10 +425,7 @@ class KyStyle(QStyle):
                 mflags & (QStyle.State_Sunken | QStyle.State_On), 1,
                 opt.palette.brush(QPalette.Button))
         else: #It's either text or blank
-            if vertical:
-                rect2 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)
-            else:
-                rect2 = opt.rect.adjusted(0, 0, 0 - opt.rect.width() / 2, 0)
+            rect2 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)
             rect1 = None
             arrowRect = opt.rect - opt.rect.intersected(rect2)
             qDrawShadePanel(p, rect2, opt.palette,
@@ -461,10 +436,19 @@ class KyStyle(QStyle):
                 opt.palette.brush(QPalette.Button))
             
         if hasIcon:
-            self.__drawIcon(opt, rect1, p, widget)
+            ...
+#            self.__drawIcon(opt, rect1, p, widget)
         if hasText:
-            self.__drawText(opt, rect2, p, widget)
-        self.__drawArrow(opt, arrowRect, p, widget)
+            ...
+#            self.__drawText(opt, rect2, p, widget)
+        
+        # Draw split
+        if opt.state & QStyle.State_MouseOver:
+            p1 = QPoint(1, opt.rect.height()/2)
+            p2 = QPoint(opt.rect.width() - 1, p1.y())
+            qDrawShadeLine(p, p1, p2, opt.palette, 1, 1, 0)
+            
+        self.drawItemPixmap(p, arrowRect, Qt.AlignCenter, self.__generateArrow(opt))
     
     def __drawComplexToolButton(self, cc : QStyle.ComplexControl, tbopt : QStyleOptionToolButton, p : QPainter, widget : QWidget = None):
         # Get the button rects
@@ -534,62 +518,23 @@ class KyStyle(QStyle):
                                 mbmetric - 6)
             self.drawPrimitive(QStyle.PE_IndicatorArrowDown, mBtn, p, widget)
             
-    def __drawArrow(self, opt : QStyleOptionToolButton, rect : QRect, 
-                    p : QPainter, widget : QWidget):
-            if opt.rect.width() <= 1 or opt.rect.height() <= 1:
-                return
-            r = opt.rect;
-            size = r.height if r.height() < r.width() else r.width()
-            pixmapName = str(id(widget))
-            if not QPixmapCache.find(pixmapName, pixmap):
-                border = int(size/5)
-                sqsize = int(size/2) * 2
-                image = QImage(sqsize, sqsize, QImage.Format_ARGB32);
-                image.fill(Qt.transparent);
-                imagePainter = QPainter(image)
+    def __generateArrow(self, opt):
+            image = QImage(5, 5, QImage.Format_ARGB32)
+            image.fill(Qt.transparent)
+            imagePainter = QPainter(image)
+            imagePainter.setPen(opt.palette.buttonText().color())
+            imagePainter.drawLine(0, 0, 4, 0)
+            imagePainter.drawLine(1, 1, 3, 1)
+            imagePainter.drawPoint(2, 2)
+            
+            imagePainter.setPen(QColor(255, 255, 255, 127))
+            imagePainter.drawPoints(QPoint(0, 1), 
+                                     QPoint(1, 2), 
+                                     QPoint(2, 3), 
+                                     QPoint(3, 2), 
+                                     QPoint(4, 1))
+            imagePainter.end()
+            
+            return QPixmap.fromImage(image)
+            
 
-                a = QPolygon()
-                a.setPoints(3, border, sqsize/2, 
-                            sqsize/2, sqsize - border, 
-                            sqsize - border, sqsize/2);
-                
-                bsx = 0
-                bsy = 0
-
-                if opt.state & State_Sunken:
-                    bsx = self.pixelMetric(QStyle.PM_ButtonShiftHorizontal, opt, widget)
-                    bsy = self.pixelMetric(QStyle.PM_ButtonShiftVertical, opt, widget)
-
-                bounds = a.boundingRect();
-                sx = int(sqsize / 2 - bounds.center().x() - 1)
-                sy = int(sqsize / 2 - bounds.center().y() - 1)
-                imagePainter.translate(sx + bsx, sy + bsy);
-                imagePainter.setPen(opt.palette.buttonText().color());
-                imagePainter.setBrush(opt.palette.buttonText());
-
-                if not opt.state & State_Enabled:
-                    imagePainter.translate(1, 1)
-                    imagePainter.setBrush(opt.palette.light().color())
-                    imagePainter.setPen(opt.palette.light().color())
-                    imagePainter.drawPolygon(a)
-                    imagePainter.translate(-1, -1)
-                    imagePainter.setBrush(opt.palette.mid().color())
-                    imagePainter.setPen(opt.palette.mid().color())
-
-                imagePainter.drawPolygon(a)
-                imagePainter.end()
-                pixmap = QPixmap.fromImage(image)
-                QPixmapCache.insert(pixmapName, pixmap)
-
-            xOffset = r.x() + (r.width() - size) / 2
-            yOffset = r.y() + (r.height() - size) / 2
-            p.drawPixmap(xOffset, yOffset, pixmap)
-
-    def __drawToolButtonSplit(self, opt):
-            if opt.toolButtonStyle & Qt.ToolButtonTextUnderIcon:
-                p1 = QPoint(0, opt.rect.height()/2)
-                p2 = QPoint(opt.rect.width(), p1.y())
-            else:
-                p1 = QPoint(opt.rect.width()/2, 0)
-                p2 = QPoint(p1.x(), opt.rect.height())
-            qDrawShadeLine(p, p1, p2, opt.palette, 1, 1, 0)
