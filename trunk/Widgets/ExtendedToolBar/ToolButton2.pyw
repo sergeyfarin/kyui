@@ -2,9 +2,21 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 class ToolButton(QToolButton):
-    def __init__(self, parent = None):
+    def __init__(self, 
+                 parent : QWidget = None,
+                 action : QAction = None,
+                 autoraise : bool = False,
+                 mode : QToolButton.ToolButtonPopupMode = None,   #PopupMode
+                 name : str = None,                     #ObjectName
+                 size : QSize = None,                   #IconSize
+                 style : Qt.ToolButtonStyle = None):
         super().__init__(parent)
-        
+        if action: self.setDefaultAction(action)
+        if autoraise: self.setAutoRaise(autoraise)
+        if mode: self.setPopupMode(mode)
+        if name: self.setObjectName(name)
+        if size: self.setIconSize(size)
+        if style: self.setToolButtonStyle(style)
 
 #    def paintEvent(self, ev : QPaintEvent) -> None:
 #        p = QStylePainter(self)
@@ -12,40 +24,32 @@ class ToolButton(QToolButton):
 #        self.initStyleOption(opt)
 #        p.drawComplexControl(QStyle.CC_ToolButton, opt)
         
-#    def sizeHint(self) -> QSize:
-#        w, h = 0, 0
-#        opt = QStyleOptionToolButton()
-#        self.initStyleOption(opt)
-#
-#        fm = self.fontMetrics()
-#        if opt.toolButtonStyle != Qt.ToolButtonTextOnly and not opt.icon.isNull():
-#            w = opt.iconSize.width()
-#            h = opt.iconSize.height()
-#
-#        if opt.toolButtonStyle != Qt.ToolButtonIconOnly and opt.text:
-#            textSize = fm.size(Qt.TextShowMnemonic, opt.text);
-#            textSize.setWidth(textSize.width() + fm.width(' ')*2);
-#            if opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-#                h += 4 + textSize.height()
-#                if textSize.width() > w:
-#                    w = textSize.width()
-#            elif opt.toolButtonStyle == Qt.ToolButtonTextBesideIcon:
-#                w += 4 + textSize.width();
-#                if textSize.height() > h:
-#                    h = textSize.height();
-#            else: # TextOnly
-#                w = textSize.width()
-#                h = textSize.height()
-#
-#        opt.rect.setSize(QSize(w, h)); # PM_MenuButtonIndicator depends on the height
-#        if self.popupMode() == QToolButton.MenuButtonPopup:
-#            if opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-#                h += self.style().pixelMetric(QStyle.PM_MenuButtonIndicator, opt, self);
-#            else:
-#                w += self.style().pixelMetric(QStyle.PM_MenuButtonIndicator, opt, self);
-#
-#        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, h), self).expandedTo(QApplication.globalStrut());
-#        return sh
+    def sizeHint(self) -> QSize:
+        opt = QStyleOptionToolButton()
+        self.initStyleOption(opt)
+        
+        if opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon:
+            return super().sizeHint()
+        
+        w, h = 0, 0
+        fm = self.fontMetrics()
+        if not opt.icon.isNull():
+            w = opt.iconSize.width()
+            h = opt.iconSize.height()
+
+        if opt.text:
+            textSize = fm.size(Qt.TextShowMnemonic, opt.text)
+            textSize.setWidth(textSize.width() + fm.width(' '))
+            h += 4 + textSize.height()
+            if textSize.width() > w:
+                w = textSize.width()
+
+        opt.rect.setSize(QSize(w, h)); # PM_MenuButtonIndicator depends on the height
+        if self.popupMode() == QToolButton.MenuButtonPopup:
+            h += self.style().pixelMetric(QStyle.PM_MenuButtonIndicator, opt, self);
+
+        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, h), self).expandedTo(QApplication.globalStrut());
+        return sh
 
 #    def initStyleOption(self, opt):
 #        super().initStyleOption(opt)

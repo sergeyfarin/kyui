@@ -353,8 +353,8 @@ class KyWindowsVistaStyle(QStyle):
 
         # Determine if the button should be drawn raised
         if bflags & QStyle.State_AutoRaise:
-            if not (bflags & State_MouseOver) or not(bflags & QStyle.State_Enabled):
-                bflags &= ~State_Raised;
+            if not (bflags & QStyle.State_MouseOver) or not(bflags & QStyle.State_Enabled):
+                bflags &= ~QStyle.State_Raised;
 
         # Determine if the menu and button portions are sunken
         mflags = bflags
