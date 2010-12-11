@@ -14,3 +14,15 @@ enum {
 	TS_CHECKED = 5,     //
 	TS_HOTCHECKED = 6   //checked and hovered
 };
+
+enum {
+    State_Hover = 0
+    State_Normal = 0
+    State_Checked = 1
+} Icon_Shift_Vertical;
+
+enum {
+    IconPadding = 6
+    TextPadding = 4
+} VertToolButtonPadding;
+

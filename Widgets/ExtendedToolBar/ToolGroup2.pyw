@@ -63,7 +63,7 @@ class ToolGroupBox(QGroupBox):
                  title : str = None, 
                  parent : QWidget = None, 
 #                 action : ExtendedAction = None, 
-                 alignment : Qt.Alignment = Qt.AlignHCenter | Qt.AlignBottom, 
+                 alignment : Qt.Alignment = Qt.AlignHCenter | Qt.AlignTop, 
                  checkable : bool = False, 
                  checked : bool = True):
         if title:

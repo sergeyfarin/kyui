@@ -11,6 +11,13 @@ def PrintRect(rect : QRect) -> None:
                              rect.left(), rect.top(), 
                              rect.width(), rect.height()))
                              
+def copyStyleOption(source, target):
+    target.direction = source.direction
+    target.fontMetrics = source.fontMetrics
+    target.palette = source.palette
+    target.rect = source.rect
+    target.state = source.state
+
 def setBrushAlphaF(brush : QBrush, alpha) -> None:
     if brush.gradient():
         gradient = brush.gradient()
@@ -117,47 +124,41 @@ def drawPlastiqueShadowedFrame(p : QPainter, rect : QRect, opt : QStyleOption,
             qBrushSetAlphaF(innerTopLeft, qreal(0.075))
             qBrushSetAlphaF(innerBottomRight, qreal(0.23))
 
-    lines = []
-    points = []
-
     # Opaque corner lines
     p.setPen(QPen(border, 0))
-    lines = [QLine(rect.left() + 2, rect.top(), rect.right() - 2, rect.top())), 
+    lines = [QLine(rect.left() + 2, rect.top(), rect.right() - 2, rect.top()), 
              QLine(rect.left() + 2, rect.bottom(), rect.right() - 2, rect.bottom()), 
              QLine(rect.left(), rect.top() + 2, rect.left(), rect.bottom() - 2), 
              QLine(rect.right(), rect.top() + 2, rect.right(), rect.bottom() - 2)]
     p.drawLines(lines)
 
     # Opaque corner dots
-    points.append(QPoint(rect.left() + 1, rect.top() + 1))
-    points.append(QPoint(rect.left() + 1, rect.bottom() - 1))
-    points.append(QPoint(rect.right() - 1, rect.top() + 1))
-    points.append(QPoint(rect.right() - 1, rect.bottom() - 1))
-    p.drawPoints(points, 4)
+    p.drawPoints(QPoint(rect.left() + 1, rect.top() + 1), 
+                 QPoint(rect.left() + 1, rect.bottom() - 1), 
+                 QPoint(rect.right() - 1, rect.top() + 1), 
+                 QPoint(rect.right() - 1, rect.bottom() - 1))
+    
 
     # Shaded corner dots
     p.setPen(QPen(corner, 0))
-    points[0] = QPoint(rect.left(), rect.top() + 1)
-    points[1] = QPoint(rect.left(), rect.bottom() - 1)
-    points[2] = QPoint(rect.left() + 1, rect.top())
-    points[3] = QPoint(rect.left() + 1, rect.bottom())
-    points.append(QPoint(rect.right(), rect.top() + 1))
-    points.append(QPoint(rect.right(), rect.bottom() - 1))
-    points.append(QPoint(rect.right() - 1, rect.top()))
-    points.append(QPoint(rect.right() - 1, rect.bottom()))
-    p.drawPoints(points, 8)
+    p.drawPoints(QPoint(rect.left(), rect.top() + 1), 
+                 QPoint(rect.left(), rect.bottom() - 1), 
+                 QPoint(rect.left() + 1, rect.top()), 
+                 QPoint(rect.left() + 1, rect.bottom()), 
+                 QPoint(rect.right(), rect.top() + 1), 
+                 QPoint(rect.right(), rect.bottom() - 1), 
+                 QPoint(rect.right() - 1, rect.top()), 
+                 QPoint(rect.right() - 1, rect.bottom()))
+    
 
     # Shadows
-    lines = []
     if shadow != QFrame.Plain:
         p.setPen(QPen(innerTopLeft, 0))
-        lines.append(QLine(rect.left() + 2, rect.top() + 1, rect.right() - 2, rect.top() + 1))
-        lines.append(QLine(rect.left() + 1, rect.top() + 2, rect.left() + 1, rect.bottom() - 2))
-        p.drawLines(lines, 2)
+        p.drawLines([QLine(rect.left() + 2, rect.top() + 1, rect.right() - 2, rect.top() + 1), 
+                    QLine(rect.left() + 1, rect.top() + 2, rect.left() + 1, rect.bottom() - 2)])
         p.setPen(QPen(innerBottomRight, 0))
-        lines[0] = QLine(rect.left() + 2, rect.bottom() - 1, rect.right() - 2, rect.bottom() - 1)
-        lines[1] = QLine(rect.right() - 1, rect.top() + 2, rect.right() - 1, rect.bottom() - 2)
-        p.drawLines(lines, 2)
+        p.drawLines([QLine(rect.left() + 2, rect.bottom() - 1, rect.right() - 2, rect.bottom() - 1), 
+                    QLine(rect.right() - 1, rect.top() + 2, rect.right() - 1, rect.bottom() - 2)])
 
     p.setPen(oldPen)
     
@@ -176,11 +177,10 @@ def drawPlastiqueFrame(p : QPainter, opt : QStyleOption, widget : QWidget = None
 
     # outline / border
     p.setPen(borderColor)
-    lines = [QLine(rect.left() + 2, rect.top(), rect.right() - 2, rect.top()), 
-             QLine(rect.left() + 2, rect.bottom(), rect.right() - 2, rect.bottom()), 
-             QLine(rect.left(), rect.top() + 2, rect.left(), rect.bottom() - 2), 
-             QLine(rect.right(), rect.top() + 2, rect.right(), rect.bottom() - 2)]
-    p.drawLines(lines)
+    p.drawLines([QLine(rect.left() + 2, rect.top(), rect.right() - 2, rect.top()), 
+                QLine(rect.left() + 2, rect.bottom(), rect.right() - 2, rect.bottom()), 
+                QLine(rect.left(), rect.top() + 2, rect.left(), rect.bottom() - 2), 
+                QLine(rect.right(), rect.top() + 2, rect.right(), rect.bottom() - 2)])
 
     p.drawPoints(QPoint(rect.left() + 1, rect.top() + 1), 
                  QPoint(rect.right() - 1, rect.top() + 1), 
@@ -204,18 +204,16 @@ def drawPlastiqueFrame(p : QPainter, opt : QStyleOption, widget : QWidget = None
     else:
         p.setPen(gradientStartColor);
 
-    lines = [QLine(rect.left() + 2, rect.top() + 1, rect.right() - 2, opt.rect.top() + 1), 
-             QLine(rect.left() + 1, rect.top() + 2, rect.left() + 1, opt.rect.bottom() - 2)]
-    p.drawLines(lines, 2)
+    p.drawLines([QLine(rect.left() + 2, rect.top() + 1, rect.right() - 2, opt.rect.top() + 1), 
+             QLine(rect.left() + 1, rect.top() + 2, rect.left() + 1, opt.rect.bottom() - 2)])
 
     if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
         p.setPen(opt.palette.button().color().darker(110));
     else:
         p.setPen(gradientStopColor.darker(102));
 
-    lines = [QLine(rect.left() + 2, rect.bottom() - 1, rect.right() - 2, rect.bottom() - 1), 
-             QLine(rect.right() - 1, rect.top() + 2, rect.right() - 1, rect.bottom() - 2)]
-    p.drawLines(lines, 2)
+    p.drawLines([QLine(rect.left() + 2, rect.bottom() - 1, rect.right() - 2, rect.bottom() - 1), 
+             QLine(rect.right() - 1, rect.top() + 2, rect.right() - 1, rect.bottom() - 2)])
 
     p.setPen(oldPen)
 
@@ -249,11 +247,7 @@ def drawPlastiqueShadedPanel(p : QPainter, opt : QStyleOption, base : bool,
     drawPlastiqueFrame(p, opt, widget)
     p.setPen(oldPen)
 
-class KyPlastiqueStyle(QStyle):
-    ToolGroupBox = 0x00
-    CE_ToolButtonIcon = 0x01
-    CE_ToolButtonLabel = 0x02
-    
+class KyPlastiqueStyle(QStyle):    
     def __init__(self):
         super().__init__()
         self.__proxy = QStyleFactory.create('Plastique')
@@ -347,7 +341,7 @@ class KyPlastiqueStyle(QStyle):
             # Draw frame
             if opt.subControls & QStyle.SC_GroupBoxFrame:
                 frame = QStyleOptionFrameV2()
-                frame = opt
+                copyStyleOption(opt, frame)
                 frame.features = opt.features
                 frame.lineWidth = opt.lineWidth
                 frame.midLineWidth = opt.midLineWidth
@@ -363,8 +357,8 @@ class KyPlastiqueStyle(QStyle):
                     else:
                         finalRect = textRect
                     region -= region.intersected(finalRect)
-                painter.setClipRegion(region)
-                drawPlastiqueFrame(painter, frame, widget)
+                painter.setClipRegion(region) 
+                self.__proxy.drawPrimitive(QStyle.PE_FrameGroupBox, frame, painter, widget)
                 painter.restore()
 
             # Draw title
@@ -376,29 +370,36 @@ class KyPlastiqueStyle(QStyle):
                 if not self.styleHint(QStyle.SH_UnderlineShortcut, opt, widget):
                     alignment |= Qt.TextHideMnemonic
 
-                self.drawItemText(painter, textRect,  Qt.TextShowMnemonic | Qt.AlignHCenter | alignment,
+                self.__proxy.drawItemText(painter, textRect,  Qt.TextShowMnemonic | Qt.AlignHCenter | alignment,
                              opt.palette, opt.state & QStyle.State_Enabled, opt.text,
                              ( QPalette.NoRole if textColor.isValid() else QPalette.WindowText))
 
                 if opt.state & QStyle.State_HasFocus:
                     fropt = QStyleOptionFocusRect()
-                    fropt = opt
+                    copyStyleOption(opt, fropt)
                     fropt.backgroundColor = opt.palette.window().color()
                     fropt.rect = textRect
-                    self.drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, widget)
+                    self.__proxy.drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, widget)
 
             # Draw checkbox
             if opt.subControls & QStyle.SC_GroupBoxCheckBox:
                 box = QStyleOptionButton()
-                box = opt
+                copyStyleOption(opt, box)
                 box.rect = checkBoxRect
-                self.drawPrimitive(QStyle.PE_IndicatorCheckBox, box, painter, widget)
-        elif control == QStyle.CC_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
+                self.__proxy.drawPrimitive(QStyle.PE_IndicatorCheckBox, box, painter, widget)
+        elif control == QStyle.CC_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon\
+                    and (opt.features & QStyleOptionToolButton.HasMenu):
             self.__drawVerticalToolButton(control, opt, painter, widget)
         else:
             self.__proxy.drawComplexControl(control, opt, painter, widget)
     
-        
+    def sizeFromContents(self, ct : QStyle.ContentsType, opt : QStyleOption, sz : QSize, widget : QWidget = None ) -> QSize:
+        if ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon \
+                and (opt.features & (QStyleOptionToolButton.Menu | QStyleOptionToolButton.HasMenu)):
+            return sz + QSize(5, 4)
+        else:
+            return self.__proxy.sizeFromContents(ct, opt, sz, widget)
+    
     def subControlRect(self, cc : QStyle.ComplexControl, opt : QStyleOptionComplex,
                         sc : QStyle.SubControl, widget : QWidget = None) -> QRect:
 #        return self.__proxy.subControlRect(cc, opt, sc, widget)
@@ -468,20 +469,16 @@ class KyPlastiqueStyle(QStyle):
                                           totalRect.width() - checkBoxSize, totalRect.height())
                 
                 return totalRect
-        elif cc == QStyle.CC_ToolButton:
-            if opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon:
-                return self.__proxy.subControlRect(cc, opt, sc, widget)
+        elif cc == QStyle.CC_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
             rect = opt.rect;
-            if sc == QStyle.SC_ToolButton:
-                if ((opt.features
+            if sc == QStyle.SC_ToolButton and ((opt.features
                      & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))
                     == QStyleOptionToolButton.MenuButtonPopup):
-                    rect.adjust(0, 0, 0, rect.height() / 2)
-            elif sc == QStyle.SC_ToolButtonMenu:
-                if ((opt.features
+                rect.adjust(0, 0, 0, rect.height() / 2)
+            elif sc == QStyle.SC_ToolButtonMenu and ((opt.features
                      & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))
                     == QStyleOptionToolButton.MenuButtonPopup):
-                    rect.adjust(0, rect.height() / 2, 0, 0)
+                rect.adjust(0, rect.height() / 2, 0, 0)
             return rect
         else:
             return self.__proxy.subControlRect(cc, opt, sc, widget)
@@ -508,70 +505,8 @@ class KyPlastiqueStyle(QStyle):
             return self.__proxy.hitTestComplexControl(cc, opt, pos, widget)
         
     def drawPrimitive(self, el : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
-#        if el == QStyle.PE_FrameGroupBox:
-#            frameV2 = QStyleOptionFrameV2(opt)
-#            if frameV2.features & QStyleOptionFrameV2.Flat:
-#                oldPen = painter.pen()
-#                p.setPen(borderColor)
-#                p.drawLine(frameV2.rect.topLeft(), frameV2.rect.topRight())
-#                p.setPen(oldPen)
-#            else:
-#                frameV2.state &= ~(State_Sunken | State_HasFocus)
-#                self.__proxy.drawPrimitive(QStyle.PE_Frame, frameV2, painter, widget)
-#        if el == QStyle.PE_PanelButtonTool:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
-#                        opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_FrameFocusRect:
-#            bg = opt.palette.color(QPalette.Button) #QColor
-#            oldPen = p.pen()
-#            if bg:
-#                hsv = bg.getHsv()
-#                if (hsv[2] >= 128): # V
-#                    p.setPen(Qt.black)
-#                else:
-#                    p.setPen(Qt.white)
-#            else:
-#                p.setPen(opt.palette.foreground().color())
-#            focusRect = opt.rect.adjusted(1, 1, -1, -1)
-#            p.drawRect(focusRect.adjusted(0, 0, -1, -1)) #draw pen inclusive
-#            p.setPen(oldPen)
-#        elif el == QStyle.PE_IndicatorButtonDropDown:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
-#                    1, opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_IndicatorArrowDown:
-#            ...
-#        elif el == QStyle.PE_PanelButtonTool:
-#            qDrawShadeRect(p, opt.rect, opt.palette,
-#                    opt.state & (State_Sunken | State_On), 1, 0)
-#        else:
         self.__proxy.drawPrimitive(el, opt, p, widget)
-    
-    def __drawFocusRect(self, fropt : QStyleOptionFocusRect, p : QPainter):
-            ### check for d->alt_down
-            if not fropt.state & QStyle.State_KeyboardFocusChange and not self.styleHint(QStyle.SH_UnderlineShortcut, fropt):
-                return
-            r = fropt.rect
-            p.save()
-            p.setBackgroundMode(Qt.TransparentMode)
-            bg_col = fropt.backgroundColor
-            if not bg_col.isValid():
-                bg_col = p.background().color();
-            # Create an "XOR" color.
-            patternCol = QColor((bg_col.red() ^ 0xff) & 0xff,
-                                (bg_col.green() ^ 0xff) & 0xff,
-                                (bg_col.blue() ^ 0xff) & 0xff)
-            p.setBrush(QBrush(patternCol, Qt.Dense4Pattern))
-            p.setBrushOrigin(r.topLeft())
-            p.setPen(Qt.NoPen)
-            p.drawRect(r.left(), r.top(), r.width(), 1)    # Top
-            p.drawRect(r.left(), r.bottom(), r.width(), 1) # Bottom
-            p.drawRect(r.left(), r.top(), 1, r.height())   # Left
-            p.drawRect(r.right(), r.top(), 1, r.height())  # Right
-            p.restore()
-    
-    
+        
     def __drawVerticalToolButton(self, cc, opt, p, widget = None):
         
         if opt.toolButtonStyle != Qt.ToolButtonIconOnly and opt.text:
@@ -589,11 +524,11 @@ class KyPlastiqueStyle(QStyle):
 
         # Determine if the button should be drawn raised
         if bflags & QStyle.State_AutoRaise:
-            if not (bflags & State_MouseOver) or not(bflags & QStyle.State_Enabled):
-                bflags &= ~State_Raised;
+            if not (bflags & QStyle.State_MouseOver) or not(bflags & QStyle.State_Enabled):
+                bflags &= ~QStyle.State_Raised;
 
         # Determine if the menu and button portions are sunken
-        mflags = bflags
+        mflags = int(bflags)
         if opt.state & QStyle.State_Sunken:
             if opt.activeSubControls & QStyle.SC_ToolButton:
                 bflags |= QStyle.State_Sunken
@@ -603,13 +538,8 @@ class KyPlastiqueStyle(QStyle):
             rect1 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)         # Icon
             rect2 = opt.rect.adjusted(0, 0 - rect1.height(), 0, 0)                # Text
             arrowRect = QRect(rect2.left(), rect2.bottom() - 9, rect2.width(), 8) # Arrow
-            self.drawPrimitive(QStyle.PE_FrameButtonTool, opt, p, widget)
-#            qDrawShadePanel(p, rect1, opt.palette,
-#                bflags & (QStyle.State_Sunken | QStyle.State_On), 1,
-#                opt.palette.brush(QPalette.Button))
-#            qDrawShadePanel(p, rect2, opt.palette,
-#                mflags & (QStyle.State_Sunken | QStyle.State_On), 1,
-#                opt.palette.brush(QPalette.Button))
+#            self.drawPrimitive(QStyle.PE_FrameButtonTool, opt, p, widget)
+            self.drawPrimitive(QStyle.PE_PanelButtonTool, opt, p, widget)
         elif hasIcon:
             rect1 = opt.rect.adjusted(0, 0, 0, 0 - opt.rect.height() / 2)
             arrowRect = opt.rect - opt.rect.intersected(rect1)
@@ -649,8 +579,6 @@ class KyPlastiqueStyle(QStyle):
         # Get the button rects
         button = self.subControlRect(cc, tbopt, QStyle.SC_ToolButton, widget)
         menurect = self.subControlRect(cc, tbopt, QStyle.SC_ToolButtonMenu, widget)
-        PrintRect(button)
-        PrintRect(menurect)
         
         # create flags for the button section
         bflags = tbopt.state & ~QStyle.State_Sunken
@@ -679,7 +607,7 @@ class KyPlastiqueStyle(QStyle):
         # Draw focus rect
         if tbopt.state & QStyle.State_HasFocus:
             fr = QStyleOptionFocusRect()
-            fr = tbopt
+            copyStyleOption(tbopt, fr)
             fr.rect.adjust(3, 3, -3, -3)
             if tbopt.features & QStyleOptionToolButton.MenuButtonPopup:
                 if tbopt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
@@ -689,7 +617,7 @@ class KyPlastiqueStyle(QStyle):
             self.drawPrimitive(QStyle.PE_FrameFocusRect, fr, p, widget)
         
         # Draw label and icon
-        label = QStyleOptionToolButton(tbopt);
+        label = QStyleOptionToolButton(tbopt)
         label.state = bflags;
         fw = self.pixelMetric(QStyle.PM_DefaultFrameWidth, tbopt, widget)
         label.rect = button.adjusted(fw, fw, -fw, -fw)
@@ -750,8 +678,7 @@ class KyPlastiqueStyle(QStyle):
         return self.__proxy.polish(objectToPolish)
     def proxy (self) -> QStyle:
         return self.__proxy
-    def sizeFromContents(self, item : QStyle.ContentsType, option : QStyleOption, contentsSize : QSize, widget : QWidget = None ) -> QSize:
-        return self.__proxy.sizeFromContents(item, option, contentsSize, widget)
+
     def standardIcon(self, standardIcon : QStyle.StandardPixmap, option : QStyleOption = None, widget : QWidget = None ) -> QIcon:
         return self.__proxy.standardIcon(standardIcon, option, widget)
     def standardPalette (self) -> QPalette:
