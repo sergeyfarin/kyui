@@ -28,9 +28,12 @@ class ToolButton(QToolButton):
         opt = QStyleOptionToolButton()
         self.initStyleOption(opt)
         
-        if opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon:
+        if (opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon or not (opt.features
+                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))):
             return super().sizeHint()
         
+        maxW = 44
+        maxH = 66
         w, h = 0, 0
         fm = self.fontMetrics()
         if not opt.icon.isNull():
@@ -49,8 +52,14 @@ class ToolButton(QToolButton):
             h += self.style().pixelMetric(QStyle.PM_MenuButtonIndicator, opt, self);
 
         sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, h), self).expandedTo(QApplication.globalStrut());
-        return sh
+        return QSize(44, 66)
 
-#    def initStyleOption(self, opt):
-#        super().initStyleOption(opt)
-#        opt.orientation = Qt.Vertical
+    def initStyleOption(self, opt):
+        super().initStyleOption(opt)
+        if (opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
+                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))):
+            opt.state |= QStyle.State_Item
+#        if opt.iconSize.width() > 36:
+#            opt.iconSize.setWidth(32)
+#        if opt.iconSize.height() > 36:
+#            opt.iconSize.setHeight(36)

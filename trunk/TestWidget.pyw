@@ -1,30 +1,31 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from DebugBox import DebugBox
 from Style.StyleFactory import KyStyleFactory
 from Widgets.ExtendedToolBar.ToolButton2 import ToolButton
 from Widgets.ExtendedToolBar.ToolGroup2 import ToolGroupBox
 
-class DebugBox(QPlainTextEdit):
-    def __init__(self, parent : QWidget = None, text : str = None):
-        super().__init__(parent)
-        if text:
-            self.setPlainText(text)
-        self.setReadOnly(True)
-        self.setFrameShape(QFrame.StyledPanel)
-        self.setFrameShadow(QFrame.Sunken)
-    
-    def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
-        if msgType == QtDebugMsg:
-            self.appendPlainText('Debug: ' + bytes.decode(text))
-        elif msgType == QtWarningMsg:
-            self.appendPlainText('Warning: ' + bytes.decode(text))
-        elif msgType == QtCriticalMsg:
-            print('Critical: ' + bytes.decode(text))
-        elif msgType == QtFatalMsg:
-            print('Fatal: ' + bytes.decode(text))
-        else:
-            print('Unknown Error: ' + bytes.decode(text))
+#class DebugBox(QPlainTextEdit):
+#    def __init__(self, parent : QWidget = None, text : str = None):
+#        super().__init__(parent)
+#        if text:
+#            self.setPlainText(text)
+#        self.setReadOnly(True)
+#        self.setFrameShape(QFrame.StyledPanel)
+#        self.setFrameShadow(QFrame.Sunken)
+#    
+#    def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
+#        if msgType == QtDebugMsg:
+#            self.appendPlainText('Debug: ' + bytes.decode(text))
+#        elif msgType == QtWarningMsg:
+#            self.appendPlainText('Warning: ' + bytes.decode(text))
+#        elif msgType == QtCriticalMsg:
+#            print('Critical: ' + bytes.decode(text))
+#        elif msgType == QtFatalMsg:
+#            print('Fatal: ' + bytes.decode(text))
+#        else:
+#            print('Unknown Error: ' + bytes.decode(text))
 
 class GenericDialog(QDialog):
     def __init__(self, parent = None):
@@ -79,9 +80,9 @@ class GenericDialog(QDialog):
             button.setAutoRaise(True if state == Qt.Checked else False)
             
     def toggleActionsCheckable(self, state : int):
-        for act in self.actions():
+        for act in self.__actions:
             act.setCheckable(True if state == Qt.Checked else False)
-            act.setChecked(True if state == Qt.Checked else False)
+            act.setChecked(False)
         
     def __setupTestItems(self):
         layout = QHBoxLayout(self.grpBox)
@@ -91,15 +92,15 @@ class GenericDialog(QDialog):
         menu.addAction('Item2')
         menu.addAction('Item3')
         
-        act = QAction(QIcon('./E5Icons/editPaste.png'), 'Test\nButton', self)
-        self.addAction(act)
+        self.__actions = []
+        act = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
+        self.__actions.append(act)
         act2 = QAction(QIcon('./E5Icons/editPaste.png'), 'Test\nButton', self)
-        self.addAction(act2)
+        self.__actions.append(act2)
         act3 = QAction(QIcon('./E5Icons/editPaste.png'), 'Test Button', self)
-        self.addAction(act3)
+        self.__actions.append(act3)
         
         act.setMenu(menu)
-#        act2.setMenu(menu)
         act3.setMenu(menu)
         
         self.buttons = []
