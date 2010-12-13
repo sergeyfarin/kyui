@@ -33,3 +33,15 @@ enum {
     State_On,       //Set if the button is a toggle button and is toggled on.
     State_Sunken,   //Set if the button is down (i.e., the mouse button or the space bar is pressed on the button).
 } State;
+
+/* ToolButton Compononents:
+ * Button : QStyleOptionToolButton
+ * MenuButton (if menubuttonpopup)
+ * Frame : QStyleOptionFrameV3
+ * FocusRect
+ * Label
+ * Icon
+ * Splitter
+ * Arrow
+ */
+
