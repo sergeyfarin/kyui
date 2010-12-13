@@ -1,6 +1,8 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+#from .Styles import copyStyleOption
+
 TGB_CtrlList = [QStyle.SC_GroupBoxCheckBox, 
                 QStyle.SC_GroupBoxLabel, 
                 QStyle.SC_GroupBoxContents, 
@@ -470,14 +472,18 @@ class KyPlastiqueStyle(QStyle):
                                           totalRect.width() - checkBoxSize, totalRect.height())
                 
                 return totalRect
-        elif (cc == QStyle.CC_ToolButton and 
-                opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
-                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu))):
-            rect = QRect(opt.rect)
-            if (sc == QStyle.SC_ToolButton):
-                rect.adjust(0, 0, 0, - (rect.height() / 3))
+        elif cc == QStyle.CC_ToolButton:
+            if opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon:
+                return self.__proxy.subControlRect(cc, opt, sc, widget)
+            rect = QRect(opt.rect);
+            if sc == QStyle.SC_ToolButton:
+                if (opt.features
+                     & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                    rect.setHeight(opt.iconSize.height() + 9)
             elif sc == QStyle.SC_ToolButtonMenu:
-                rect.setTop(rect.bottom() - rect.height() / 3)
+                if (opt.features
+                     & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                    rect.setTop(rect.top() + opt.iconSize.height() + 9)
             return rect
         else:
             return self.__proxy.subControlRect(cc, opt, sc, widget)
@@ -510,9 +516,7 @@ class KyPlastiqueStyle(QStyle):
                                         QStyle.SC_ToolButton, widget)
         mRect = self.subControlRect(QStyle.CC_ToolButton, opt, 
                                         QStyle.SC_ToolButtonMenu, widget)
-        
-        if opt.text:
-            textSize = opt.fontMetrics.size(Qt.TextShowMnemonic, opt.text + '  ')
+            
         if opt.icon.isNull():
             hasIcon = False
         else:
@@ -523,42 +527,53 @@ class KyPlastiqueStyle(QStyle):
 
         # Determine if the button should be drawn raised
         if bflags & QStyle.State_AutoRaise:
-            if not (bflags & QStyle.State_MouseOver) or not(bflags & QStyle.State_Enabled):
+            if not (bflags & QStyle.State_MouseOver) or not (bflags & QStyle.State_Enabled):
                 bflags &= ~QStyle.State_Raised
 
         # Determine if the menu and button portions are sunken
-        mflags = int(bflags)
+        mflags = QStyle.State(bflags)
         if opt.state & QStyle.State_Sunken:
             if opt.activeSubControls & QStyle.SC_ToolButton:
                 bflags |= QStyle.State_Sunken
-            mflags |= QStyle.State_Sunken
+            else:
+                mflags |= QStyle.State_Sunken
             
-        if not opt.state & QStyle.State_AutoRaise:
-            self.drawPrimitive(QStyle.PE_PanelButtonTool, opt, p, widget)
-        elif opt.state & (QStyle.State_Sunken | QStyle.State_MouseOver):
-            self.drawPrimitive(QStyle.PE_PanelButtonTool, opt, p, widget)
+        if opt.state & QStyle.State_HasFocus:
+            fr = QStyleOptionFocusRect()
+            copyStyleOption(fr, opt)
+            fr.rect.adjust(3, 3, -3, -3)
+            self.drawPrimitive(QStyle.PE_FrameFocusRect, fr, p, widget)
             
-        if opt.state & (QStyle.State_Sunken | QStyle.State_MouseOver):
-            pass
-        
-        if opt.text and hasIcon:
-            bRect.adjust(0, -3, 0, -3)
-            self.drawItemPixmap(p, bRect, Qt.AlignCenter, opt.icon.pixmap(opt.iconSize))
-            self.drawItemText(p, mRect, Qt.AlignTop | Qt.AlignHCenter,
-                                      opt.palette, opt.state & QStyle.State_Enabled,
-                                      opt.text, QPalette.ButtonText)
-        elif hasIcon:
-            self.drawItemPixmap(p, bRect, Qt.AlignCenter, opt.icon.pixmap(opt.iconSize))
-        elif opt.text:
-            self.drawItemText(p, mRect, Qt.AlignTop | Qt.AlignHCenter,
-                                      opt.palette, True, opt.text, 
-                                      QPalette.ButtonText)
+        if (not opt.state & QStyle.State_AutoRaise or opt.state & 
+                (QStyle.State_Sunken | QStyle.State_MouseOver | QStyle.State_On)):
+            self.drawPrimitive(QStyle.PE_PanelButtonTool, opt, p, widget)
         
         # Draw split
-        if (opt.state & (QStyle.State_MouseOver | QStyle.State_Sunken)):
+        if (opt.state & (QStyle.State_MouseOver | QStyle.State_On | QStyle.State_Sunken)):
             p1 = bRect.bottomLeft()
             p2 = bRect.bottomRight()
+            p1.setX(p1.x() + 1)
+            p2.setX(p2.x())
             qDrawShadeLine(p, p1, p2, opt.palette, 1, 1, 0)
+        
+        if bflags & (QStyle.State_Sunken | QStyle.State_On):
+            bRect.adjust(2, 2, 2, 2)
+        if mflags & QStyle.State_Sunken:
+            mRect.adjust(2, 2, 2, 2)
+        
+        if opt.text:
+            textSize = opt.fontMetrics.size(Qt.TextShowMnemonic, opt.text + ' ')
+        
+        if hasIcon:
+            self.drawItemPixmap(p, bRect, Qt.AlignCenter, opt.icon.pixmap(opt.iconSize))
+            if opt.text:
+                self.drawItemText(p, mRect, Qt.AlignTop | Qt.AlignHCenter,
+                                  opt.palette, opt.state & QStyle.State_Enabled,
+                                  opt.text, QPalette.ButtonText)
+        elif opt.text:
+            self.drawItemText(p, bRect, Qt.AlignTop | Qt.AlignHCenter,
+                              opt.palette, opt.state & QStyle.State_Enabled,
+                              opt.text, QPalette.ButtonText)
         
         # Draw the menu arrow
         self.drawItemPixmap(p, mRect.adjusted(0, 0, 0, -3), 
