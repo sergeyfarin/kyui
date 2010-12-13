@@ -55,7 +55,7 @@ class GenericDialog(QDialog):
         
         self.styleBox = QComboBox(self)
         self.styleBox.addItems(KyStyleFactory.keys())
-        self.styleBox.setCurrentIndex(1)
+#        self.styleBox.setCurrentIndex(1)
         self.connect(self.styleBox, SIGNAL('currentIndexChanged(int)'), self.changeStyle)
         self.__layout.addWidget(self.styleBox, 1, 1)
         
@@ -91,12 +91,12 @@ class GenericDialog(QDialog):
         
     def __setupTestItems(self):
         layout = QHBoxLayout(self.grpBox)
+        self.grpBox.setContentsMargins(0, 0, 0, 0)
         
         menu = QMenu()
         menu.addAction(QIcon('./E5Icons/fileSaveAs.png'), 'Save &As')
         menu.addAction(QIcon('./E5Icons/fileSaveAll.png'), 'Save A&ll')
         menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project')
-        
         
         act = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
         self.addAction(act)

@@ -124,4 +124,33 @@ class StyleHelper():
             
             return QPixmap.fromImage(image)
             
+    def mergedColors(colorA : QColor, colorB : QColor, factor : int = 50) -> QColor:
+        maxFactor = 100
+        tmp = QColor(colorA)
+        tmp.setRed((tmp.red() * factor) / maxFactor + (colorB.red() * (maxFactor - factor)) / maxFactor)
+        tmp.setGreen((tmp.green() * factor) / maxFactor + (colorB.green() * (maxFactor - factor)) / maxFactor)
+        tmp.setBlue((tmp.blue() * factor) / maxFactor + (colorB.blue() * (maxFactor - factor)) / maxFactor)
+        return tmp
+#if ((option->state & State_Enabled || option->state & State_On) || !(option->state & State_AutoRaise))
+#qt_plastique_drawShadedPanel(painter, option, true, widget);
+    def drawPlastiqueToolButton(p : QPainter, opt : QStyleOption, base : bool,
+                                widget : QWidget = None) -> None:
+        rect = opt.rect;
+        oldPen = p.pen();
 
+        gradientStartColor = opt.palette.button().color().lighter(104)
+        gradientStopColor = opt.palette.button().color().darker(105)
+
+        # gradient fill
+        if (opt.state & QStyle.State_Enabled) or  not (opt.state & QStyle.State_AutoRaise):
+            if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
+                drawPlastiqueGradient(p, rect.adjusted(1, 1, -1, -1),
+                        opt.palette.button().color().darker(114),
+                        opt.palette.button().color().darker(106))
+            else:
+                drawPlastiqueGradient(p, rect.adjusted(1, 1, -1, -1),
+                        opt.palette.background().color().lighter(105) if base else gradientStartColor,
+                        opt.palette.background().color().darker(102) if base else gradientStopColor)
+        
+        drawPlastiqueFrame(p, opt, widget)
+        p.setPen(oldPen)
