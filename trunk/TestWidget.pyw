@@ -1,31 +1,30 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from DebugBox import DebugBox
 from Style.StyleFactory import KyStyleFactory
 from Widgets.ExtendedToolBar.ToolButton2 import ToolButton
 from Widgets.ExtendedToolBar.ToolGroup2 import ToolGroupBox
 
-#class DebugBox(QPlainTextEdit):
-#    def __init__(self, parent : QWidget = None, text : str = None):
-#        super().__init__(parent)
-#        if text:
-#            self.setPlainText(text)
-#        self.setReadOnly(True)
-#        self.setFrameShape(QFrame.StyledPanel)
-#        self.setFrameShadow(QFrame.Sunken)
-#    
-#    def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
-#        if msgType == QtDebugMsg:
-#            self.appendPlainText('Debug: ' + bytes.decode(text))
-#        elif msgType == QtWarningMsg:
-#            self.appendPlainText('Warning: ' + bytes.decode(text))
-#        elif msgType == QtCriticalMsg:
-#            print('Critical: ' + bytes.decode(text))
-#        elif msgType == QtFatalMsg:
-#            print('Fatal: ' + bytes.decode(text))
-#        else:
-#            print('Unknown Error: ' + bytes.decode(text))
+class DebugBox(QPlainTextEdit):
+    def __init__(self, parent : QWidget = None, text : str = None):
+        super().__init__(parent)
+        if text:
+            self.setPlainText(text)
+        self.setReadOnly(True)
+        self.setFrameShape(QFrame.StyledPanel)
+        self.setFrameShadow(QFrame.Sunken)
+    
+    def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
+        if msgType == QtDebugMsg:
+            self.appendPlainText('Debug: ' + bytes.decode(text))
+        elif msgType == QtWarningMsg:
+            self.appendPlainText('Warning: ' + bytes.decode(text))
+        elif msgType == QtCriticalMsg:
+            print('Critical: ' + bytes.decode(text))
+        elif msgType == QtFatalMsg:
+            print('Fatal: ' + bytes.decode(text))
+        else:
+            print('Unknown Error: ' + bytes.decode(text))
 
 class GenericDialog(QDialog):
     def __init__(self, parent = None):
@@ -34,7 +33,7 @@ class GenericDialog(QDialog):
         self.setWindowTitle('Test')
         font = QFont('Segoe Ui', 8)
         self.setFont(font)
-        QApplication.setStyle(KyStyleFactory.create('Plastique'))
+        QApplication.setStyle(KyStyleFactory.create('Windows'))
         self.__setupUi()
         
         self.__setupTestItems()
@@ -44,7 +43,7 @@ class GenericDialog(QDialog):
         self.__layout.setSpacing(6)
         
         self.grpBox = ToolGroupBox('Testing Items', self, 
-                                   alignment=Qt.AlignHCenter | Qt.AlignTop)
+                                   alignment=Qt.AlignHCenter | Qt.AlignBottom)
         self.grpBox.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.grpBox.setMinimumSize(100, 100)
         self.__layout.addWidget(self.grpBox, 0, 0, 1, 0)
@@ -55,6 +54,7 @@ class GenericDialog(QDialog):
         
         self.styleBox = QComboBox(self)
         self.styleBox.addItems(KyStyleFactory.keys())
+        self.styleBox.setCurrentIndex(1)
         self.connect(self.styleBox, SIGNAL('currentIndexChanged(int)'), self.changeStyle)
         self.__layout.addWidget(self.styleBox, 1, 1)
         
@@ -80,9 +80,9 @@ class GenericDialog(QDialog):
             button.setAutoRaise(True if state == Qt.Checked else False)
             
     def toggleActionsCheckable(self, state : int):
-        for act in self.__actions:
+        for act in self.actions():
             act.setCheckable(True if state == Qt.Checked else False)
-            act.setChecked(False)
+            act.setChecked(True if state == Qt.Checked else False)
         
     def __setupTestItems(self):
         layout = QHBoxLayout(self.grpBox)
@@ -92,15 +92,15 @@ class GenericDialog(QDialog):
         menu.addAction('Item2')
         menu.addAction('Item3')
         
-        self.__actions = []
         act = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
-        self.__actions.append(act)
-        act2 = QAction(QIcon('./E5Icons/editPaste.png'), 'Test\nButton', self)
-        self.__actions.append(act2)
-        act3 = QAction(QIcon('./E5Icons/editPaste.png'), 'Test Button', self)
-        self.__actions.append(act3)
+        self.addAction(act)
+        act2 = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
+        self.addAction(act2)
+        act3 = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
+        self.addAction(act3)
         
         act.setMenu(menu)
+#        act2.setMenu(menu)
         act3.setMenu(menu)
         
         self.buttons = []
