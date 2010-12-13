@@ -10,6 +10,13 @@ def PrintRect(rect : QRect):
     qDebug(str.format('QRect({}, {}, {}, {})', 
                              rect.left(), rect.top(), 
                              rect.width(), rect.height()))
+                             
+def copyStyleOption(target, source):
+    target.direction = source.direction
+    target.fontMetrics = source.fontMetrics
+    target.palette = source.palette
+    target.rect = source.rect
+    target.state = source.state
 
 class KyWindowsStyle(QStyle):
     ToolGroupBox = 0x00
@@ -22,7 +29,7 @@ class KyWindowsStyle(QStyle):
     
     def drawControl(self, el : QStyle.ControlElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
         if el == QStyle.CE_ToolButtonLabel:
-            rect = opt.rect
+            rect = QRect(opt.rect)
             shiftX = 0
             shiftY = 0
             if (opt.state & (QStyle.State_Sunken | QStyle.State_On)):
@@ -105,7 +112,7 @@ class KyWindowsStyle(QStyle):
             # Draw frame
             if opt.subControls & QStyle.SC_GroupBoxFrame:
                 frame = QStyleOptionFrameV2()
-                frame = opt
+                copyStyleOption(frame, opt)
                 frame.features = opt.features
                 frame.lineWidth = opt.lineWidth
                 frame.midLineWidth = opt.midLineWidth
@@ -141,7 +148,7 @@ class KyWindowsStyle(QStyle):
 
                 if opt.state & QStyle.State_HasFocus:
                     fropt = QStyleOptionFocusRect()
-                    fropt = opt
+                    copyStyleOption(fropt, opt)
                     fropt.backgroundColor = opt.palette.window().color()
                     fropt.rect = textRect
                     self.__drawFocusRect(fropt, painter)
@@ -150,11 +157,13 @@ class KyWindowsStyle(QStyle):
             # Draw checkbox
             if opt.subControls & QStyle.SC_GroupBoxCheckBox:
                 box = QStyleOptionButton()
-                box = opt
+                copyStyleOption(box, opt)
                 box.rect = checkBoxRect
                 self.drawPrimitive(QStyle.PE_IndicatorCheckBox, box, painter, widget)
-        elif control == QStyle.CC_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-            self.__drawVerticalToolButton(control, opt, painter, widget)
+        elif (control == QStyle.CC_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon
+              and opt.features & 
+              (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+            self.__drawToolButton(control, opt, painter, widget)
         else:
             self.__proxy.drawComplexControl(control, opt, painter, widget)
     
@@ -164,17 +173,15 @@ class KyWindowsStyle(QStyle):
         if cc == QStyle.CC_ToolButton:
             if opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon:
                 return self.__proxy.subControlRect(cc, opt, sc, widget)
-            rect = opt.rect;
+            rect = QRect(opt.rect);
             if sc == QStyle.SC_ToolButton:
-                if ((opt.features
-                     & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))
-                    == QStyleOptionToolButton.MenuButtonPopup):
-                    rect.adjust(0, 0, 0, rect.height() / 2)
+                if (opt.features
+                     & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                    rect.setHeight(opt.iconSize.height() + 6)
             elif sc == QStyle.SC_ToolButtonMenu:
-                if ((opt.features
-                     & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))
-                    == QStyleOptionToolButton.MenuButtonPopup):
-                    rect.adjust(0, rect.height() / 2, 0, 0)
+                if (opt.features
+                     & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                    rect.setTop(rect.top() + opt.iconSize.height() + 6)
             return rect
         elif cc == QStyle.CC_GroupBox:
             rect = QRect()
@@ -306,39 +313,20 @@ class KyWindowsStyle(QStyle):
                            frame.lineWidth, frame.midLineWidth)
     
     def drawPrimitive(self, el : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
-#        if el == QStyle.PE_PanelButtonTool:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
-#                        opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_FrameFocusRect:
-#            bg = opt.palette.color(QPalette.Button) #QColor
-#            oldPen = p.pen()
-#            if bg:
-#                hsv = bg.getHsv()
-#                if (hsv[2] >= 128): # V
-#                    p.setPen(Qt.black)
-#                else:
-#                    p.setPen(Qt.white)
-#            else:
-#                p.setPen(opt.palette.foreground().color())
-#            focusRect = opt.rect.adjusted(1, 1, -1, -1)
-#            p.drawRect(focusRect.adjusted(0, 0, -1, -1)) #draw pen inclusive
-#            p.setPen(oldPen)
-#        elif el == QStyle.PE_IndicatorButtonDropDown:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
-#                    1, opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_IndicatorArrowDown:
-#            ...
-#        elif el == QStyle.PE_PanelButtonTool:
-#            qDrawShadeRect(p, opt.rect, opt.palette,
-#                    opt.state & (State_Sunken | State_On), 1, 0)
-#        else:
         self.__proxy.drawPrimitive(el, opt, p, widget)
     
     def __drawVerticalToolButton(self, cc, opt, p, widget = None):
+        bopt = QStyleOptionToolButton(opt)
+        bopt.rect = self.subControlRect(QStyle.CC_ToolButton, opt, p, widget)
+        if not opt.icon.isNull():
+            bopt.text = None
+        if bopt.iconSize.width() > 32:
+            bopt.iconSize.setWidth(32)
+        if bopt.iconSize.height() > 32:
+            bopt.iconSize.setHeight(32)
         
-        if opt.toolButtonStyle != Qt.ToolButtonIconOnly and opt.text:
+        
+        if opt.text:
             hasText = True
             textSize = opt.fontMetrics.size(Qt.TextShowMnemonic, opt.text + '  ')
         else:
@@ -347,15 +335,13 @@ class KyWindowsStyle(QStyle):
             hasIcon = False
         else:
             hasIcon = True
-            
         # create flags for the button section
-        bflags = opt.state & ~QStyle.State_Sunken
-
+        bopt.state = opt.state & ~QStyle.State_Sunken
         # Determine if the button should be drawn raised
         if bflags & QStyle.State_AutoRaise:
             if not (bflags & QStyle.State_MouseOver) or not(bflags & QStyle.State_Enabled):
                 bflags &= ~QStyle.State_Raised;
-
+        
         # Determine if the menu and button portions are sunken
         mflags = bflags
         if opt.state & QStyle.State_Sunken:
@@ -409,89 +395,91 @@ class KyWindowsStyle(QStyle):
             
         self.drawItemPixmap(p, arrowRect, Qt.AlignCenter, self.__generateArrow(opt))
     
-    def __drawComplexToolButton(self, cc : QStyle.ComplexControl, tbopt : QStyleOptionToolButton, p : QPainter, widget : QWidget = None):
+    def __drawToolButton(self, cc : QStyle.ComplexControl, opt : QStyleOptionToolButton, p : QPainter, widget : QWidget = None):
         # Get the button rects
-        button = self.subControlRect(cc, tbopt, QStyle.SC_ToolButton, widget)
-        menurect = self.subControlRect(cc, tbopt, QStyle.SC_ToolButtonMenu, widget)
-        PrintRect(button)
-        PrintRect(menurect)
+        brect = self.subControlRect(cc, opt, QStyle.SC_ToolButton, widget)
+        mrect = self.subControlRect(cc, opt, QStyle.SC_ToolButtonMenu, widget)
         
         # create flags for the button section
-        bflags = tbopt.state & ~QStyle.State_Sunken
+        bflags = opt.state & ~QStyle.State_Sunken
 
         # Determine if the button should be drawn raised
         if bflags & QStyle.State_AutoRaise:
-            if not (bflags & State_MouseOver) or not(bflags & QStyle.State_Enabled):
-                bflags &= ~State_Raised;
+            if not (bflags & QStyle.State_MouseOver) or not(bflags & QStyle.State_Enabled):
+                bflags &= ~QStyle.State_Raised;
 
         # Determine if the menu and button portions are sunken
-        mflags = bflags
-        if tbopt.state & QStyle.State_Sunken:
-            if tbopt.activeSubControls & QStyle.SC_ToolButton:
+        mflags = QStyle.State(bflags)
+        if opt.state & QStyle.State_Sunken:
+            if opt.activeSubControls & QStyle.SC_ToolButton:
                 bflags |= QStyle.State_Sunken
             mflags |= QStyle.State_Sunken
         
         # Draw the internal button
-        tool = QStyleOption()
-        tool.palette = tbopt.palette
-        if tbopt.subControls & QStyle.SC_ToolButton:
+        bopt = QStyleOption()
+        bopt.palette = opt.palette
+        if opt.subControls & QStyle.SC_ToolButton:
             if bflags & (QStyle.State_Sunken | QStyle.State_On | QStyle.State_Raised):
-                tool.rect = button
-                tool.state = bflags
-                self.drawPrimitive(QStyle.PE_PanelButtonTool, tool, p, widget)
+                bopt.rect = brect
+                bopt.state = bflags
+                self.drawPrimitive(QStyle.PE_PanelButtonTool, bopt, p, widget)
 
         # Draw focus rect
-        if tbopt.state & QStyle.State_HasFocus:
+        if opt.state & QStyle.State_HasFocus:
             fr = QStyleOptionFocusRect()
-            fr = tbopt
+            copyStyleOption(fr, opt)
             fr.rect.adjust(3, 3, -3, -3)
-            if tbopt.features & QStyleOptionToolButton.MenuButtonPopup:
-                if tbopt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
-                    fr.rect.adjust(0, 0, 0, 0 - self.pixelMetric(QStyle.PM_MenuButtonIndicator, tbopt, widget))
+            if opt.features & QStyleOptionToolButton.MenuButtonPopup:
+                if opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon:
+                    fr.rect.adjust(0, 0, 0, 0 - self.pixelMetric(QStyle.PM_MenuButtonIndicator, opt, widget))
                 else:
-                    fr.rect.adjust(0, 0, 0 - self.pixelMetric(QStyle.PM_MenuButtonIndicator, tbopt, widget), 0)
+                    fr.rect.adjust(0, 0, 0 - self.pixelMetric(QStyle.PM_MenuButtonIndicator, opt, widget), 0)
             self.drawPrimitive(QStyle.PE_FrameFocusRect, fr, p, widget)
         
         # Draw label and icon
-        label = QStyleOptionToolButton(tbopt);
+        label = QStyleOptionToolButton(opt);
         label.state = bflags;
-        fw = self.pixelMetric(QStyle.PM_DefaultFrameWidth, tbopt, widget)
-        label.rect = button.adjusted(fw, fw, -fw, -fw)
+        fw = self.pixelMetric(QStyle.PM_DefaultFrameWidth, opt, widget)
+        label.rect = brect.adjusted(fw, fw, -fw, -fw)
         self.drawControl(QStyle.CE_ToolButtonLabel, label, p, widget)
         
         # Toolbuttonpopupmode
-        if tbopt.subControls & QStyle.SC_ToolButtonMenu:
-            tool.rect = menurect
-            tool.state = mflags
+        if opt.subControls & QStyle.SC_ToolButtonMenu:
+            mopt = QStyleOption()
+            mopt.palette = opt.palette
+            mopt.rect = mrect
+            mopt.state = mflags
             if mflags & (QStyle.State_Sunken | QStyle.State_On | QStyle.State_Raised):
-                self.drawPrimitive(QStyle.PE_IndicatorButtonDropDown, tool, p, widget)
-            self.drawPrimitive(QStyle.PE_IndicatorArrowDown, tool, p, widget)
+                self.drawPrimitive(QStyle.PE_IndicatorButtonDropDown, mopt, p, widget)
+            self.drawItemPixmap(p, mrect, Qt.AlignHCenter | Qt.AlignBottom, 
+                                self.__generateArrow(opt.palette))
         # Delayed or instant popup with menu
-        elif tbopt.features & QStyleOptionToolButton.HasMenu:
-            mbmetric = self.pixelMetric(QStyle.PM_MenuButtonIndicator, tbopt, widget);
-            mbrect = tbopt.rect
-            mBtn = QStyleOptionToolButton(tbopt)
+        elif opt.features & QStyleOptionToolButton.HasMenu:
+            mbmetric = self.pixelMetric(QStyle.PM_MenuButtonIndicator, opt, widget);
+            mbrect = QRect(opt.rect)
+            mBtn = QStyleOptionToolButton(opt)
             mBtn.rect = QRect(mbrect.right() + 5 - mbmetric, 
                                 mbrect.y() + mbrect.height() - mbmetric + 4, 
                                 mbmetric - 6, 
                                 mbmetric - 6)
-            self.drawPrimitive(QStyle.PE_IndicatorArrowDown, mBtn, p, widget)
+            self.drawItemPixmap(p, mrect, Qt.AlignHCenter | Qt.AlignBottom, 
+                                self.__generateArrow(opt.palette))
             
-    def __generateArrow(self, opt):
-            image = QImage(5, 5, QImage.Format_ARGB32)
+    def __generateArrow(self, palette : QPalette):
+            image = QImage(5, 8, QImage.Format_ARGB32)
             image.fill(Qt.transparent)
             imagePainter = QPainter(image)
-            imagePainter.setPen(opt.palette.buttonText().color())
+            imagePainter.setPen(palette.buttonText().color())
             imagePainter.drawLine(0, 0, 4, 0)
             imagePainter.drawLine(1, 1, 3, 1)
             imagePainter.drawPoint(2, 2)
             
             imagePainter.setPen(QColor(255, 255, 255, 127))
             imagePainter.drawPoints(QPoint(0, 1), 
-                                     QPoint(1, 2), 
-                                     QPoint(2, 3), 
-                                     QPoint(3, 2), 
-                                     QPoint(4, 1))
+                                    QPoint(1, 2), 
+                                    QPoint(2, 3), 
+                                    QPoint(3, 2), 
+                                    QPoint(4, 1))
             imagePainter.end()
             
             return QPixmap.fromImage(image)

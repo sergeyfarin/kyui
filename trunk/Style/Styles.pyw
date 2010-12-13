@@ -13,6 +13,13 @@ def PrintRect(rect : QRect):
                              rect.left(), rect.top(), 
                              rect.width(), rect.height()))
 
+def copyStyleOption(target, source):
+    target.direction = source.direction
+    target.fontMetrics = source.fontMetrics
+    target.palette = source.palette
+    target.rect = source.rect
+    target.state = source.state
+
 class KyStyle(QStyle):
     ToolGroupBox = 0x00
     CE_ToolButtonIcon = 0x01

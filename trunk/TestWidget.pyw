@@ -33,7 +33,8 @@ class GenericDialog(QDialog):
         self.setWindowTitle('Test')
         font = QFont('Segoe Ui', 8)
         self.setFont(font)
-        QApplication.setStyle(KyStyleFactory.create('Windows'))
+        self.__styleName = 'Plastique'
+        QApplication.setStyle(KyStyleFactory.create(self.__styleName))
         self.__setupUi()
         
         self.__setupTestItems()
@@ -45,7 +46,7 @@ class GenericDialog(QDialog):
         self.grpBox = ToolGroupBox('Testing Items', self, 
                                    alignment=Qt.AlignHCenter | Qt.AlignBottom)
         self.grpBox.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        self.grpBox.setMinimumSize(100, 100)
+        self.grpBox.setMinimumSize(100, 150)
         self.__layout.addWidget(self.grpBox, 0, 0, 1, 0)
         
         self.dbgBox = DebugBox(self)
@@ -72,8 +73,10 @@ class GenericDialog(QDialog):
         self.buttonBox.accepted.connect(self.accept)
         
     def changeStyle(self, index):
-        style = KyStyleFactory.create(self.styleBox.itemText(index))
+        self.__styleName = self.styleBox.itemText(index)
+        style = KyStyleFactory.create(self.__styleName)
         QApplication.setStyle(style)
+        self.button2.setStyle(QStyleFactory.create(self.__styleName))
         
     def toggleButtonsRaised(self, state : int):
         for button in self.buttons:
@@ -82,25 +85,28 @@ class GenericDialog(QDialog):
     def toggleActionsCheckable(self, state : int):
         for act in self.actions():
             act.setCheckable(True if state == Qt.Checked else False)
-            act.setChecked(True if state == Qt.Checked else False)
+            act.setChecked(False)
+        for button in self.buttons:
+            button.update()
         
     def __setupTestItems(self):
         layout = QHBoxLayout(self.grpBox)
         
         menu = QMenu()
-        menu.addAction('Item1')
-        menu.addAction('Item2')
-        menu.addAction('Item3')
+        menu.addAction(QIcon('./E5Icons/fileSaveAs.png'), 'Save &As')
+        menu.addAction(QIcon('./E5Icons/fileSaveAll.png'), 'Save A&ll')
+        menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project')
         
-        act = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
+        
+        act = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
         self.addAction(act)
-        act2 = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
+        act2 = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
         self.addAction(act2)
-        act3 = QAction(QIcon('./E5Icons/editPaste.png'), 'Paste', self)
+        act3 = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
         self.addAction(act3)
         
         act.setMenu(menu)
-#        act2.setMenu(menu)
+        act2.setMenu(menu)
         act3.setMenu(menu)
         
         self.buttons = []
@@ -112,12 +118,13 @@ class GenericDialog(QDialog):
         layout.addWidget(button)
         self.buttons.append(button)
 
-        button2 = ToolButton(parent=self, 
+        self.button2 = ToolButton(parent=self, 
                              style=Qt.ToolButtonTextUnderIcon, 
                              size=QSize(32, 32), 
                              action=act2)
-        layout.addWidget(button2)
-        self.buttons.append(button2)
+        layout.addWidget(self.button2)
+        self.buttons.append(self.button2)
+        self.button2.setStyle(QStyleFactory.create(self.__styleName))
         
         button3 = ToolButton(parent=self, 
                              style=Qt.ToolButtonTextBesideIcon, 
