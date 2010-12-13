@@ -8,10 +8,9 @@ from .WindowsVistaStyle import KyWindowsVistaStyle
 class KyStyleFactory():
     @staticmethod
     def create(key : str = None):
-        styles = ['Plastique', ]
+        styles = ['Plastique', 'Windows']
         testWin = QSysInfo.WindowsVersion
         if testWin & QSysInfo.WV_NT_based:
-            styles.append('Windows')
             if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
                 styles.append('WindowsXP')
                 styles.append('WindowsVista')
@@ -30,10 +29,9 @@ class KyStyleFactory():
     
     @staticmethod
     def keys():
-        styles = ['Plastique', ]
+        styles = ['Plastique', 'Windows']
         testWin = QSysInfo.WindowsVersion
         if testWin & QSysInfo.WV_NT_based:
-            styles.append('Windows')
             if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
                 styles.append('WindowsXP')
                 styles.append('WindowsVista')
