@@ -43,8 +43,8 @@ class ToolButton(QToolButton):
             if textSize.width() > w:
                 w = textSize.width()
 
-#        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, h), self).expandedTo(QApplication.globalStrut());
-        return QSize(w, 66)
+        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, 66), self).expandedTo(QApplication.globalStrut());
+        return sh
 
     def initStyleOption(self, opt):
         super().initStyleOption(opt)
