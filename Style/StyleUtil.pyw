@@ -25,18 +25,47 @@ class StyleHelper():
     CE_ToolButtonIcon = 0x01
     CE_ToolButtonLabel = 0x02
     
-    def copyStyleOption(target, source):
+    @staticmethod
+    def copyStyleOption(source, target):
         target.direction = source.direction
         target.fontMetrics = source.fontMetrics
         target.palette = source.palette
         target.rect = source.rect
         target.state = source.state
+        
+    def drawPlastiqueGradient(painter : QPainter, rect : QRect, gradientStart : QColor,
+                              gradientStop : QColor):
+        gradientName = str.format("qplastique-g-{}-{}-{}-{}", 
+                                  rect.width(), rect.height(), 
+                                  gradientStart.rgba(), gradientStop.rgba())
+
+        cache = QPixmap()
+        p = painter
+        r = QRect(rect)
+
+        doPixmapCache = p.deviceTransform().isIdentity() and p.worldMatrix().isIdentity()
+        if doPixmapCache and QPixmapCache.find(gradientName, cache):
+            painter.drawPixmap(rect, cache)
+        else:
+            if doPixmapCache:
+                cache = QPixmap(rect.size())
+                cache.fill(Qt.transparent)
+                p = QPainter(cache)
+            r = QRect(0, 0, rect.width(), rect.height())
+
+            x = r.center().x()
+            gradient = QLinearGradient(x, r.top(), x, r.bottom())
+            gradient.setColorAt(0, gradientStart)
+            gradient.setColorAt(1, gradientStop)
+            p.fillRect(r, gradient)
+
+            if doPixmapCache:
+                p.end()
+                painter.drawPixmap(rect, cache)
+                QPixmapCache.insert(gradientName, cache)
     
     @staticmethod
-    def __drawFocusRect(fropt : QStyleOptionFocusRect, p : QPainter):
-            ### check for d->alt_down
-            if not fropt.state & QStyle.State_KeyboardFocusChange:
-                return
+    def drawWinFocusRect(fropt : QStyleOptionFocusRect, p : QPainter):
             r = fropt.rect
             p.save()
             p.setBackgroundMode(Qt.TransparentMode)
@@ -57,7 +86,7 @@ class StyleHelper():
             p.restore()
 
     @staticmethod
-    def __drawGroupBoxFrame(frame : QStyleOptionFrameV2, p : QPainter, alignBottom : bool):
+    def drawWinGroupBoxFrame(frame : QStyleOptionFrameV2, p : QPainter, alignBottom : bool):
         if frame.features & QStyleOptionFrameV2.Flat:
             fr = frame.rect
             if not alignBottom:
@@ -72,40 +101,8 @@ class StyleHelper():
             qDrawShadeRect(p, frame.rect.x(), frame.rect.y(), frame.rect.width(),
                            frame.rect.height(), frame.palette, True,
                            frame.lineWidth, frame.midLineWidth)
-    
-    def drawPrimitive(self, el : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
-#        if el == QStyle.PE_PanelButtonTool:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
-#                        opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_FrameFocusRect:
-#            bg = opt.palette.color(QPalette.Button) #QColor
-#            oldPen = p.pen()
-#            if bg:
-#                hsv = bg.getHsv()
-#                if (hsv[2] >= 128): # V
-#                    p.setPen(Qt.black)
-#                else:
-#                    p.setPen(Qt.white)
-#            else:
-#                p.setPen(opt.palette.foreground().color())
-#            focusRect = opt.rect.adjusted(1, 1, -1, -1)
-#            p.drawRect(focusRect.adjusted(0, 0, -1, -1)) #draw pen inclusive
-#            p.setPen(oldPen)
-#        elif el == QStyle.PE_IndicatorButtonDropDown:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
-#                    1, opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_IndicatorArrowDown:
-#            ...
-#        elif el == QStyle.PE_PanelButtonTool:
-#            qDrawShadeRect(p, opt.rect, opt.palette,
-#                    opt.state & (State_Sunken | State_On), 1, 0)
-#        else:
-        self.__proxy.drawPrimitive(el, opt, p, widget)
-
     @staticmethod
-    def __generateArrow(palette : QPalette):
+    def drawMenuArrow(palette : QPalette) -> None:
             image = QImage(5, 5, QImage.Format_ARGB32)
             image.fill(Qt.transparent)
             imagePainter = QPainter(image)
@@ -124,6 +121,7 @@ class StyleHelper():
             
             return QPixmap.fromImage(image)
             
+    @staticmethod
     def mergedColors(colorA : QColor, colorB : QColor, factor : int = 50) -> QColor:
         maxFactor = 100
         tmp = QColor(colorA)
@@ -131,8 +129,54 @@ class StyleHelper():
         tmp.setGreen((tmp.green() * factor) / maxFactor + (colorB.green() * (maxFactor - factor)) / maxFactor)
         tmp.setBlue((tmp.blue() * factor) / maxFactor + (colorB.blue() * (maxFactor - factor)) / maxFactor)
         return tmp
+    
+    @staticmethod
+    def setBrushAlphaF(brush : QBrush, alpha) -> None:
+        if brush.gradient():
+            gradient = brush.gradient()
+            # Use the gradient. Call QColor.setAlphaF() on all color stops.
+            for pair in gradient.stops():
+                pair[1].setAlphaF(alpha * pair[1].alphaF())
+                gradient.setColorAt(*pair)
+                
+            if gradient.type() == QGradient.RadialGradient:
+                grad = QRadialGradient(gradient);
+                grad.setStops(stops)
+                brush = QBrush(grad)
+            elif gradient.type() == QGradient.ConicalGradient:
+                grad = QConicalGradient(gradient);
+                grad.setStops(stops)
+                brush = QBrush(grad)
+            else:
+                grad = QLinearGradient(gradient)
+                grad.setStops(stops)
+                brush = QBrush(grad)
+        elif not brush.texture().isNull():
+            # Modify the texture - ridiculously expensive.
+            texture = brush.texture()
+            pixmap = QPixmap()
+            name = str.format("qbrushtexture-alpha-{}-{}", alpha, texture.cacheKey())
+            if not QPixmapCache.find(name, pixmap):
+                image = texture.toImage();
+                imageBits = image.bits()
+                pixels = image.width() * image.height()
+                tmpColor = QColor()
+                for i in range(pixels - 1):
+                    rgb = imageBits[i]
+                    tmpColor.setRgb(rgb)
+                    tmpColor.setAlphaF(alpha * tmpColor.alphaF())
+                    rgb = tmpColor.rgba()
+                pixmap = QPixmap.fromImage(image)
+                QPixmapCache.insert(name, pixmap)
+            brush.setTexture(pixmap)
+        else:
+            # Use the color
+            tmpColor = brush.color()
+            tmpColor.setAlphaF(alpha * tmpColor.alphaF())
+            brush.setColor(tmpColor)
 #if ((option->state & State_Enabled || option->state & State_On) || !(option->state & State_AutoRaise))
 #qt_plastique_drawShadedPanel(painter, option, true, widget);
+    @staticmethod
     def drawPlastiqueToolButton(p : QPainter, opt : QStyleOption, base : bool,
                                 widget : QWidget = None) -> None:
         rect = opt.rect;

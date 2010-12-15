@@ -76,7 +76,7 @@ class GenericDialog(QDialog):
         self.__styleName = self.styleBox.itemText(index)
         style = KyStyleFactory.create(self.__styleName)
         QApplication.setStyle(style)
-        self.button2.setStyle(QStyleFactory.create(self.__styleName))
+#        self.button2.setStyle(QStyleFactory.create(self.__styleName))
         
     def toggleButtonsRaised(self, state : int):
         for button in self.buttons:
