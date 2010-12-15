@@ -98,21 +98,20 @@ class GenericDialog(QDialog):
         menu.addAction(QIcon('./E5Icons/fileSaveAll.png'), 'Save A&ll')
         menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project')
         
-        act = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
+        act = QAction(QIcon('./E5Icons/fileSave.png'), 'Menu Button', self)
         self.addAction(act)
-        act2 = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
+        act2 = QAction(QIcon('./E5Icons/fileSave.png'), 'Instant', self)
         self.addAction(act2)
-        act3 = QAction(QIcon('./E5Icons/fileSave.png'), 'Save', self)
+        act3 = QAction(QIcon('./E5Icons/fileSave.png'), 'Horizontal', self)
         self.addAction(act3)
         
         act.setMenu(menu)
         act2.setMenu(menu)
         act3.setMenu(menu)
-        
         self.buttons = []
         button = ToolButton(parent=self, 
                             style=Qt.ToolButtonTextUnderIcon, 
-                            mode=QToolButton.MenuButtonPopup, 
+                            mode=QToolButton.DelayedPopup, 
                             action=act, 
                             size=QSize(32, 32))
         layout.addWidget(button)
@@ -120,11 +119,12 @@ class GenericDialog(QDialog):
 
         self.button2 = ToolButton(parent=self, 
                              style=Qt.ToolButtonTextUnderIcon, 
+                             mode=QToolButton.InstantPopup, 
                              size=QSize(32, 32), 
                              action=act2)
         layout.addWidget(self.button2)
         self.buttons.append(self.button2)
-        self.button2.setStyle(QStyleFactory.create(self.__styleName))
+#        self.button2.setStyle(QStyleFactory.create(self.__styleName))
         
         button3 = ToolButton(parent=self, 
                              style=Qt.ToolButtonTextBesideIcon, 
@@ -135,6 +135,9 @@ class GenericDialog(QDialog):
         self.buttons.append(button3)
         
         self.grpBox.setLayout(layout)
+#        font = QFont('Segoe UI Light', 8)
+#        for btn in self.buttons:
+#            btn.setFont(font)
 
 if __name__ == '__main__':
     import sys
