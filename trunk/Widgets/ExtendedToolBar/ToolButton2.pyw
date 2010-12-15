@@ -29,36 +29,28 @@ class ToolButton(QToolButton):
         self.initStyleOption(opt)
         
         if (opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon or not (opt.features
-                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))):
+                & (QStyleOptionToolButton.Menu | QStyleOptionToolButton.HasMenu))):
             return super().sizeHint()
         
-        maxW = 44
-        maxH = 66
-        w, h = 0, 0
+        w = 0
         fm = self.fontMetrics()
         if not opt.icon.isNull():
-            w = opt.iconSize.width()
-            h = opt.iconSize.height()
+            w = opt.iconSize.width() + 6
 
         if opt.text:
             textSize = fm.size(Qt.TextShowMnemonic, opt.text)
-            textSize.setWidth(textSize.width() + fm.width(' '))
-            h += 4 + textSize.height()
+            textSize.setWidth(textSize.width() + fm.width('  '))
             if textSize.width() > w:
                 w = textSize.width()
 
-        opt.rect.setSize(QSize(w, h)); # PM_MenuButtonIndicator depends on the height
-        if self.popupMode() == QToolButton.MenuButtonPopup:
-            h += self.style().pixelMetric(QStyle.PM_MenuButtonIndicator, opt, self);
-
-        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, h), self).expandedTo(QApplication.globalStrut());
-        return QSize(44, 66)
+#        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, h), self).expandedTo(QApplication.globalStrut());
+        return QSize(w, 66)
 
     def initStyleOption(self, opt):
         super().initStyleOption(opt)
-        if (opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
-                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))):
-            opt.state |= QStyle.State_Item
+#        if (opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
+#                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.PopupDelay))):
+#            opt.state |= QStyle.State_Item
 #        if opt.iconSize.width() > 36:
 #            opt.iconSize.setWidth(32)
 #        if opt.iconSize.height() > 36:
