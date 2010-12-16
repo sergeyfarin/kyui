@@ -33,7 +33,7 @@ class GenericDialog(QDialog):
         self.setWindowTitle('Test')
         font = QFont('Segoe Ui', 8)
         self.setFont(font)
-        self.__styleName = 'Plastique'
+        self.__styleName = 'WindowsXP'
         QApplication.setStyle(KyStyleFactory.create(self.__styleName))
         self.__setupUi()
         
@@ -55,7 +55,7 @@ class GenericDialog(QDialog):
         
         self.styleBox = QComboBox(self)
         self.styleBox.addItems(KyStyleFactory.keys())
-#        self.styleBox.setCurrentIndex(1)
+        self.styleBox.setCurrentIndex(2)
         self.connect(self.styleBox, SIGNAL('currentIndexChanged(int)'), self.changeStyle)
         self.__layout.addWidget(self.styleBox, 1, 1)
         

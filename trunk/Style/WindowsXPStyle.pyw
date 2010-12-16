@@ -314,6 +314,7 @@ class KyWindowsXPStyle(QStyle):
         hasmenu = opt.features & (QStyleOptionToolButton.HasMenu | QStyleOptionToolButton.Menu)
         autoraise = opt.state & QStyle.State_AutoRaise
         
+        #button and menu options, respectively
         bopt, mopt = QStyleOption(), QStyleOption()
         StyleHelper.copyStyleOption(opt, bopt)
         StyleHelper.copyStyleOption(opt, bopt)
@@ -323,8 +324,6 @@ class KyWindowsXPStyle(QStyle):
                                             QStyle.SC_ToolButton, widget)
             mopt.rect = self.subControlRect(QStyle.CC_ToolButton, opt, 
                                             QStyle.SC_ToolButtonMenu, widget)
-        else:
-            bopt.rect = QRect(opt.rect)
         #####
         # Create flags for the button section
         
@@ -332,7 +331,7 @@ class KyWindowsXPStyle(QStyle):
         bopt.state = opt.state & ~QStyle.State_Sunken
         
         # Clear the raised flag if autoraise is enabled and we're not moused over
-        if (autoraise and not bopt.state & (QStyle.State_MouseOver | QStyle.State_Enabled | QStyle.State_HasFocus)):
+        if autoraise and not hover:
                 bopt.state &= ~QStyle.State_Raised
         
         #Copy the button flags for the menu portion
@@ -343,8 +342,6 @@ class KyWindowsXPStyle(QStyle):
             if opt.activeSubControls & QStyle.SC_ToolButton:
                 bopt.state |= QStyle.State_Sunken
             mopt.state |= QStyle.State_Sunken
-            bopt.state &= ~QStyle.State_MouseOver
-            
         # End flags
         ######
         
@@ -363,14 +360,13 @@ class KyWindowsXPStyle(QStyle):
                     if down:
 #                        p1.setX(p1.x() + (2 if autoraise else 4))
                         p1.setX(p1.x() + 2)
-                        p2.setX(p2.x() - 2)
+                        p2.setX(p2.x() - 1)
                     else:
-                        p1.setX(p1.x() + (2 if autoraise else 4))
-                        p2.setX(p2.x() - 3)
+                        p1.setX(p1.x() + (1 if autoraise else 2))
+                        p2.setX(p2.x() - 1)
                     qDrawShadeLine(p, p1, p2, opt.palette, 1, 1, 0)
             else:
-                self.drawPrimitive((QStyle.PE_PanelButtonTool if autoraise 
-                                    else QStyle.PE_PanelButtonBevel), opt, p, widget)
+                self.drawPrimitive(panelpe, opt, p, widget)
 
         # Shift if the button is depressed
         if down:
@@ -409,6 +405,7 @@ class KyWindowsXPStyle(QStyle):
                                   opt.palette, opt.state & QStyle.State_Enabled, 
                                   opt.text, QPalette.ButtonText)
             if hasmenu:
+                #draw the arrow
                 self.drawItemPixmap(p, opt.rect.adjusted(0, 0, 0, -3), 
                                     Qt.AlignBottom | Qt.AlignHCenter, 
                                     StyleHelper.drawMenuArrow(opt.palette))
@@ -434,13 +431,15 @@ class KyWindowsXPStyle(QStyle):
     def sizeFromContents(self, ct : QStyle.ContentsType, opt : QStyleOption, sz : QSize, widget : QWidget = None ) -> QSize:
         if (ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
                 & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu))):
-            return QSize(sz.width() + 6, 66)
+            return QSize(sz.width() + 6, sz.height() + 4)
         else:
             return self.__proxy.sizeFromContents(ct, opt, sz, widget)
     def standardIcon(self, standardIcon : QStyle.StandardPixmap, option : QStyleOption = None, widget : QWidget = None ) -> QIcon:
         return self.__proxy.standardIcon(standardIcon, option, widget)
     def standardPalette (self) -> QPalette:
         return self.__proxy.standardPalette()
+    def standardPixmap (self, sp : QStyle.StandardPixmap, opt : QStyleOption = None, widget : QWidget = None) -> QStyle.StandardPixmap:
+        return self.__proxy.standardPixmap(sp, opt, widget)
     def styleHint(self, hint : QStyle.StyleHint, option : QStyleOption = None, widget : QWidget = None, returnData : QStyleHintReturn = None ) -> int:
         return self.__proxy.styleHint(hint, option, widget, returnData)
     def subElementRect(self, element : QStyle.SubElement, option : QStyleOption, widget : QWidget = None ) -> QRect:
