@@ -520,6 +520,8 @@ class KyWindowsVistaStyle(QStyle):
         return self.__proxy.standardIcon(standardIcon, option, widget)
     def standardPalette (self) -> QPalette:
         return self.__proxy.standardPalette()
+    def standardPixmap (self, sp : QStyle.StandardPixmap, opt : QStyleOption = None, widget : QWidget = None) -> QStyle.StandardPixmap:
+        return self.__proxy.standardPixmap(sp, opt, widget)
     def styleHint(self, hint : QStyle.StyleHint, option : QStyleOption = None, widget : QWidget = None, returnData : QStyleHintReturn = None ) -> int:
         return self.__proxy.styleHint(hint, option, widget, returnData)
     def subElementRect(self, element : QStyle.SubElement, option : QStyleOption, widget : QWidget = None ) -> QRect:
