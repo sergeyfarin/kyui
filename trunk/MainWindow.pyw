@@ -5,6 +5,7 @@ from DebugBox import DebugBox
 from IconSet2 import IconSet, E5Icons
 from Widgets.RibbonBar import KyRibbonBar
 from Widgets.MenuButton import KyMenuButton
+from Widgets.ExtendedToolBar.Menu import KyMenu
 
 from TestItems.E5InitActions import E5ActionCreator
 from Utilities.utilities import strFromQSize
@@ -52,11 +53,14 @@ class KyMainWindow(QMainWindow):
                                   text = 'File')
         
         menu = QMenu()
+        menu.addSeparator().setText('Files')
         menu.addAction(self.newAct)
         menu.addAction(self.openAct)
+        menu.addSeparator().setText('Save')
         menu.addAction(self.saveAct)
         menu.addAction(self.saveAsAct)
         menu.addAction(self.saveAllAct)
+        menu.addSeparator()
         menu.addAction(self.fileExitAct)
         menuButton.setMenu(menu)
         
