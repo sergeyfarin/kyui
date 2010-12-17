@@ -78,7 +78,6 @@ class E5ActionCreator():
         E5ActionCreator.initMacroActions(target, iconCache)
         E5ActionCreator.initMultiprojectActions(target, iconCache)
         E5ActionCreator.initPluginActions(target, iconCache)
-#        E5ActionCreator.initProfileActions(target, iconCache)
         E5ActionCreator.initProjectActions(target, iconCache)
         E5ActionCreator.initPreferenceActions(target, iconCache)
         E5ActionCreator.initSearchActions(target, iconCache)
@@ -99,7 +98,7 @@ class E5ActionCreator():
         
         target.setEditProfileAct = KyAction(\
                 iconText=target.tr('Edit Profile'),
-#                icon=iconCache.icon("viewProfileEdit.png"),
+                icon=iconCache.icon("windowProfileEdit.png"),
                 text=target.tr('Edit Profile'),
                 actionGroup=target.viewProfileActGrp,
                 objectName='edit_profile',
@@ -114,7 +113,7 @@ class E5ActionCreator():
         
         target.setDebugProfileAct = KyAction(\
                 iconText=target.tr('Debug Profile'),
-#                icon=iconCache.icon("viewProfileDebug.png"),
+                icon=iconCache.icon("windowProfileDebug.png"),
                 text=target.tr('Debug Profile'),
                 actionGroup=target.viewProfileActGrp, 
                 objectName='debug_profile',
@@ -172,6 +171,7 @@ class E5ActionCreator():
         target.shellAct = KyAction(parent=target, 
                 iconText=target.tr('Shell'),
                 text=target.tr('&Shell'),
+                icon=iconCache.icon("windowShell.png"),
                 objectName='interpreter_shell',
                 shortcut=QKeySequence(target.tr("Alt+Shift+S")), 
                 checkable=True, 
@@ -185,6 +185,7 @@ class E5ActionCreator():
         target.terminalAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Terminal'),
+                icon=iconCache.icon("windowTerminal.png"),
                 text=target.tr('Te&rminal'),
                 objectName='terminal',
                 shortcut=QKeySequence(target.tr("Alt+Shift+R")),
@@ -307,6 +308,7 @@ class E5ActionCreator():
         target.cooperationViewerAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Cooperation'),
+                icon=iconCache.icon("windowCooperation.png"),
                 text=target.tr('&Cooperation'),
                 objectName='cooperation_viewer',
                 shortcut=QKeySequence(target.tr("Alt+Shift+O")),
@@ -323,7 +325,7 @@ class E5ActionCreator():
         target.whatsThisAct = KyAction(\
                 parent=target,
                 iconText=target.tr('What\'s This?'),
-#                icon=iconCache.icon("whatsThis.png"),
+                icon=iconCache.icon("whatsThis.png"),
                 text=target.tr('&What\'s This?'), 
                 shortcut=QKeySequence(target.tr("Shift+F1")),
                 objectName='whatsThis', 
@@ -544,7 +546,7 @@ class E5ActionCreator():
         target.sqlBrowserAct = KyAction(\
                 parent=target,
                 iconText=target.tr('SQL Browser'),
-#                icon=iconCache.icon("sqlBrowser.png"),
+                icon=iconCache.icon("toolsSqlBrowser.png"),
                 text=target.tr('SQL &Browser...'), 
                 objectName='sql_browser', 
                 statusTip=target.tr('Browse a SQL database'), 
@@ -556,7 +558,7 @@ class E5ActionCreator():
         target.miniEditorAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Mini Editor'),
-#                icon=iconCache.icon("editor.png"),
+                icon=iconCache.icon("toolsMiniEditor.png"),
                 text=target.tr('Mini &Editor...'), 
                 objectName='mini_editor', 
                 statusTip=target.tr('Mini Editor'), 
@@ -568,7 +570,7 @@ class E5ActionCreator():
         target.webBrowserAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Web Browser'),
-                icon=iconCache.icon("ericWeb.png"),
+                icon=iconCache.icon("toolsBrowser.png"),
                 text=target.tr('&Web Browser...'), 
                 objectName='web_browser', 
                 statusTip=target.tr('Start the eric5 Web Browser'), 
@@ -580,7 +582,7 @@ class E5ActionCreator():
         target.iconEditorAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Icon Editor'),
-#                icon=iconCache.icon("iconEditor.png"),
+                icon=iconCache.icon("toolsIconEditor.png"),
                 text=target.tr('&Icon Editor...'), 
                 objectName='icon_editor', 
                 statusTip=target.tr('Start the eric5 Icon Editor'), 
@@ -590,11 +592,10 @@ class E5ActionCreator():
         target.toolActions.append(target.iconEditorAct)
         
     def initPreferenceActions(target, iconCache):
-
         target.prefAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Preferences'),
-#                icon=iconCache.icon("configure.png"),
+                icon=iconCache.icon("prefConfigure.png"),
                 text=target.tr('&Preferences...'),
                 objectName='preferences', 
                 statusTip=target.tr('Set the prefered configuration'))
@@ -607,7 +608,7 @@ class E5ActionCreator():
         target.prefExportAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Export Preferences'),
-#                icon=iconCache.icon("configureExport.png"),
+                icon=iconCache.icon("prefConfigureExport.png"),
                 text=target.tr('E&xport Preferences...'),
                 objectName='export_preferences', 
                 statusTip=target.tr('Export the current configuration'))
@@ -619,7 +620,7 @@ class E5ActionCreator():
         target.prefImportAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Import Preferences'),
-#                icon=iconCache.icon("configureImport.png"),
+                icon=iconCache.icon("prefConfigureImport.png"),
                 text=target.tr('I&mport Preferences...'),
                 objectName='import_preferences', 
                 statusTip=target.tr('Import a previously exported configuration'), 
@@ -683,7 +684,7 @@ class E5ActionCreator():
         target.shortcutsAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Keyboard Shortcuts'),
-#                icon=iconCache.icon("configureShortcuts.png"),
+                icon=iconCache.icon("prefShortcuts.png"),
                 text=target.tr('Keyboard &Shortcuts...'),
                 objectName='keyboard_shortcuts', 
                 statusTip=target.tr('Set the keyboard shortcuts'), 
@@ -696,7 +697,7 @@ class E5ActionCreator():
         target.exportShortcutsAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Export Keyboard Shortcuts'),
-#                icon=iconCache.icon("exportShortcuts.png"),
+                icon=iconCache.icon("prefShortcutsExport.png"),
                 text=target.tr('&Export Keyboard Shortcuts...'),
                 objectName='export_keyboard_shortcuts', 
                 statusTip=target.tr('Export the keyboard shortcuts'), 
@@ -708,7 +709,7 @@ class E5ActionCreator():
         target.importShortcutsAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Import Keyboard Shortcuts'),
-#                icon=iconCache.icon("importShortcuts.png"),
+                icon=iconCache.icon("prefShortcutsImport.png"),
                 text=target.tr('&Import Keyboard Shortcuts...'),
                 objectName='import_keyboard_shortcuts', 
                 statusTip=target.tr('Import the keyboard shortcuts'))
@@ -946,7 +947,7 @@ class E5ActionCreator():
         target.saveToProjectAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Save to Project'),
-#                icon=target.iconCache.icon("fileSaveToProject.png"),
+                icon=target.iconCache.icon("fileSaveToProject.png"),
                 text=target.tr('Save to Pro&ject'),
                 objectName='vm_file_save_to_project', 
                 statusTip=target.tr(
@@ -1235,7 +1236,7 @@ class E5ActionCreator():
         target.deselectAllAct = KyAction(\
                 iconText=target.tr('Deselect all'),
                 text=target.tr('&Deselect all'),
-                shortcut=QKeySequence(target.tr("Alt+Ctrl+A", "Edit|Deselect all")), 
+                shortcut=QKeySequence(target.tr("Ctrl+Alt+A", "Edit|Deselect all")), 
                 actionGroup=target.editActGrp, 
                 objectName='vm_edit_deselect_all', 
                 statusTip=target.tr('Deselect all text'))
@@ -1541,7 +1542,7 @@ class E5ActionCreator():
         
         target.zoomInAct = KyAction(\
                 iconText=target.tr('Zoom in'),
-                icon=target.iconCache.icon("zoomIn.png"),
+                icon=target.iconCache.icon("zoomin.png"),
                 text=target.tr('Zoom &in'),
                 shortcut=QKeySequence(target.tr("Ctrl++", "View|Zoom in")), 
                 actionGroup=target.viewActGrp, 
@@ -1554,7 +1555,7 @@ class E5ActionCreator():
         
         target.zoomOutAct = KyAction(\
                 iconText=target.tr('Zoom out'),
-                icon=target.iconCache.icon("zoomOut.png"),
+                icon=target.iconCache.icon("zoomout.png"),
                 text=target.tr('Zoom &out'),
                 shortcut=QKeySequence(target.tr("Ctrl+-", "View|Zoom out")), 
                 actionGroup=target.viewActGrp, 
@@ -1565,6 +1566,19 @@ class E5ActionCreator():
                 """<p>Zoom out on the text. This makes the text smaller.</p>"""))
         target.viewActions.append(target.zoomOutAct)
         
+        target.zoomResetAct = KyAction(\
+                iconText=target.tr('Reset Zoom'),
+                icon=target.iconCache.icon("zoomreset.png"),
+                text=target.tr('&Zoom'),
+                shortcut=QKeySequence(target.tr("Ctrl+*", "View|Zoom")), 
+                actionGroup=target.viewActGrp,
+                objectName='vm_view_zoom', 
+                statusTip=target.tr('Reset zoom level'))
+        target.zoomResetAct.setWhatsThis(target.tr(
+                """<b>Reset Zoom</b>"""
+                """<p>Resets the zoom level to its default.</p>"""))
+        target.viewActions.append(target.zoomResetAct)
+        
         target.zoomToAct = KyAction(\
                 iconText=target.tr('Zoom'),
                 icon=target.iconCache.icon("zoomTo.png"),
@@ -1572,10 +1586,10 @@ class E5ActionCreator():
                 shortcut=QKeySequence(target.tr("Ctrl+#", "View|Zoom")), 
                 actionGroup=target.viewActGrp,
                 objectName='vm_view_zoom', 
-                statusTip=target.tr('Zoom the text'))
+                statusTip=target.tr('Set zoom level'))
         target.zoomToAct.setWhatsThis(target.tr(
                 """<b>Zoom</b>"""
-                """<p>Zoom the text. This opens a dialog where the"""
+                """<p>Change the text size. This opens a dialog where the"""
                 """ desired size can be entered.</p>"""))
         target.viewActions.append(target.zoomToAct)
         
@@ -1617,7 +1631,7 @@ class E5ActionCreator():
         target.unhighlightAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Remove all highlights'),
-#                icon=target.iconCache.icon("unhighlight.png"),
+                icon=target.iconCache.icon("viewRemoveHighlights.png"),
                 text=target.tr('Remove all highlights'),
                 objectName='vm_view_unhighlight', 
                 statusTip=target.tr('Remove all highlights'))

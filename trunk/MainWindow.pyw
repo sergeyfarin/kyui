@@ -35,7 +35,7 @@ class KyMainWindow(QMainWindow):
         self.__createMenuTree()
         
         self.treeWidget = QTreeWidget(self)
-        self.treeWidget.setIconSize(QSize(22, 22))
+        self.treeWidget.setIconSize(QSize(24, 24))
         self.setCentralWidget(self.treeWidget)
         
     def __setupDebugDock(self) -> None:

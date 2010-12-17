@@ -2,6 +2,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from MainWindow import KyMainWindow
+from Style.StyleFactory import KyStyleFactory
 
 orgDomain = 'white-walls.net'
 orgName = 'White-Walls'
@@ -15,6 +16,7 @@ class Application(QApplication):
         self.setOrganizationName(orgName)
         self.setApplicationName(appName)
         self.settings = QSettings(QSettings.IniFormat, QSettings.UserScope, orgName, appName, self)
+        self.setStyle(KyStyleFactory.create('Plastique'))
         self.ui = KyMainWindow()
 #        self.ui.connect(self, SIGNAL('aboutToQuit()'), self.writeSettings)
         self.ui.show()
