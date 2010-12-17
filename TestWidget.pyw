@@ -95,6 +95,7 @@ class GenericDialog(QDialog):
         
         menu = QMenu()
         menu.addAction(QIcon('./E5Icons/fileSaveAs.png'), 'Save &As')
+        menu.addSeparator().setText('Testing')
         menu.addAction(QIcon('./E5Icons/fileSaveAll.png'), 'Save A&ll')
         menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project')
         

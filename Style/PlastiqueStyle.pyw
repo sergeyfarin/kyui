@@ -3,6 +3,16 @@ from PyQt4.QtGui import *
 
 from .StyleUtil import StyleHelper
 
+# from windows style
+windowsItemFrame        =  2 # menu item frame width
+windowsSepHeight        =  2 # separator item height
+windowsItemHMargin      =  3 # menu item hor text margin
+windowsItemVMargin      =  2 # menu item ver text margin
+windowsArrowHMargin     =  6 # arrow horizontal margin
+windowsTabSpacing       = 12 # space between text and tab
+windowsRightBorder      = 15 # right border on windows
+windowsCheckMarkWidth   = 12 # checkmarks width on windows
+
 TGB_CtrlList = [QStyle.SC_GroupBoxCheckBox, 
                 QStyle.SC_GroupBoxLabel, 
                 QStyle.SC_GroupBoxContents, 
@@ -161,8 +171,8 @@ class KyPlastiqueStyle(QStyle):
         self.__proxy = QStyleFactory.create('Plastique')
     
     def drawControl(self, el : QStyle.ControlElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
-        self.__proxy.drawControl(el, opt, p, widget)
-        return
+#        self.__proxy.drawControl(el, opt, p, widget)
+#        return
         if el == QStyle.CE_ToolButtonLabel:
             rect = opt.rect
             shiftX = 0
@@ -234,13 +244,16 @@ class KyPlastiqueStyle(QStyle):
                         drawArrow(self, toolbutton, rect, p, widget)
                     else:
                         self.drawItemPixmap(p, rect, Qt.AlignCenter, pm)
+        elif el == QStyle.CE_MenuItem:
+            if opt.menuItemType == QStyleOptionMenuItem.Separator and opt.text:
+                self.__drawLabelledSeparator(opt, p, widget)
+            else:
+                self.__proxy.drawControl(el, opt, p, widget)
         else:
             self.__proxy.drawControl(el, opt, p, widget)
 
         
     def drawComplexControl(self, control : QStyle.ComplexControl, opt : QStyleOptionComplex, painter : QPainter, widget : QWidget = None ) -> None:
-#        self.__proxy.drawComplexControl(control, opt, painter, widget)
-#        return
         if control == QStyle.CC_GroupBox:
             # Get the text and checkbox rects
             textRect = self.subControlRect(QStyle.CC_GroupBox, opt, QStyle.SC_GroupBoxLabel, widget)
@@ -575,9 +588,44 @@ class KyPlastiqueStyle(QStyle):
                                 mbmetric - 6, 
                                 mbmetric - 6)
             self.drawPrimitive(QStyle.PE_IndicatorArrowDown, mBtn, p, widget)
-            
+    
+    def __drawLabelledSeparator(self, opt, p, widget):
 
-            
+        textBrush = opt.palette.buttonText()
+        p.fillRect(opt.rect, opt.palette.highlight().color().lighter(180))
+
+        checkcol = opt.maxIconWidth if (opt.maxIconWidth > 20) else 20
+        vCheckRect = self.__proxy.visualRect(opt.direction, opt.rect,
+                                      QRect(opt.rect.x(), opt.rect.y(),
+                                            checkcol, opt.rect.height()))
+        if not opt.icon.isNull():
+            pixmap = opt.icon.pixmap(self.pixelMetric(QStyle.PM_SmallIconSize, opt, widget), QIcon.Normal)
+
+            pixrect = QRect(0, 0, pixmap.width(), pixmap.height());
+            pixrect.moveCenter(vCheckRect.center())
+            p.setPen(textBrush.color())
+            p.drawPixmap(pixrect.topLeft(), pixmap)
+
+        p.setPen(textBrush.color())
+
+        (x, y, w, h) = opt.rect.getRect()
+        tab = opt.tabWidth;
+        xmargin = windowsItemFrame + checkcol + windowsItemHMargin
+        xpos = x + xmargin
+        textRect = QRect(xpos, y + windowsItemVMargin, w - xmargin - windowsRightBorder - tab + 1, h - 2 * windowsItemVMargin);
+        vTextRect = self.__proxy.visualRect(opt.direction, opt.rect, textRect)
+        # draw text
+        if opt.text:
+            p.save()
+            s = opt.text
+            if '\t' in s:
+                s = opt.text.split('\t')[0]
+            text_flags = Qt.AlignVCenter | Qt.AlignLeft | Qt.TextHideMnemonic | Qt.TextDontClip | Qt.TextSingleLine
+            p.setFont(opt.font)
+            p.drawText(vTextRect, text_flags, s)
+
+        p.restore()
+
     def drawItemPixmap(self, painter : QPainter, rectangle : QRect, alignment : int, pixmap : QPixmap ) -> None:
         self.__proxy.drawItemPixmap(painter, rectangle, alignment, pixmap)
     def drawItemText(self, painter : QPainter, rectangle : QRect, alignment : int, palette : QPalette, enabled : bool, text : str, textRole : QPalette.ColorRole = QPalette.NoRole ) -> None:
