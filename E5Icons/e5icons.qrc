@@ -23,6 +23,8 @@
     <file>unittestScript.png</file>
   </qresource>
   <qresource prefix="File">
+    <file>fileClose.png</file>
+    <file>fileSaveToProject.png</file>
     <file>fileExit.png</file>
     <file>fileExport.png</file>
     <file>fileFind.png</file>
@@ -79,6 +81,10 @@
     <file>breakpointToggle.png</file>
   </qresource>
   <qresource prefix="Tools">
+    <file>toolsBrowser.png</file>
+    <file>toolsIconEditor.png</file>
+    <file>toolsMiniEditor.png</file>
+    <file>toolsSqlBrowser.png</file>
     <file>toolsAssistant.png</file>
     <file>toolsDesigner.png</file>
     <file>toolsLinguist.png</file>
@@ -125,7 +131,10 @@
     <file>docPython.png</file>
     <file>docQt.png</file>
   </qresource>
-  <qresource prefix="Help"/>
+  <qresource prefix="Help">
+    <file>whatsThis.png</file>
+    <file>helpViewer.png</file>
+  </qresource>
   <qresource prefix="Debug">
     <file>ignoredExceptions.png</file>
     <file>filterExceptions.png</file>

@@ -5,6 +5,22 @@ TGB_CtrlList = [QStyle.SC_GroupBoxCheckBox,
                 QStyle.SC_GroupBoxLabel, 
                 QStyle.SC_GroupBoxContents, 
                 QStyle.SC_GroupBoxFrame]
+                
+StyleColor = {'Menu_Header'         : (235, 242, 247),  # Background for menu header
+              'Menu_FrameLine'      : (207, 219, 235),  # Internal frame line for menu (light)
+              'Menu_FrameDark'      : (132, 146, 166),  # Outside frame for menu (dark)
+              'Menu_Sidebar'        : (243, 247, 251),  # Check column background
+              'ToolBar_Label'       : (115, 131, 153),  # Toolgroup label color (alpha blend?)
+              'Menu_Text'           : ( 37,  66, 100),  # Menu text color
+              'Menu_HeaderText'     : ( 76,  96, 122),  # Separator label (lighter)
+              'Menu_Panel'          : (252, 252, 252),  # Menu background color
+              'ToolBar_LineDark'    : (188, 204, 220),  # Center line for toolbar separator (dark)
+              'ToolBar_LineLight'   : (165, 184, 208),  # Center line for toolbar separator (light)
+              'ToolBar_LineShadow'  : (236, 241, 250)}  # Outside line for toolbar separator
+
+PixelMetrics = {'Menu_HeaderVertical'   : 25, 
+                'Menu_Sidebar'          : 20, 
+                'Menu_HeaderTextOffset' : 8}
 
 class FormattedPrint():
     @staticmethod
