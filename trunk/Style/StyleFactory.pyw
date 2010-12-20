@@ -4,6 +4,7 @@ from .PlastiqueStyle import KyPlastiqueStyle
 from .WindowsStyle import KyWindowsStyle
 from .WindowsXPStyle import KyWindowsXPStyle
 from .WindowsVistaStyle import KyWindowsVistaStyle
+from .Windows7Style import KyWindows7Style
 
 class KyStyleFactory():
     @staticmethod
@@ -14,6 +15,7 @@ class KyStyleFactory():
             if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
                 styles.append('WindowsXP')
                 styles.append('WindowsVista')
+                styles.append('Windows7')
             elif testWin == QSysInfo.WV_XP or QSysInfo.WV_2003:
                 styles.append('WindowsXP')
         
@@ -26,6 +28,8 @@ class KyStyleFactory():
                 return KyWindowsXPStyle()
             elif key == 'WindowsVista':
                 return KyWindowsVistaStyle()
+            elif key == 'Windows7':
+                return KyWindows7Style()
     
     @staticmethod
     def keys():
@@ -35,6 +39,7 @@ class KyStyleFactory():
             if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
                 styles.append('WindowsXP')
                 styles.append('WindowsVista')
+                styles.append('Windows7')
             elif testWin == QSysInfo.WV_XP or QSysInfo.WV_2003:
                 styles.append('WindowsXP')
             
