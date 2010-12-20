@@ -4,6 +4,8 @@ from PyQt4.QtGui import *
 from Style.StyleFactory import KyStyleFactory
 from Widgets.ExtendedToolBar.ToolButton2 import ToolButton
 from Widgets.ExtendedToolBar.ToolGroup2 import ToolGroupBox
+from Widgets.Action import KyAction
+from Widgets.ExtendedToolBar.Menu import KyMenu
 
 class DebugBox(QPlainTextEdit):
     def __init__(self, parent : QWidget = None, text : str = None):
@@ -33,7 +35,7 @@ class GenericDialog(QDialog):
         self.setWindowTitle('Test')
         font = QFont('Segoe Ui', 8)
         self.setFont(font)
-        self.__styleName = 'WindowsXP'
+        self.__styleName = 'Plastique'
         QApplication.setStyle(KyStyleFactory.create(self.__styleName))
         self.__setupUi()
         
@@ -55,7 +57,7 @@ class GenericDialog(QDialog):
         
         self.styleBox = QComboBox(self)
         self.styleBox.addItems(KyStyleFactory.keys())
-        self.styleBox.setCurrentIndex(2)
+        self.styleBox.setCurrentIndex(0)
         self.connect(self.styleBox, SIGNAL('currentIndexChanged(int)'), self.changeStyle)
         self.__layout.addWidget(self.styleBox, 1, 1)
         
@@ -76,7 +78,6 @@ class GenericDialog(QDialog):
         self.__styleName = self.styleBox.itemText(index)
         style = KyStyleFactory.create(self.__styleName)
         QApplication.setStyle(style)
-#        self.button2.setStyle(QStyleFactory.create(self.__styleName))
         
     def toggleButtonsRaised(self, state : int):
         for button in self.buttons:
@@ -93,13 +94,31 @@ class GenericDialog(QDialog):
         layout = QHBoxLayout(self.grpBox)
         self.grpBox.setContentsMargins(0, 0, 0, 0)
         
-        menu = QMenu()
-        menu.addAction(QIcon('./E5Icons/fileSaveAs.png'), 'Save &As')
-        menu.addSeparator().setText('Testing')
+        menu = KyMenu()
+        menu.setTearOffEnabled(True)
+        saveAsAct = KyAction(parent=menu, 
+                       icon=QIcon('./E5Icons/fileSaveAs.png'), 
+                       text='Save &As', 
+                       shortcut='Ctrl+Shift+S')
+        menu.addAction(saveAsAct)
         menu.addAction(QIcon('./E5Icons/fileSaveAll.png'), 'Save A&ll')
         menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project')
+        checkableAct = KyAction(parent=menu, 
+                                text='Checkable Item', 
+                                shortcut='Ctrl+Alt+Shift+L', 
+                                checkable=True)
+        menu.addSeparator().setText('Testing')
+        menu.addAction(checkableAct)
         
-        act = QAction(QIcon('./E5Icons/fileSave.png'), 'Menu Button', self)
+        submenu = menu.addMenu('SubMenu')
+        submenu.addAction('Test1')
+        submenu.addAction('Test2')
+        submenu.addAction('Test3')
+#        subMenuAct = KyAction(parent=menu, 
+#                              text='Submenu', 
+#                              menu=submenu)
+        
+        act = QAction(QIcon('./E5Icons/fileSave.png'), 'Save\nButton', self)
         self.addAction(act)
         act2 = QAction(QIcon('./E5Icons/fileSave.png'), 'Instant', self)
         self.addAction(act2)
