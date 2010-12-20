@@ -102,7 +102,7 @@ class GenericDialog(QDialog):
                        shortcut='Ctrl+Shift+S')
         menu.addAction(saveAsAct)
         menu.addAction(QIcon('./E5Icons/fileSaveAll.png'), 'Save A&ll')
-        menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project')
+        menu.addAction(QIcon('./E5Icons/fileSaveToProject.png'), 'Save &To Project').setDisabled(True)
         checkableAct = KyAction(parent=menu, 
                                 text='Checkable Item', 
                                 shortcut='Ctrl+Alt+Shift+L', 
