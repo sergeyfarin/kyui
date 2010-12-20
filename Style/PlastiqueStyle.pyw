@@ -456,11 +456,11 @@ class KyPlastiqueStyle(QStyle):
             self.__proxy.drawPrimitive(el, opt, p, widget)
         
     def __drawVerticalToolButton(self, cc, opt, p, widget = None):
-        enabled = opt.state & QStyle.State_Enabled
+        disabled = not (opt.state & QStyle.State_Enabled)
         visible = (not opt.state & QStyle.State_AutoRaise or (opt.state & 
                     (QStyle.State_Sunken | QStyle.State_MouseOver | QStyle.State_On)))
         down = opt.state & (QStyle.State_Sunken | QStyle.State_On)
-        hover = opt.state & (QStyle.State_HasFocus | QStyle.State_MouseOver)
+        hover = opt.state & QStyle.State_MouseOver
         hasmenu = opt.features & (QStyleOptionToolButton.HasMenu | QStyleOptionToolButton.Menu)
         
         bopt, mopt = QStyleOption(), QStyleOption()
@@ -481,9 +481,8 @@ class KyPlastiqueStyle(QStyle):
         bopt.state = opt.state & ~QStyle.State_Sunken
         
         # Clear the raised flag if autoraise is enabled and we're not moused over
-        if bopt.state & QStyle.State_AutoRaise:
-            if (not bopt.state & (QStyle.State_MouseOver | QStyle.State_Enabled | QStyle.State_HasFocus)):
-                bopt.state &= ~QStyle.State_Raised
+        if not visible:
+            bopt.state &= ~QStyle.State_Raised
         
         #Copy the button flags for the menu portion
         mopt.state = QStyle.State(bopt.state)
@@ -519,35 +518,32 @@ class KyPlastiqueStyle(QStyle):
         icon = opt.icon.pixmap(opt.iconSize, 
                                 (QIcon.Normal if bopt.state & QStyle.State_Enabled
                                 else QIcon.Disabled))
-                                   
+        # Draw the split menu button
         if opt.subControls & QStyle.SC_ToolButtonMenu:
             self.drawItemPixmap(p, bopt.rect, Qt.AlignCenter, icon)
-        
-            # Paint text on the menubutton
+            mopt.rect.adjust(0, 0, 0, -3)
             if opt.text:
-                self.drawItemText(p, mopt.rect, Qt.AlignTop | Qt.AlignHCenter,
-                                      opt.palette, opt.state & QStyle.State_Enabled,
-                                      opt.text, QPalette.ButtonText)
-            
-            # Draw Arrow
-            self.drawItemPixmap(p, mopt.rect.adjusted(0, 0, 0, -3), 
-                                Qt.AlignBottom | Qt.AlignHCenter, 
-                                StyleHelper.drawMenuArrow(opt.palette))
+                self.drawItemText(p, mopt.rect, Qt.AlignTop | Qt.AlignHCenter, 
+                                  opt.palette, opt.state & QStyle.State_Enabled, 
+                                  opt.text, QPalette.ButtonText)
+            self.drawItemPixmap(p, mopt.rect, Qt.AlignBottom | Qt.AlignHCenter, 
+                                    StyleHelper.drawMenuArrow(opt.palette))
+
+        # Draw a unified menu button
         else:
             rect = QRect(opt.rect)
             rect.setHeight(opt.iconSize.height() + 6)
             self.drawItemPixmap(p, rect, Qt.AlignCenter, icon)
+            rect.adjust(0, 0, 0, -3)
             if opt.text:
                 rect.setTop(rect.bottom())
-                rect.setBottom(opt.rect.bottom())
-                self.drawItemText(p, rect, Qt.AlignTop | Qt.AlignHCenter, 
+                rect.setBottom(opt.rect.bottom() - 3)
+                self.drawItemText(p, rect, Qt.AlignCenter, 
                                   opt.palette, opt.state & QStyle.State_Enabled, 
                                   opt.text, QPalette.ButtonText)
             if hasmenu:
-                self.drawItemPixmap(p, opt.rect.adjusted(0, 0, 0, -3), 
-                                    Qt.AlignBottom | Qt.AlignHCenter, 
+                self.drawItemPixmap(p, rect, Qt.AlignBottom | Qt.AlignHCenter, 
                                     StyleHelper.drawMenuArrow(opt.palette))
-    
   
     def __drawMenuControl(self, ce, opt, p, widget):
         if ce == QStyle.CE_MenuItem:
@@ -633,7 +629,10 @@ class KyPlastiqueStyle(QStyle):
                 pixrect = QRect(0, 0, pixmap.width(), pixmap.height())
                 pixrect.moveCenter(vCheckRect.center())
                 p.setPen(opt.palette.text().color())
-                p.drawPixmap(pixrect.topLeft(), pixmap)
+                if checked:
+                    p.drawPixmap(QPoint(pixrect.left() + 1, pixrect.top() + 1), pixmap)
+                else:
+                    p.drawPixmap(pixrect.topLeft(), pixmap)
             elif checked:
                 newitem = QStyleOptionMenuItem(opt)
                 newitem.state = QStyle.State_None
