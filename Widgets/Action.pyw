@@ -50,7 +50,7 @@ class KyAction(QAction):
         if toolTip: self.setToolTip(toolTip)
         if trigger:
             self.connect(self, SIGNAL('triggered()'), trigger)
-        if userData: self.setUserData(userData)
+        if userData: self.setData(userData)
         if whatsThis: self.setWhatsThis(whatsThis)
         
         if menu: menu.addAction(self)
