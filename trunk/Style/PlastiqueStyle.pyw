@@ -259,7 +259,6 @@ class KyPlastiqueStyle(QStyle):
         else:
             self.__proxy.drawControl(el, opt, p, widget)
 
-        
     def drawComplexControl(self, control : QStyle.ComplexControl, opt : QStyleOptionComplex, painter : QPainter, widget : QWidget = None ) -> None:
         if control == QStyle.CC_GroupBox:
             # Get the text and checkbox rects
@@ -327,7 +326,9 @@ class KyPlastiqueStyle(QStyle):
                 & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu))):
             return QSize(sz.width(), 66)
         elif (ct == QStyle.CT_MenuItem and opt.menuItemType == QStyleOptionMenuItem.Separator):
-            if sz.height() < 20:
+            if not opt.text:
+                return QSize(sz.width(), 8)
+            elif sz.height() < 20:
                 sz.setHeight(20)
             return QSize(sz)            
         else:
@@ -551,18 +552,19 @@ class KyPlastiqueStyle(QStyle):
             tab = opt.tabWidth
             #first let's draw the separator if it is one
             if opt.menuItemType == QStyleOptionMenuItem.Separator:
-                if not opt.text:
-                    yoff = y - 1 + h / 2
-                    p.setPen(opt.palette.dark().color())
-                    p.drawLine(x + 2, yoff, x + w - 4, yoff)
-                    p.setPen(opt.palette.light().color())
-                    p.drawLine(x + 2, yoff + 1, x + w - 4, yoff + 1)
-                    return
+#                if not opt.text:
+#                    yoff = y - 1 + h / 2
+#                    p.setPen(opt.palette.dark().color())
+#                    p.drawLine(x + 2, yoff, x + w - 4, yoff)
+#                    p.setPen(opt.palette.light().color())
+#                    p.drawLine(x + 2, yoff + 1, x + w - 4, yoff + 1)
+#                    return
                 p.fillRect(opt.rect, QColor(*(StyleColor['Menu_Header'])))
                 p.setPen(QColor(*StyleColor['Menu_FrameLine']))
                 p.drawLine(opt.rect.topLeft(), opt.rect.topRight())
                 p.drawLine(opt.rect.bottomLeft(), opt.rect.bottomRight())
-
+                if not opt.text:
+                    return
                 sidew = PixelMetrics['Menu_HeaderTextOffset']
                 color = QColor(*(StyleColor['Menu_HeaderText']))
                 p.setPen(color)

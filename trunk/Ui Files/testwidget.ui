@@ -87,6 +87,9 @@
    <property name="allowedAreas">
     <set>Qt::LeftDockWidgetArea</set>
    </property>
+   <property name="windowTitle">
+    <string>Properties</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
@@ -94,7 +97,7 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>80</x>
        <y>10</y>
        <width>111</width>
        <height>22</height>
@@ -126,31 +129,18 @@
       </property>
      </item>
     </widget>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>161</width>
-       <height>91</height>
+       <x>10</x>
+       <y>10</y>
+       <width>46</width>
+       <height>13</height>
       </rect>
      </property>
-     <property name="title">
-      <string>ToolButton</string>
+     <property name="text">
+      <string>Style</string>
      </property>
-     <widget class="QCheckBox" name="checkBox">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>81</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Autoraise</string>
-      </property>
-     </widget>
     </widget>
    </widget>
   </widget>
@@ -166,7 +156,7 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="actionActionSetStyle">
+  <action name="actionSetStyle">
    <property name="text">
     <string>actionSetStyle</string>
    </property>
@@ -175,6 +165,14 @@
    </property>
    <property name="shortcut">
     <string>F2</string>
+   </property>
+  </action>
+  <action name="actionAddWidget">
+   <property name="text">
+    <string>Add Widget</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>
