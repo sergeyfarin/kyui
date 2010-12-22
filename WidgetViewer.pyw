@@ -3,6 +3,7 @@ from PyQt4.QtGui import *
 
 from DebugBox import DebugBox
 from IconSet2 import IconSet, E5Icons
+from Style.StyleFactory import KyStyleFactory
 from Widgets.RibbonBar import KyRibbonBar
 from Widgets.Action import KyAction
 from Widgets.MenuButton import KyMenuButton
@@ -30,10 +31,13 @@ class KyMainWindow(QMainWindow):
         qInstallMsgHandler(self.debugOutput.postMsg)
         
     def setupUi(self) -> None:
+        self.setIconSize(QSize(32, 32))
+        self.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        
         self.__initActions()
         
-        ribbonBar = KyRibbonBar(self)
-        menuButton = KyMenuButton(parent = ribbonBar, icon = IconSet.Folder(), 
+        ribbon = KyRibbonBar(self)
+        menuButton = KyMenuButton(parent = ribbon, icon = IconSet.Folder(), 
                                   text = 'File')
         
         menu = KyMenu()
@@ -48,18 +52,28 @@ class KyMainWindow(QMainWindow):
         menu.addAction(self.fileExitAct)
         menuButton.setMenu(menu)
         
-        ribbonBar.setMenuWidget(menuButton)
-        self.setMenuWidget(ribbonBar)
+        self.fileMenu = menu
         
-        editTb = ribbonBar.addRibbonTab('Edit')
+        ribbon.setMenuWidget(menuButton)
+        self.setMenuWidget(ribbon)
+        
+        editTb = ribbon.addRibbonTab('Edit')
         editTb.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        editTb.setIconSize(QSize(32, 32))
+        editTb.addAction(self.editAddAct)
+        editTb.addAction(self.viewPropsAct)
+        editTb.addAction(self.styleAct)
+        
+        styleButton = editTb.widgetForAction(self.styleAct)
+        styleButton.setPopupMode(QToolButton.InstantPopup)
+        
+        self.ribbon = ribbon
         
     def __initActions(self) -> None:
         cache = E5Icons()
         self.fileNewAct = KyAction(parent=self, 
                 text='&New', 
-                icon=cache.icon('fileNew.png'), 
-                shortcut='Ctrl+N')
+                icon=cache.icon('fileNew.png'))
         self.fileOpenAct = KyAction(parent=self, 
                 text='&Open', 
                 icon=cache.icon('fileOpen.png'), 
@@ -85,3 +99,48 @@ class KyMainWindow(QMainWindow):
                 icon=cache.icon('fileExit.png'), 
                 trigger=self.close, 
                 shortcut='Ctrl+Q')
+        self.editAddAct = KyAction(parent=self, 
+                text='&New Item', 
+                icon=IconSet.Add(), 
+                iconText='New\nItem', 
+                trigger=self.addItemDiag, 
+                shortcut='Ctrl+N')
+        self.viewPropsAct = KyAction(parent=self, 
+                text='&Item Properties', 
+                icon=cache.icon('zoomTo.png'), 
+                iconText='Item\nProperties', 
+                shortcut='Ctrl+E', 
+                trigger=self.viewProperties)
+                
+        self.styleMenu = KyMenu('Set Style', self)
+        self.styleAct = self.styleMenu.menuAction()
+        self.styleAct.setIcon(IconSet.Display())
+        self.styleAct.setIconText('Set\nStyle')
+        self.styleAct.setShortcut('F3')
+        self.styleActGrp = QActionGroup(self)
+        self.styleActGrp.setExclusive(True)
+        
+        for name in KyStyleFactory.keys():
+            act = KyAction(parent=self.styleActGrp, 
+                           text=KyStyleFactory.formattedKey(name, True), 
+                           iconText=KyStyleFactory.formattedKey(name), 
+                           checkable=True,
+                           trigger=self.styleActTriggered,  
+                           userData=name)
+            if name == self.style().styleName():
+                act.setChecked(True)
+            self.styleMenu.addAction(act)
+            
+#        self.connect(self.styleActGrp, SIGNAL('triggered(QAction)'), self.styleActTriggered)
+
+    def addItemDiag(self):
+        pass
+    def viewProperties(self):
+        pass
+    def styleActTriggered(self):
+        qDebug('Style Change Triggered')
+        name = self.styleActGrp.checkedAction().data()
+        if name not in KyStyleFactory.keys():
+            qWarning(str.format('{} is not a valid style', name))
+            return
+        QApplication.setStyle(KyStyleFactory.create(name))

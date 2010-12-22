@@ -128,3 +128,38 @@ def drawControl(ce, opt, p, widget):
                 newitem.palette.setColor(QPalette.ButtonText,
                                        newitem.palette.highlightedText().color())
             self.drawPrimitive(arrow, newitem, p, widget)
+def drawPrimitive(pe, p, opt, widget):
+    if pe == QStyle.PE_IndicatorMenuCheckMark:
+        #width and height of checkmark
+        markW = 7 if (opt.rect.width() > 7) else opt.rect.width()
+        markH = markW
+        
+        #center of the rect
+        posX = opt.rect.x() + (opt.rect.width() - markW) / 2 + 1;
+        posY = opt.rect.y() + (opt.rect.height() - markH) / 2;
+
+        lines = []
+
+        x = int(posX)
+        y = 3 + int(posY)
+        for i in range(int(markW  / 2)):
+            lines.append(QLineF(x, y, x, y + 2))
+            x += 1
+            y += 1
+
+        y -= 2
+        for i in range(markH):
+            lines.append(QLineF(x, y, x, y + 2))
+            x += 1
+            y -= 1
+            
+        if (not (opt.state & QStyle.State_Enabled) and not (opt.state & QStyle.State_On)):
+            p.setPen(opt.palette.highlightedText().color())
+            for point in range(len(lines)):
+                lines[point].translate(1, 1)
+            p.drawLines(lines)
+            for point in range(len(lines)):
+                lines[point].translate(1, 1)
+
+        p.setPen(opt.palette.text().color())
+        p.drawLines(lines)
