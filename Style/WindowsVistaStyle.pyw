@@ -20,6 +20,9 @@ class KyWindowsVistaStyle(QStyle):
         super().__init__()
         self.__proxy = QStyleFactory.create('WindowsVista')
     
+    def styleName(self) -> str:
+        return 'WindowsVista'
+    
     def drawControl(self, el : QStyle.ControlElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
         if el == QStyle.CE_ToolButtonLabel:
             rect = opt.rect
@@ -306,34 +309,6 @@ class KyWindowsVistaStyle(QStyle):
                            frame.lineWidth, frame.midLineWidth)
     
     def drawPrimitive(self, el : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
-#        if el == QStyle.PE_PanelButtonTool:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                        opt.state & (QStyle.State_Sunken | QStyle.State_On), 1,
-#                        opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_FrameFocusRect:
-#            bg = opt.palette.color(QPalette.Button) #QColor
-#            oldPen = p.pen()
-#            if bg:
-#                hsv = bg.getHsv()
-#                if (hsv[2] >= 128): # V
-#                    p.setPen(Qt.black)
-#                else:
-#                    p.setPen(Qt.white)
-#            else:
-#                p.setPen(opt.palette.foreground().color())
-#            focusRect = opt.rect.adjusted(1, 1, -1, -1)
-#            p.drawRect(focusRect.adjusted(0, 0, -1, -1)) #draw pen inclusive
-#            p.setPen(oldPen)
-#        elif el == QStyle.PE_IndicatorButtonDropDown:
-#            qDrawShadePanel(p, opt.rect, opt.palette,
-#                    opt.state & (QStyle.State_Sunken | QStyle.State_On), 
-#                    1, opt.palette.brush(QPalette.Button))
-#        elif el == QStyle.PE_IndicatorArrowDown:
-#            ...
-#        elif el == QStyle.PE_PanelButtonTool:
-#            qDrawShadeRect(p, opt.rect, opt.palette,
-#                    opt.state & (State_Sunken | State_On), 1, 0)
-#        else:
         self.__proxy.drawPrimitive(el, opt, p, widget)
     
     def __drawVerticalToolButton(self, cc, opt, p, widget = None):
@@ -514,8 +489,37 @@ class KyWindowsVistaStyle(QStyle):
         return self.__proxy.polish(objectToPolish)
     def proxy (self) -> QStyle:
         return self.__proxy
-    def sizeFromContents(self, item : QStyle.ContentsType, option : QStyleOption, contentsSize : QSize, widget : QWidget = None ) -> QSize:
-        return self.__proxy.sizeFromContents(item, option, contentsSize, widget)
+    def sizeFromContents(self, ct : QStyle.ContentsType, opt : QStyleOption, sz : QSize, widget : QWidget = None ) -> QSize:
+        if (ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon):
+            if (opt.features
+                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                h = opt.iconSize.height() + 6
+                w = opt.iconSize.width() + 6
+
+                fm = opt.fontMetrics
+                if opt.text:
+                    textSize = fm.size(Qt.TextHideMnemonic, opt.text)
+                    textSize.setWidth(textSize.width() + fm.width('  '))
+                    if textSize.width() > w:
+                        w = textSize.width()
+                        if (textSize.height() + 8) > (66 - h):
+                            h += textSize.height() + 8
+                if w < 48:
+                    w = 48
+                if h < 76:
+                    h = 76
+            else:
+                w = 48 if (sz.width() < 48) else sz.width()
+                h = 76 if (sz.height() < 76) else sz.height()
+            return QSize(w, h)
+        elif (ct == QStyle.CT_MenuItem and opt.menuItemType == QStyleOptionMenuItem.Separator):
+            if not opt.text:
+                return QSize(sz.width(), 8)
+            elif sz.height() < 20:
+                sz.setHeight(20)
+            return QSize(sz)            
+        else:
+            return self.__proxy.sizeFromContents(ct, opt, sz, widget)
     def standardIcon(self, standardIcon : QStyle.StandardPixmap, option : QStyleOption = None, widget : QWidget = None ) -> QIcon:
         return self.__proxy.standardIcon(standardIcon, option, widget)
     def standardPalette (self) -> QPalette:

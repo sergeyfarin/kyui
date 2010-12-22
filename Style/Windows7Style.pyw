@@ -165,11 +165,14 @@ def drawShadedPanel(p : QPainter, opt : QStyleOption, base : bool,
     
     drawPlastiqueFrame(p, opt, widget)
     p.setPen(oldPen)
+
 class KyWindows7Style(QStyle):
-    
     def __init__(self):
         super().__init__()
         self.__proxy = QStyleFactory.create('WindowsVista')
+        
+    def styleName(self) -> str:
+        return 'Windows7'
 
     def drawControl(self, el : QStyle.ControlElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
         if el == QStyle.CE_ToolButtonLabel:
@@ -769,13 +772,34 @@ class KyWindows7Style(QStyle):
     def proxy (self) -> QStyle:
         return self.__proxy
     def sizeFromContents(self, ct : QStyle.ContentsType, opt : QStyleOption, sz : QSize, widget : QWidget = None ) -> QSize:
-        if (ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
-                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu))):
-            return QSize(sz.width(), 66)
+        if (ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon):
+            if (opt.features
+                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                h = opt.iconSize.height() + 6
+                w = opt.iconSize.width() + 6
+
+                fm = opt.fontMetrics
+                if opt.text:
+                    textSize = fm.size(Qt.TextHideMnemonic, opt.text)
+                    textSize.setWidth(textSize.width() + fm.width('  '))
+                    if textSize.width() > w:
+                        w = textSize.width()
+                        if (textSize.height() + 8) > (66 - h):
+                            h += textSize.height() + 8
+                if w < 48:
+                    w = 48
+                if h < 76:
+                    h = 76
+            else:
+                w = 48 if (sz.width() < 48) else sz.width()
+                h = 76 if (sz.height() < 76) else sz.height()
+            return QSize(w, h)
         elif (ct == QStyle.CT_MenuItem and opt.menuItemType == QStyleOptionMenuItem.Separator):
-            if sz.height() < 20:
+            if not opt.text:
+                return QSize(sz.width(), 8)
+            elif sz.height() < 20:
                 sz.setHeight(20)
-            return QSize(sz)
+            return QSize(sz)            
         else:
             return self.__proxy.sizeFromContents(ct, opt, sz, widget)
     def standardIcon(self, standardIcon : QStyle.StandardPixmap, option : QStyleOption = None, widget : QWidget = None ) -> QIcon:
