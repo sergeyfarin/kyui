@@ -11,7 +11,6 @@ from PyQt4.QtGui import *
 
 from .Widgets.Action import KyAction
 
-
 class E5ActionCreator():
     
     def initActions(target):
@@ -521,7 +520,7 @@ class E5ActionCreator():
         target.diffAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Compare Files'),
-#                icon=iconCache.icon("diffFiles.png"),
+                icon=iconCache.icon("toolsDiff.png"),
                 text=target.tr('&Compare Files...'),
                 objectName='diff_files', 
                 statusTip=target.tr('Compare two files'), 
@@ -533,7 +532,7 @@ class E5ActionCreator():
         target.compareAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Compare Files side by side'),
-                icon=iconCache.icon("compareFiles.png"),
+                icon=iconCache.icon("toolsCompareFiles.png"),
                 text=target.tr('Compare Files &side by side...'), 
                 objectName='compare_files', 
                 statusTip=target.tr('Compare two files'), 
@@ -632,6 +631,7 @@ class E5ActionCreator():
         target.reloadAPIsAct = KyAction(\
                 parent=target,
                 iconText=target.tr('Reload APIs'),
+#                icon=iconCache.icon("prefReloadAPIs.png"),
                 text=target.tr('Reload &APIs'),
                 objectName='reload_apis', 
                 statusTip=target.tr('Reload the API information'), 
@@ -889,6 +889,7 @@ class E5ActionCreator():
         
         target.closeAllAct = KyAction(\
                 iconText=target.tr('Close All'),
+                icon=target.iconCache.icon("fileCloseAll.png"),
                 text=target.tr('Clos&e All'),
                 actionGroup=target.closeActGrp, 
                 objectName='vm_file_close_all', 
@@ -977,7 +978,7 @@ class E5ActionCreator():
         target.printPreviewAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Print Preview'),
-#                icon=target.iconCache.icon("printPreview.png"),
+                icon=target.iconCache.icon("filePrintPreview.png"),
                 text=target.tr('Print Preview'),
                 objectName='vm_file_print_preview', 
                 statusTip=target.tr('Print preview of the current file'), 
@@ -990,7 +991,7 @@ class E5ActionCreator():
         target.findFileNameAct = KyAction(\
                 parent=target, 
                 iconText=target.tr('Search File'),
-                icon=target.iconCache.icon("fileFind.png"),
+                icon=target.iconCache.icon("filefind.png"),
                 text=target.tr('Search &File...'),
                 shortcut=QKeySequence(target.tr("Alt+Ctrl+F", "File|Search File")), 
                 objectName='vm_file_search_file', 
@@ -1976,7 +1977,7 @@ class E5ActionCreator():
         
         target.spellCheckAct = KyAction(\
                 iconText=target.tr('Spell check'),
-#                icon=target.iconCache.icon("spellchecking.png"),
+                icon=target.iconCache.icon("editSpellcheck.png"),
                 text=target.tr('&Spell Check...'),
                 shortcut=QKeySequence(target.tr("Shift+F7", "Spelling|Spell Check")), 
                 actionGroup=target.spellingActGrp, 
@@ -1990,7 +1991,7 @@ class E5ActionCreator():
         
         target.autoSpellCheckAct = KyAction(\
                 iconText=target.tr('Automatic spell checking'),
-#                icon=target.iconCache.icon("autospellchecking.png"),
+                icon=target.iconCache.icon("editAutoSpellcheck.png"),
                 text=target.tr('&Automatic spell checking'),
                 actionGroup=target.spellingActGrp, 
                 objectName='vm_spelling_autospellcheck', 

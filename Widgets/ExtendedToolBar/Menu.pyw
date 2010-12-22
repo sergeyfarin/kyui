@@ -104,10 +104,13 @@ class KyMenu(QMenu):
         sz = super().sizeHint()
         opt = QStyleOptionMenuItem()
         for act in self.actions():
-            if act.isSeparator() and act.data() == 'named':
-                self.initStyleOption(opt, act)
-                size = self.__namedSeparatorSize(act, opt)
-                if size.width() > sz.width(): sz.setWidth(size.width())
+            if act.isSeparator():
+                if act.data() == 'named':
+                    self.initStyleOption(opt, act)
+                    size = self.__namedSeparatorSize(act, opt)
+                    if size.width() > sz.width(): 
+                        sz.setWidth(size.width())
+                
         return sz
     
     def __namedSeparatorSize(self, act, opt):

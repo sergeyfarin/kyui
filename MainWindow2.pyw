@@ -1,14 +1,14 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from IconSet2 import IconSet
 from DebugBox import DebugBox
-
-from Widgets.ButtonBox2 import *
-from TestItems.ActionTest import ActionTestClass
+from IconSet2 import IconSet, E5Icons
+from Widgets.RibbonBar import KyRibbonBar
+from Widgets.Action import KyAction
+from Widgets.MenuButton import KyMenuButton
+from Widgets.ExtendedToolBar.Menu import KyMenu
 
 class KyMainWindow(QMainWindow):
-    
     def __init__(self, parent = None):
         super().__init__(parent)
         self.resize(1024, 768)
@@ -18,79 +18,70 @@ class KyMainWindow(QMainWindow):
         
         self.setupUi()
         self.installDebugHandler()
-        self.setupActions()
-        
-        self.setupToolButtons()
         
         qDebug('Setup completed.')
-        
-    def setupUi(self) -> None:
-        tabWidget = QTabWidget(self)
-        tabWidget.setObjectName('tabWidget')
-        tabWidget.setFixedHeight(115)
-        self.setMenuWidget(tabWidget)
-        
-        #Menu setup
-        menuButton = QToolButton()
-        menuButton.setObjectName('menuButton')
-        menuButton.setIcon(IconSet.Folder())
-        menuButton.setIconSize(QSize(22, 22))
-        menuButton.setText('Menu')
-        menuButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        menuButton.setPopupMode(QToolButton.InstantPopup)
-        
-        menu = QMenu()
-        fileMenu = menu.addMenu('File')
-        viewMenu = menu.addMenu('View')
-        menuButton.setMenu(menu)
-        
-        menuToolBar = QToolBar()
-        menuToolBar.addWidget(menuButton)
-        
-        #Add tabs
-        tabWidget.addTab(QWidget(tabWidget), 'Test')
-        tabWidget.addTab(QFrame(tabWidget), 'Test2')
-        tabWidget.setIconSize(QSize(22, 22))
-        tabWidget.setCornerWidget(menuToolBar, Qt.TopLeftCorner)
-        
-        self.setCentralWidget(QWidget())
-        
-        #Save variable names
-        self.menuToolBar = menuToolBar
-        self.tabWidget = tabWidget
-        self.menuButton = menuButton
-        
+
     def installDebugHandler(self):
-        self.debugOutput = DebugBox()
-        
-        debugDock = QDockWidget('Debug')
-        debugDock.setWidget(self.debugOutput)
-        self.addDockWidget(Qt.LeftDockWidgetArea, debugDock)
+        self.debugDock = QDockWidget('Debug', self)
+        self.debugOutput = DebugBox(self.debugDock)
+        self.debugDock.setWidget(self.debugOutput)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.debugDock)
         
         qInstallMsgHandler(self.debugOutput.postMsg)
         
-    def setupActions(self):
-        atc = ActionTestClass(None)
-        self.actionDict = atc.actionDict()
-        font = QFont('Segoe UI', 9, QFont.Normal, False)
-        for action in self.actionDict:
-            self.actionDict[action].setParent(self)
-            self.actionDict[action].setFont(font)
-            
-    def setupToolButtons(self):
-        actions = self.actionDict
-        tab = self.tabWidget.widget(0)
+    def setupUi(self) -> None:
+        self.__initActions()
         
-        tabLayout = QHBoxLayout()
-#        tabLayout.setSizeConstraint(QLayout.SetFixedSize)
+        ribbonBar = KyRibbonBar(self)
+        menuButton = KyMenuButton(parent = ribbonBar, icon = IconSet.Folder(), 
+                                  text = 'File')
         
-        viewButtons = ButtonBox(tab)
-        viewButtons.setObjectName('viewButtons')
-        viewButtons.addAction(actions['ZoomIn'])
-        viewButtons.addAction(actions['ZoomOut'])
-        viewButtons.addAction(actions['ActualSize'])
-        viewButtons.setIconSize(QSize(22, 22))
+        menu = KyMenu()
+        menu.addSeparator().setText('Files')
+        menu.addAction(self.fileNewAct)
+        menu.addAction(self.fileOpenAct)
+        menu.addSeparator().setText('Save')
+        menu.addAction(self.fileSaveAct)
+        menu.addAction(self.fileSaveAsAct)
+        menu.addAction(self.fileSaveAllAct)
+        menu.addSeparator()
+        menu.addAction(self.fileExitAct)
+        menuButton.setMenu(menu)
         
-        tab.setLayout(tabLayout)
+        ribbonBar.setMenuWidget(menuButton)
+        self.setMenuWidget(ribbonBar)
         
-
+        editTb = ribbonBar.addRibbonTab('Edit')
+        editTb.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        
+    def __initActions(self) -> None:
+        cache = E5Icons()
+        self.fileNewAct = KyAction(parent=self, 
+                text='&New', 
+                icon=cache.icon('fileNew.png'), 
+                shortcut='Ctrl+N')
+        self.fileOpenAct = KyAction(parent=self, 
+                text='&Open', 
+                icon=cache.icon('fileOpen.png'), 
+                shortcut='Ctrl+O')
+        self.fileCloseAct = KyAction(parent=self, 
+                text='&Close', 
+                icon=cache.icon('fileClose.png'), 
+                shortcut='Ctrl+W')
+        self.fileSaveAct = KyAction(parent=self, 
+                text='&Save', 
+                icon=cache.icon('fileSave.png'), 
+                shortcut='Ctrl+S')
+        self.fileSaveAsAct = KyAction(parent=self, 
+                text='Save &As', 
+                icon=cache.icon('fileSaveAs.png'), 
+                shortcut='Ctrl+Shift+S')
+        self.fileSaveAllAct = KyAction(parent=self, 
+                text='Save A&ll', 
+                icon=cache.icon('fileSaveAll.png'), 
+                shortcut='Ctrl+Alt+S')
+        self.fileExitAct = KyAction(parent=self,
+                text='Exit', 
+                icon=cache.icon('fileExit.png'), 
+                trigger=self.close, 
+                shortcut='Ctrl+Q')
