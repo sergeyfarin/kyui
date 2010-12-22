@@ -169,6 +169,9 @@ class KyPlastiqueStyle(QStyle):
     def __init__(self):
         super().__init__()
         self.__proxy = QStyleFactory.create('Plastique')
+        
+    def styleName(self) -> str:
+        return 'Plastique'
     
     def drawControl(self, el : QStyle.ControlElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
         if el == QStyle.CE_ToolButtonLabel:
@@ -322,9 +325,28 @@ class KyPlastiqueStyle(QStyle):
             self.__proxy.drawComplexControl(control, opt, painter, widget)
     
     def sizeFromContents(self, ct : QStyle.ContentsType, opt : QStyleOption, sz : QSize, widget : QWidget = None ) -> QSize:
-        if (ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
-                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu))):
-            return QSize(sz.width(), 66)
+        if (ct == QStyle.CT_ToolButton and opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon):
+            if (opt.features
+                & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu)):
+                h = opt.iconSize.height() + 6
+                w = opt.iconSize.width() + 6
+
+                fm = opt.fontMetrics
+                if opt.text:
+                    textSize = fm.size(Qt.TextHideMnemonic, opt.text)
+                    textSize.setWidth(textSize.width() + fm.width('  '))
+                    if textSize.width() > w:
+                        w = textSize.width()
+                        if (textSize.height() + 8) > (66 - h):
+                            h += textSize.height() + 8
+                if w < 48:
+                    w = 48
+                if h < 76:
+                    h = 76
+            else:
+                w = 48 if (sz.width() < 48) else sz.width()
+                h = 76 if (sz.height() < 76) else sz.height()
+            return QSize(w, h)
         elif (ct == QStyle.CT_MenuItem and opt.menuItemType == QStyleOptionMenuItem.Separator):
             if not opt.text:
                 return QSize(sz.width(), 8)
@@ -505,15 +527,6 @@ class KyPlastiqueStyle(QStyle):
                 p2 = bopt.rect.bottomRight()
                 p1.setX(p1.x() + 1) 
                 qDrawShadeLine(p, p1, p2, opt.palette, 1, 1, 0)
-            
-
-        # Shift if the button is depressed
-#        if down:
-#            shiftX = self.pixelMetric(QStyle.PM_ButtonShiftHorizontal, opt, widget)
-#            shiftY = self.pixelMetric(QStyle.PM_ButtonShiftVertical, opt, widget)
-#            if (bopt.state & (QStyle.State_Sunken | QStyle.State_On)):
-#                bopt.rect.adjust(shiftX, shiftY, shiftX, shiftY)
-#            mopt.rect.adjust(shiftX, shiftY, shiftX, shiftY)
 
         # Get the icon pixmap
         icon = opt.icon.pixmap(opt.iconSize, 

@@ -6,20 +6,16 @@ from .WindowsXPStyle import KyWindowsXPStyle
 from .WindowsVistaStyle import KyWindowsVistaStyle
 from .Windows7Style import KyWindows7Style
 
+formattedKeyNames = {'Plastique' : ('Plastique', '&Plastique'), 
+                     'Windows' : ('Windows Classic', '&Windows Classic') , 
+                     'WindowsXP' : ('Windows XP', 'Windows &XP'), 
+                     'WindowsVista' : ('Windows Vista', 'Windows &Vista'), 
+                     'Windows7' : ('Windows 7', 'Windows &7')}
+
 class KyStyleFactory():
     @staticmethod
     def create(key : str = None):
-        styles = ['Plastique', 'Windows']
-        testWin = QSysInfo.WindowsVersion
-        if testWin & QSysInfo.WV_NT_based:
-            if testWin == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
-                styles.append('WindowsXP')
-                styles.append('WindowsVista')
-                styles.append('Windows7')
-            elif testWin == QSysInfo.WV_XP or QSysInfo.WV_2003:
-                styles.append('WindowsXP')
-        
-        if key in styles:
+        if key in KyStyleFactory.keys():
             if key == 'Plastique':
                 return KyPlastiqueStyle()
             elif key == 'Windows':
@@ -44,3 +40,12 @@ class KyStyleFactory():
                 styles.append('WindowsXP')
             
         return styles
+    
+    @staticmethod
+    def formattedKey(key : str = None, accelerate : bool = False) -> str:
+        if not key or key not in formattedKeyNames:
+            return ''
+        if accelerate:
+            return formattedKeyNames[key][1]
+        else:
+            return formattedKeyNames[key][0]
