@@ -5294,7 +5294,7 @@ Views</string>
         <rect>
          <x>0</x>
          <y>20</y>
-         <width>266</width>
+         <width>261</width>
          <height>70</height>
         </rect>
        </property>
@@ -5629,7 +5629,7 @@ Bug</string>
            </size>
           </property>
           <property name="text">
-           <string>Request Feature</string>
+           <string>Feature Request</string>
           </property>
           <property name="icon">
            <iconset resource="../../Resources/Icons/ericActions.qrc">
@@ -5664,7 +5664,7 @@ Bug</string>
            </size>
           </property>
           <property name="text">
-           <string>Check For Updates</string>
+           <string>Updates Check</string>
           </property>
           <property name="icon">
            <iconset>
