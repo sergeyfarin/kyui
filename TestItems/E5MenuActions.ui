@@ -38,7 +38,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabEdit">
      <attribute name="title">
@@ -99,7 +99,7 @@
            <string>Cut</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editCut.png</normaloff>:/Edit/editCut.png</iconset>
           </property>
           <property name="iconSize">
@@ -134,7 +134,7 @@
            <string>Copy</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editCopy.png</normaloff>:/Edit/editCopy.png</iconset>
           </property>
           <property name="iconSize">
@@ -169,7 +169,7 @@
            <string>Paste</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editPaste.png</normaloff>:/Edit/editPaste.png</iconset>
           </property>
           <property name="iconSize">
@@ -244,7 +244,7 @@
            <string>Undo</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editUndo.png</normaloff>:/Edit/editUndo.png</iconset>
           </property>
           <property name="iconSize">
@@ -279,7 +279,7 @@
            <string>Redo</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editRedo.png</normaloff>:/Edit/editRedo.png</iconset>
           </property>
           <property name="iconSize">
@@ -573,7 +573,7 @@ Complete</string>
            <string>Comment</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editComment.png</normaloff>:/Edit/editComment.png</iconset>
           </property>
           <property name="iconSize">
@@ -611,7 +611,7 @@ Complete</string>
            <string>Uncomment</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/editUncomment.png</normaloff>:/Edit/editUncomment.png</iconset>
           </property>
           <property name="iconSize">
@@ -656,7 +656,7 @@ p, li { white-space: pre-wrap; }
            <string>Line Tools</string>
           </property>
           <property name="icon">
-           <iconset>
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Edit/edit_pen.png</normaloff>:/Edit/edit_pen.png</iconset>
           </property>
           <property name="iconSize">
@@ -1264,7 +1264,7 @@ Errors</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Goto/warningPrev.png</normaloff>:/Goto/warningPrev.png</iconset>
           </property>
           <property name="iconSize">
@@ -1302,7 +1302,7 @@ Errors</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Goto/warningNext.png</normaloff>:/Goto/warningNext.png</iconset>
           </property>
           <property name="iconSize">
@@ -1746,7 +1746,7 @@ Errors</string>
            <string>Previous</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Goto/taskPrevious.png</normaloff>:/Goto/taskPrevious.png</iconset>
           </property>
           <property name="iconSize">
@@ -1784,7 +1784,7 @@ Errors</string>
            <string>Next</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Goto/taskNext.png</normaloff>:/Goto/taskNext.png</iconset>
           </property>
           <property name="iconSize">
@@ -1977,7 +1977,7 @@ Script</string>
            <string>Project</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Run/runProject.png</normaloff>:/Run/runProject.png</iconset>
           </property>
           <property name="iconSize">
@@ -2571,7 +2571,7 @@ Execute</string>
            <string>Open</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Project/projectOpen.png</normaloff>:/Project/projectOpen.png</iconset>
           </property>
           <property name="iconSize">
@@ -2609,7 +2609,7 @@ Execute</string>
            <string>Save</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Project/projectSave.png</normaloff>:/Project/projectSave.png</iconset>
           </property>
           <property name="iconSize">
@@ -2647,7 +2647,7 @@ Execute</string>
            <string>New</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Project/projectNew.png</normaloff>:/Project/projectNew.png</iconset>
           </property>
           <property name="iconSize">
@@ -2685,7 +2685,7 @@ Execute</string>
            <string>Close</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Project/projectClose.png</normaloff>:/Project/projectClose.png</iconset>
           </property>
           <property name="iconSize">
@@ -3175,7 +3175,7 @@ For Files</string>
            <string>Analyze Source</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/View/zoomTo.png</normaloff>:/View/zoomTo.png</iconset>
           </property>
           <property name="iconSize">
@@ -3247,7 +3247,7 @@ For Files</string>
            <string>Open</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Multiproject/multiProjectOpen.png</normaloff>:/Multiproject/multiProjectOpen.png</iconset>
           </property>
           <property name="iconSize">
@@ -3285,7 +3285,7 @@ For Files</string>
            <string>Save</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Multiproject/multiProjectSave.png</normaloff>:/Multiproject/multiProjectSave.png</iconset>
           </property>
           <property name="iconSize">
@@ -3362,7 +3362,7 @@ Project</string>
            <string>New</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Multiproject/multiProjectNew.png</normaloff>:/Multiproject/multiProjectNew.png</iconset>
           </property>
           <property name="iconSize">
@@ -3400,7 +3400,7 @@ Project</string>
            <string>Close</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Multiproject/multiProjectClose.png</normaloff>:/Multiproject/multiProjectClose.png</iconset>
           </property>
           <property name="iconSize">
@@ -3703,7 +3703,7 @@ Project</string>
            <string>Diff</string>
           </property>
           <property name="icon">
-           <iconset>
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Vcs/vcsDiff.png</normaloff>:/Vcs/vcsDiff.png</iconset>
           </property>
           <property name="iconSize">
@@ -3818,7 +3818,7 @@ Project</string>
 Source</string>
           </property>
           <property name="icon">
-           <iconset>
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/Project/projectViewer.png</normaloff>:/Project/projectViewer.png</iconset>
           </property>
           <property name="iconSize">
@@ -4458,7 +4458,7 @@ Options</string>
 Tool</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/View/zoomTo.png</normaloff>:/View/zoomTo.png</iconset>
           </property>
           <property name="iconSize">
@@ -4528,7 +4528,7 @@ Tool</string>
            <string>Zoom Out</string>
           </property>
           <property name="icon">
-           <iconset resource="../E5Icons/e5icons.qrc">
+           <iconset resource="../../Resources/Icons/ericActions.qrc">
             <normaloff>:/View/zoomout.png</normaloff>:/View/zoomout.png</iconset>
           </property>
           <property name="iconSize">
@@ -5294,7 +5294,7 @@ Views</string>
         <rect>
          <x>0</x>
          <y>20</y>
-         <width>261</width>
+         <width>266</width>
          <height>70</height>
         </rect>
        </property>
@@ -5847,7 +5847,7 @@ Bug</string>
      <x>0</x>
      <y>0</y>
      <width>1076</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -6458,7 +6458,7 @@ Bug</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/new.png</normaloff>:/File/new.png</iconset>
    </property>
    <property name="text">
@@ -6470,7 +6470,7 @@ Bug</string>
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/open.png</normaloff>:/File/open.png</iconset>
    </property>
    <property name="text">
@@ -6482,7 +6482,7 @@ Bug</string>
   </action>
   <action name="actionClose">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/close.png</normaloff>:/File/close.png</iconset>
    </property>
    <property name="text">
@@ -6507,7 +6507,7 @@ Bug</string>
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/fileSave.png</normaloff>:/File/fileSave.png</iconset>
    </property>
    <property name="text">
@@ -6519,7 +6519,7 @@ Bug</string>
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/fileSaveAs.png</normaloff>:/File/fileSaveAs.png</iconset>
    </property>
    <property name="text">
@@ -6531,7 +6531,7 @@ Bug</string>
   </action>
   <action name="actionSaveAll">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/fileSaveAll.png</normaloff>:/File/fileSaveAll.png</iconset>
    </property>
    <property name="text">
@@ -6576,7 +6576,7 @@ Bug</string>
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/File/exit.png</normaloff>:/File/exit.png</iconset>
    </property>
    <property name="text">
@@ -6642,7 +6642,7 @@ Bug</string>
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editUndo.png</normaloff>:/Edit/editUndo.png</iconset>
    </property>
    <property name="text">
@@ -6654,7 +6654,7 @@ Bug</string>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editRedo.png</normaloff>:/Edit/editRedo.png</iconset>
    </property>
    <property name="text">
@@ -6674,7 +6674,7 @@ Bug</string>
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editCut.png</normaloff>:/Edit/editCut.png</iconset>
    </property>
    <property name="text">
@@ -6686,7 +6686,7 @@ Bug</string>
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editCopy.png</normaloff>:/Edit/editCopy.png</iconset>
    </property>
    <property name="text">
@@ -6698,7 +6698,7 @@ Bug</string>
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editPaste.png</normaloff>:/Edit/editPaste.png</iconset>
    </property>
    <property name="text">
@@ -6746,7 +6746,7 @@ Bug</string>
   </action>
   <action name="actionComment">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editComment.png</normaloff>:/Edit/editComment.png</iconset>
    </property>
    <property name="text">
@@ -6864,7 +6864,7 @@ Bug</string>
   </action>
   <action name="actionSearch_Find">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Search/find.png</normaloff>:/Search/find.png</iconset>
    </property>
    <property name="text">
@@ -7012,7 +7012,7 @@ Bug</string>
   </action>
   <action name="actionScript_Restart">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Run/restart.png</normaloff>:/Run/restart.png</iconset>
    </property>
    <property name="text">
@@ -7039,7 +7039,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectRun">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Run/runProject.png</normaloff>:/Run/runProject.png</iconset>
    </property>
    <property name="text">
@@ -7057,7 +7057,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectDebug">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Run/debugProject.png</normaloff>:/Run/debugProject.png</iconset>
    </property>
    <property name="text">
@@ -7075,7 +7075,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectProfile">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Run/profileProject.png</normaloff>:/Run/profileProject.png</iconset>
    </property>
    <property name="text">
@@ -7093,7 +7093,7 @@ Bug</string>
   </action>
   <action name="actionScript_ProjectCoverageRun">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Run/coverageProject.png</normaloff>:/Run/coverageProject.png</iconset>
    </property>
    <property name="text">
@@ -7218,7 +7218,7 @@ Bug</string>
   </action>
   <action name="actionUnittest">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Unittest/unittest.png</normaloff>:/Unittest/unittest.png</iconset>
    </property>
    <property name="text">
@@ -7227,7 +7227,7 @@ Bug</string>
   </action>
   <action name="actionUnittest_Restart">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Unittest/unittestRestart.png</normaloff>:/Unittest/unittestRestart.png</iconset>
    </property>
    <property name="text">
@@ -7236,7 +7236,7 @@ Bug</string>
   </action>
   <action name="actionUnittest_Script">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Unittest/unittestScript.png</normaloff>:/Unittest/unittestScript.png</iconset>
    </property>
    <property name="text">
@@ -7245,7 +7245,7 @@ Bug</string>
   </action>
   <action name="actionUnittest_Project">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Unittest/unittestProject.png</normaloff>:/Unittest/unittestProject.png</iconset>
    </property>
    <property name="text">
@@ -7254,7 +7254,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_New">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Multiproject/multiProjectNew.png</normaloff>:/Multiproject/multiProjectNew.png</iconset>
    </property>
    <property name="text">
@@ -7263,7 +7263,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Open">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Multiproject/multiProjectOpen.png</normaloff>:/Multiproject/multiProjectOpen.png</iconset>
    </property>
    <property name="text">
@@ -7272,7 +7272,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Close">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Multiproject/multiProjectClose.png</normaloff>:/Multiproject/multiProjectClose.png</iconset>
    </property>
    <property name="text">
@@ -7281,7 +7281,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Save">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Multiproject/multiProjectSave.png</normaloff>:/Multiproject/multiProjectSave.png</iconset>
    </property>
    <property name="text">
@@ -7290,7 +7290,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_SaveAs">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Multiproject/multiProjectSaveAs.png</normaloff>:/Multiproject/multiProjectSaveAs.png</iconset>
    </property>
    <property name="text">
@@ -7304,7 +7304,7 @@ Bug</string>
   </action>
   <action name="actionMultiproject_Properties">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Multiproject/multiProjectProps.png</normaloff>:/Multiproject/multiProjectProps.png</iconset>
    </property>
    <property name="text">
@@ -7313,7 +7313,7 @@ Bug</string>
   </action>
   <action name="actionProject_New">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectNew.png</normaloff>:/Project/projectNew.png</iconset>
    </property>
    <property name="text">
@@ -7322,7 +7322,7 @@ Bug</string>
   </action>
   <action name="actionProject_Open">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectOpen.png</normaloff>:/Project/projectOpen.png</iconset>
    </property>
    <property name="text">
@@ -7331,7 +7331,7 @@ Bug</string>
   </action>
   <action name="actionProject_Close">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectClose.png</normaloff>:/Project/projectClose.png</iconset>
    </property>
    <property name="text">
@@ -7340,7 +7340,7 @@ Bug</string>
   </action>
   <action name="actionProject_Save">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectSave.png</normaloff>:/Project/projectSave.png</iconset>
    </property>
    <property name="text">
@@ -7349,7 +7349,7 @@ Bug</string>
   </action>
   <action name="actionProject_SaveAs">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectSaveAs.png</normaloff>:/Project/projectSaveAs.png</iconset>
    </property>
    <property name="text">
@@ -7378,7 +7378,7 @@ Bug</string>
   </action>
   <action name="actionProjectProperties">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectProps.png</normaloff>:/Project/projectProps.png</iconset>
    </property>
    <property name="text">
@@ -7387,7 +7387,7 @@ Bug</string>
   </action>
   <action name="actionProjectUserProperties">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Project/projectUserProps.png</normaloff>:/Project/projectUserProps.png</iconset>
    </property>
    <property name="text">
@@ -7655,7 +7655,7 @@ Bug</string>
   </action>
   <action name="actionBookmarks_Show">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Bookmarks/bookmark.png</normaloff>:/Bookmarks/bookmark.png</iconset>
    </property>
    <property name="text">
@@ -7907,7 +7907,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Update">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsUpdate.png</normaloff>:/Vcs/vcsUpdate.png</iconset>
    </property>
    <property name="text">
@@ -7916,7 +7916,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Commit">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsCommit.png</normaloff>:/Vcs/vcsCommit.png</iconset>
    </property>
    <property name="text">
@@ -7925,7 +7925,7 @@ Bug</string>
   </action>
   <action name="actionSvn_New">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsCheckout.png</normaloff>:/Vcs/vcsCheckout.png</iconset>
    </property>
    <property name="text">
@@ -7934,7 +7934,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Export">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsExport.png</normaloff>:/Vcs/vcsExport.png</iconset>
    </property>
    <property name="text">
@@ -7943,7 +7943,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Add">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsAdd.png</normaloff>:/Vcs/vcsAdd.png</iconset>
    </property>
    <property name="text">
@@ -7952,7 +7952,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Remove">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsRemove.png</normaloff>:/Vcs/vcsRemove.png</iconset>
    </property>
    <property name="text">
@@ -7980,7 +7980,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Log">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsLog.png</normaloff>:/Vcs/vcsLog.png</iconset>
    </property>
    <property name="text">
@@ -7999,7 +7999,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Status">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsStatus.png</normaloff>:/Vcs/vcsStatus.png</iconset>
    </property>
    <property name="text">
@@ -8008,7 +8008,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Diff">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsDiff.png</normaloff>:/Vcs/vcsDiff.png</iconset>
    </property>
    <property name="text">
@@ -8027,7 +8027,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Revert">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsRevert.png</normaloff>:/Vcs/vcsRevert.png</iconset>
    </property>
    <property name="text">
@@ -8036,7 +8036,7 @@ Bug</string>
   </action>
   <action name="actionSvn_Merge">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Vcs/vcsMerge.png</normaloff>:/Vcs/vcsMerge.png</iconset>
    </property>
    <property name="text">
@@ -8093,7 +8093,7 @@ Bug</string>
   </action>
   <action name="actionCreatePkgList">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Package/pluginArchiveList.png</normaloff>:/Package/pluginArchiveList.png</iconset>
    </property>
    <property name="text">
@@ -8102,7 +8102,7 @@ Bug</string>
   </action>
   <action name="actionCreatePluginArchive">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Package/pluginArchive.png</normaloff>:/Package/pluginArchive.png</iconset>
    </property>
    <property name="text">
@@ -8111,7 +8111,7 @@ Bug</string>
   </action>
   <action name="actionCreatePluginArchiveSnapshot">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Package/pluginArchiveSnapshot.png</normaloff>:/Package/pluginArchiveSnapshot.png</iconset>
    </property>
    <property name="text">
@@ -8307,7 +8307,7 @@ Bug</string>
   </action>
   <action name="actionUncomment_2">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset resource="../../Resources/Icons/ericActions.qrc">
      <normaloff>:/Edit/editUncomment.png</normaloff>:/Edit/editUncomment.png</iconset>
    </property>
    <property name="text">
