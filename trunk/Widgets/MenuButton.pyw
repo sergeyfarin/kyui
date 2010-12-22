@@ -15,4 +15,3 @@ class KyMenuButton(QToolButton):
         if isinstance(menu, QMenu):
             menu.setParent(self)
             self.setMenu(menu)
-        

@@ -28,20 +28,6 @@ class ToolButton(QToolButton):
         if (opt.toolButtonStyle != Qt.ToolButtonTextUnderIcon or not (opt.features
                 & (QStyleOptionToolButton.Menu | QStyleOptionToolButton.HasMenu))):
             return super().sizeHint()
-        
-        w = 0
-        fm = self.fontMetrics()
-        if not opt.icon.isNull():
-            w = opt.iconSize.width() + 6
 
-        if opt.text:
-            textSize = fm.size(Qt.TextShowMnemonic, opt.text)
-            textSize.setWidth(textSize.width() + fm.width('  '))
-            if textSize.width() > w:
-                w = textSize.width()
-                if opt.features & (QStyleOptionToolButton.HasMenu | QStyleOptionToolButton.Menu):
-                    if textSize.height() + 8 > 66 - (opt.iconSize.height() + 6):
-                        w += 6
-
-        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(w, 66), self).expandedTo(QApplication.globalStrut());
+        sh = self.style().sizeFromContents(QStyle.CT_ToolButton, opt, QSize(44, 66), self).expandedTo(QApplication.globalStrut());
         return sh
