@@ -23,6 +23,10 @@
     <file>unittestScript.png</file>
   </qresource>
   <qresource prefix="File">
+    <file>fileSaveToProject.png</file>
+    <file>filePrint.png</file>
+    <file>filePrintPreview.png</file>
+    <file>fileCloseAll.png</file>
     <file>fileClose.png</file>
     <file>fileSaveToProject.png</file>
     <file>fileExit.png</file>
@@ -53,6 +57,9 @@
     <file>projectUserProperties.png</file>
   </qresource>
   <qresource prefix="Edit">
+    <file>editSpellcheck.png</file>
+    <file>editAutoSpellcheck.png</file>
+    <file>editDelete.png</file>
     <file>editAutocomplete.png</file>
     <file>editComment.png</file>
     <file>editCopy.png</file>
@@ -81,6 +88,8 @@
     <file>breakpointToggle.png</file>
   </qresource>
   <qresource prefix="Tools">
+    <file>toolsCompareFiles.png</file>
+    <file>toolsDiff.png</file>
     <file>toolsBrowser.png</file>
     <file>toolsIconEditor.png</file>
     <file>toolsMiniEditor.png</file>
