@@ -1,7 +1,8 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from MainWindow import KyMainWindow
+from WidgetViewer import KyMainWindow
+#from MainWindow import KyMainWindow
 from Style.StyleFactory import KyStyleFactory
 
 orgDomain = 'white-walls.net'
