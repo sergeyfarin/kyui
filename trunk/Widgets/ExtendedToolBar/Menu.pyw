@@ -99,37 +99,3 @@ class KyMenu(QMenu):
 #        
 #    def initStyleOption(self, opt : QStyleOptionMenuItem, act : QAction):
 #        super().initStyleOption(opt, act)
-        
-    def sizeHint(self) -> QSize:
-        sz = super().sizeHint()
-        opt = QStyleOptionMenuItem()
-        for act in self.actions():
-            if act.isSeparator():
-                if act.data() == 'named':
-                    self.initStyleOption(opt, act)
-                    size = self.__namedSeparatorSize(act, opt)
-                    if size.width() > sz.width(): 
-                        sz.setWidth(size.width())
-                
-        return sz
-    
-    def __namedSeparatorSize(self, act, opt):
-        fm = QFontMetrics(opt.font)
-        qfm = self.fontMetrics()
-        
-        icone = self.style().pixelMetric(QStyle.PM_SmallIconSize, opt, self)
-        
-        sz = QSize()
-        text = act.text()
-        
-        #remove the shortcut key if one was accidently set
-        if '\t' in text:
-            text = text.rsplit('\t')[0]
-        
-        sz.setWidth(fm.boundingRect(QRect(), Qt.TextSingleLine | Qt.TextHideMnemonic, text).width())
-        sz.setHeight(fm.height() if (fm.height() > qfm.height()) else qfm.height())
-
-        icon = act.icon();
-        if not icon.isNull() and icone > sz.height():
-            sz.setHeight(icone)
-        return self.style().sizeFromContents(QStyle.CT_MenuItem, opt, sz, self)

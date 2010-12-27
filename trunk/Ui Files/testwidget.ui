@@ -107,6 +107,11 @@
      </item>
      <item>
       <property name="text">
+       <string>ToolBars</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Menus</string>
       </property>
      </item>
@@ -125,7 +130,7 @@
   </widget>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset>
      <normaloff>:/File/fileExit.png</normaloff>:/File/fileExit.png</iconset>
    </property>
    <property name="text">
@@ -137,7 +142,7 @@
   </action>
   <action name="actionSetStyle">
    <property name="icon">
-    <iconset resource="../Icons/icons.qrc">
+    <iconset>
      <normaloff>:/Settings/display.png</normaloff>:/Settings/display.png</iconset>
    </property>
    <property name="text">
@@ -152,7 +157,7 @@
   </action>
   <action name="actionAddWidget">
    <property name="icon">
-    <iconset resource="../Icons/icons.qrc">
+    <iconset>
      <normaloff>:/Edit/add.png</normaloff>:/Edit/add.png</iconset>
    </property>
    <property name="text">
@@ -167,7 +172,7 @@
   </action>
   <action name="actionViewProperties">
    <property name="icon">
-    <iconset resource="../E5Icons/e5icons.qrc">
+    <iconset>
      <normaloff>:/View/zoomTo.png</normaloff>:/View/zoomTo.png</iconset>
    </property>
    <property name="text">

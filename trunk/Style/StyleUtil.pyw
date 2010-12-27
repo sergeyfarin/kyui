@@ -18,9 +18,13 @@ StyleColor = {'Menu_Header'         : (235, 242, 247),  # Background for menu he
               'ToolBar_LineLight'   : (165, 184, 208),  # Center line for toolbar separator (light)
               'ToolBar_LineShadow'  : (236, 241, 250)}  # Outside line for toolbar separator
 
-PixelMetrics = {'Menu_HeaderVertical'   : 25, 
-                'Menu_Sidebar'          : 20, 
+PixelMetrics = {'Menu_HeaderVertical'   : 26, 
+                'Menu_Sidebar'          : 24, 
                 'Menu_HeaderTextOffset' : 8}
+                
+menuCornerGrid = {'1x1' : .66, 
+                  '0x1' : .85, 
+                  '0x2' : .90}
 
 class FormattedPrint():
     @staticmethod
@@ -213,4 +217,197 @@ class StyleHelper():
                         opt.palette.background().color().darker(102) if base else gradientStopColor)
         
         drawPlastiqueFrame(p, opt, widget)
+        p.setPen(oldPen)
+        
+    @staticmethod
+    def drawNotchedRect(p : QPainter, color : QColor, rect : QRect) -> None:
+        oldPen = p.pen()
+        p.fillRect(rect.adjusted(-1, -1, -1, -1), color)
+        p.setPen(color)
+        t = rect.top()
+        b = rect.bottom()
+        l = rect.left()
+        r = rect.right()
+        p.drawLines(QLine(l + 1, t, r - 1, t), 
+                    QLine(l + 1, b, r - 1, t), 
+                    QLine(l, t + 1, l, b - 1), 
+                    QLine(r, t + 1, r, b - 1))
+        p.setPen(oldPen)
+    
+    @staticmethod
+    def drawMenuCorners(p : QPainter, color1 : QColor, color2 : QColor, rect : QRect):
+        t = rect.top()
+        b = rect.bottom()
+        l = rect.left()
+        r = rect.right()
+        color = QColor(color1)
+        color.setAlphaF(0.90)
+        p.setPen(color)
+        p.drawPoints(QPoint(l + 2, t), QPoint(l, t + 2), #topleft
+                     QPoint(l + 2, b), QPoint(l, b - 2), #bottomleft
+                     QPoint(r - 2, t), QPoint(r, t + 2), #topright
+                     QPoint(r - 2, b), QPoint(r, b - 2)) #bottomright
+        color.setAlphaF(0.85)
+        p.setPen(color)
+        p.drawPoints(QPoint(l + 1, t), QPoint(l, t + 1), #topleft
+                     QPoint(l + 1, b), QPoint(l, b - 1), #bottomleft
+                     QPoint(r - 1, t), QPoint(r, t + 1), #topright
+                     QPoint(r - 1, b), QPoint(r, b - 1)) #bottomright
+        color.setAlphaF(0.66)
+        p.setPen(color)
+        p.drawPoints(QPoint(l + 1, t + 1), QPoint(r - 1, t + 1), #topleft, topright
+                     QPoint(l + 1, b - 1), QPoint(r - 1, b - 1)) #bottomleft, bottomright
+#        p.setPen(color2)
+#        p.drawPoints(QPoint(l + 2, t + 1), QPoint(l + 2, t + 2), QPoint(l + 1, t + 2), #topleft
+#                     QPoint(r - 2, t + 1), QPoint(r - 2, t + 2), QPoint(r - 1, t + 2), #topright
+#                     QPoint(l + 2, b - 1), QPoint(l + 2, b - 2), QPoint(l + 1, b - 2), #bottomleft
+#                     QPoint(r - 2, b - 1), QPoint(r - 2, b - 2), QPoint(r - 1, b - 2)) #bottomright
+    @staticmethod
+    def drawPlastiqueShadowedFrame(p : QPainter, rect : QRect, opt : QStyleOption,
+                                shadow : QFrame.Shadow = QFrame.Plain) -> None:
+        oldPen = p.pen()
+        border = QBrush()
+        corner = QBrush()
+        innerTopLeft = QBrush()
+        innerBottomRight = QBrush()
+
+        if shadow != QFrame.Plain and (opt.state & QStyle.State_HasFocus):
+            border = opt.palette.highlight()
+            StyleHelper.setBrushAlphaF(border, 0.8)
+            corner = opt.palette.highlight()
+            StyleHelper.setBrushAlphaF(corner, 0.5)
+            innerTopLeft = qBrushDark(opt.palette.highlight(), 125)
+            innerBottomRight = opt.palette.highlight()
+            StyleHelper.setBrushAlphaF(innerBottomRight, 0.65)
+        else:
+            border = opt.palette.shadow()
+            StyleHelper.setBrushAlphaF(border, qreal(0.4))
+            corner = opt.palette.shadow()
+            StyleHelper.setBrushAlphaF(corner, 0.25)
+            innerTopLeft = opt.palette.shadow()
+            innerBottomRight = opt.palette.shadow()
+            if shadow == QFrame.Sunken:
+                StyleHelper.setBrushAlphaF(innerTopLeft, 0.23)
+                StyleHelper.setBrushAlphaF(innerBottomRight, 0.075)
+            else:
+                StyleHelper.setBrushAlphaF(innerTopLeft, 0.075)
+                StyleHelper.setBrushAlphaF(innerBottomRight, 0.23)
+
+        # Opaque corner lines
+        p.setPen(QPen(border, 0))
+        lines = [QLine(rect.left() + 2, rect.top(), rect.right() - 2, rect.top()), 
+                 QLine(rect.left() + 2, rect.bottom(), rect.right() - 2, rect.bottom()), 
+                 QLine(rect.left(), rect.top() + 2, rect.left(), rect.bottom() - 2), 
+                 QLine(rect.right(), rect.top() + 2, rect.right(), rect.bottom() - 2)]
+        p.drawLines(lines)
+
+        # Opaque corner dots
+        p.drawPoints(QPoint(rect.left() + 1, rect.top() + 1), 
+                     QPoint(rect.left() + 1, rect.bottom() - 1), 
+                     QPoint(rect.right() - 1, rect.top() + 1), 
+                     QPoint(rect.right() - 1, rect.bottom() - 1))
+        
+
+        # Shaded corner dots
+        p.setPen(QPen(corner, 0))
+        p.drawPoints(QPoint(rect.left(), rect.top() + 1), 
+                     QPoint(rect.left(), rect.bottom() - 1), 
+                     QPoint(rect.left() + 1, rect.top()), 
+                     QPoint(rect.left() + 1, rect.bottom()), 
+                     QPoint(rect.right(), rect.top() + 1), 
+                     QPoint(rect.right(), rect.bottom() - 1), 
+                     QPoint(rect.right() - 1, rect.top()), 
+                     QPoint(rect.right() - 1, rect.bottom()))
+        
+
+        # Shadows
+        if shadow != QFrame.Plain:
+            p.setPen(QPen(innerTopLeft, 0))
+            p.drawLines([QLine(rect.left() + 2, rect.top() + 1, rect.right() - 2, rect.top() + 1), 
+                        QLine(rect.left() + 1, rect.top() + 2, rect.left() + 1, rect.bottom() - 2)])
+            p.setPen(QPen(innerBottomRight, 0))
+            p.drawLines([QLine(rect.left() + 2, rect.bottom() - 1, rect.right() - 2, rect.bottom() - 1), 
+                        QLine(rect.right() - 1, rect.top() + 2, rect.right() - 1, rect.bottom() - 2)])
+
+        p.setPen(oldPen)
+    
+    @staticmethod
+    def drawPlastiqueFrame(p : QPainter, opt : QStyleOption, widget : QWidget = None) -> None:
+        oldPen = p.pen()
+
+        borderColor = opt.palette.background().color().darker(178)
+        gradientStartColor = opt.palette.button().color().lighter(104)
+        gradientStopColor = opt.palette.button().color().darker(105)
+        if widget:
+            ### backgroundrole/foregroundrole should be part of the style option
+            alphaCornerColor = StyleHelper.mergedColors(opt.palette.color(widget.backgroundRole()), borderColor)
+        else:
+            alphaCornerColor = StyleHelper.mergedColors(opt.palette.background().color(), borderColor)
+        left = opt.rect.left()
+        right = opt.rect.right()
+        top = opt.rect.top()
+        bottom = opt.rect.bottom()
+        # outline / border
+        p.setPen(borderColor)
+        p.drawLines([QLine(left + 2, top, right - 2, top), 
+                    QLine(left + 2, bottom, right - 2, bottom), 
+                    QLine(left, top + 2, left, bottom - 2), 
+                    QLine(right, top + 2, right, bottom - 2)])
+
+        p.drawPoints(QPoint(left + 1, top + 1), 
+                     QPoint(right - 1, top + 1), 
+                     QPoint(left + 1, bottom - 1), 
+                     QPoint(right - 1, bottom - 1))
+
+        p.setPen(alphaCornerColor)
+        
+        # draw corners
+        p.drawPoints(QPoint(left + 1, top), 
+                     QPoint(right - 1, top), 
+                     QPoint(left + 1, bottom), 
+                     QPoint(right - 1, bottom), 
+                     QPoint(left, top + 1), 
+                     QPoint(right, top + 1), 
+                     QPoint(left, bottom - 1), 
+                     QPoint(right, bottom - 1))
+
+        # inner border
+        if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
+            p.setPen(opt.palette.button().color().darker(118));
+        else:
+            p.setPen(gradientStartColor);
+
+        p.drawLines([QLine(left + 2, top + 1, right - 2, top + 1), 
+                 QLine(left + 1, top + 2, left + 1, bottom - 2)])
+
+        if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
+            p.setPen(opt.palette.button().color().darker(110));
+        else:
+            p.setPen(gradientStopColor.darker(102));
+
+        p.drawLines([QLine(left + 2, bottom - 1, right - 2, bottom - 1), 
+                 QLine(right - 1, top + 2, right - 1, bottom - 2)])
+
+        p.setPen(oldPen)
+    
+    @staticmethod
+    def drawPlastiqueShadedPanel(p : QPainter, opt : QStyleOption, base : bool,
+                                             widget : QWidget = None) -> None:
+        oldPen = p.pen()
+
+        gradientStartColor = opt.palette.button().color().lighter(104)
+        gradientStopColor = opt.palette.button().color().darker(105)
+
+        # gradient fill
+        if (opt.state & QStyle.State_Enabled) or  not (opt.state & QStyle.State_AutoRaise):
+            if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
+                StyleHelper.drawPlastiqueGradient(p, opt.rect.adjusted(1, 1, -1, -1),
+                        opt.palette.button().color().darker(114),
+                        opt.palette.button().color().darker(106))
+            else:
+                StyleHelper.drawPlastiqueGradient(p, opt.rect.adjusted(1, 1, -1, -1),
+                        opt.palette.background().color().lighter(105) if base else gradientStartColor,
+                        opt.palette.background().color().darker(102) if base else gradientStopColor)
+        
+        StyleHelper.drawPlastiqueFrame(p, opt, widget)
         p.setPen(oldPen)

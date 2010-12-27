@@ -17,153 +17,11 @@ TGB_CtrlList = [QStyle.SC_GroupBoxCheckBox,
                 QStyle.SC_GroupBoxLabel, 
                 QStyle.SC_GroupBoxContents, 
                 QStyle.SC_GroupBoxFrame]
+                  
+def drawMenuCorner(fgColor, bgColor, corner):
+    img = QImage(3, 3, QImage.Alpha32)
 
-def drawPlastiqueShadowedFrame(p : QPainter, rect : QRect, opt : QStyleOption,
-                            shadow : QFrame.Shadow = QFrame.Plain) -> None:
-    oldPen = p.pen()
-    border = QBrush()
-    corner = QBrush()
-    innerTopLeft = QBrush()
-    innerBottomRight = QBrush()
 
-    if shadow != QFrame.Plain and (opt.state & QStyle.State_HasFocus):
-        border = opt.palette.highlight()
-        StyleHelper.setBrushAlphaF(border, 0.8)
-        corner = opt.palette.highlight()
-        StyleHelper.setBrushAlphaF(corner, 0.5)
-        innerTopLeft = qBrushDark(opt.palette.highlight(), 125)
-        innerBottomRight = opt.palette.highlight()
-        StyleHelper.setBrushAlphaF(innerBottomRight, 0.65)
-    else:
-        border = opt.palette.shadow()
-        StyleHelper.setBrushAlphaF(border, qreal(0.4))
-        corner = opt.palette.shadow()
-        StyleHelper.setBrushAlphaF(corner, 0.25)
-        innerTopLeft = opt.palette.shadow()
-        innerBottomRight = opt.palette.shadow()
-        if shadow == QFrame.Sunken:
-            StyleHelper.setBrushAlphaF(innerTopLeft, 0.23)
-            StyleHelper.setBrushAlphaF(innerBottomRight, 0.075)
-        else:
-            StyleHelper.setBrushAlphaF(innerTopLeft, 0.075)
-            StyleHelper.setBrushAlphaF(innerBottomRight, 0.23)
-
-    # Opaque corner lines
-    p.setPen(QPen(border, 0))
-    lines = [QLine(rect.left() + 2, rect.top(), rect.right() - 2, rect.top()), 
-             QLine(rect.left() + 2, rect.bottom(), rect.right() - 2, rect.bottom()), 
-             QLine(rect.left(), rect.top() + 2, rect.left(), rect.bottom() - 2), 
-             QLine(rect.right(), rect.top() + 2, rect.right(), rect.bottom() - 2)]
-    p.drawLines(lines)
-
-    # Opaque corner dots
-    p.drawPoints(QPoint(rect.left() + 1, rect.top() + 1), 
-                 QPoint(rect.left() + 1, rect.bottom() - 1), 
-                 QPoint(rect.right() - 1, rect.top() + 1), 
-                 QPoint(rect.right() - 1, rect.bottom() - 1))
-    
-
-    # Shaded corner dots
-    p.setPen(QPen(corner, 0))
-    p.drawPoints(QPoint(rect.left(), rect.top() + 1), 
-                 QPoint(rect.left(), rect.bottom() - 1), 
-                 QPoint(rect.left() + 1, rect.top()), 
-                 QPoint(rect.left() + 1, rect.bottom()), 
-                 QPoint(rect.right(), rect.top() + 1), 
-                 QPoint(rect.right(), rect.bottom() - 1), 
-                 QPoint(rect.right() - 1, rect.top()), 
-                 QPoint(rect.right() - 1, rect.bottom()))
-    
-
-    # Shadows
-    if shadow != QFrame.Plain:
-        p.setPen(QPen(innerTopLeft, 0))
-        p.drawLines([QLine(rect.left() + 2, rect.top() + 1, rect.right() - 2, rect.top() + 1), 
-                    QLine(rect.left() + 1, rect.top() + 2, rect.left() + 1, rect.bottom() - 2)])
-        p.setPen(QPen(innerBottomRight, 0))
-        p.drawLines([QLine(rect.left() + 2, rect.bottom() - 1, rect.right() - 2, rect.bottom() - 1), 
-                    QLine(rect.right() - 1, rect.top() + 2, rect.right() - 1, rect.bottom() - 2)])
-
-    p.setPen(oldPen)
-    
-def drawPlastiqueFrame(p : QPainter, opt : QStyleOption, widget : QWidget = None) -> None:
-    oldPen = p.pen()
-
-    borderColor = opt.palette.background().color().darker(178)
-    gradientStartColor = opt.palette.button().color().lighter(104)
-    gradientStopColor = opt.palette.button().color().darker(105)
-    if widget:
-        ### backgroundrole/foregroundrole should be part of the style option
-        alphaCornerColor = StyleHelper.mergedColors(opt.palette.color(widget.backgroundRole()), borderColor)
-    else:
-        alphaCornerColor = StyleHelper.mergedColors(opt.palette.background().color(), borderColor)
-    left = opt.rect.left()
-    right = opt.rect.right()
-    top = opt.rect.top()
-    bottom = opt.rect.bottom()
-    # outline / border
-    p.setPen(borderColor)
-    p.drawLines([QLine(left + 2, top, right - 2, top), 
-                QLine(left + 2, bottom, right - 2, bottom), 
-                QLine(left, top + 2, left, bottom - 2), 
-                QLine(right, top + 2, right, bottom - 2)])
-
-    p.drawPoints(QPoint(left + 1, top + 1), 
-                 QPoint(right - 1, top + 1), 
-                 QPoint(left + 1, bottom - 1), 
-                 QPoint(right - 1, bottom - 1))
-
-    p.setPen(alphaCornerColor)
-    
-    # draw corners
-    p.drawPoints(QPoint(left + 1, top), 
-                 QPoint(right - 1, top), 
-                 QPoint(left + 1, bottom), 
-                 QPoint(right - 1, bottom), 
-                 QPoint(left, top + 1), 
-                 QPoint(right, top + 1), 
-                 QPoint(left, bottom - 1), 
-                 QPoint(right, bottom - 1))
-
-    # inner border
-    if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
-        p.setPen(opt.palette.button().color().darker(118));
-    else:
-        p.setPen(gradientStartColor);
-
-    p.drawLines([QLine(left + 2, top + 1, right - 2, top + 1), 
-             QLine(left + 1, top + 2, left + 1, bottom - 2)])
-
-    if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
-        p.setPen(opt.palette.button().color().darker(110));
-    else:
-        p.setPen(gradientStopColor.darker(102));
-
-    p.drawLines([QLine(left + 2, bottom - 1, right - 2, bottom - 1), 
-             QLine(right - 1, top + 2, right - 1, bottom - 2)])
-
-    p.setPen(oldPen)
-
-def drawPlastiqueShadedPanel(p : QPainter, opt : QStyleOption, base : bool,
-                                         widget : QWidget = None) -> None:
-    oldPen = p.pen()
-
-    gradientStartColor = opt.palette.button().color().lighter(104)
-    gradientStopColor = opt.palette.button().color().darker(105)
-
-    # gradient fill
-    if (opt.state & QStyle.State_Enabled) or  not (opt.state & QStyle.State_AutoRaise):
-        if (opt.state & QStyle.State_Sunken) or (opt.state & QStyle.State_On):
-            StyleHelper.drawPlastiqueGradient(p, opt.rect.adjusted(1, 1, -1, -1),
-                    opt.palette.button().color().darker(114),
-                    opt.palette.button().color().darker(106))
-        else:
-            StyleHelper.drawPlastiqueGradient(p, opt.rect.adjusted(1, 1, -1, -1),
-                    opt.palette.background().color().lighter(105) if base else gradientStartColor,
-                    opt.palette.background().color().darker(102) if base else gradientStopColor)
-    
-    drawPlastiqueFrame(p, opt, widget)
-    p.setPen(oldPen)
 
 class KyPlastiqueStyle(QStyle):    
     def __init__(self):
@@ -321,6 +179,8 @@ class KyPlastiqueStyle(QStyle):
                 opt.toolButtonStyle == Qt.ToolButtonTextUnderIcon and (opt.features
                 & (QStyleOptionToolButton.MenuButtonPopup | QStyleOptionToolButton.HasMenu))):
             self.__drawVerticalToolButton(control, opt, painter, widget)
+        elif (control == QStyle.CC_Slider and opt.type == 0xf000002):
+            pass
         else:
             self.__proxy.drawComplexControl(control, opt, painter, widget)
     
@@ -468,10 +328,14 @@ class KyPlastiqueStyle(QStyle):
             borderColor = QColor(*StyleColor['Menu_FrameDark'])
             alphaCornerColor = StyleHelper.mergedColors(QColor(*StyleColor['Menu_Panel']), borderColor)
             p.setPen(borderColor)
-            p.drawRect(opt.rect.adjusted(0, 0, -1, -1))
-            p.setPen(alphaCornerColor);
+            rect = opt.rect.adjusted(0, 0, -1, -1)
+            x1, x2 = rect.left(), rect.right()
+            y1, y2 = rect.top(), rect.bottom()
+            p.drawRect(rect)
+            p.setPen(alphaCornerColor)
             p.drawPoints(opt.rect.topLeft(), opt.rect.topRight(), 
                          opt.rect.bottomLeft(), opt.rect.bottomRight())
+#            p.drawPoints(QPoint(x, y), QPoint(x + 1, y + 1), )
             p.setPen(oldPen)
         elif el == QStyle.PE_PanelMenu:
             pass
@@ -521,7 +385,7 @@ class KyPlastiqueStyle(QStyle):
         
         # Draw Frame and Split
         if visible:
-            drawPlastiqueShadedPanel(p, opt, False)
+            StyleHelper.drawPlastiqueShadedPanel(p, opt, False)
             if opt.subControls & QStyle.SC_ToolButtonMenu:
                 p1 = bopt.rect.bottomLeft()
                 p2 = bopt.rect.bottomRight()
