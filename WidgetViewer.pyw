@@ -40,7 +40,7 @@ class KyMainWindow(QMainWindow):
         menuButton = KyMenuButton(parent = ribbon, icon = IconSet.Folder(), 
                                   text = 'File')
         
-        menu = KyMenu()
+        menu = QMenu()
         menu.addSeparator().setText('Files')
         menu.addAction(self.fileNewAct)
         menu.addAction(self.fileOpenAct)
@@ -112,7 +112,7 @@ class KyMainWindow(QMainWindow):
                 shortcut='Ctrl+E', 
                 trigger=self.viewProperties)
                 
-        self.styleMenu = KyMenu('Set Style', self)
+        self.styleMenu = QMenu('Set Style', self)
         self.styleAct = self.styleMenu.menuAction()
         self.styleAct.setIcon(IconSet.Display())
         self.styleAct.setIconText('Set\nStyle')

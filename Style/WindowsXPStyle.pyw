@@ -1,4 +1,4 @@
-from PyQt4.QtCore import Qt, QRect, QSize, QPoint, qDebug, qWarning, QSysInfo, QLineF
+from PyQt4.QtCore import Qt, QRect, QSize, QPoint, qDebug, qWarning, QSysInfo, QLineF, QLine
 from PyQt4.QtGui import *
 
 from .StyleUtil import StyleHelper, StyleColor, PixelMetrics, FormattedPrint
@@ -18,15 +18,14 @@ windowsRightBorder      = 15 # right border on windows
 windowsCheckMarkWidth   = 8 # checkmarks width on windows
 
 check =[\
-'      *', 
-'     **', 
-'*   ***', 
-'** *** ', 
-'*****  ', 
-' ***   ', 
-'  *    ']
-
-
+'       *'
+'      **', 
+'     ***', 
+'*   *** ', 
+'** ***  ', 
+'*****   ', 
+' ***    ', 
+'  *     ']
       
 def menuCheckPoints(x, y):
     points = [QPoint(6 + x, 0 + y), QPoint(5 + x, 1 + y), QPoint(6 + x, 1 + y), 
@@ -186,7 +185,7 @@ class KyWindowsXPStyle(QStyle):
                     StyleHelper.copyStyleOption(opt, fropt)
                     fropt.backgroundColor = opt.palette.window().color()
                     fropt.rect = textRect
-                    self.__drawFocusRect(fropt, painter)
+                    StyleUtil.drawWinFocusRect(fropt, painter)
 #                    self.drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, widget)
 
             # Draw checkbox
@@ -306,46 +305,6 @@ class KyWindowsXPStyle(QStyle):
             return sc
         else:
             return self.__proxy.hitTestComplexControl(cc, opt, pos, widget)
-        
-    
-    def __drawFocusRect(self, fropt : QStyleOptionFocusRect, p : QPainter):
-            ### check for d->alt_down
-            if not fropt.state & QStyle.State_KeyboardFocusChange and not self.styleHint(QStyle.SH_UnderlineShortcut, fropt):
-                return
-            r = fropt.rect
-            p.save()
-            p.setBackgroundMode(Qt.TransparentMode)
-            bg_col = fropt.backgroundColor
-            if not bg_col.isValid():
-                bg_col = p.background().color();
-            # Create an "XOR" color.
-            patternCol = QColor((bg_col.red() ^ 0xff) & 0xff,
-                                (bg_col.green() ^ 0xff) & 0xff,
-                                (bg_col.blue() ^ 0xff) & 0xff)
-            p.setBrush(QBrush(patternCol, Qt.Dense4Pattern))
-            p.setBrushOrigin(r.topLeft())
-            p.setPen(Qt.NoPen)
-            p.drawRect(r.left(), r.top(), r.width(), 1)    # Top
-            p.drawRect(r.left(), r.bottom(), r.width(), 1) # Bottom
-            p.drawRect(r.left(), r.top(), 1, r.height())   # Left
-            p.drawRect(r.right(), r.top(), 1, r.height())  # Right
-            p.restore()
-
-    def __drawGroupBoxFrame(self, frame : QStyleOptionFrameV2, p : QPainter, alignBottom : bool, widget = None):
-        if frame.features & QStyleOptionFrameV2.Flat:
-            fr = frame.rect
-            if not alignBottom:
-                p1 = QPoint(fr.x(), fr.y() + 1)
-                p2 = QPoint(fr.x() + fr.width(), p1.y())
-            else:
-                p1 = QPoint(fr.x(), fr.bottom() - 1)
-                p2 = QPoint(fr.x() + fr.width(), p1.y())
-            qDrawShadeLine(p, p1, p2, frame.palette, True,
-                           frame.lineWidth, frame.midLineWidth)
-        else:
-            qDrawShadeRect(p, frame.rect.x(), frame.rect.y(), frame.rect.width(),
-                           frame.rect.height(), frame.palette, True,
-                           frame.lineWidth, frame.midLineWidth)
     
     def drawPrimitive(self, pe : QStyle.PrimitiveElement, opt : QStyleOption, p : QPainter, widget : QWidget = None ) -> None:
         if pe == QStyle.PE_FrameMenu:
@@ -354,10 +313,14 @@ class KyWindowsXPStyle(QStyle):
             borderColor = QColor(*StyleColor['Menu_FrameDark'])
             alphaCornerColor = StyleHelper.mergedColors(QColor(*StyleColor['Menu_Panel']), borderColor)
             p.setPen(borderColor)
-            p.drawRect(opt.rect.adjusted(0, 0, -1, -1))
-            p.setPen(alphaCornerColor);
+            rect = opt.rect.adjusted(0, 0, -1, -1)
+            x1, x2 = rect.left(), rect.right()
+            y1, y2 = rect.top(), rect.bottom()
+            p.drawRect(rect)
+            p.setPen(alphaCornerColor)
             p.drawPoints(opt.rect.topLeft(), opt.rect.topRight(), 
                          opt.rect.bottomLeft(), opt.rect.bottomRight())
+#            p.drawPoints(QPoint(x, y), QPoint(x + 1, y + 1), )
             p.setPen(oldPen)
         elif pe == QStyle.PE_PanelMenu:
             pass
@@ -371,46 +334,6 @@ class KyWindowsXPStyle(QStyle):
 #            p.setPen(QColor(*StyleColor['Menu_FrameDark']))
             p.setPen(opt.palette.text().color())
             p.drawPoints(*points)
-            #QRect(1, 39, 22, 19)
-            #posX = 9, 
-            #posY = 45
-            #width and height of checkmark
-#            w = 7 if (opt.rect.width() > 7) else opt.rect.width()
-#            rect = QRect(opt.rect)
-#            rect.setWidth(w)
-#            rect.setHeight(w)
-#            rect.moveCenter(opt.rect.center())
-#            
-#            #center of the rect
-#            lines = []
-#
-#            x = rect.left()
-#            y = 3 + rect.y()
-#            i = 0
-#            while i < w / 2:
-#                lines.append(QLineF(x, y, x, y + 2))
-#                x+=1
-#                y+=1
-#                i+=1
-#            
-#            y -= 2
-#            
-#            while i < w:
-#                lines.append(QLineF(x, y, x, y + 2))
-#                x += 1
-#                y -= 1
-#                i += 1
-#                
-#            if (not (opt.state & QStyle.State_Enabled) and not (opt.state & QStyle.State_On)):
-#                p.setPen(opt.palette.highlightedText().color())
-#                for point in range(len(lines)):
-#                    lines[point].translate(1, 1)
-#                p.drawLines(lines)
-#                for point in range(len(lines)):
-#                    lines[point].translate(1, 1)
-#
-#            p.setPen(opt.palette.text().color())
-#            p.drawLines(lines)
         else:
             self.__proxy.drawPrimitive(pe, opt, p, widget)
 
@@ -521,36 +444,51 @@ class KyWindowsXPStyle(QStyle):
   
     def __drawMenuControl(self, ce, opt, p, widget):
         if ce == QStyle.CE_MenuItem:
+            if opt.menuItemType == QStyleOptionMenuItem.EmptyArea:
+                p.fillRect(opt.rect, QColor(*StyleColor['Menu_Panel']))
+                return
             (x, y, w, h) = opt.rect.getRect()
             tab = opt.tabWidth
+            
+            
             #first let's draw the separator if it is one
             if opt.menuItemType == QStyleOptionMenuItem.Separator:
+                # Fill the background
                 p.fillRect(opt.rect, QColor(*(StyleColor['Menu_Header'])))
+                if not opt.text:
+                    p.setPen(QColor(*StyleColor['Menu_FrameLine']))
+                    p.drawLine(x + 20, y, x + w, y)
+                    p.setPen(QColor(*StyleColor['Menu_Panel']))
+                    p.drawLine(x + 20, y + 1, x + w, y + 1)
+                    return
+                # Draw the bottom separator
                 p.setPen(QColor(*StyleColor['Menu_FrameLine']))
                 p.drawLine(opt.rect.topLeft(), opt.rect.topRight())
+                p.drawLine(opt.rect.left(), opt.rect.bottom() - 1, 
+                           opt.rect.right(), opt.rect.bottom() - 1)
+                p.setPen(QColor(*StyleColor['Menu_Panel']))
+                p.drawLine(opt.rect.left(), opt.rect.top() + 1, 
+                           opt.rect.right(), opt.rect.top() + 1)
                 p.drawLine(opt.rect.bottomLeft(), opt.rect.bottomRight())
-                if not opt.text:
-                    return
-                sidew = PixelMetrics['Menu_HeaderTextOffset']
+                
                 color = QColor(*(StyleColor['Menu_HeaderText']))
                 p.setPen(color)
-                xmargin = windowsItemFrame + sidew + windowsItemHMargin
-                xpos = x + xmargin
+                xmargin = windowsItemFrame + 20 + windowsItemHMargin
+                xpos = x + PixelMetrics['Menu_HeaderTextOffset']
                 textRect = QRect(xpos, 
                          y + windowsItemVMargin, 
                          w - xmargin - windowsRightBorder - tab + 1, 
                          h - 2 * windowsItemVMargin)
                 vTextRect = self.visualRect(opt.direction, opt.rect, textRect)
                 # draw text
-                if opt.text:
-                    p.save()
-                    s = opt.text
-                    if '\t' in s:
-                        s = opt.text.split('\t')[0]
-                    text_flags = Qt.AlignVCenter | Qt.AlignLeft | Qt.TextHideMnemonic | Qt.TextDontClip | Qt.TextSingleLine
-                    opt.font.setBold(True)
-                    p.setFont(opt.font)
-                    p.drawText(vTextRect, text_flags, s)
+                p.save()
+                s = opt.text
+                if '\t' in s:
+                    s = opt.text.split('\t')[0]
+                text_flags = Qt.AlignVCenter | Qt.AlignLeft | Qt.TextHideMnemonic | Qt.TextDontClip | Qt.TextSingleLine
+                opt.font.setBold(True)
+                p.setFont(opt.font)
+                p.drawText(vTextRect, text_flags, s)
                 p.restore()
                 return
                 
@@ -558,7 +496,7 @@ class KyWindowsXPStyle(QStyle):
             checked = opt.checked if opt.checkType != QStyleOptionMenuItem.NotCheckable else False
             active = opt.state & QStyle.State_Selected
             # windows always has a check column, regardless whether we have an icon or not
-            sidew = opt.maxIconWidth if (opt.maxIconWidth > 22) else 22
+            sidew = opt.maxIconWidth if (opt.maxIconWidth > 20) else 20
             sidecolor = QColor(*StyleColor['Menu_Sidebar'])
             
             fill = opt.palette.brush(QPalette.Highlight if active else QPalette.Light)
@@ -568,7 +506,10 @@ class KyWindowsXPStyle(QStyle):
             if not active:
                 p.fillRect(vSideRect, sidecolor)
                 p.setPen(QColor(*StyleColor['Menu_FrameLine']))
-                p.drawLine(vSideRect.topRight(), vSideRect.bottomRight())
+                if opt.direction == Qt.LeftToRight:
+                    p.drawLine(vSideRect.topRight(), vSideRect.bottomRight())
+                else:
+                    p.drawLine(vSideRect.topLeft(), vSideRect.bottomLeft())
 #            if checked:
 #                if active and not disabled:
 #                    qDrawShadePanel(p, vSideRect.adjusted(-2, 0, -2, 0),
@@ -577,9 +518,7 @@ class KyWindowsXPStyle(QStyle):
 #                else:
 #                    fill = QBrush(opt.palette.light().color(), Qt.Dense4Pattern)
 #                    qDrawShadePanel(p, vSideRect.adjusted(-2, 0, -2, 0), opt.palette, True, 1, fill)
-            # On Windows Style, if we have a checkable item and an icon we
-            # draw the icon recessed to indicate an item is checked. If we
-            # have no icon, we draw a checkmark instead.
+
             if not opt.icon.isNull():
                 iconSize = QSize(self.pixelMetric(QStyle.PM_SmallIconSize, opt, widget), 
                                  self.pixelMetric(QStyle.PM_SmallIconSize, opt, widget))
@@ -613,7 +552,7 @@ class KyWindowsXPStyle(QStyle):
                                                                               opt.rect.height() - 2 * windowsItemFrame))
                 self.drawPrimitive(QStyle.PE_IndicatorMenuCheckMark, newitem, p, widget)
 
-            p.setPen(opt.palette.highlightedText().color() if active else opt.palette.buttonText().color())
+            p.setPen(opt.palette.highlightedText().color() if active else QColor(*(StyleColor['Menu_Text'])))
 
             if disabled:
                 discol = opt.palette.text().color()
@@ -711,7 +650,7 @@ class KyWindowsXPStyle(QStyle):
             return QSize(w, h)
         elif (ct == QStyle.CT_MenuItem and opt.menuItemType == QStyleOptionMenuItem.Separator):
             if not opt.text:
-                return QSize(sz.width(), 8)
+                return QSize(sz.width(), 2)
             h = 20 if (sz.height() < 20) else sz.height()
             return QSize(sz.width(), h)
         else:
