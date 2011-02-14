@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QWidget" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>375</width>
+    <height>303</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>BasicFontWidget Test</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>361</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,4,0">
+    <item>
+     <widget class="QFrame" name="testWidget">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>357</width>
+         <height>69</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>&amp;Options</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>348</width>
+         <height>104</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="writingSysLabel">
+          <property name="text">
+           <string>&amp;Writing System</string>
+          </property>
+          <property name="buddy">
+           <cstring>writingSysBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="writingSysBox">
+          <item>
+           <property name="text">
+            <string>Any</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Latin</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Greek</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cyrillic</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Hebrew</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Arabic</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Japanese</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Symbol</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="boldBox">
+          <property name="text">
+           <string>Show &amp;Bold Button</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="filterLabel">
+          <property name="text">
+           <string>&amp;Font Filters</string>
+          </property>
+          <property name="buddy">
+           <cstring>filterBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="filterBox">
+          <item>
+           <property name="text">
+            <string>All Fonts</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Scalable</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Non-Scalable</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Monospaced</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Proportional</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QCheckBox" name="italicBox">
+          <property name="text">
+           <string>Show &amp;Italic Button</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QCheckBox" name="underlineBox">
+          <property name="text">
+           <string>Show &amp;Underline Button</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="sizeLabel">
+          <property name="text">
+           <string>&amp;Size List</string>
+          </property>
+          <property name="buddy">
+           <cstring>sizeBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="sizeBox">
+          <item>
+           <property name="text">
+            <string>Default Sizes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Range(5, 20)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Range(10, 32, 2)</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="closeButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&amp;Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>25</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>376</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
