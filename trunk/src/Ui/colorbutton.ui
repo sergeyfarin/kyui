@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QWidget" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>284</width>
+    <height>263</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Test Dialog</string>
+  </property>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>258</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,3,2,0">
+    <item>
+     <widget class="QToolButton" name="toolButton">
+      <property name="text">
+       <string>Test</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>&amp;Options</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>241</width>
+         <height>81</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="sizeLabel">
+          <property name="text">
+           <string>&amp;Icon Size</string>
+          </property>
+          <property name="buddy">
+           <cstring>sizeBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="sizeBox">
+          <item>
+           <property name="text">
+            <string>16 x 16</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>22 x 22</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>24 x 24</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>32 x 32</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="colorLabel">
+          <property name="text">
+           <string>C&amp;olor</string>
+          </property>
+          <property name="buddy">
+           <cstring>colorBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="colorBox">
+          <item>
+           <property name="text">
+            <string>White</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Black</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Red</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Red</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Green</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Green</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Blue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Blue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cyan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Cyan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Magenta</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Magenta</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Yellow</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Yellow</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gray</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dark Gray</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Light Gray</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="styleLabel">
+          <property name="text">
+           <string>&amp;ToolButtonStyle</string>
+          </property>
+          <property name="buddy">
+           <cstring>styleBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="styleBox">
+          <item>
+           <property name="text">
+            <string>Icon Only</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Text Under Icon</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Text Beside Icon</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="plainTextEdit"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&amp;Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>514</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>430</x>
+     <y>375</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
