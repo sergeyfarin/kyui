@@ -21,7 +21,7 @@ class Dialog(QDialog):
         self.testWidget = ColorSlider(Qt.Horizontal, self)
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setRange(0, 255)
-        self.testWidget.setFixedWidth(256)
+#        self.testWidget.setFixedWidth(256)
         self.layout.addWidget(self.testWidget)
         
         self.settingsBox = QGroupBox(self)
