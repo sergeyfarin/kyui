@@ -1,9 +1,11 @@
-from PyQt4.QtCore import pyqtSignal, pyqtSlot, Qt, QSize, pyqtProperty, qWarning
-from PyQt4.QtGui import QFrame, QWidget, QPushButton
+from PyQt4.QtCore import pyqtSignal, pyqtSlot, Qt, pyqtProperty, qWarning
+from PyQt4.QtCore import QEvent, QSize
+from PyQt4.QtGui import QFrame, QWidget, QPushButton, QFocusFrame
 from PyQt4.QtGui import QGridLayout, QSpacerItem, QSizePolicy
 from PyQt4.QtGui import QPainter, QStyle
 from PyQt4.QtGui import QStyleOptionFrameV3, QStyleOptionFocusRect
-from PyQt4.QtGui import QColor, QPalette, QPaintEvent
+from PyQt4.QtGui import QColor, QPalette
+from PyQt4.QtGui import QPaintEvent
 from PyQt4.QtGui import QButtonGroup
 
 class ColorData():
@@ -36,7 +38,7 @@ class ColorPicker(QWidget):
                  frameshape : QFrame.Shape = QFrame.Box, 
                  spacing : QSize = None):
         super().__init__(parent)
-        self.setFocusPolicy(Qt.StrongFocus)
+#        self.setFocusPolicy(Qt.StrongFocus)
         self._layout = QGridLayout(self)
         self._btnGrp = QButtonGroup(self)
         self._btnGrp.setExclusive(True)
@@ -50,6 +52,7 @@ class ColorPicker(QWidget):
         self._framewidth = framewidth if framewidth else 1
         self._framecolor = framecolor if framecolor else QColor(Qt.black)
         self._focuscolor = focuscolor if focuscolor else QColor(Qt.blue)
+        self._focuswidget = QFocusFrame()
         
         self._initGrid(colordata.colors if colordata else [])
 
@@ -67,7 +70,6 @@ class ColorPicker(QWidget):
         
     def sizeHint(self) -> QSize:
         return self.minimumSizeHint()
-        
     
     #==================================================#
     # Private Methods                                  #
@@ -96,10 +98,43 @@ class ColorPicker(QWidget):
     # Event Handling                                   #
     #==================================================#
     def keyPressEvent(self, ev):
-        super().keyPressEvent(ev)
+        if ev.modifiers() != Qt.NoModifier:
+            super().keyPressEvent(ev)
+            return
+        
+        index = self._layout.indexOf(self.focusWidget())
+        (row, column, rspan, cspan) = self._layout.getItemPosition(index)
+        endrow = self._layout.rowCount() -1
+        endcol = self._layout.columnCount() - 1
+        
+        key = ev.key()
+        if key == Qt.Key_Right:
+            if column < endcol: column += 1
+            else:               column = 0
+        elif key == Qt.Key_Left:
+            if column > 0:      column -= 1
+            else:               column = endcol
+        elif key == Qt.Key_Up:
+            if row > 0:         row -= 1
+            else:               row = endrow
+        elif key == Qt.Key_Down:
+            if row < endrow:    row += 1
+            else:               row = 0
+        else:
+            super().keyPressEvent(ev)
+            return
+        #FIXME: does not account for LayoutItems without a widget
+        item = self._layout.itemAtPosition(row, column)
+        item.widget().setFocus(Qt.TabFocusReason)
+        ev.accept()
     
     def hoverEvent(self, ev):
-        super().hoverEvent(ev)
+        if ev.type() == QEvent.HoverLeave:
+            self._focuswidget.setWidget(None)
+            ev.accept()
+            return
+        else:
+            self._focuswidget.setWidget(self.childAt(ev.pos()))
     #==================================================#
     # Getters                                          #
     #==================================================#
@@ -287,6 +322,7 @@ class ColorFrame(QPushButton):
         opt = QStyleOptionFrameV3()
         opt.initFrom(self)
         opt.frameShape = self._shape
+        opt.rect = self.rect().adjusted(1, 1, -1, -1)
 #        opt.rect = self.frameRect()
         
         if self.isDown():
@@ -309,17 +345,17 @@ class ColorFrame(QPushButton):
         painter.fillRect(opt.rect, self._color)
         self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
         if opt.state & QStyle.State_HasFocus:
-            opt = QStyleOptionFocusRect()
-            opt.initFrom(self)
-            opt.backgroundColor = opt.palette.color(QPalette.Window)
-            self.style().drawPrimitive(QStyle.PE_FrameFocusRect, opt, painter, self)
+            fropt = QStyleOptionFocusRect()
+            fropt.initFrom(self)
+            fropt.rect = opt.rect.adjusted(-1, -1, 1, 1)
+            fropt.backgroundColor = opt.palette.color(QPalette.Window)
+            self.style().drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, self)
         painter.end()
-        
-        
-    def enterEvent(self, ev):
-        self.setForegroundRole(QPalette.BrightText)
-#        self.setLineWidth(2)
-        
-    def leaveEvent(self, ev):
-        self.setForegroundRole(QPalette.WindowText)
-#        self.setLineWidth(1)
+
+#    def enterEvent(self, ev):
+#        self.setForegroundRole(QPalette.BrightText)
+##        self.setLineWidth(2)
+#        
+#    def leaveEvent(self, ev):
+#        self.setForegroundRole(QPalette.WindowText)
+##        self.setLineWidth(1)
