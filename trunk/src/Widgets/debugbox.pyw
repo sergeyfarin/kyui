@@ -12,7 +12,7 @@ class DebugBox(QPlainTextEdit):
     
     def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
         if msgType == QtDebugMsg:
-            self.appendPlainText('Debug: ' + bytes.decode(text))
+            self.appendPlainText(bytes.decode(text))
         elif msgType == QtWarningMsg:
             self.appendPlainText('Warning: ' + bytes.decode(text))
         elif msgType == QtCriticalMsg:
