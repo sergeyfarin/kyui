@@ -44,7 +44,7 @@
       <property name="title">
        <string>&amp;Options</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>11</x>
@@ -57,7 +57,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="colorLabel">
           <property name="text">
-           <string>Cha&amp;nnel</string>
+           <string>&amp;Spec</string>
           </property>
           <property name="buddy">
            <cstring>colorBox</cstring>
@@ -68,37 +68,22 @@
          <widget class="QComboBox" name="colorBox">
           <item>
            <property name="text">
-            <string>Red</string>
+            <string>RGB</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Blue</string>
+            <string>HSV</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Green</string>
+            <string>HSL</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Hue</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Saturation</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Luminosity</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Value</string>
+            <string>CMYK</string>
            </property>
           </item>
          </widget>

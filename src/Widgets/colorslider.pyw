@@ -14,26 +14,34 @@ class ColorSlider(QSlider):
         self.color = QColor(Qt.red)
         self.gradient.setStart(0, 0)
         self.gradient.setFinalStop(1, 0)
-        self.gradient.setColorAt(0.0, QColor(255, 255, 255))
+        self.gradient.setColorAt(0.0, QColor(0, 0, 0))
         self.gradient.setColorAt(1.0, QColor(255, 0, 0))
-        self.brush = QBrush(self.gradient)
-
         
     def paintEvent(self, pe):
         p = QPainter(self)
-        opt = QStyleOption()
-        opt.initFrom(self)
-
-        rect = QRect(opt.rect).adjusted(0, 0, -1, -1)
-        rect.setHeight(8)
+        opt = QStyleOptionSlider()
+        self.initStyleOption(opt)
+        opt.subControls = QStyle.SC_SliderHandle
         
-        p.setPen(QColor(Qt.black))
-        p.drawRect(rect)
-        p.setBrush(self.brush)
-        p.fillRect(rect.adjusted(1, 1, 0, 0), self.brush)
+        center = opt.rect.center()
+        if self.orientation() == Qt.Horizontal:
+            rect = QRect(opt.rect.x(), center.y() - 3, opt.rect.width(), 6)
+        else:
+            rect = QRect(center.x() - 3, opt.rect.y(), 6, opt.rect.height())
+        p.fillRect(rect.adjusted(1, 1, 0, 0), QBrush(self.gradient))
+        
+        self.style().drawComplexControl(QStyle.CC_Slider, opt, p, None)
         
         p.end()
 #        super().paintEvent(pe)
+
+    def setStartColor(self, color):
+        self.gradient.setColorAt(0.0, color)
+        self.update()
+        
+    def setEndColor(self, color):
+        self.gradient.setColorAt(1.0, color)
+        self.update()
 
     def sizeHint(self):
         return self.minimumSizeHint()
