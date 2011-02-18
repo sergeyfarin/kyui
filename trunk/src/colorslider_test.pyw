@@ -5,7 +5,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-from Widgets.colorslider import ColorSlider, HueSlider
+from Widgets.colorslider import ColorSlider
 from Widgets.debugbox import DebugBox
 
 class Dialog(QDialog):
@@ -15,10 +15,8 @@ class Dialog(QDialog):
         
         self._color = QColor(0, 0, 0)
         
-        self.generateColors()
         self.setupUi()
         self.connectSignals()
-        
         
     def setupUi(self):
         self.layout = QVBoxLayout(self)
@@ -43,7 +41,7 @@ class Dialog(QDialog):
         
         self.testWidget3 = ColorSlider(Qt.Horizontal, self.testBox, 
                                        ColorSlider.Blue)
-        self.testWidget3.setObjectName('testWidget2')
+        self.testWidget3.setObjectName('testWidget3')
         self.testWidget3.setRange(0, 255)
         self.testLayout.addWidget(self.testWidget3)
         
@@ -63,15 +61,6 @@ class Dialog(QDialog):
         self.specBox.addItem('HSL', QColor.Hsl)
         self.specLabel.setBuddy(self.specBox)
         self.settingsLayout.addRow(self.specLabel, self.specBox)
-        
-        self.channelLabel = QLabel(self.settingsBox)
-        self.channelLabel.setObjectName('channelLabel')
-        self.channelBox = QComboBox(self.settingsBox)
-        self.channelBox.setObjectName('channelBox')
-        self.channelLabel.setBuddy(self.channelBox)
-        self.settingsLayout.addRow(self.channelLabel, self.channelBox)
-        self.channelLabel.setEnabled(False)
-        self.channelBox.setEnabled(False)
         
         self.orientBox = QCheckBox(self)
         self.orientBox.setObjectName('orientBox')
@@ -103,14 +92,12 @@ class Dialog(QDialog):
         self.testBox.setTitle(self.trUtf8('&Test'))
         self.settingsBox.setTitle(self.trUtf8('&Options'))
         self.specLabel.setText(self.trUtf8('&Spec'))
-        self.channelLabel.setText(self.trUtf8('Cha&nnel'))
         self.orientBox.setText('&Vertical Sliders')
         self.dynamicBox.setText('&Dynamic Gradients')
         self.closeButton.setText(self.trUtf8('&Close'))
         
     def connectSignals(self):
         self.specBox.currentIndexChanged[int].connect(self.onSpecChanged)
-#        self.channelBox.currentIndexChanged[int].connect(self.onChannelChanged)
         self.orientBox.toggled.connect(self.onOrientationChanged)
         self.dynamicBox.toggled.connect(self.setDynamic)
         self.closeButton.clicked.connect(self.close)
@@ -121,43 +108,19 @@ class Dialog(QDialog):
     def onSpecChanged(self, index : int):
         if index == 0:
             qDebug('Spec: RGB')
-            self.channelBox.clear()
-            self.channelBox.addItem('Red', ColorSlider.Red)
-            self.channelBox.addItem('Green', ColorSlider.Green)
-            self.channelBox.addItem('Blue', ColorSlider.Blue)
             self.testWidget1.setComponent(ColorSlider.Red)
             self.testWidget2.setComponent(ColorSlider.Green)
             self.testWidget3.setComponent(ColorSlider.Blue)
         elif index == 1:
             qDebug('Spec: HSV')
-            self.channelBox.clear()
-            self.channelBox.addItem('Hue', ColorSlider.HsvHue)
-            self.channelBox.addItem('Saturation')
-            self.channelBox.addItem('Lightness')
             self.testWidget1.setComponent(ColorSlider.HsvHue)
             self.testWidget2.setComponent(ColorSlider.HsvSat)
             self.testWidget3.setComponent(ColorSlider.HsvVal)
         elif index == 2:
             qDebug('Spec: HSL')
-            self.channelBox.clear()
-            self.channelBox.addItem('Hue')
-            self.channelBox.addItem('Saturation')
-            self.channelBox.addItem('Luminosity')
             self.testWidget1.setComponent(ColorSlider.HslHue)
             self.testWidget2.setComponent(ColorSlider.HslSat)
             self.testWidget3.setComponent(ColorSlider.HslLum)
-
-    def onChannelChanged(self, channel : int):
-        self.testWidget1.setStartColor(QColor(0, 0, 0))
-        if channel == 0: #Red
-            self.testWidget1.setEndColor(QColor(255, 0, 0))
-            qDebug('Channel: Red')
-        elif channel == 1: #Green
-            self.testWidget1.setEndColor(QColor(0, 255, 0))
-            qDebug('Channel: Green')
-        elif channel == 2: #Blue
-            self.testWidget1.setEndColor(QColor(0, 0, 255))
-            qDebug('Channel: Blue')
             
     def onOrientationChanged(self):
         if self.orientBox.isChecked():
@@ -173,17 +136,29 @@ class Dialog(QDialog):
         
     def setDynamic(self, dynamic):
         if dynamic:
-            self.testWidget1.valueChanged.connect(self.onSliderChanged)
-            self.testWidget2.valueChanged.connect(self.onSliderChanged)
-            self.testWidget3.valueChanged.connect(self.onSliderChanged)
+            self.testWidget1.valueChanged.connect(self.onSlider1Changed)
+            self.testWidget2.valueChanged.connect(self.onSlider2Changed)
+            self.testWidget3.valueChanged.connect(self.onSlider3Changed)
         else:
-            self.testWidget1.valueChanged.disconnect(self.onSliderChanged)
-            self.testWidget2.valueChanged.disconnect(self.onSliderChanged)
-            self.testWidget3.valueChanged.disconnect(self.onSliderChanged)
+            self.testWidget1.valueChanged.disconnect(self.onSlider1Changed)
+            self.testWidget2.valueChanged.disconnect(self.onSlider2Changed)
+            self.testWidget3.valueChanged.disconnect(self.onSlider3Changed)
         
     def onSlider1Changed(self, value):
-        self.testWidget2.setComponentValue(0, value)
-        self.testWidget3.setComponentValue(0, value)
+        component = self.testWidget1.component()
+        self.testWidget2.setComponentValue(component, value)
+        self.testWidget3.setComponentValue(component, value)
+
+    def onSlider2Changed(self, value):
+        component = self.testWidget2.component()
+        self.testWidget1.setComponentValue(component, value)
+        self.testWidget3.setComponentValue(component, value)
+
+    def onSlider3Changed(self, value):
+        component = self.testWidget3.component()
+        self.testWidget1.setComponentValue(component, value)
+        self.testWidget2.setComponentValue(component, value)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
