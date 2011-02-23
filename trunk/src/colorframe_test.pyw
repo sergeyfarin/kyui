@@ -25,16 +25,17 @@ class Dialog(QDialog):
         self.layout.setObjectName('layout')
         
         self.testWidget = ColorFrame(parent=self, 
-                                     color = QColor(Qt.black), 
+                                     color = QColor(Qt.white), 
                                      focuscolor = QColor(Qt.blue), 
-                                     framecolor = QColor(Qt.black), 
-                                     frameshape = QFrame.Box, 
+                                     framecolor = QColor(Qt.gray), 
+                                     frameshape = QFrame.Panel, 
                                      framewidth = 1, 
                                      margin = 3, 
-                                     size = QSize(22, 22))
+                                     framesize = QSize(22, 22))
         self.testWidget.setObjectName('testWidget')
-        self.testWidget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-#        self.testWidget.setCheckable(True)
+        self.testWidget.setFocusPolicy(Qt.StrongFocus)
+        self.testWidget.setFlat(True)
+        self.testWidget.setCheckable(True)
         self.layout.addWidget(self.testWidget)
         
         self.settingsBox = QGroupBox(self)
@@ -67,7 +68,7 @@ class Dialog(QDialog):
         self.shapeBox.addItem('Panel', QFrame.Panel)
         self.shapeBox.addItem('Styled Panel', QFrame.StyledPanel)
         self.shapeBox.addItem('Windows Panel', QFrame.WinPanel)
-        self.shapeBox.setCurrentIndex(1)
+        self.shapeBox.setCurrentIndex(2)
         self.settingsLayout.addRow(self.shapeLabel, self.shapeBox)
         self.shapeLabel.setBuddy(self.shapeBox)
         
@@ -102,6 +103,16 @@ class Dialog(QDialog):
         
         self.marginLabel.setBuddy(self.marginBox)
         
+        self.flatBox = QCheckBox(self.settingsBox)
+        self.flatBox.setObjectName('flatBox')
+        self.flatBox.setChecked(True)
+        self.settingsLayout.addWidget(self.flatBox)
+        
+        self.checkableBox = QCheckBox(self.settingsBox)
+        self.checkableBox.setObjectName('checkableBox')
+        self.checkableBox.setChecked(True)
+        self.settingsLayout.addWidget(self.checkableBox)
+        
         self.layout.addWidget(self.settingsBox)
         
         self.closeButton = QPushButton(self)
@@ -129,6 +140,10 @@ class Dialog(QDialog):
             box.addItem(icon, 'White', QColor(Qt.white))
             icon = createColorIcon(QColor(Qt.yellow), QSize(16, 16))
             box.addItem(icon, 'Yellow', QColor(Qt.yellow))
+            
+        self.frameColorBox.setCurrentIndex(3)
+        self.focusColorBox.setCurrentIndex(1)
+        self.sampleColorBox.setCurrentIndex(7)
         
         self.retranslateUi()
         
@@ -140,6 +155,8 @@ class Dialog(QDialog):
         self.frameColorBox.currentIndexChanged[int].connect(self.frameColorChanged)
         self.sampleColorBox.currentIndexChanged[int].connect(self.sampleColorChanged)
         self.marginBox.valueChanged.connect(self.marginChanged)
+        self.flatBox.toggled.connect(self.flatToggled)
+        self.checkableBox.toggled.connect(self.checkableToggled)
         
     def retranslateUi(self):
         self.setWindowTitle(self.trUtf8('Test Dialog'))
@@ -150,6 +167,8 @@ class Dialog(QDialog):
         self.focusColorLabel.setText(self.trUtf8('&Focus Color'))
         self.frameColorLabel.setText(self.trUtf8('F&rame Color'))
         self.marginLabel.setText(self.trUtf8('&Margin'))
+        self.flatBox.setText(self.trUtf8('F&lat Color Frame'))
+        self.checkableBox.setText(self.trUtf8('&Interactive Frame'))
         self.closeButton.setText(self.trUtf8('&Close'))
         
         self.sizeBox.setItemText(0, self.trUtf8('12 x 12'))
@@ -180,7 +199,7 @@ class Dialog(QDialog):
         self.testWidget.margin = self.marginBox.value()
     
     def sizeChanged(self, index : int):
-        self.testWidget.setFixedSize(self.sizeBox.itemData(index, Qt.UserRole))
+        self.testWidget.setFrameSize(self.sizeBox.itemData(index, Qt.UserRole))
     
     def focusColorChanged(self, index : int):
         self.testWidget.focusColor = self.focusColorBox.itemData(index, Qt.UserRole)
@@ -193,6 +212,16 @@ class Dialog(QDialog):
         
     def shapeChanged(self, index : int):
         self.testWidget.frameShape = self.shapeBox.itemData(index, Qt.UserRole)
+        
+    def flatToggled(self, flat : bool):
+        self.testWidget.setFlat(flat)
+        
+    def checkableToggled(self, checkable):
+        if self.testWidget.isCheckable():
+            self.testWidget.setChecked(False)
+            self.testWidget.setCheckable(False)
+        else:
+            self.testWidget.setCheckable(True)
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)

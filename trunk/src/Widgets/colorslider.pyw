@@ -68,7 +68,109 @@ class ColorWidget(QFrame):
         elif spec == QColor.Cmyk:
             qWarning('ColorWidget: Cmyk not supported')
 
-class ColorSlider(QSlider):
+gradients = {QColor.Rgb : {0 : ((0.0, 0.0, 0.0), (1.0, 0.0, 0.0)), 
+                           1 : ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), 
+                           2 : ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))}, 
+             QColor.Hsl : {1 : ((0.5, 0.0, 0.5), (0.5, 1.0, 0.5)),
+                           2 : ((0.5, 0.0, 0.0), (0.5, 0.0, 1.0))}, 
+             QColor.Hsv : {1 : ((0.5, 0.0, 1.0), (0.5, 1.0, 1.0)), 
+                           2 : ((0.5, 0.0, 0.0), (0.5, 0.0, 1.0))}, 
+             QColor.Cmyk: {}}
+
+def generateGradient(spec : QColor.Spec , 
+                     component : int, 
+                     orientation : Qt.Orientation = Qt.Horizontal) -> QLinearGradient:
+    gradient = QLinearGradient()
+    gradient.setCoordinateMode(QGradient.StretchToDeviceMode)
+    if orientation == Qt.Horizontal:
+        gradient.setStart(0, 0)
+        gradient.setFinalStop(1, 0)
+    else:
+        gradient.setStart(0, 1)
+        gradient.setFinalStop(0, 0)
+    #Let's check for Hue first, since it's created differently
+    if (spec == QColor.Hsv or spec == QColor.Hsl) and component == 0:
+        stops = []
+        #Hue gradient is static, so it doesn't matter if we use HSL or HSV
+        for stop in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0):
+            stops.append((stop, QColor.fromHsvF(stop, 1.0, 1.0)))
+        gradient.setStops(stops)
+    elif spec == QColor.Hsl:
+        gradient.setStops((0.0, QColor.fromHslF(*gradients[spec][component][0]), 
+                           1.0, QColor.fromHslF(*gradients[spec][component][1])))
+    elif spec == QColor.Hsv:
+        gradient.setStops((0.0, QColor.fromHsvF(*gradients[spec][component][0]), 
+                           1.0, QColor.fromHsvF(*gradients[spec][component][1])))
+    elif spec == QColor.Rgb:
+        gradient.setStops((0.0, QColor.fromRgbF(*gradients[spec][component][0]), 
+                           1.0, QColor.fromRgbF(*gradients[spec][component][1])))
+    return gradient
+
+class ColorSliderWidget(QWidget):
+    def __init__(self, 
+                 parent : QWidget = None, 
+                 orientation : Qt.Orientation = Qt.Horizontal, 
+                 spec : QColor.Spec = QColor.Rgb):
+        super().__init__(parent)
+        self._orientation = orientation
+        self._spec = spec
+        self._layout = QBoxLayout(Qt.TopToBottom if orientation == Qt.Horizontal
+                                  else Qt.LeftToRight, self)
+        self.sliders = self.__createSliders()
+        
+    def __createSliders(self) -> list:
+        pass
+        
+class HueSlider(QSlider):
+    def __init__(self, 
+                 orientation : Qt.Orientation = Qt.Horizontal, 
+                 parent : QWidget = None):
+        super().__init__(orientation, parent)
+        self._gradient = generateGradient(QColor.Hsv, 0, orientation)
+
+    #==================================================#
+    # Event Handling                                   #
+    #==================================================#
+    def paintEvent(self, pe):
+        p = QPainter(self)
+        opt = QStyleOptionSlider()
+        self.initStyleOption(opt)
+        opt.subControls |= ~QStyle.SC_SliderGroove
+        
+        center = opt.rect.center()
+        if self.orientation() == Qt.Horizontal:
+            rect = QRect(opt.rect.x() + 7, center.y() - 3, 
+                         opt.rect.width() - 14, 6)
+        else:
+            rect = QRect(center.x() - 3, opt.rect.y() + 7, 
+                         6, opt.rect.height() - 14)
+        p.setPen(QPen(Qt.black))
+        p.setBrush(QBrush(self._gradient))
+        p.drawRect(rect.adjusted(1, 1, -1, -1))
+        
+        self.style().drawComplexControl(QStyle.CC_Slider, opt, p, None)
+        p.end()
+
+    #==================================================#
+    # Reimplemented Public Methods                     #
+    #==================================================#
+    def sizeHint(self):
+        return self.minimumSizeHint()
+        
+    def minimumSizeHint(self):
+        if self.orientation() == Qt.Horizontal:
+            return QSize(200, 18) 
+        else:
+            return QSize(18, 200)
+
+    def setOrientation(self, orient):
+        super().setOrientation(orient)
+        self._gradient = generateGradient(QColor.Hsv, 0, orient)
+        self.update()
+
+class ColorSlider(): pass
+
+class ColorSlider_Old(QSlider):
     def __init__(self, 
                  spec : QColor.Spec = QColor.Rgb, 
                  channel : int = 0, 
