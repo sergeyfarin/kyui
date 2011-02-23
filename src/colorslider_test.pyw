@@ -5,7 +5,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-from Widgets.colorslider import ColorSlider
+from Widgets.colorslider import ColorSlider, HueSlider
 from Widgets.debugbox import DebugBox
 
 class Dialog(QDialog):
@@ -30,20 +30,25 @@ class Dialog(QDialog):
         self.testWidget1 = ColorSlider(Qt.Horizontal, self.testBox, 
                                        ColorSlider.Red)
         self.testWidget1.setObjectName('testWidget1')
-        self.testWidget1.setRange(0, 255)
+        self.testWidget1.setRange(0, 200)
         self.testLayout.addWidget(self.testWidget1)
         
         self.testWidget2 = ColorSlider(Qt.Horizontal, self.testBox, 
                                        ColorSlider.Green)
         self.testWidget2.setObjectName('testWidget2')
-        self.testWidget2.setRange(0, 255)
+        self.testWidget2.setRange(0, 200)
         self.testLayout.addWidget(self.testWidget2)
         
         self.testWidget3 = ColorSlider(Qt.Horizontal, self.testBox, 
                                        ColorSlider.Blue)
         self.testWidget3.setObjectName('testWidget3')
-        self.testWidget3.setRange(0, 255)
+        self.testWidget3.setRange(0, 200)
         self.testLayout.addWidget(self.testWidget3)
+        
+        self.testWidget4 = HueSlider(Qt.Horizontal, self.testBox, QColor.Hsv)
+        self.testWidget4.setObjectName('testWidget4')
+        self.testWidget4.setRange(0, 200)
+        self.testLayout.addWidget(self.testWidget4)
         
         self.layout.addWidget(self.testBox)
         
