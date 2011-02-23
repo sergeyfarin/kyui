@@ -1,5 +1,5 @@
 from PyQt4.QtCore import pyqtSignal, pyqtSlot, Qt, pyqtProperty, qWarning
-from PyQt4.QtCore import QEvent, QSize
+from PyQt4.QtCore import QEvent, QSize, QRect
 from PyQt4.QtGui import QFrame, QWidget, QPushButton, QFocusFrame
 from PyQt4.QtGui import QGridLayout, QSpacerItem, QSizePolicy
 from PyQt4.QtGui import QPainter, QStyle
@@ -249,12 +249,14 @@ class ColorFrame(QPushButton):
                  frameshape : QFrame.Shape = QFrame.Box,
                  framewidth : int = 1, 
                  margin : int = 3, 
-                 size : QSize = QSize(22, 22), 
+                 framesize : QSize = QSize(16, 16), 
                  parent : QWidget = None):
         super().__init__(parent)
         self.setAutoFillBackground(True)
         self.setForegroundRole(QPalette.WindowText)
-        self.setFixedSize(size)
+        self.setCheckable(True)
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.frameSize = framesize
         self.focusColor = QColor(focuscolor if focuscolor else Qt.blue)
         self.frameColor = QColor(framecolor if framecolor else Qt.black)
         self.color = QColor(color if color else Qt.transparent)
@@ -275,6 +277,9 @@ class ColorFrame(QPushButton):
         
     def _frameColor(self) -> QColor:
         return self.__framecolor
+        
+    def _frameSize(self) -> QSize:
+        return self.__framesize
         
     def _margin(self) -> int:
         return self.__margin
@@ -303,25 +308,45 @@ class ColorFrame(QPushButton):
     def setFrameShape(self, shape : QFrame.Shape) -> None:
         self.__shape = QFrame.Shape(shape)
         self.update()
-        
+    
+    def setFrameSize(self, size : QSize) -> None:
+        self.__framesize = QSize(size)
+        self.updateGeometry()
+    
     def setMargin(self, margin) -> None:
         self.__margin = margin
-        self.update()
+        self.updateGeometry()
+
+    #==================================================#
+    # Public Methods                                   #
+    #==================================================#
+    def sizeHint(self):
+        return self.minimumSizeHint()
     
+    def minimumSizeHint(self):
+        width = self.frameSize.width() + 2*self.margin + 2
+        height = self.frameSize.height() + 2*self.margin + 2
+        return QSize(width, height)
+
     #==================================================#
     # Private Methods                                  #
     #==================================================#
     def initStyleOption(self, opt : QStyleOptionFrameV3):
         opt.initFrom(self)
         opt.frameShape = self.frameShape
-        
-        if self.isFlat():
+        if self.margin > 0:
+            opt.rect = QRect(self.margin, self.margin, 
+                             self.frameSize.width(), 
+                             self.frameSize.height())
+        else:
+            opt.rect = self.rect()
+        if self.isFlat() and self.isCheckable():
             if self.isChecked():
                 opt.state |= QStyle.State_Sunken
                 opt.state |= QStyle.State_On
             elif self.isDown():
                 opt.state |= QStyle.State_Sunken
-        else:
+        elif not self.isFlat():
             opt.state |= QStyle.State_Sunken
         
         opt.lineWidth = 1
@@ -332,21 +357,27 @@ class ColorFrame(QPushButton):
         painter.begin(self)
         opt = QStyleOptionFrameV3()
         self.initStyleOption(opt)
-        opt.rect = self.rect().adjusted(1, 1, -1, -1)
-#        opt.rect = self.frameRect()
         if opt.state & QStyle.State_Sunken:
             pass
             
         elif opt.state & QStyle.State_MouseOver:
             pass
         painter.fillRect(opt.rect, self.color)
-        self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
+        if opt.state & QStyle.State_Sunken:
+            self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
+        elif opt.state & QStyle.State_MouseOver:
+            painter.setPen(self.focusColor)
+            painter.drawRect(opt.rect)
+        else:
+            painter.setPen(self.frameColor)
+            painter.drawRect(opt.rect)
+            
         if opt.state & QStyle.State_HasFocus:
             fropt = QStyleOptionFocusRect()
             fropt.initFrom(self)
-            fropt.rect = opt.rect.adjusted(-self.margin, -self.margin,
+            fropt.rect = opt.rect.adjusted(-self.margin, -self.margin, 
                                            self.margin, self.margin)
-            fropt.backgroundColor = opt.palette.color(QPalette.Window)
+            fropt.backgroundColor = self.color
             self.style().drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, self)
         painter.end()
         
@@ -355,6 +386,7 @@ class ColorFrame(QPushButton):
     focusColor = pyqtProperty(QColor, fget=_focusColor, fset=setFocusColor)
     frameColor = pyqtProperty(QColor, fget=_frameColor, fset=setFrameColor)
     frameShape = pyqtProperty(QFrame.Shape, fget=_frameShape, fset=setFrameShape)
+    frameSize = pyqtProperty(QSize, fget=_frameSize, fset=setFrameSize)
 
 #    def enterEvent(self, ev):
 #        self.setForegroundRole(QPalette.BrightText)
