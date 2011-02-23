@@ -241,116 +241,120 @@ class ColorPicker(QWidget):
     spacing = pyqtProperty(QSize, fget=spacing, fset=setSpacing)
     
 class ColorFrame(QPushButton):
-    #==================================================#
-    # Signals                                          #
-    #==================================================#
-    colorChanged = pyqtSignal(QColor)
     
     def __init__(self, 
                  color : QColor = None, 
                  framecolor : QColor = None, 
                  focuscolor : QColor = None, 
+                 frameshape : QFrame.Shape = QFrame.Box,
                  framewidth : int = 1, 
-                 shape : QFrame.Shape = QFrame.Box, 
+                 margin : int = 3, 
+                 size : QSize = QSize(22, 22), 
                  parent : QWidget = None):
         super().__init__(parent)
-        self.setFrameShape(shape)
         self.setAutoFillBackground(True)
         self.setForegroundRole(QPalette.WindowText)
-        self.setFocusColor(QColor(focuscolor if focuscolor else Qt.blue))
-        self.setFrameColor(QColor(framecolor if framecolor else Qt.black))
-        self._color = QColor(color if color else Qt.transparent)
-        self._updateColor()
+        self.setFixedSize(size)
+        self.focusColor = QColor(focuscolor if focuscolor else Qt.blue)
+        self.frameColor = QColor(framecolor if framecolor else Qt.black)
+        self.color = QColor(color if color else Qt.transparent)
+        self.frameShape = frameshape
+        self.margin = margin if margin else 3
 
     #==================================================#
     # Getters                                          #
     #==================================================#
-    def color(self) -> QColor:
-        return QColor(self._color)
+    def _color(self) -> QColor:
+        return self.__color
         
-    def frameShape(self):
-        return self._shape
+    def _focusColor(self) -> QColor:
+        return self.__focuscolor
+        
+    def _frameShape(self) -> QFrame.Shape:
+        return self.__shape
+        
+    def _frameColor(self) -> QColor:
+        return self.__framecolor
+        
+    def _margin(self) -> int:
+        return self.__margin
     #==================================================#
     # Setters                                          #
     #==================================================#
     @pyqtSlot(QColor)
     def setColor(self, color : QColor) -> None:
-        self._color = QColor(color)
-        self._updateColor()
-        self.colorChanged.emit(color)
+        self.__color = QColor(color)
+        self.update()
         
     def setFocusColor(self, color : QColor) -> None:
+        self.__focuscolor = QColor(color)
         pal = self.palette()
         pal.setColor(QPalette.BrightText, color)
         self.setPalette(pal)
+        self.update()
     
     def setFrameColor(self, color : QColor) -> None:
+        self.__framecolor = QColor(color)
         pal = self.palette()
         pal.setColor(QPalette.WindowText, color)
         self.setPalette(pal)
-    
-    def setFrameShape(self, shape : QFrame.Shape) -> None:
-        self._shape = QFrame.Shape(shape)
         self.update()
     
-    def setBlue(self, blue : int) -> None:
-        self._color.setBlue(blue)
-        self._updateColor()
-        self.colorChanged.emit(self._color)
+    def setFrameShape(self, shape : QFrame.Shape) -> None:
+        self.__shape = QFrame.Shape(shape)
+        self.update()
         
-    def setGreen(self, green : int) -> None:
-        self._color.setGreen(green)
-        self._updateColor()
-        self.colorChanged.emit(self._color)
-        
-    def setRed(self, red : int) -> None:
-        self._color.setRed(red)
-        self._updateColor()
-        self.colorChanged.emit(self._color)
+    def setMargin(self, margin) -> None:
+        self.__margin = margin
+        self.update()
     
     #==================================================#
     # Private Methods                                  #
     #==================================================#
-    def _updateColor(self):
-        pal = self.palette()
-        pal.setColor(QPalette.Window, self._color)
-        self.setPalette(pal)
+    def initStyleOption(self, opt : QStyleOptionFrameV3):
+        opt.initFrom(self)
+        opt.frameShape = self.frameShape
         
+        if self.isFlat():
+            if self.isChecked():
+                opt.state |= QStyle.State_Sunken
+                opt.state |= QStyle.State_On
+            elif self.isDown():
+                opt.state |= QStyle.State_Sunken
+        else:
+            opt.state |= QStyle.State_Sunken
+        
+        opt.lineWidth = 1
+        opt.midLineWidth = 0
+    
     def paintEvent(self, pe : QPaintEvent):
         painter = QPainter()
         painter.begin(self)
         opt = QStyleOptionFrameV3()
-        opt.initFrom(self)
-        opt.frameShape = self._shape
+        self.initStyleOption(opt)
         opt.rect = self.rect().adjusted(1, 1, -1, -1)
 #        opt.rect = self.frameRect()
-        
-        if self.isDown():
-            opt.state |= QStyle.State_Sunken
-        if self.isChecked():
-            opt.state |= QStyle.State_Sunken
-            opt.state |= QStyle.State_On
-        if not self.isFlat() and not self.isDown() and not self.isChecked():
-            opt.state |= QStyle.State_Raised
-        
         if opt.state & QStyle.State_Sunken:
-            opt.lineWidth = 1
-            opt.midLineWidth = 0
+            pass
+            
         elif opt.state & QStyle.State_MouseOver:
-            opt.lineWidth = 2
-            opt.midLineWidth = 0
-        else:
-            opt.lineWidth = 1
-            opt.midLineWidth = 0
-        painter.fillRect(opt.rect, self._color)
+            pass
+        painter.fillRect(opt.rect, self.color)
         self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
         if opt.state & QStyle.State_HasFocus:
             fropt = QStyleOptionFocusRect()
             fropt.initFrom(self)
-            fropt.rect = opt.rect.adjusted(-1, -1, 1, 1)
+            fropt.rect = opt.rect.adjusted(-self.margin, -self.margin,
+                                           self.margin, self.margin)
             fropt.backgroundColor = opt.palette.color(QPalette.Window)
             self.style().drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, self)
         painter.end()
+        
+    color = pyqtProperty(QColor, fget=_color, fset=setColor)
+    margin = pyqtProperty(int, fget=_margin, fset=setMargin)
+    focusColor = pyqtProperty(QColor, fget=_focusColor, fset=setFocusColor)
+    frameColor = pyqtProperty(QColor, fget=_frameColor, fset=setFrameColor)
+    frameShape = pyqtProperty(QFrame.Shape, fget=_frameShape, fset=setFrameShape)
 
 #    def enterEvent(self, ev):
 #        self.setForegroundRole(QPalette.BrightText)

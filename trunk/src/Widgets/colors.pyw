@@ -1,5 +1,5 @@
 #UTF-8
-#colors
+#colors.pyw
 
 # Values are in ARGB format
 
