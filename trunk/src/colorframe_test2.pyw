@@ -26,16 +26,16 @@ class Dialog(QDialog):
         
         self.testWidget = ColorFrame(parent=self, 
                                      color = QColor(Qt.white), 
-                                     focuscolor = QColor(Qt.blue), 
-                                     framecolor = QColor(Qt.gray), 
-                                     frameshape = QFrame.Panel, 
-                                     framewidth = 1, 
-                                     margin = 3, 
-                                     framesize = QSize(22, 22))
+                                     hoverColor = QColor(Qt.blue), 
+                                     frameColor = QColor(Qt.gray), 
+                                     shape = QFrame.StyledPanel, 
+                                     flat = True, 
+                                     margin = 2, 
+                                     boxSize = QSize(22, 22))
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setFocusPolicy(Qt.StrongFocus)
-        self.testWidget.setFlat(True)
-        self.testWidget.setCheckable(True)
+#        self.testWidget.setFlat(True)
+#        self.testWidget.setCheckable(True)
         self.layout.addWidget(self.testWidget)
         
         self.settingsBox = QGroupBox(self)
@@ -199,7 +199,7 @@ class Dialog(QDialog):
         self.testWidget.margin = self.marginBox.value()
     
     def sizeChanged(self, index : int):
-        self.testWidget.setFrameSize(self.sizeBox.itemData(index, Qt.UserRole))
+        self.testWidget.boxSize = self.sizeBox.itemData(index, Qt.UserRole)
     
     def focusColorChanged(self, index : int):
         self.testWidget.focusColor = self.focusColorBox.itemData(index, Qt.UserRole)
@@ -211,7 +211,7 @@ class Dialog(QDialog):
         self.testWidget.color = self.sampleColorBox.itemData(index, Qt.UserRole)
         
     def shapeChanged(self, index : int):
-        self.testWidget.frameShape = self.shapeBox.itemData(index, Qt.UserRole)
+        self.testWidget.setFrameShape(self.shapeBox.itemData(index, Qt.UserRole))
         
     def flatToggled(self, flat : bool):
         self.testWidget.setFlat(flat)
