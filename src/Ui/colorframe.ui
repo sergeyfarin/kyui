@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>230</width>
+    <width>242</width>
     <height>398</height>
    </rect>
   </property>
@@ -37,7 +37,7 @@
       <property name="title">
        <string>&amp;Options</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -60,7 +60,7 @@
         <item row="0" column="1">
          <widget class="QComboBox" name="sizeBox">
           <property name="currentIndex">
-           <number>4</number>
+           <number>3</number>
           </property>
           <item>
            <property name="text">
@@ -107,7 +107,7 @@
         <item row="1" column="1">
          <widget class="QComboBox" name="shapeBox">
           <property name="currentIndex">
-           <number>1</number>
+           <number>3</number>
           </property>
           <item>
            <property name="text">
@@ -148,6 +148,9 @@
         </item>
         <item row="2" column="1">
          <widget class="QComboBox" name="gridBox">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
           <item>
            <property name="text">
             <string>Black</string>
@@ -155,7 +158,17 @@
           </item>
           <item>
            <property name="text">
+            <string>Blue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
             <string>Gold</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gray</string>
            </property>
           </item>
           <item>
@@ -171,6 +184,11 @@
           <item>
            <property name="text">
             <string>White</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Yellow</string>
            </property>
           </item>
          </widget>
@@ -226,6 +244,9 @@
         </item>
         <item row="4" column="1">
          <widget class="QComboBox" name="gridBox_3">
+          <property name="currentIndex">
+           <number>4</number>
+          </property>
           <item>
            <property name="text">
             <string>Black</string>
@@ -266,13 +287,13 @@
         <item row="5" column="1">
          <widget class="QSpinBox" name="spacingHBox">
           <property name="minimum">
-           <number>-6</number>
+           <number>0</number>
           </property>
           <property name="maximum">
            <number>6</number>
           </property>
           <property name="value">
-           <number>3</number>
+           <number>2</number>
           </property>
          </widget>
         </item>
