@@ -81,10 +81,10 @@ class ColorFrame(QFrame):
         qWarning('ColorFrame: use flat property instead of frameShadow.')
 
     def _frameColor(self) -> QColor:
-        return self.__framecolor
+        return self.palette().color(QPalette.WindowText)
     
     def _hoverColor(self) -> QColor:
-        return self.__hovercolor
+        return self.palette().color(QPalette.Highlight)
     
     def _margin(self) -> int:
         return self.__margin
@@ -104,18 +104,22 @@ class ColorFrame(QFrame):
         super().setFrameShadow(QFrame.Plain if flat else QFrame.Sunken)
 
     def setHoverColor(self, color : QColor) -> None:
-        self.__hovercolor = QColor(color)
-        self.update()
+        pal = self.palette()
+        pal.setColor(QPalette.Highlight, color)
+        self.setPalette(pal)
     
     def setFrameColor(self, color : QColor) -> None:
-        self.__framecolor = QColor(color)
-        self.update()
+        pal = self.palette()
+        pal.setColor(QPalette.WindowText, color)
+        self.setPalette(pal)
 
     def setFrameShadow(self, shadow):
         qWarning('ColorFrame: use flat property instead of frameShadow.')
 
-    def setMargin(self, margin : int):
+    def setMargin(self, margin : int) -> None:
         self.__margin = margin if margin > 0 else 0
+        rect = self.rect().adjusted(-margin, -margin, -margin, -margin)
+        self.setFrameRect(rect)
         self.update()
 
     #==================================================#
@@ -139,20 +143,9 @@ class ColorFrame(QFrame):
         
         opt.lineWidth = self.lineWidth()
         opt.midLineWidth = self.midLineWidth()
-#        if self.margin > 0:
-#            opt.rect = QRect(self.margin, self.margin, 
-#                             self.frameSize.width(), 
-#                             self.frameSize.height())
-#        else:
         opt.rect = self.frameRect()
-#        if self.isFlat() and self.isCheckable():
-#            if self.isChecked():
-#                opt.state |= QStyle.State_Sunken
-#                opt.state |= QStyle.State_On
-#            elif self.isDown():
-#                opt.state |= QStyle.State_Sunken
-#        elif not self.isFlat():
-#            opt.state |= QStyle.State_Sunken
+        if not self.flat:
+            opt.state |= QStyle.State_Sunken
     
     
     def paintEvent(self, pe : QPaintEvent):
@@ -165,15 +158,14 @@ class ColorFrame(QFrame):
             
         elif opt.state & QStyle.State_MouseOver:
             pass
-        painter.fillRect(opt.rect, self.color)
-        if opt.state & QStyle.State_Sunken:
-            self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
-        elif opt.state & QStyle.State_MouseOver:
-            painter.setPen(self.hoverColor)
-            painter.drawRect(opt.rect)
-        else:
-            painter.setPen(self.frameColor)
-            painter.drawRect(opt.rect)
+#        painter.fillRect(opt.rect, self.color)
+        self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
+#        elif opt.state & QStyle.State_MouseOver:
+#            painter.setPen(self.hoverColor)
+#            painter.drawRect(opt.rect)
+#        else:
+#            painter.setPen(self.frameColor)
+#            painter.drawRect(opt.rect)
             
         if opt.state & QStyle.State_HasFocus:
             fropt = QStyleOptionFocusRect()
@@ -182,6 +174,14 @@ class ColorFrame(QFrame):
             fropt.backgroundColor = self.color
             self.style().drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, self)
         painter.end()
+
+    def enterEvent(self, ev):
+        super().enterEvent(ev)
+        self.setForegroundRole(QPalette.Highlight)
+        
+    def leaveEvent(self, ev):
+        super().enterEvent(ev)
+        self.setForegroundRole(QPalette.WindowText)
 
     #==================================================#
     # Properties                                       #
