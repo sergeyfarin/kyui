@@ -4,20 +4,6 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-OrangeFrame = QColor(242, 148, 54)
-OrangeHighlight = QColor(255, 226, 148)
-
-#FrameStyle = namedtuple('FrameStyle', ['shape color highlight margin size'])
-#
-#class FrameStyle():
-#    __slots__ = ['__shape', '__size', '__color', '__margin', '__highlight']
-#    def __init__(self):
-#        self.__shape = None
-#        self.__size = QSize()
-#        self.__highlight = QColor()
-#        self.__color = QColor()
-#        self.__margin = 0
-
 class ColorPicker(QWidget):
     #==================================================#
     # Signals                                          #
@@ -27,31 +13,103 @@ class ColorPicker(QWidget):
 
     def __init__(self, 
                  parent : QWidget = None, 
-                 gridsize : QSize = None, 
+                 gridsize : QSize = None,  
                  hovercolor : QColor = None, 
                  framecolor : QColor = None, 
-                 frameshape : QFrame.Shape = QFrame.Box, 
-                 margin : int = 2):
+                 shape : QFrame.Shape = QFrame.StyledPanel, 
+                 boxSize : QSize = QSize(22, 22), 
+                 margin : int = 2, 
+                 flat = True):
         super().__init__(parent)
-        self.__layout = QGridLayout(self)
-        self._layout.setHorizontalSpacing(spacing.width() if spacing else 1)
-        self._layout.setVerticalSpacing(spacing.height() if spacing else 1)
-        self.gridsize = gridsize if gridsize else QSize(1, 1)
+        self._grid = []
         
-    def _gridsize(self) -> QSize:
-        return self.__gridsize
+    def __initGrid(self, size):
+        if len(self._grid) != 0:
+            for row in iter(self._grid):
+                for widget in iter(row):
+                    widget.setParent(None)
+                    del widget
+                row = []
+            self._grid = []
+        for row in range(size.height()):
+            self._grid.append([])
+            for column in range(size.width()):
+                self._grid[row].append(ColorFrame(parent=self, 
+                                                  color=Qt.transparent, 
+                                                  hoverColor=self.hoverColor, 
+                                                  frameColor=self.frameColor, 
+                                                  shape=self.frameShape, 
+                                                  margin=self.margin, 
+                                                  boxSize=self.boxSize, 
+                                                  flat=self.flat))
+
+    #==================================================#
+    # Getters                                          #
+    #==================================================#
+    def _boxSize(self) -> QSize:
+        return self.__boxSize
+    
+    def _flat(self) -> bool:
+        return self.__flat == True
+    
+    def _hoverColor(self) -> QColor:
+        return self.__hoverColor
         
-    def setGridSize(self, size):
-        self.__gridsize = size
-        while self._layout.count() != 0:
-            item = self._layout.takeAt(0)
-            widget = item.widget()
-            del item
-        for widget in self.frames:
-            widget.setParent(None)
-            del widget
-        for (row, column) in range(size.width()), range(size.height()):
-            pass
+    def _frameColor(self) -> QColor:
+        return self.__frameColor
+        
+    def _frameShape(self) -> QFrame.Shape:
+        return self.__frameShape
+    
+    def _gridSize(self) -> QSize:
+        return QSize(len(self._grid[0]), len(self._grid))
+    
+    def _margin(self) -> int:
+        return self.__margin
+
+    #==================================================#
+    # Setters                                          #
+    #==================================================#
+    def setBoxSize(self, size : QSize):
+        self.__boxSize = QSize(size)
+        for row, column in range(self.gridsize.height()), range(self.gridsize.width()):
+            self._grid[row][column].boxSize = self.__boxSize
+            
+    def setFlat(self, flat : bool):
+        self.__flat = flat == True
+        for row, column in range(self.gridsize.height()), range(self.gridsize.width()):
+            self._grid[row][column].flat = self.__flat
+    
+    def setFrameColor(self, color : QColor):
+        self.__frameColor = QColor(color)
+        for row, column in range(self.gridsize.height()), range(self.gridsize.width()):
+            self._grid[row][column].frameColor = self.__frameColor
+    
+    def setFrameShape(self, shape : QFrame.Shape):
+        self.__shape = QFrame.Shape(shape)
+        for row, column in range(self.gridsize.height()), range(self.gridsize.width()):
+            self._grid[row][column].frameShape = self.__frameShape
+            
+    def setHoverColor(self, color : QColor):
+        self.__hoverColor = QColor(color)
+        for row, column in range(self.gridsize.height()), range(self.gridsize.width()):
+            self._grid[row][column].hoverColor = self.__hoverColor
+    
+    def setGridSize(self, size : QSize):
+        self.__initGrid(size)
+        
+    def setMargin(self, margin : int):
+        self.__margin = margin
+        for row, column in range(self.gridsize.height()), range(self.gridsize.width()):
+            self._grid[row][column].margin = margin
+
+    boxSize = pyqtProperty(QSize, fget=_boxSize, fset=setBoxSize)
+    flat = pyqtProperty(bool, fget=_flat, fset=setFlat)
+    frameColor = pyqtProperty(QColor, fget=_frameColor, fset=setFrameColor)
+    frameShape = pyqtProperty(QFrame.Shape, fget=_frameShape, fset=setFrameShape)
+    gridSize = pyqtProperty(QSize, fget=_gridSize, fset=setGridSize)
+    hoverColor = pyqtProperty(QColor, fget=_hoverColor, fset=setHoverColor)
+    margin = pyqtProperty(int, fget=_margin, fset=setMargin)
 
 class ColorFrame(QFrame):
     #==================================================#
