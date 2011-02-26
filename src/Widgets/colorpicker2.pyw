@@ -18,28 +18,40 @@ OrangeHighlight = QColor(255, 226, 148)
 #        self.__color = QColor()
 #        self.__margin = 0
 
-#class ColorPicker(QWidget):
-#    #==================================================#
-#    # Signals                                          #
-#    #==================================================#
-#    currentColorChanged = pyqtSignal([QColor], [int, int])
-#    colorHovered = pyqtSignal([QColor], [int, int])
-#
-#    def __init__(self, 
-#                 parent : QWidget = None, 
-#                 boxsize : QSize = None, 
-#                 colordata : ColorData = None, 
-#                 focuscolor : QColor = None, 
-#                 framecolor : QColor = None, 
-#                 framewidth : int = None, 
-#                 frameshape : QFrame.Shape = QFrame.Box, 
-#                 spacing : QSize = None):
-#        super().__init__(parent)
-#        self.__layout = QGridLayout(self)
-#        self.__btnGrp = QButtonGroup(self)
-#        self.__btnGrp.setExclusive(True)
-#        self._layout.setHorizontalSpacing(spacing.width() if spacing else 1)
-#        self._layout.setVerticalSpacing(spacing.height() if spacing else 1)
+class ColorPicker(QWidget):
+    #==================================================#
+    # Signals                                          #
+    #==================================================#
+    currentColorChanged = pyqtSignal([QColor], [int, int])
+    colorHovered = pyqtSignal([QColor], [int, int])
+
+    def __init__(self, 
+                 parent : QWidget = None, 
+                 gridsize : QSize = None, 
+                 hovercolor : QColor = None, 
+                 framecolor : QColor = None, 
+                 frameshape : QFrame.Shape = QFrame.Box, 
+                 margin : int = 2):
+        super().__init__(parent)
+        self.__layout = QGridLayout(self)
+        self._layout.setHorizontalSpacing(spacing.width() if spacing else 1)
+        self._layout.setVerticalSpacing(spacing.height() if spacing else 1)
+        self.gridsize = gridsize if gridsize else QSize(1, 1)
+        
+    def _gridsize(self) -> QSize:
+        return self.__gridsize
+        
+    def setGridSize(self, size):
+        self.__gridsize = size
+        while self._layout.count() != 0:
+            item = self._layout.takeAt(0)
+            widget = item.widget()
+            del item
+        for widget in self.frames:
+            widget.setParent(None)
+            del widget
+        for (row, column) in range(size.width()), range(size.height()):
+            pass
 
 class ColorFrame(QFrame):
     #==================================================#
@@ -48,7 +60,7 @@ class ColorFrame(QFrame):
     
     def __init__(self, 
                  parent : QWidget = None, 
-                 color : QColor = Qt.white, 
+                 color : QColor = Qt.transparent, 
                  frameColor : QColor = Qt.black, 
                  hoverColor : QColor = Qt.blue, 
                  margin : QSize = 2, 
@@ -61,7 +73,7 @@ class ColorFrame(QFrame):
         self.frameColor = frameColor
         self.hoverColor = hoverColor
         self.flat = flat
-        self.shape = shape
+        self.setFrameShape(shape)
         self.margin = margin
         self.boxSize = boxSize
 
@@ -94,6 +106,8 @@ class ColorFrame(QFrame):
     #==================================================#
     def setBoxSize(self, size : QSize):
         self.__boxsize = QSize(size)
+        self.updateGeometry()
+        self.update()
     
     @pyqtSlot(QColor)
     def setColor(self, color : QColor):
@@ -117,9 +131,7 @@ class ColorFrame(QFrame):
         qWarning('ColorFrame: use flat property instead of frameShadow.')
 
     def setMargin(self, margin : int) -> None:
-        self.__margin = margin if margin > 0 else 0
-        rect = self.rect().adjusted(-margin, -margin, -margin, -margin)
-        self.setFrameRect(rect)
+        self.__margin = margin if margin > 1 else 1
         self.update()
 
     #==================================================#
@@ -129,50 +141,46 @@ class ColorFrame(QFrame):
         return self.minimumSizeHint()
     
     def minimumSizeHint(self):
-        width = self.boxSize.width() + (2 * self.margin) + 2
-        height = self.boxSize.height() + (2 * self.margin) + 2
-        return QSize(width, height)
+        return QSize(self.boxSize.width(), self.boxSize.height())
 
     #==================================================#
     # Private Methods                                  #
     #==================================================#
-    def initStyleOption(self, opt : QStyleOptionFrameV3):
-        opt.initFrom(self)
-        opt.frameShape = super().frameShape()
-        opt.frameShadow = QFrame.Plain if self.flat else QFrame.Sunken
-        
-        opt.lineWidth = self.lineWidth()
-        opt.midLineWidth = self.midLineWidth()
-        opt.rect = self.frameRect()
-        if not self.flat:
-            opt.state |= QStyle.State_Sunken
-    
-    
     def paintEvent(self, pe : QPaintEvent):
         painter = QPainter()
         painter.begin(self)
         opt = QStyleOptionFrameV3()
-        self.initStyleOption(opt)
-        if opt.state & QStyle.State_Sunken:
-            pass
-            
-        elif opt.state & QStyle.State_MouseOver:
-            pass
-#        painter.fillRect(opt.rect, self.color)
-        self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
-#        elif opt.state & QStyle.State_MouseOver:
-#            painter.setPen(self.hoverColor)
-#            painter.drawRect(opt.rect)
-#        else:
-#            painter.setPen(self.frameColor)
-#            painter.drawRect(opt.rect)
-            
-        if opt.state & QStyle.State_HasFocus:
-            fropt = QStyleOptionFocusRect()
-            fropt.initFrom(self)
-            fropt.rect = self.rect()
-            fropt.backgroundColor = self.color
-            self.style().drawPrimitive(QStyle.PE_FrameFocusRect, fropt, painter, self)
+        opt.initFrom(self)
+        opt.frameShape = self.frameShape()
+        
+        opt.lineWidth = 1
+        opt.midLineWidth = 0
+        
+        outerRect = self.rect().adjusted(0, 0, -1, -1)
+        innerRect = opt.rect.adjusted(self.margin, self.margin, 
+                                      -self.margin, -self.margin)
+        if not self.flat:
+            opt.state |= QStyle.State_Sunken
+            opt.rect = innerRect
+            painter.fillRect(innerRect, self.color)
+            self.style().drawControl(QStyle.CE_ShapedFrame, opt, painter, self)
+            if opt.state & QStyle.State_HasFocus:
+                fropt = QStyleOptionFocusRect()
+                fropt.initFrom(self)
+                fropt.rect = outerRect
+                fropt.backgroundColor = QColor(Qt.white)
+                self.style().drawPrimitive(QStyle.PE_FrameFocusRect, 
+                                           fropt, painter, self)
+        else:
+            if opt.state & QStyle.State_MouseOver:
+                painter.setPen(self.hoverColor)
+                fill = QColor(self.hoverColor)
+                fill.setAlpha(63)
+                painter.setBrush(fill)
+            else:
+                painter.setPen(self.frameColor)
+            painter.drawRect(outerRect)
+            painter.fillRect(innerRect, self.color)
         painter.end()
 
     def enterEvent(self, ev):
