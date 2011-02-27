@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>284</width>
-    <height>333</height>
+    <width>283</width>
+    <height>430</height>
    </rect>
   </property>
   <property name="font">
@@ -24,56 +24,80 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>258</width>
-     <height>311</height>
+     <width>261</width>
+     <height>411</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,3,0">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3,1,0">
     <item>
-     <widget class="QFrame" name="frame">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
+     <widget class="QWidget" name="testWidget" native="true"/>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="settingsBox">
       <property name="title">
        <string>&amp;Options</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>30</y>
-         <width>242</width>
-         <height>131</height>
+         <x>10</x>
+         <y>20</y>
+         <width>239</width>
+         <height>191</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
         <item row="0" column="0">
+         <widget class="QLabel" name="gridLabel">
+          <property name="text">
+           <string>Color &amp;Grid</string>
+          </property>
+          <property name="buddy">
+           <cstring>hoverColorBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="gridBox">
+          <item>
+           <property name="text">
+            <string>Acrobat 8</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Firefox</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Word 2007 Font Highlight</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Word 2007 Font Color</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QLabel" name="sizeLabel">
           <property name="text">
-           <string>&amp;Button Size</string>
+           <string>Frame Si&amp;ze</string>
           </property>
           <property name="buddy">
            <cstring>sizeBox</cstring>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="QComboBox" name="sizeBox">
           <property name="currentIndex">
-           <number>4</number>
+           <number>3</number>
           </property>
           <item>
            <property name="text">
@@ -107,20 +131,20 @@
           </item>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="shapeLabel">
           <property name="text">
-           <string>Button S&amp;hape</string>
+           <string>Frame Sha&amp;pe</string>
           </property>
           <property name="buddy">
            <cstring>shapeBox</cstring>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="2" column="1">
          <widget class="QComboBox" name="shapeBox">
           <property name="currentIndex">
-           <number>1</number>
+           <number>3</number>
           </property>
           <item>
            <property name="text">
@@ -149,82 +173,163 @@
           </item>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="gridLabel">
-          <property name="text">
-           <string>Color &amp;Grid</string>
-          </property>
-          <property name="buddy">
-           <cstring>gridBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QComboBox" name="gridBox">
-          <item>
-           <property name="text">
-            <string>Acrobat 8</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Firefox</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Word 2007 Font Highlight</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Word 2007 Font Color</string>
-           </property>
-          </item>
-         </widget>
-        </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="spacingLabel">
+         <widget class="QLabel" name="hoverColorLabel">
           <property name="text">
-           <string>&amp;Spacing:</string>
+           <string>&amp;Hover Color</string>
           </property>
           <property name="buddy">
-           <cstring>spacingHBox</cstring>
+           <cstring>hoverColorBox</cstring>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QSpinBox" name="spacingHBox">
-          <property name="prefix">
-           <string>Width: </string>
+         <widget class="QComboBox" name="hoverColorBox">
+          <property name="currentIndex">
+           <number>0</number>
           </property>
-          <property name="maximum">
-           <number>10</number>
+          <item>
+           <property name="text">
+            <string>Black</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Blue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gold</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gray</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Orange</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Red</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>White</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Yellow</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="frameColorLabel">
+          <property name="text">
+           <string>F&amp;rame Color</string>
           </property>
-          <property name="value">
-           <number>3</number>
+          <property name="buddy">
+           <cstring>hoverColorBox</cstring>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QSpinBox" name="spacingVBox">
-          <property name="prefix">
-           <string>Height: </string>
+         <widget class="QComboBox" name="frameColorBox">
+          <item>
+           <property name="text">
+            <string>Black</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Blue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gray</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gold</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Orange</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Red</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>White</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Yellow</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="marginLabel">
+          <property name="text">
+           <string>&amp;Margin</string>
           </property>
+          <property name="buddy">
+           <cstring>marginBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QSpinBox" name="marginBox">
           <property name="minimum">
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>10</number>
+           <number>6</number>
           </property>
           <property name="value">
-           <number>3</number>
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QCheckBox" name="flatBox">
+          <property name="text">
+           <string>&amp;Flat Frame</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
      </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="debugBox"/>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton">
@@ -243,22 +348,5 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>319</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>283</x>
-     <y>375</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
