@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>242</width>
-    <height>398</height>
+    <width>289</width>
+    <height>429</height>
    </rect>
   </property>
   <property name="font">
@@ -24,8 +24,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>211</width>
-     <height>371</height>
+     <width>271</width>
+     <height>411</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3,1,0">
@@ -42,11 +42,14 @@
         <rect>
          <x>10</x>
          <y>20</y>
-         <width>191</width>
-         <height>161</height>
+         <width>211</width>
+         <height>191</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
         <item row="0" column="0">
          <widget class="QLabel" name="sizeLabel">
           <property name="text">
@@ -97,7 +100,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="shapeLabel">
           <property name="text">
-           <string>Frame S&amp;hape</string>
+           <string>Frame Sha&amp;pe</string>
           </property>
           <property name="buddy">
            <cstring>shapeBox</cstring>
@@ -137,17 +140,17 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="gridLabel">
+         <widget class="QLabel" name="hoverColorLabel">
           <property name="text">
-           <string>Fo&amp;cus Color</string>
+           <string>&amp;Hover Color</string>
           </property>
           <property name="buddy">
-           <cstring>gridBox</cstring>
+           <cstring>hoverColorBox</cstring>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="gridBox">
+         <widget class="QComboBox" name="hoverColorBox">
           <property name="currentIndex">
            <number>1</number>
           </property>
@@ -194,17 +197,17 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="gridLabel_2">
+         <widget class="QLabel" name="frameColorLabel">
           <property name="text">
            <string>F&amp;rame Color</string>
           </property>
           <property name="buddy">
-           <cstring>gridBox</cstring>
+           <cstring>hoverColorBox</cstring>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QComboBox" name="gridBox_2">
+         <widget class="QComboBox" name="frameColorBox">
           <item>
            <property name="text">
             <string>Black</string>
@@ -233,17 +236,17 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="gridLabel_3">
+         <widget class="QLabel" name="sampleLabel">
           <property name="text">
-           <string>&amp;Sample Color</string>
+           <string>F&amp;rame Color</string>
           </property>
           <property name="buddy">
-           <cstring>gridBox</cstring>
+           <cstring>hoverColorBox</cstring>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QComboBox" name="gridBox_3">
+         <widget class="QComboBox" name="sampleBox">
           <property name="currentIndex">
            <number>4</number>
           </property>
@@ -275,17 +278,17 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QLabel" name="spacingLabel">
+         <widget class="QLabel" name="marginLabel">
           <property name="text">
            <string>&amp;Margin</string>
           </property>
           <property name="buddy">
-           <cstring>spacingHBox</cstring>
+           <cstring>marginBox</cstring>
           </property>
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QSpinBox" name="spacingHBox">
+         <widget class="QSpinBox" name="marginBox">
           <property name="minimum">
            <number>0</number>
           </property>
@@ -294,6 +297,13 @@
           </property>
           <property name="value">
            <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QCheckBox" name="flatBox">
+          <property name="text">
+           <string>&amp;Flat Frame</string>
           </property>
          </widget>
         </item>
