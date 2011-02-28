@@ -36,8 +36,7 @@ class Dialog(QDialog):
                                      spacing = QSize(3, 3))
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-#        self.testWidget.setContentsMargins(3, 3, 3, 3)
-        self.testWidget.setFocusPolicy(Qt.StrongFocus)
+        
         self.layout.addWidget(self.testWidget)
         
         self.settingsBox = QGroupBox(self)
