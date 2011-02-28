@@ -1,7 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from sliderspinboxwidget import SliderSpinBoxWidget
+from Widgets.sliderspinboxwidget import SliderSpinBoxWidget
 
 class Defaults():
     __slots__ = ['label', 'min', 'max', 'pagestep', 'singlestep', 

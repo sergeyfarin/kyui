@@ -144,6 +144,9 @@ class ColorFrame(QFrame):
     def leaveEvent(self, ev):
         super().enterEvent(ev)
         self.setForegroundRole(QPalette.WindowText)
+        
+    def mouseReleaseEvent(self, ev):
+        super().mouseReleaseEvent(ev)
 
     #==================================================#
     # Properties                                       #
@@ -173,6 +176,7 @@ class ColorPicker(QWidget):
                  flat : bool = True, 
                  spacing : QSize = QSize(2, 2)):
         super().__init__(parent)
+        self.setFocusPolicy(Qt.StrongFocus)
         self._grid = []
         
         self.spacing = spacing
@@ -207,6 +211,9 @@ class ColorPicker(QWidget):
         self.updateGeometry()
         self.update()
 
+    #==================================================#
+    # Reimplemented Public Methods                     #
+    #==================================================#
     def sizeHint(self) -> QSize:
         return self.minimumSizeHint()
         
@@ -219,7 +226,10 @@ class ColorPicker(QWidget):
         width = left + right + xspacing + self.boxSize.width() * columns
         height = top + bottom + yspacing + self.boxSize.height() * rows
         return QSize(width, height)
-        
+
+    #==================================================#
+    # Reimplemented Private Methods                    #
+    #==================================================#
     def resizeEvent(self, ev):
         (left, top, right, bottom) = self.getContentsMargins()
         rect = self.rect()
@@ -234,10 +244,6 @@ class ColorPicker(QWidget):
             ypad = self.spacing.height()
         x = rect.x() + left + xpad
         y = rect.y() + top + ypad
-#        print('Rect({}, {}, {}, {})'.format(rect.x(), rect.y(), rect.width(), rect.height()))
-#        print('xpad: {}'.format(xpad))
-#        print('ypad: {}'.format(ypad))
-#        print('SizeHint({}, {})'.format(self.sizeHint().width(), self.sizeHint().height()))
         width = self.boxSize.width()
         height = self.boxSize.height()
         for row in range(self.rowCount()):
@@ -246,7 +252,10 @@ class ColorPicker(QWidget):
                 x += xpad + width
             y += ypad + height
             x = rect.x() + left + xpad
-        
+    
+    def keyPressEvent(self, ev):
+        super().keyPressEvent(ev)
+
     #==================================================#
     # Getters                                          #
     #==================================================#
@@ -344,6 +353,9 @@ class ColorPicker(QWidget):
         self.__spacing = QSize(spacing)
         self.updateGeometry()
 
+    #==================================================#
+    # Properties                                       #
+    #==================================================#
     boxSize = pyqtProperty(QSize, fget=getBoxSize, fset=setBoxSize)
     flat = pyqtProperty(bool, fget=getFlat, fset=setFlat)
     frameColor = pyqtProperty(QColor, fget=getFrameColor, fset=setFrameColor)
