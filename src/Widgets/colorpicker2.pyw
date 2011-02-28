@@ -20,6 +20,7 @@ class ColorFrame(QFrame):
                  shape : QFrame.Shape = QFrame.StyledPanel):
         super().__init__(parent)
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.setFocusPolicy(Qt.StrongFocus)
         self.color = color
         self.frameColor = frameColor
         self.hoverColor = hoverColor
@@ -57,8 +58,7 @@ class ColorFrame(QFrame):
     #==================================================#
     def setBoxSize(self, size : QSize):
         self.__boxsize = QSize(size)
-        self.updateGeometry()
-        self.update()
+        self.setFixedSize(size)
     
     @pyqtSlot(QColor)
     def setColor(self, color : QColor):
@@ -92,7 +92,7 @@ class ColorFrame(QFrame):
         return self.minimumSizeHint()
     
     def minimumSizeHint(self):
-        return QSize(self.boxSize.width(), self.boxSize.height())
+        return QSize(self.boxSize)
 
     #==================================================#
     # Private Methods                                  #
@@ -123,15 +123,18 @@ class ColorFrame(QFrame):
                 self.style().drawPrimitive(QStyle.PE_FrameFocusRect, 
                                            fropt, painter, self)
         else:
-            if opt.state & QStyle.State_MouseOver:
+            if opt.state & QStyle.State_MouseOver or opt.state & QStyle.State_HasFocus:
                 painter.setPen(self.hoverColor)
                 fill = QColor(self.hoverColor)
                 fill.setAlpha(63)
                 painter.setBrush(fill)
             else:
                 painter.setPen(self.frameColor)
-            painter.drawRect(outerRect)
-            painter.fillRect(innerRect, self.color)
+            if opt.frameShape == QFrame.NoFrame:
+                painter.fillRect(self.rect(), self.color)
+            else:
+                painter.drawRect(outerRect)
+                painter.fillRect(innerRect, self.color)
         painter.end()
 
     def enterEvent(self, ev):
@@ -171,6 +174,7 @@ class ColorPicker(QWidget):
                  spacing : QSize = QSize(2, 2)):
         super().__init__(parent)
         self._grid = []
+        
         self.spacing = spacing
         self.__hoverColor = hoverColor if hoverColor else QColor(Qt.blue)
         self.__frameColor = frameColor if frameColor else QColor(Qt.gray)
@@ -180,14 +184,13 @@ class ColorPicker(QWidget):
         self.__flat = flat
         self.__initGrid(gridSize if gridSize else QSize(2, 2))
         
-        
     def __initGrid(self, size):
-        if len(self._grid) != 0:
+        if self._grid != []:
             for row in iter(self._grid):
-                for widget in iter(row):
+                while len(row) != 0:
+                    widget = row.pop()
                     widget.setParent(None)
                     del widget
-                row = []
             self._grid = []
         for row in range(size.height()):
             self._grid.append([])
@@ -200,6 +203,10 @@ class ColorPicker(QWidget):
                                                   margin=self.margin, 
                                                   boxSize=self.boxSize, 
                                                   flat=self.flat))
+                self._grid[row][column].show()
+        self.updateGeometry()
+        self.update()
+
     def sizeHint(self) -> QSize:
         return self.minimumSizeHint()
         
@@ -209,17 +216,28 @@ class ColorPicker(QWidget):
         rows = self.rowCount()
         xspacing = columns * self.spacing.width()
         yspacing = rows * self.spacing.height()
-        width = left + right + xspacing + self.boxSize.width() * rows
-        height = top + bottom + yspacing + self.boxSize.height() * columns
+        width = left + right + xspacing + self.boxSize.width() * columns
+        height = top + bottom + yspacing + self.boxSize.height() * rows
         return QSize(width, height)
         
     def resizeEvent(self, ev):
         (left, top, right, bottom) = self.getContentsMargins()
         rect = self.rect()
-        xpad = (rect.width() - self.sizeHint().width()) / (self.columnCount() + 1)
-        ypad = (rect.height() - self.sizeHint().height()) / (self.rowCount() + 1)
+
+        if rect.width() > self.sizeHint().width():
+            xpad = (rect.width() - self.sizeHint().width()) / (self.columnCount() + 1)
+        else:
+            xpad = self.spacing.width()
+        if rect.height() > self.sizeHint().height():
+            ypad = (rect.height() - self.sizeHint().height()) / (self.rowCount() + 1)
+        else:
+            ypad = self.spacing.height()
         x = rect.x() + left + xpad
         y = rect.y() + top + ypad
+#        print('Rect({}, {}, {}, {})'.format(rect.x(), rect.y(), rect.width(), rect.height()))
+#        print('xpad: {}'.format(xpad))
+#        print('ypad: {}'.format(ypad))
+#        print('SizeHint({}, {})'.format(self.sizeHint().width(), self.sizeHint().height()))
         width = self.boxSize.width()
         height = self.boxSize.height()
         for row in range(self.rowCount()):
@@ -247,6 +265,7 @@ class ColorPicker(QWidget):
     def index(self, row, column) -> ColorFrame:
         if row < self.rowCount() and column < self.columnCount():
             return self._grid[row][column]
+        qWarning('Index not found')
         return None
     #==================================================#
     # Setters                                          #
