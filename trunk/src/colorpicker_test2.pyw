@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 import sys
 
 from Widgets.colorpicker2 import ColorPicker#, ColorFrame
+from Widgets.colors import WordFontHighlightColors, AcrobatColors, FirefoxColors
 
 def createColorIcon(color, size) -> QIcon:
     pixmap = QPixmap(size)
@@ -35,7 +36,7 @@ class Dialog(QDialog):
                                      spacing = QSize(3, 3))
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.testWidget.setContentsMargins(3, 3, 3, 3)
+#        self.testWidget.setContentsMargins(3, 3, 3, 3)
         self.testWidget.setFocusPolicy(Qt.StrongFocus)
         self.layout.addWidget(self.testWidget)
         
@@ -73,15 +74,15 @@ class Dialog(QDialog):
         self.settingsLayout.addRow(self.shapeLabel, self.shapeBox)
         self.shapeLabel.setBuddy(self.shapeBox)
         
-        self.sampleColorLabel = QLabel(self.settingsBox)
-        self.sampleColorLabel.setObjectName('sampleColorLabel')
-        self.sampleColorBox = QComboBox(self.settingsBox)
-        self.sampleColorBox.setObjectName('sampleColorBox')
-        self.sampleColorBox.addItem('Acrobat 8')
-        self.sampleColorBox.addItem('Word 2007 Highlight')
-        self.sampleColorBox.addItem('Firefox')
-        self.settingsLayout.addRow(self.sampleColorLabel, self.sampleColorBox)
-        self.sampleColorLabel.setBuddy(self.sampleColorBox)
+        self.sampleColorsLabel = QLabel(self.settingsBox)
+        self.sampleColorsLabel.setObjectName('sampleColorsLabel')
+        self.sampleColorsBox = QComboBox(self.settingsBox)
+        self.sampleColorsBox.setObjectName('sampleColorsBox')
+        self.sampleColorsBox.addItem('Acrobat 8', AcrobatColors)
+        self.sampleColorsBox.addItem('Word 2007 Highlight', WordFontHighlightColors)
+        self.sampleColorsBox.addItem('Firefox', FirefoxColors)
+        self.settingsLayout.addRow(self.sampleColorsLabel, self.sampleColorsBox)
+        self.sampleColorsLabel.setBuddy(self.sampleColorsBox)
         
         self.frameColorLabel = QLabel(self.settingsBox)
         self.frameColorLabel.setObjectName('frameColorLabel')
@@ -106,6 +107,21 @@ class Dialog(QDialog):
         self.settingsLayout.addRow(self.marginLabel, self.marginBox)
         
         self.marginLabel.setBuddy(self.marginBox)
+        
+        self.spacingLabel = QLabel(self.settingsBox)
+        self.spacingLabel.setObjectName('spacingLabel')
+        self.spacingHBox = QSpinBox(self.settingsBox)
+        self.spacingHBox.setObjectName('spacingHBox')
+        self.spacingHBox.setRange(0, 10)
+        self.spacingHBox.setValue(3)
+        self.settingsLayout.addRow(self.spacingLabel, self.spacingHBox)
+        
+        self.spacingLabel.setBuddy(self.spacingHBox)
+        self.spacingVBox = QSpinBox(self.settingsBox)
+        self.spacingVBox.setObjectName('spacingVBox')
+        self.spacingVBox.setRange(0, 10)
+        self.spacingVBox.setValue(3)
+        self.settingsLayout.addWidget(self.spacingVBox)
         
         self.flatBox = QCheckBox(self.settingsBox)
         self.flatBox.setObjectName('flatBox')
@@ -142,9 +158,11 @@ class Dialog(QDialog):
             
         self.frameColorBox.setCurrentIndex(3)
         self.hoverColorBox.setCurrentIndex(1)
-        self.sampleColorBox.setCurrentIndex(0)
+        self.sampleColorsBox.setCurrentIndex(0)
         
         self.retranslateUi()
+        
+        self.sampleColorsChanged(0)
         
     def connectSignals(self):
         self.closeButton.clicked.connect(self.close)
@@ -152,20 +170,25 @@ class Dialog(QDialog):
         self.shapeBox.currentIndexChanged[int].connect(self.shapeChanged)
         self.hoverColorBox.currentIndexChanged[int].connect(self.hoverColorChanged)
         self.frameColorBox.currentIndexChanged[int].connect(self.frameColorChanged)
-#        self.sampleColorBox.currentIndexChanged[int].connect(self.sampleColorChanged)
+        self.sampleColorsBox.currentIndexChanged[int].connect(self.sampleColorsChanged)
         self.marginBox.valueChanged.connect(self.marginChanged)
+        self.spacingHBox.valueChanged.connect(self.spacingChanged)
+        self.spacingVBox.valueChanged.connect(self.spacingChanged)
         self.flatBox.toggled.connect(self.flatToggled)
         
     def retranslateUi(self):
         self.setWindowTitle(self.trUtf8('Test Dialog'))
-        self.settingsBox.setTitle(self.trUtf8('&Options'))
+        self.settingsBox.setTitle(self.trUtf8('Options'))
         self.sizeLabel.setText(self.trUtf8('Frame Si&ze'))
         self.shapeLabel.setText(self.trUtf8('Frame Sha&pe'))
-        self.sampleColorLabel.setText(self.trUtf8('&Sample Color'))
-        self.hoverColorLabel.setText(self.trUtf8('&Hover Color'))
+        self.sampleColorsLabel.setText(self.trUtf8('&Sample Colors'))
+        self.hoverColorLabel.setText(self.trUtf8('&Focus Color'))
         self.frameColorLabel.setText(self.trUtf8('F&rame Color'))
         self.marginLabel.setText(self.trUtf8('&Margin'))
-        self.flatBox.setText(self.trUtf8('F&lat Color Frame'))
+        self.spacingLabel.setText(self.trUtf8('Sp&acing'))
+        self.spacingHBox.setPrefix(self.trUtf8('Width: '))
+        self.spacingVBox.setPrefix(self.trUtf8('Height: '))
+        self.flatBox.setText(self.trUtf8('Fla&t Color Frame'))
         self.closeButton.setText(self.trUtf8('&Close'))
         
         self.sizeBox.setItemText(0, self.trUtf8('12 x 12'))
@@ -204,15 +227,23 @@ class Dialog(QDialog):
     def frameColorChanged(self, index : int):
         self.testWidget.frameColor = self.frameColorBox.itemData(index, Qt.UserRole)
     
-    def sampleColorChanged(self, index : int):
-        self.testWidget.color = self.sampleColorBox.itemData(index, Qt.UserRole)
+    def sampleColorsChanged(self, index : int):
+        colordata = self.sampleColorsBox.itemData(index, Qt.UserRole)
+        self.testWidget.gridSize = colordata.size
+        for row in range(colordata.size.height()):
+            for column in range(colordata.size.width()):
+                self.testWidget.setColor(row, column, QColor(colordata.colors[row][column]))
         
     def shapeChanged(self, index : int):
         self.testWidget.setFrameShape(self.shapeBox.itemData(index, Qt.UserRole))
         
     def flatToggled(self, flat : bool):
         self.testWidget.flat = flat
-        
+    
+    def spacingChanged(self, value):
+        size = QSize(self.spacingHBox.value(), self.spacingVBox.value())
+        self.testWidget.spacing = size
+    
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     dlg = Dialog()

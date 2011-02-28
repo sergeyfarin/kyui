@@ -3,8 +3,20 @@
 
 # Values are in ARGB format
 
-from PyQt4.QtCore import QSize
-from .colorpicker import ColorData
+from PyQt4.QtCore import QSize, qWarning
+
+class ColorData():
+    __slots__ = ['size', 'colors']
+    def __init__(self, size, colors):
+        self.size = size
+        if len(colors) > size.height():
+            qWarning('ColorData: row count exceeds specified size; expanding')
+            self.size.setHeight(len(colors))
+        for row in iter(colors):
+            if len(row) > size.width():
+                qWarning('ColorData: column count exceeds specified size; expanding')
+                self.size.setWidth(len(row))
+        self.colors = colors
     
 WordFontHighlightColors = ColorData(QSize(5, 3), 
         [[0xffffff00, 0xff00ff00, 0xff00ffff, 0xffff00ff, 0xff0000ff], 
