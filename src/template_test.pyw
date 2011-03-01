@@ -20,6 +20,13 @@ class Dialog(QDialog):
         self.testWidget.setObjectName('testWidget')
         self.layout.addWidget(self.testWidget)
         
+        self.settingsBox = QGroupBox(self)
+        self.settingsBox.setObjectName('settingsBox')
+        self.settingsLayout = QFormLayout(self.settingsBox)
+        self.settingsLayout.setObjectName('settingsLayout')
+        
+        self.layout.addWidget(self.settingsBox)
+        
         self.closeButton = QPushButton(self)
         self.closeButton.setObjectName('closeButton')
         self.closeButton.setDefault(True)
@@ -33,6 +40,7 @@ class Dialog(QDialog):
         
     def retranslateUi(self):
         self.setWindowTitle(self.trUtf8('Test Dialog'))
+        self.settingsBox.setTitle(self.trUtf8('Options'))
         self.closeButton.setText(self.trUtf8('&Close'))
 
 if __name__ == '__main__':
