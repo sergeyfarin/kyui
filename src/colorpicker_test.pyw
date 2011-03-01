@@ -5,7 +5,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-from Widgets.colorpicker2 import ColorPicker#, ColorFrame
+from Widgets.colorpicker import ColorPicker#, ColorFrame
 from Widgets.colors import WordFontHighlightColors, AcrobatColors, FirefoxColors
 
 def createColorIcon(color, size) -> QIcon:
