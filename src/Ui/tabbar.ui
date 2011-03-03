@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QWidget" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>296</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Test Dialog</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>271</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,3,0">
+    <item>
+     <widget class="QTabWidget" name="testTabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tab1" native="true">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab2">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab3">
+       <attribute name="title">
+        <string>Tab 3</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab4">
+       <attribute name="title">
+        <string>Tab 4</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab5">
+       <attribute name="title">
+        <string>Tab 5</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="settingsBox">
+      <property name="title">
+       <string>&amp;Options</string>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>251</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="elideLabel">
+          <property name="text">
+           <string>&amp;Text Elide Mode</string>
+          </property>
+          <property name="buddy">
+           <cstring>elideBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="elideBox">
+          <item>
+           <property name="text">
+            <string>Elide Left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Elide Middle</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Elide Right</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Elide None</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="selectionLabel">
+          <property name="text">
+           <string>&amp;Selection Behavior</string>
+          </property>
+          <property name="buddy">
+           <cstring>selectionBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="selectionBox">
+          <item>
+           <property name="text">
+            <string>Select Left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Select Right</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Select Previous</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="iconSizeLabel">
+          <property name="text">
+           <string>&amp;Icon Size</string>
+          </property>
+          <property name="buddy">
+           <cstring>iconSizeBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="iconSizeBox">
+          <item>
+           <property name="text">
+            <string>16 x 16</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>22 x 22</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>24 x 24</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>32 x 32</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QCheckBox" name="documentModeBox">
+          <property name="text">
+           <string>&amp;Document Mode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QCheckBox" name="movableBox">
+          <property name="text">
+           <string>Tabs &amp;Movable</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QCheckBox" name="expandingBox">
+          <property name="text">
+           <string>&amp;Expanding Tabs</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QCheckBox" name="useScrollBox">
+          <property name="text">
+           <string>&amp;Use Scroll Buttons</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QCheckBox" name="drawBaseBox">
+          <property name="text">
+           <string>Draw &amp;Base</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&amp;Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>514</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>430</x>
+     <y>375</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
