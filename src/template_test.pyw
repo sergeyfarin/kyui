@@ -16,7 +16,7 @@ class Dialog(QDialog):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
         
-        self.testWidget = QWidget(self)
+        self.testWidget = QTabBar(self)
         self.testWidget.setObjectName('testWidget')
         self.layout.addWidget(self.testWidget)
         
