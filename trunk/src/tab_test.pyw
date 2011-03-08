@@ -5,7 +5,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-#from Widgets.tabwidget import TabBar
+from Widgets.tabbar2 import Tab
+from Widgets.debugbox import DebugBox
 
 class Dialog(QDialog):
     def __init__(self, parent = None):
@@ -31,13 +32,9 @@ class Dialog(QDialog):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
         
-        self.testWidget = QTabBar(self)
+        self.testWidget = Tab(QIcon(), 'Test', self)
         self.testWidget.setObjectName('testWidget')
-        self.testWidget.addTab('Tab 1')
-        self.testWidget.addTab('Tab 2')
-        self.testWidget.addTab('Tab 3')
-        self.testWidget.addTab('Tab 4')
-        self.testWidget.addTab('Tab 5')
+        
         self.layout.addWidget(self.testWidget)
         
         self.settingsBox = QGroupBox(self)
@@ -134,14 +131,17 @@ class Dialog(QDialog):
         
         self.layout.addWidget(self.settingsBox)
         
+        self.debugBox = DebugBox(self)
+        self.debugBox.setObjectName('debugBox')
+        qInstallMsgHandler(self.debugBox.postMsg)
+        self.layout.addWidget(self.debugBox)
+        
         self.closeButton = QPushButton(self)
         self.closeButton.setObjectName('closeButton')
         self.closeButton.setDefault(True)
         self.layout.addWidget(self.closeButton)
         self.layout.setAlignment(self.closeButton, 
                                  Qt.AlignRight | Qt.AlignBottom)
-        
-        self.closeButton.clicked.connect(self.close)
         
         self.retranslateUi()
         
@@ -174,9 +174,8 @@ class Dialog(QDialog):
         self.expandingBox.setText(self.trUtf8('&Expanding Tabs'))
         self.useScrollBox.setText(self.trUtf8('&Use Scroll Buttons'))
         self.drawBaseBox.setText(self.trUtf8('Draw TabBar &Base'))
-        
         self.closeButton.setText(self.trUtf8('&Close'))
-
+    
     def connectSignals(self):
         self.styleBox.currentIndexChanged[str].connect(self.changeStyle)
         self.positionBox.currentIndexChanged[int].connect(self.changeShape)
@@ -189,10 +188,11 @@ class Dialog(QDialog):
         self.expandingBox.toggled.connect(self.expandingToggled)
         self.useScrollBox.toggled.connect(self.useScrollButtonsToggled)
         self.drawBaseBox.toggled.connect(self.drawBaseToggled)
-        
+        self.closeButton.clicked.connect(self.close)
+
     def changeStyle(self, style : str):
         qApp.setStyle(QStyleFactory.create(style))
-        
+
     def changeShape(self, index : int):
         self.testWidget.setShape(self.positionBox.itemData(index))
         
