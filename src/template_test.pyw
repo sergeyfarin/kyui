@@ -5,9 +5,11 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
+from Widgets.debugbox import DebugBox
+
 class TemplateDialog(QDialog):
     def __init__(self, parent = None):
-        super(QWidget, self).__init__(parent)
+        super(QDialog, self).__init__(parent)
         self.setObjectName('dialog')
         
         self.setupUi()
@@ -38,6 +40,11 @@ class TemplateDialog(QDialog):
         self.settingsLayout.addRow(self.styleLabel, self.styleBox)
         
         self.layout.addWidget(self.settingsBox)
+        
+        self.debugBox = DebugBox(self)
+        self.debugBox.setObjectName('debugBox')
+        self.layout.addWidget(self.debugBox)
+        qInstallMsgHandler(self.debugBox.postMsg)
         
         self.closeButton = QPushButton(self)
         self.closeButton.setObjectName('closeButton')
