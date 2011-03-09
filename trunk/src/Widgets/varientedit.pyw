@@ -1,16 +1,24 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-EditorPairs = {QVariant.Invalid : QWidget, 
-               QVariant.Bool : QCheckBox, 
-               QVariant.Int : QSpinBox, 
-               QVariant.Double : QDoubleSpinBox, 
-               QVariant.String : QLineEdit, 
-               QVariant.Time : QTimeEdit, 
-               QVariant.Date : QDateEdit, 
-               QVariant.DateTime : QDateTimeEdit, 
-               QVariant.StringList : QComboBox, 
-               }
+ClassPairs = {'QWidget' : QWidget, 
+              'QPushButton' : QPushButton, 
+              'QToolButton' : QToolButton, 
+              'QDialog' : QDialog, 
+              'QMenu' : QMenu, 
+              'QComboBox' : QComboBox, 
+              'QFrame' : QFrame, 
+              'QSpinBox' : QSpinBox}
+
+PropertyPairs = {'bool' : QCheckBox, 
+               'int' : QSpinBox, 
+               'double' : QDoubleSpinBox, 
+               'str' : QLineEdit, 
+               'QTime' : QTimeEdit, 
+               'QDate' : QDateEdit, 
+               'QDateTime' : QDateTimeEdit, 
+               'Enum' : QComboBox, 
+               'QKeySequence' : QLineEdit}
 
 class QDataType():
     __slots__ = ['name', 'variantType', 'editor', 'properties', 'data']
