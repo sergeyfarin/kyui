@@ -8,7 +8,9 @@ EditorPairs = {QVariant.Invalid : QWidget,
                QVariant.String : QLineEdit, 
                QVariant.Time : QTimeEdit, 
                QVariant.Date : QDateEdit, 
-               QVariant.DateTime : QDateTimeEdit}
+               QVariant.DateTime : QDateTimeEdit, 
+               QVariant.StringList : QComboBox, 
+               }
 
 class QDataType():
     __slots__ = ['name', 'variantType', 'editor', 'properties', 'data']
