@@ -5,33 +5,22 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-class Dialog(QDialog):
+class TemplateDialog(QDialog):
     def __init__(self, parent = None):
-        super().__init__(parent)
+        super(QWidget, self).__init__(parent)
         self.setObjectName('dialog')
         
         self.setupUi()
+        self.retranslateUi()
         self.connectSignals()
-        
-        version = QSysInfo.WindowsVersion
-        if version & QSysInfo.WV_NT_based:
-            if version == QSysInfo.WV_WINDOWS7 or testWin == QSysInfo.WV_VISTA:
-                style = 'WindowsVista'
-            elif version == QSysInfo.WV_XP or QSysInfo.WV_2003:
-                style = 'WindowsXP'
-            else:
-                style = 'Windows'
-        else:
-            style = 'Plastique'
-        self.styleBox.setCurrentIndex(self.styleBox.findText(style, Qt.MatchFixedString))
         
     def setupUi(self):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
         
-        self.testWidget = QWidget(self)
-        self.testWidget.setObjectName('testWidget')
-        self.layout.addWidget(self.testWidget)
+#        self.testWidget = QWidget(self)
+#        self.testWidget.setObjectName('testWidget')
+#        self.layout.addWidget(self.testWidget)
         
         self.settingsBox = QGroupBox(self)
         self.settingsBox.setObjectName('settingsBox')
@@ -56,9 +45,20 @@ class Dialog(QDialog):
         self.layout.addWidget(self.closeButton)
         self.layout.setAlignment(self.closeButton, 
                                  Qt.AlignRight | Qt.AlignBottom)
-        
-        self.retranslateUi()
-        
+    
+    def setupStyle(self):
+        version = QSysInfo.WindowsVersion
+        if version & QSysInfo.WV_NT_based:
+            if version == QSysInfo.WV_WINDOWS7 or version == QSysInfo.WV_VISTA:
+                style = 'WindowsVista'
+            elif version == QSysInfo.WV_XP or version == QSysInfo.WV_2003:
+                style = 'WindowsXP'
+            else:
+                style = 'Windows'
+        else:
+            style = 'Plastique'
+        self.styleBox.setCurrentIndex(self.styleBox.findText(style, Qt.MatchFixedString))
+    
     def retranslateUi(self):
         self.setWindowTitle(self.trUtf8('Test Dialog'))
         self.settingsBox.setTitle(self.trUtf8('Options'))
@@ -74,6 +74,6 @@ class Dialog(QDialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    dlg = Dialog()
+    dlg = TemplateDialog()
     dlg.show()
     sys.exit(app.exec_())
