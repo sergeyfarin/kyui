@@ -38,7 +38,6 @@ class KyBasicFontWidget(QFrame):
         
         fontBox = QFontComboBox(self)
         fontBox.setObjectName("fontBox")
-#        fontBox.setSizePolicy(preferredSizePolicy)
         fontBox.setFont(font)
         fontBox.setWritingSystem(QFontDatabase.Latin)
         fontBox.setFontFilters(QFontComboBox.AllFonts)
@@ -76,12 +75,12 @@ class KyBasicFontWidget(QFrame):
         underlineButton.setCheckable(True)
         underlineButton.setChecked(font.underline())
         
-        self._fontBox = fontBox
-        self._sizeBox = sizeBox
-        self._boldButton = boldButton
-        self._italicButton = italicButton
-        self._underlineButton = underlineButton
-        self._currentFont = QFont(font)
+        self.__fontBox = fontBox
+        self.__sizeBox = sizeBox
+        self.__boldButton = boldButton
+        self.__italicButton = italicButton
+        self.__underlineButton = underlineButton
+        self.__currentFont = QFont(font)
         
     # Broken off inherited classes that use different layouts (e.g. QGridLayout)
     def _setupLayout(self):
@@ -89,75 +88,75 @@ class KyBasicFontWidget(QFrame):
         layout.setObjectName("layout")
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(self._fontBox)
+        layout.addWidget(self.__fontBox)
         layout.addSpacing(6)
-        layout.addWidget(self._sizeBox)
+        layout.addWidget(self.__sizeBox)
         layout.addSpacing(6)
-        layout.addWidget(self._boldButton)
-        layout.addWidget(self._italicButton)
-        layout.addWidget(self._underlineButton)
+        layout.addWidget(self.__boldButton)
+        layout.addWidget(self.__italicButton)
+        layout.addWidget(self.__underlineButton)
         
-        self._boldButton.hide()
-        self._italicButton.hide()
-        self._underlineButton.hide()
+        self.boldButton.hide()
+        self.italicButton.hide()
+        self.underlineButton.hide()
         
-        self._layout = layout
+        self.__layout = layout
     
     # Broken off for the sake of inherited classes that have additional
     # widgets to connect to re-impliment and use a super() call
     def _connectSignals(self):
-        self._fontBox.currentFontChanged.connect(self._onFontFamilyChanged)
-        self._sizeBox.editTextChanged.connect(self._onSizeValueChanged)
-        self._sizeBox.currentIndexChanged[str].connect(self._onSizeValueChanged)
-        self._boldButton.toggled.connect(self._onBoldToggled)
-        self._italicButton.toggled.connect(self._onItalicToggled)
-        self._underlineButton.toggled.connect(self._onUnderlineToggled)
+        self.fontBox.currentFontChanged.connect(self._onFontFamilyChanged)
+        self.sizeBox.editTextChanged.connect(self._onSizeValueChanged)
+        self.sizeBox.currentIndexChanged[str].connect(self._onSizeValueChanged)
+        self.boldButton.toggled.connect(self._onBoldToggled)
+        self.italicButton.toggled.connect(self._onItalicToggled)
+        self.underlineButton.toggled.connect(self._onUnderlineToggled)
 
     #==================================================#
     # Public Methods                                   #
     #==================================================#
     def retranslateUi(self) -> None:
-        self._sizeBox.setToolTip(self.trUtf8('Point Size'))
-        self._boldButton.setToolTip(self.trUtf8("Bold"))
-        self._boldButton.setText(self.trUtf8("B"))
-        self._italicButton.setToolTip(self.trUtf8("Italic"))
-        self._italicButton.setText(self.trUtf8("I"))
-        self._underlineButton.setToolTip(self.trUtf8("Underline"))
-        self._underlineButton.setText(self.trUtf8("U"))
+        self.sizeBox.setToolTip(self.trUtf8('Point Size'))
+        self.boldButton.setToolTip(self.trUtf8("Bold"))
+        self.boldButton.setText(self.trUtf8("B"))
+        self.italicButton.setToolTip(self.trUtf8("Italic"))
+        self.italicButton.setText(self.trUtf8("I"))
+        self.underlineButton.setToolTip(self.trUtf8("Underline"))
+        self.underlineButton.setText(self.trUtf8("U"))
     
     #==================================================#
     # Getters                                          #
     #==================================================#
-    def currentFont(self) -> QFont: 
-        return self._currentFont
-    def fontFilters(self) -> QFontComboBox.FontFilters:
-        return self._fontBox.fontFilters()
-    def maximumFontSize(self) -> int:
-        return self._sizeBox.maximum()
-    def minimumFontSize(self) -> int:
-        return self._sizeBox.minimum()
-    def writingSystem(self) -> QFontDatabase.WritingSystem:
-        return self._fontBox.writingSystem()
+    def getCurrentFont(self) -> QFont: 
+        return self.__currentFont
+    def getFontFilters(self) -> QFontComboBox.FontFilters:
+        return self.fontBox.fontFilters()
+    def getMaximumFontSize(self) -> int:
+        return self.sizeBox.maximum()
+    def getMinimumFontSize(self) -> int:
+        return self.sizeBox.minimum()
+    def getWritingSystem(self) -> QFontDatabase.WritingSystem:
+        return self.fontBox.writingSystem()
     
     def isBoldButtonVisible(self) -> bool:
-        return self._boldButton.isVisible()
+        return self.boldButton.isVisible()
     def isItalicButtonVisible(self) -> bool:
-        return self._italicButton.isVisible()
+        return self.italicButton.isVisible()
     def isUnderlineButtonVisible(self) -> bool:
-        return self._underlineButton.isVisible()
+        return self.underlineButton.isVisible()
         
-    def boldButton(self) -> QPushButton: 
-        return self._boldButton
-    def fontBox(self) -> QFontComboBox:
-        return self._fontBox
-    def italicButton(self) -> QPushButton: 
-        return self._italicButton
-    def layout(self) -> QHBoxLayout:
-        return self._layout
-    def sizeBox(self) -> QComboBox:
-        return self._sizeBox
-    def underlineButton(self) -> QPushButton:
-        return self._underlineButton
+    def getBoldButton(self) -> QPushButton: 
+        return self.__boldButton
+    def getFontBox(self) -> QFontComboBox:
+        return self.__fontBox
+    def getItalicButton(self) -> QPushButton: 
+        return self.__italicButton
+    def getLayout(self) -> QHBoxLayout:
+        return self.__layout
+    def getSizeBox(self) -> QComboBox:
+        return self.__sizeBox
+    def getUnderlineButton(self) -> QPushButton:
+        return self.__underlineButton
     
     #==================================================#
     # Setters                                          #
@@ -167,129 +166,129 @@ class KyBasicFontWidget(QFrame):
         if not isinstance(font, QFont):
             return
         self.blockSignals(True)
-        self._fontBox.setCurrentFont(font)
-        self._sizeBox.setProperty("value", font.pointSize())
-        self._boldButton.setChecked(font.bold())
-        self._italicButton.setChecked(font.italic())
-        self._currentFont = QFont(font)
+        self.fontBox.setCurrentFont(font)
+        self.sizeBox.setProperty("value", font.pointSize())
+        self.boldButton.setChecked(font.bold())
+        self.italicButton.setChecked(font.italic())
+        self.__currentFont = QFont(font)
         self.blockSignals(False)
-        self.currentFontChanged.emit(self._currentFont)
+        self.currentFontChanged.emit(self.currentFont)
     
     def setFontFilters(self, filters : QFontComboBox.FontFilters):
         self.blockSignals(True)
-        family = self._fontBox.currentFont().family()
-        self._fontBox.setFontFilters(QFontComboBox.FontFilters(filters))
+        family = self.fontBox.currentFont().family()
+        self.fontBox.setFontFilters(QFontComboBox.FontFilters(filters))
         self.blockSignals(False)
-        if family != self._currentFont.family():
-            self._currentFont.setFamily(self._fontBox.currentFont().family())
-            self.currentFontChanged.emit(self._currentFont)
+        if family != self.currentFont.family():
+            self.currentFont.setFamily(self.fontBox.currentFont().family())
+            self.currentFontChanged.emit(self.currentFont)
     
     @pyqtSlot(int)
     def setMaximumFontSize(self, size : int) -> None:
         self.blockSignals(True)
-        self._sizeBox.validator().setTop(size)
+        self.sizeBox.validator().setTop(size)
         self.blockSignals(False)
-        if int(self._sizeBox.currentText()) != self._currentFont.pointSize():
-            self._currentFont.setPointSize(int(self._sizeBox.currentText()))
-            self.currentFontChanged.emit(self._currentFont)
+        if int(self.sizeBox.currentText()) != self.currentFont.pointSize():
+            self.currentFont.setPointSize(int(self.sizeBox.currentText()))
+            self.currentFontChanged.emit(self.currentFont)
     
     @pyqtSlot(int)
     def setMinimumFontSize(self, size : int) -> None:
         self.blockSignals(True)
-        self._sizeBox.validator().setBottom(size)
+        self.sizeBox.validator().setBottom(size)
         self.blockSignals(False)
-        if int(self._sizeBox.currentText()) != self._currentFont.pointSize():
-            self._currentFont.setPointSize(int(self._sizeBox.currentText()))
-            self.currentFontChanged.emit(self._currentFont)
+        if int(self.sizeBox.currentText()) != self.currentFont.pointSize():
+            self.currentFont.setPointSize(int(self.sizeBox.currentText()))
+            self.currentFontChanged.emit(self.currentFont)
             
     def setFontSizeItems(self, values : list) -> None:
         self.blockSignals(True)
-        oldsize = int(self._sizeBox.currentText())
+        oldsize = int(self.sizeBox.currentText())
         values.sort()
-        self._sizeBox.validator().setBottom(int(values[0]))
-        self._sizeBox.validator().setTop(int(values[-1]))
-        self._sizeBox.clear()
+        self.sizeBox.validator().setBottom(int(values[0]))
+        self.sizeBox.validator().setTop(int(values[-1]))
+        self.sizeBox.clear()
         for value in iter(values):
-            self._sizeBox.addItem(str(value))
+            self.sizeBox.addItem(str(value))
         self.blockSignals(False)
-        if oldsize != self._currentFont.pointSize():
-            self.currentFontChanged.emit(self._currentFont)
+        if oldsize != self.currentFont.pointSize():
+            self.currentFontChanged.emit(self.currentFont)
 
     def setWritingSystem(self, system : QFontDatabase.WritingSystem = QFontDatabase.Any) -> None:
         self.blockSignals(True)
-        family = self._fontBox.currentFont().family()
-        self._fontBox.setWritingSystem(system)
-        self._fontBox.update()
+        family = self.fontBox.currentFont().family()
+        self.fontBox.setWritingSystem(system)
+        self.fontBox.update()
         self.blockSignals(False)
-        if family != self._currentFont.family():
-            self._currentFont.setFamily(self._fontBox.currentFont.family())
-            self.currentFontChanged.emit(self._currentFont)
+        if family != self.currentFont.family():
+            self.currentFont.setFamily(self.fontBox.currentFont.family())
+            self.currentFontChanged.emit(self.currentFont)
         
     def setBoldButtonVisible(self, visible : bool = True) -> None:
-        self._boldButton.setVisible(visible)
+        self.boldButton.setVisible(visible)
     def setItalicButtonVisible(self, visible : bool = True) -> None:
-        self._italicButton.setVisible(visible)
+        self.italicButton.setVisible(visible)
     def setUnderlineButtonVisible(self, visible : bool = True) -> None:
-        self._underlineButton.setVisible(visible)
+        self.underlineButton.setVisible(visible)
         
     def setButtonsFlat(self, flat : bool) -> None:
-        self._boldButton.setFlat(flat)
-        self._italicButton.setFlat(flat)
-        self._underlineButton.setFlat(flat)
+        self.boldButton.setFlat(flat)
+        self.italicButton.setFlat(flat)
+        self.underlineButton.setFlat(flat)
 
     def setObjectName(self, name : str) -> None:
         super().setObjectName(name)
-        self._fontBox.setObjectName(name + '_fontBox')
-        self._sizeBox.setObjectName(name + '_sizeBox')
-        self._boldButton.setObjectName(name + '_boldButton')
-        self._italicButton.setObjectName(name + '_italicButton')
-        self._underlineButton.setObjectName(name + '_underlineButton')
-        self._layout.setObjectName(name + '_layout')
+        self.fontBox.setObjectName(name + '_fontBox')
+        self.sizeBox.setObjectName(name + '_sizeBox')
+        self.boldButton.setObjectName(name + '_boldButton')
+        self.italicButton.setObjectName(name + '_italicButton')
+        self.underlineButton.setObjectName(name + '_underlineButton')
+        self.layout.setObjectName(name + '_layout')
     
     #==================================================#
     # Private Methods                                  #
     #==================================================#
     def _onBoldToggled(self, toggle):
-        self._currentFont.setBold(toggle)
+        self.currentFont.setBold(toggle)
         self.boldToggled.emit(toggle)
-        self.currentFontChanged.emit(self._currentFont)
+        self.currentFontChanged.emit(self.currentFont)
     
     def _onItalicToggled(self, toggle):
-        self._currentFont.setItalic(toggle)
+        self.currentFont.setItalic(toggle)
         self.italicToggled.emit(toggle)
-        self.currentFontChanged.emit(self._currentFont)
+        self.currentFontChanged.emit(self.currentFont)
     
     def _onUnderlineToggled(self, toggle):
-        self._currentFont.setUnderline(toggle)
+        self.currentFont.setUnderline(toggle)
         self.underlineToggled.emit(toggle)
-        self.currentFontChanged.emit(self._currentFont)
+        self.currentFontChanged.emit(self.currentFont)
         
     def _onSizeValueChanged(self, sizetext : str):
         if not sizetext.isdigit():
             return
         size = int(sizetext)
-        self._currentFont.setPointSize(size)
+        self.currentFont.setPointSize(size)
         self.fontSizeChanged.emit(size)
-        self.currentFontChanged.emit(self._currentFont)
+        self.currentFontChanged.emit(self.currentFont)
     
     def _onFontFamilyChanged(self, font):
         family = font.family()
-        self._currentFont.setFamily(family)
+        self.currentFont.setFamily(family)
         self.fontFamilyChanged.emit(family)
-        self.currentFontChanged.emit(self._currentFont)
+        self.currentFontChanged.emit(self.currentFont)
         
-    currentFont = pyqtProperty(QFont, fget=currentFont, fset=setCurrentFont)
+    currentFont = pyqtProperty(QFont, fget=getCurrentFont, fset=setCurrentFont)
     fontFilters = pyqtProperty(QFontComboBox.FontFilters, 
-                               fget=fontFilters, 
+                               fget=getFontFilters, 
                                fset=setFontFilters)
     maximumFontSize = pyqtProperty(int, 
-                                   fget=maximumFontSize, 
+                                   fget=getMaximumFontSize, 
                                    fset=setMaximumFontSize)
     minimumFontSize = pyqtProperty(int, 
-                                   fget=minimumFontSize, 
+                                   fget=getMinimumFontSize, 
                                    fset=setMinimumFontSize)
     writingSystem = pyqtProperty(QFontDatabase.WritingSystem, 
-                                 fget=writingSystem, 
+                                 fget=getWritingSystem, 
                                  fset=setWritingSystem)
 
     boldButtonVisible = pyqtProperty(bool, 
@@ -301,3 +300,9 @@ class KyBasicFontWidget(QFrame):
     underlineButtonVisible = pyqtProperty(bool, 
                                      fget=isUnderlineButtonVisible, 
                                      fset=setUnderlineButtonVisible)
+    boldButton = pyqtProperty(QPushButton, fget=getBoldButton)
+    italicButton = pyqtProperty(QPushButton, fget=getItalicButton)
+    underlineButton = pyqtProperty(QPushButton, fget=getUnderlineButton)
+    layout = pyqtProperty(QHBoxLayout, fget=getLayout)
+    sizeBox = pyqtProperty(QComboBox, fget=getSizeBox)
+    fontBox = pyqtProperty(QFontComboBox, fget=getFontBox)

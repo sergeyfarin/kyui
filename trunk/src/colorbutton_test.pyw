@@ -8,47 +8,39 @@ import sys
 from Widgets.colorbutton import ColorButton
 from Widgets.debugbox import DebugBox
 
-class Dialog(QDialog):
+from template_test import TemplateDialog
+
+class Dialog(TemplateDialog):
     def __init__(self, parent = None):
-        super().__init__(parent)
+        super(QDialog, self).__init__(parent)
         self.setObjectName('dialog')
-        self.setFont(QFont('Segoe Ui', 9))
         
         self.setupUi()
+        self.retranslateUi()
         self.connectSignals()
         
     def setupUi(self):
-        self.layout = QVBoxLayout(self)
-        self.layout.setObjectName('layout')
-        
+        super().setupUi()
         self.testWidget = ColorButton(color=Qt.white, 
                                       text='Test', 
                                       parent=self)
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setIconSize(QSize(16, 16))
-#        self.testWidget.setPopupMode(QToolButton.MenuButtonPopup)
-        self.layout.addWidget(self.testWidget)
-        
-        self.settingsBox = QGroupBox(self)
-        self.settingsBox.setObjectName('settingsBox')
-        self.settingsLayout = QGridLayout(self.settingsBox)
-        self.settingsLayout.setObjectName('settingsLayout')
+        self.layout.insertWidget(0, self.testWidget)
         
         self.sizeLabel = QLabel(self.settingsBox)
         self.sizeLabel.setObjectName('sizeLabel')
-        self.settingsLayout.addWidget(self.sizeLabel, 0, 0)
         self.sizeBox = QComboBox(self.settingsBox)
         self.sizeBox.setObjectName('sizeBox')
         self.sizeBox.addItem('16 x 16', QSize(16, 16))
         self.sizeBox.addItem('22 x 22', QSize(22, 22))
         self.sizeBox.addItem('24 x 24', QSize(24, 24))
         self.sizeBox.addItem('32 x 32', QSize(32, 32))
-        self.settingsLayout.addWidget(self.sizeBox, 0, 1)
+        self.settingsLayout.addRow(self.sizeLabel, self.sizeBox)
         self.sizeLabel.setBuddy(self.sizeBox)
         
         self.colorLabel = QLabel(self.settingsBox)
         self.colorLabel.setObjectName('colorLabel')
-        self.settingsLayout.addWidget(self.colorLabel, 1, 0)
         self.colorBox = QComboBox(self.settingsBox)
         self.colorBox.setObjectName('colorBox')
         self.colorBox.addItem('White', QColor(Qt.white))
@@ -68,46 +60,32 @@ class Dialog(QDialog):
         self.colorBox.addItem('Gray', QColor(Qt.gray))
         self.colorBox.addItem('Dark Gray', QColor(Qt.darkGray))
         self.colorBox.addItem('Light Gray', QColor(Qt.lightGray))
-        self.settingsLayout.addWidget(self.colorBox, 1, 1)
+        self.settingsLayout.addRow(self.colorLabel, self.colorBox)
         self.colorLabel.setBuddy(self.colorBox)
         
-        self.layout.addWidget(self.settingsBox)
-        
-        self.styleLabel = QLabel(self.settingsBox)
-        self.styleLabel.setObjectName('styleLabel')
-        self.settingsLayout.addWidget(self.styleLabel, 2, 0)
-        self.styleBox = QComboBox(self.settingsBox)
-        self.styleBox.setObjectName('styleBox')
-        self.styleBox.addItem('Icon Only', Qt.ToolButtonIconOnly)
-        self.styleBox.addItem('Text Beside Icon', Qt.ToolButtonTextBesideIcon)
-        self.styleBox.addItem('Text Under Icon', Qt.ToolButtonTextUnderIcon)
-        self.styleBox.setCurrentIndex(1)
-        self.settingsLayout.addWidget(self.styleBox, 2, 1)
-        self.styleLabel.setBuddy(self.styleBox)
-
-        self.closeButton = QPushButton(self)
-        self.closeButton.setObjectName('closeButton')
-        self.closeButton.setDefault(True)
-        self.layout.addWidget(self.closeButton)
-        self.layout.setAlignment(self.closeButton, 
-                                 Qt.AlignRight | Qt.AlignBottom)
-        
-        self.retranslateUi()
+        self.textStyleLabel = QLabel(self.settingsBox)
+        self.textStyleLabel.setObjectName('textStyleLabel')
+        self.textStyleBox = QComboBox(self.settingsBox)
+        self.textStyleBox.setObjectName('textStyleBox')
+        self.textStyleBox.addItem('Icon Only', Qt.ToolButtonIconOnly)
+        self.textStyleBox.addItem('Text Beside Icon', Qt.ToolButtonTextBesideIcon)
+        self.textStyleBox.addItem('Text Under Icon', Qt.ToolButtonTextUnderIcon)
+        self.textStyleBox.setCurrentIndex(1)
+        self.settingsLayout.addRow(self.textStyleLabel, self.textStyleBox)
+        self.textStyleLabel.setBuddy(self.textStyleBox)
         
     def connectSignals(self):
+        super().connectSignals()
         self.sizeBox.currentIndexChanged[int].connect(self.onSizeChanged)
         self.colorBox.currentIndexChanged[int].connect(self.onColorChanged)
-        self.styleBox.currentIndexChanged[int].connect(self.onStyleChanged)
+        self.textStyleBox.currentIndexChanged[int].connect(self.onStyleChanged)
         self.testWidget.clicked.connect(self.onColorButtonClicked)
-        self.closeButton.clicked.connect(self.close)
         
     def retranslateUi(self):
-        self.setWindowTitle(self.trUtf8('Test Dialog'))
-        self.settingsBox.setTitle(self.trUtf8('Options'))
+        super().retranslateUi()
         self.sizeLabel.setText(self.trUtf8('&Icon Size'))
         self.colorLabel.setText(self.trUtf8('C&olor'))
-        self.styleLabel.setText(self.trUtf8('&Style'))
-        self.closeButton.setText(self.trUtf8('&Close'))
+        self.textStyleLabel.setText(self.trUtf8('&Text Style'))
         
         self.sizeBox.setItemText(0, self.trUtf8('16 x 16'))
         self.sizeBox.setItemText(1, self.trUtf8('22 x 22'))
@@ -139,7 +117,7 @@ class Dialog(QDialog):
         self.testWidget.setColor(self.colorBox.itemData(index, Qt.UserRole))
         
     def onStyleChanged(self, index : int):
-        self.testWidget.setToolButtonStyle(self.styleBox.itemData(index, Qt.UserRole))
+        self.testWidget.setToolButtonStyle(self.textStyleBox.itemData(index, Qt.UserRole))
     
     def onColorButtonClicked(self):
         color = QColorDialog.getColor(self.testWidget.color, self)
