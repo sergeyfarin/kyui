@@ -7,23 +7,23 @@ import sys
 
 from Widgets.colorpicker import ColorFrame
 
+from template_test import TemplateDialog
+
 def createColorIcon(color, size) -> QIcon:
     pixmap = QPixmap(size)
     pixmap.fill(color)
     return QIcon(pixmap)
 
-class Dialog(QDialog):
+class Dialog(TemplateDialog):
     def __init__(self, parent = None):
-        super().__init__(parent)
-        self.setObjectName('dialog')
+        super(QDialog, self).__init__(parent)
         
         self.setupUi()
+        self.retranslateUi()
         self.connectSignals()
         
     def setupUi(self):
-        self.layout = QVBoxLayout(self)
-        self.layout.setObjectName('layout')
-        
+        super().setupUi()
         self.testWidget = ColorFrame(parent=self, 
                                      color = QColor(Qt.white), 
                                      hoverColor = QColor(Qt.blue), 
@@ -34,12 +34,7 @@ class Dialog(QDialog):
                                      boxSize = QSize(22, 22))
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setFocusPolicy(Qt.StrongFocus)
-        self.layout.addWidget(self.testWidget)
-        
-        self.settingsBox = QGroupBox(self)
-        self.settingsBox.setObjectName('settingsBox')
-        self.settingsLayout = QFormLayout(self.settingsBox)
-        self.settingsLayout.setObjectName('settingsLayout')
+        self.layout.insertWidget(0, self.testWidget)
         
         self.sizeLabel = QLabel(self.settingsBox)
         self.sizeLabel.setObjectName('sizeLabel')
@@ -106,14 +101,6 @@ class Dialog(QDialog):
         self.flatBox.setChecked(True)
         self.settingsLayout.addWidget(self.flatBox)
         
-        self.layout.addWidget(self.settingsBox)
-        
-        self.closeButton = QPushButton(self)
-        self.closeButton.setObjectName('closeButton')
-        self.closeButton.setDefault(True)
-        self.layout.addWidget(self.closeButton)
-        self.layout.setAlignment(self.closeButton, 
-                                 Qt.AlignRight | Qt.AlignBottom)
         for box in (self.frameColorBox, self.hoverColorBox, self.sampleColorBox):
             icon = createColorIcon(QColor(Qt.black), QSize(16, 16))
             box.addItem(icon, 'Black', QColor(Qt.black))
@@ -138,10 +125,9 @@ class Dialog(QDialog):
         self.hoverColorBox.setCurrentIndex(1)
         self.sampleColorBox.setCurrentIndex(7)
         
-        self.retranslateUi()
         
     def connectSignals(self):
-        self.closeButton.clicked.connect(self.close)
+        super().connectSignals()
         self.sizeBox.currentIndexChanged[int].connect(self.sizeChanged)
         self.shapeBox.currentIndexChanged[int].connect(self.shapeChanged)
         self.hoverColorBox.currentIndexChanged[int].connect(self.hoverColorChanged)
@@ -151,7 +137,7 @@ class Dialog(QDialog):
         self.flatBox.toggled.connect(self.flatToggled)
         
     def retranslateUi(self):
-        self.setWindowTitle(self.trUtf8('Test Dialog'))
+        super().retranslateUi()
         self.settingsBox.setTitle(self.trUtf8('&Options'))
         self.sizeLabel.setText(self.trUtf8('Frame Si&ze'))
         self.shapeLabel.setText(self.trUtf8('Frame Sha&pe'))
@@ -160,7 +146,6 @@ class Dialog(QDialog):
         self.frameColorLabel.setText(self.trUtf8('F&rame Color'))
         self.marginLabel.setText(self.trUtf8('&Margin'))
         self.flatBox.setText(self.trUtf8('F&lat Color Frame'))
-        self.closeButton.setText(self.trUtf8('&Close'))
         
         self.sizeBox.setItemText(0, self.trUtf8('12 x 12'))
         self.sizeBox.setItemText(1, self.trUtf8('16 x 16'))

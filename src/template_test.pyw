@@ -20,10 +20,6 @@ class TemplateDialog(QDialog):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
         
-#        self.testWidget = QWidget(self)
-#        self.testWidget.setObjectName('testWidget')
-#        self.layout.addWidget(self.testWidget)
-        
         self.settingsBox = QGroupBox(self)
         self.settingsBox.setObjectName('settingsBox')
         self.settingsLayout = QFormLayout(self.settingsBox)
@@ -52,6 +48,8 @@ class TemplateDialog(QDialog):
         self.layout.addWidget(self.closeButton)
         self.layout.setAlignment(self.closeButton, 
                                  Qt.AlignRight | Qt.AlignBottom)
+        
+        self.setupStyle()
     
     def setupStyle(self):
         version = QSysInfo.WindowsVersion
