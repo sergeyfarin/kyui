@@ -20,6 +20,8 @@ class Dialog(TemplateDialog):
     def setupUi(self):
         super().setupUi()
         
+        self.debugBox.hide()
+        
         self.testWidget = KeySequenceLineEdit(self)
         self.testWidget.setObjectName('testWidget')
         self.layout.insertWidget(0, self.testWidget)

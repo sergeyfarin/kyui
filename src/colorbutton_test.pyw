@@ -6,7 +6,6 @@ from PyQt4.QtGui import *
 import sys
 
 from Widgets.colorbutton import ColorButton
-from Widgets.debugbox import DebugBox
 
 from template_test import TemplateDialog
 
@@ -21,6 +20,8 @@ class Dialog(TemplateDialog):
         
     def setupUi(self):
         super().setupUi()
+        self.debugBox.hide()
+        
         self.testWidget = ColorButton(color=Qt.white, 
                                       text='Test', 
                                       parent=self)
