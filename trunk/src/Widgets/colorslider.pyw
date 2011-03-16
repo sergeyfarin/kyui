@@ -1,73 +1,6 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
            
-gradients = {QColor.Rgb : { 0 : ((0.0, 0.0, 0.0), (1.0, 0.0, 0.0)), 
-                            1 : ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), 
-                            2 : ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))}, 
-             QColor.Hsl : { 0 : ((0.0, 0.5, 0.5), (1.0, 0.5, 0.5)), 
-                            1 : ((0.5, 0.0, 0.5), (0.5, 1.0, 0.5)), 
-                            2 : ((0.5, 1.0, 0.0), (0.5, 1.0, 1.0))}, 
-             QColor.Hsv : { 0 : ((0.0, 0.5, 1.0), (1.0, 0.5, 1.0)), 
-                            1 : ((0.5, 0.0, 1.0), (0.5, 1.0, 1.0)), 
-                            2 : ((0.5, 1.0, 0.0), (0.5, 1.0, 1.0))}}
-           
-def generateGradient(orientation, spec, channel) -> QLinearGradient:
-        gradient = QLinearGradient()
-        gradient.setCoordinateMode(QGradient.StretchToDeviceMode)
-        if orientation == Qt.Horizontal:
-            gradient.setStart(0, 0)
-            gradient.setFinalStop(1, 0)
-        else:
-            gradient.setStart(0, 1)
-            gradient.setFinalStop(0, 0)
-        if spec == QColor.Rgb:
-            stops = [(0, QColor.fromRgbF(*gradients[spec][channel][0])), 
-                     (1, QColor.fromRgbF(*gradients[spec][channel][1]))]
-            gradient.setStops(stops)
-        elif spec == QColor.Hsl:
-            if channel == 0:
-                stops = []
-                for stop in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0):
-                    stops.append((stop, QColor.fromHslF(stop, 1.0, 0.5)))
-            else:
-                stops = [(0, QColor.fromHslF(*gradients[spec][channel][0])), 
-                         (1, QColor.fromHslF(*gradients[spec][channel][1]))]
-            gradient.setStops(stops)
-        elif spec == QColor.Hsv:
-            if channel == 0:
-                stops = []
-                for stop in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0):
-                    stops.append((stop, QColor.fromHsvF(stop, 1.0, 1.0)))
-            else:
-                stops = [(0, QColor.fromHsvF(*gradients[spec][channel][0])), 
-                         (1, QColor.fromHsvF(*gradients[spec][channel][1]))]
-            gradient.setStops(stops)
-        return gradient
-
-class ColorWidget(QFrame):
-    currentColorChanged = pyqtSignal(QColor)
-    
-    def __init__(self, 
-                 orientation : Qt.Orientation = Qt.Horizontal, 
-                 parent : QWidget = None, 
-                 spec : QColor.Spec = QColor.Rgb):
-        super().__init__(parent)
-        self._orientation = orientation
-        self._spec = spec
-        gradients = []
-        if spec == QColor.Hsv or spec == QColor.Hsl:
-            self._hasHue = True
-            gradients.append(generateGradient(orientation, spec, 0))
-            gradients.append(generateGradient(orientation, spec, 1))
-            gradients.append(generateGradient(orientation, spec, 2))
-        elif spec == QColor.Rgb:
-            self._hasHue = False
-            gradients.append(generateGradient(orientation, spec, 0))
-            gradients.append(generateGradient(orientation, spec, 1))
-            gradients.append(generateGradient(orientation, spec, 2))
-        elif spec == QColor.Cmyk:
-            qWarning('ColorWidget: Cmyk not supported')
-
 gradients = {QColor.Rgb : {0 : ((0.0, 0.0, 0.0), (1.0, 0.0, 0.0)), 
                            1 : ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), 
                            2 : ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))}, 
@@ -96,15 +29,41 @@ def generateGradient(spec : QColor.Spec ,
             stops.append((stop, QColor.fromHsvF(stop, 1.0, 1.0)))
         gradient.setStops(stops)
     elif spec == QColor.Hsl:
-        gradient.setStops((0.0, QColor.fromHslF(*gradients[spec][component][0]), 
-                           1.0, QColor.fromHslF(*gradients[spec][component][1])))
+        gradient.setStops([(0.0, QColor.fromHslF(*gradients[spec][component][0])), 
+                           (1.0, QColor.fromHslF(*gradients[spec][component][1]))])
     elif spec == QColor.Hsv:
-        gradient.setStops((0.0, QColor.fromHsvF(*gradients[spec][component][0]), 
-                           1.0, QColor.fromHsvF(*gradients[spec][component][1])))
+        gradient.setStops([(0.0, QColor.fromHsvF(*gradients[spec][component][0])), 
+                           (1.0, QColor.fromHsvF(*gradients[spec][component][1]))])
     elif spec == QColor.Rgb:
-        gradient.setStops((0.0, QColor.fromRgbF(*gradients[spec][component][0]), 
-                           1.0, QColor.fromRgbF(*gradients[spec][component][1])))
+        gradient.setStops([(0.0, QColor.fromRgbF(*gradients[spec][component][0])), 
+                           (1.0, QColor.fromRgbF(*gradients[spec][component][1]))])
     return gradient
+
+class ColorWidget(QFrame):
+    currentColorChanged = pyqtSignal(QColor)
+    
+    def __init__(self, 
+                 orientation : Qt.Orientation = Qt.Horizontal, 
+                 parent : QWidget = None, 
+                 spec : QColor.Spec = QColor.Rgb):
+        super().__init__(parent)
+        self._orientation = orientation
+        self._spec = spec
+        gradients = []
+        if spec == QColor.Hsv or spec == QColor.Hsl:
+            self._hasHue = True
+            gradients.append(generateGradient(orientation, spec, 0))
+            gradients.append(generateGradient(orientation, spec, 1))
+            gradients.append(generateGradient(orientation, spec, 2))
+        elif spec == QColor.Rgb:
+            self._hasHue = False
+            gradients.append(generateGradient(orientation, spec, 0))
+            gradients.append(generateGradient(orientation, spec, 1))
+            gradients.append(generateGradient(orientation, spec, 2))
+        elif spec == QColor.Cmyk:
+            qWarning('ColorWidget: Cmyk not supported')
+
+
 
 class ColorSliderWidget(QWidget):
     def __init__(self, 
@@ -185,7 +144,7 @@ class ColorSlider_Old(QSlider):
     def setColorChannel(self, spec : QColor.Spec, channel : int):
         self.__spec = QColor.Spec(spec)
         self.__channel = int(channel)
-        self.__gradient = generateGradient(self.orientation(), spec, channel)
+        self.__gradient = generateGradient(spec, channel, self.orientation())
         
         if (spec == QColor.Hsv or self == QColor.Hsl) and channel == 0:
             super().setRange(0, 359)
@@ -304,9 +263,9 @@ class ColorSlider_Old(QSlider):
         value = int(valueF * (super().maximum() - super().minimum()))
         self.setValue(value)
 
-    def setMinimum(self, value): qWarning('ColorSlider: Use setColorChannel')
-    def setMaximum(self, value): qWarning('ColorSlider: Use setColorChannel')
-    def setRange(self, value1, value2): qWarning('ColorSlider: Use setColorChannel')
+    def setMinimum(self, value): qWarning('ColorSlider.setMinimum: Use setColorChannel')
+    def setMaximum(self, value): qWarning('ColorSlider.setMaximum: Use setColorChannel')
+    def setRange(self, value1, value2): qWarning('ColorSlider.setRange: Use setColorChannel')
 
     #==================================================#
     # Getters                                          #

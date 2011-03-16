@@ -158,6 +158,7 @@ class ColorFrame(QFrame):
     hoverColor = pyqtProperty(QColor, fget=getHoverColor, fset=setHoverColor)
     margin = pyqtProperty(int, fget=getMargin, fset=setMargin)
 
+#TODO: Keypad navigation, currentColorChanged, mouse events
 class ColorPicker(QWidget):
     #==================================================#
     # Signals                                          #

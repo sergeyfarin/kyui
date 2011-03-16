@@ -1,8 +1,8 @@
 #UTF-8
 #keysequenceeditor.pyw
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QLineEdit, QWidget
+from PyQt4.QtCore import Qt, pyqtProperty
+from PyQt4.QtGui import QLineEdit, QWidget, QKeySequence
 
 Keys = { \
     #Qt.Key_Escape       : 'Esc', 
@@ -152,4 +152,28 @@ class KeySequenceLineEdit(QLineEdit):
         self.setText(keys)
     
 class KeySequenceEditor(QWidget):
-    pass
+    def __init__(self, 
+                 parent : QWidget, 
+                 keysequence : QKeySequence = None, 
+                 action = None):
+        super().__init__(parent)
+        self.__lineEdit = KeySequenceLineEdit(self)
+        if keysequence:
+            self.__ks = keysequence
+        elif action: 
+            pass
+        else:
+            self.__ks = QKeySequence()
+    
+    def getKeySequence(self) -> QKeySequence:
+        return self.__ks
+        
+    def setKeySequence(self, keysequence : QKeySequence):
+        self.__ks = keysequence
+        self.lineEdit.setText(keysequence.toString())
+    
+    def getLineEdit(self) -> KeySequenceLineEdit:
+        return self.__lineEdit
+        
+    lineEdit = pyqtProperty(KeySequenceLineEdit, fget=getLineEdit)
+    keySequence = pyqtProperty(QKeySequence, fget=getKeySequence, fset=setKeySequence)

@@ -5,12 +5,14 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-from Widgets.colorslider import ColorSlider, HueSlider
+from Widgets.colorslider import ColorSlider_Old
 from Widgets.debugbox import DebugBox
 
-class Dialog(QDialog):
+from template_test import TemplateDialog
+
+class Dialog(TemplateDialog):
     def __init__(self, parent = None):
-        super().__init__(parent)
+        super(QDialog, self).__init__(parent)
         self.setObjectName('dialog')
         
         self._color = QColor(0, 0, 0)
@@ -19,43 +21,28 @@ class Dialog(QDialog):
         self.connectSignals()
         
     def setupUi(self):
-        self.layout = QVBoxLayout(self)
-        self.layout.setObjectName('layout')
-        
+        super().setupUi()
         self.testBox = QGroupBox(self)
         self.testBox.setObjectName('testBox')
         self.testLayout = QBoxLayout(QBoxLayout.TopToBottom, self.testBox)
         self.testLayout.setObjectName('testLayout')
         
-        self.testWidget1 = ColorSlider(Qt.Horizontal, self.testBox, 
-                                       ColorSlider.Red)
+        self.testWidget1 = ColorSlider_Old(QColor.Rgb, 0, 
+                                           Qt.Horizontal, self.testBox)
         self.testWidget1.setObjectName('testWidget1')
-        self.testWidget1.setRange(0, 200)
         self.testLayout.addWidget(self.testWidget1)
         
-        self.testWidget2 = ColorSlider(Qt.Horizontal, self.testBox, 
-                                       ColorSlider.Green)
+        self.testWidget2 = ColorSlider_Old(QColor.Rgb, 1, 
+                                           Qt.Horizontal, self.testBox)
         self.testWidget2.setObjectName('testWidget2')
-        self.testWidget2.setRange(0, 200)
         self.testLayout.addWidget(self.testWidget2)
         
-        self.testWidget3 = ColorSlider(Qt.Horizontal, self.testBox, 
-                                       ColorSlider.Blue)
+        self.testWidget3 = ColorSlider_Old(QColor.Rgb, 2, 
+                                           Qt.Horizontal, self.testBox)
         self.testWidget3.setObjectName('testWidget3')
-        self.testWidget3.setRange(0, 200)
         self.testLayout.addWidget(self.testWidget3)
         
-        self.testWidget4 = HueSlider(Qt.Horizontal, self.testBox, QColor.Hsv)
-        self.testWidget4.setObjectName('testWidget4')
-        self.testWidget4.setRange(0, 200)
-        self.testLayout.addWidget(self.testWidget4)
-        
-        self.layout.addWidget(self.testBox)
-        
-        self.settingsBox = QGroupBox(self)
-        self.settingsBox.setObjectName('settingsBox')
-        self.settingsLayout = QFormLayout(self.settingsBox)
-        self.settingsLayout.setObjectName('settingsLayout')
+        self.layout.insertWidget(0, self.testBox)
         
         self.specLabel = QLabel(self.settingsBox)
         self.specLabel.setObjectName('specLabel')
@@ -76,56 +63,36 @@ class Dialog(QDialog):
         self.dynamicBox.setChecked(True)
         self.settingsLayout.addWidget(self.dynamicBox)
         
-        self.layout.addWidget(self.settingsBox)
-        
-        self.debugBox = DebugBox(self)
-        self.debugBox.setObjectName('debugBox')
-        self.layout.addWidget(self.debugBox)
-        qInstallMsgHandler(self.debugBox.postMsg)
-        
-        self.closeButton = QPushButton(self)
-        self.closeButton.setObjectName('closeButton')
-        self.closeButton.setDefault(True)
-        self.layout.addWidget(self.closeButton)
-        self.layout.setAlignment(self.closeButton, 
-                                 Qt.AlignRight | Qt.AlignBottom)
-        
         self.retranslateUi()
         
     def retranslateUi(self):
-        self.setWindowTitle(self.trUtf8('Test Dialog'))
+        super().retranslateUi()
         self.testBox.setTitle(self.trUtf8('&Test'))
-        self.settingsBox.setTitle(self.trUtf8('&Options'))
         self.specLabel.setText(self.trUtf8('&Spec'))
         self.orientBox.setText('&Vertical Sliders')
         self.dynamicBox.setText('&Dynamic Gradients')
-        self.closeButton.setText(self.trUtf8('&Close'))
         
     def connectSignals(self):
+        super().connectSignals()
         self.specBox.currentIndexChanged[int].connect(self.onSpecChanged)
         self.orientBox.toggled.connect(self.onOrientationChanged)
         self.dynamicBox.toggled.connect(self.setDynamic)
-        self.closeButton.clicked.connect(self.close)
         self.setDynamic(True)
-        
-#        self.onSpecChanged(0)
         
     def onSpecChanged(self, index : int):
         if index == 0:
             qDebug('Spec: RGB')
-            self.testWidget1.setComponent(ColorSlider.Red)
-            self.testWidget2.setComponent(ColorSlider.Green)
-            self.testWidget3.setComponent(ColorSlider.Blue)
+            self.testWidget1.setColorChannel(QColor.Rgb, 0)
+            self.testWidget2.setColorChannel(QColor.Rgb, 1)
+            self.testWidget3.setColorChannel(QColor.Rgb, 2)
         elif index == 1:
-            qDebug('Spec: HSV')
-            self.testWidget1.setComponent(ColorSlider.HsvHue)
-            self.testWidget2.setComponent(ColorSlider.HsvSat)
-            self.testWidget3.setComponent(ColorSlider.HsvVal)
+            self.testWidget1.setColorChannel(QColor.Hsv, 0)
+            self.testWidget2.setColorChannel(QColor.Hsv, 1)
+            self.testWidget3.setColorChannel(QColor.Hsv, 2)
         elif index == 2:
-            qDebug('Spec: HSL')
-            self.testWidget1.setComponent(ColorSlider.HslHue)
-            self.testWidget2.setComponent(ColorSlider.HslSat)
-            self.testWidget3.setComponent(ColorSlider.HslLum)
+            self.testWidget1.setColorChannel(QColor.Hsl, 0)
+            self.testWidget2.setColorChannel(QColor.Hsl, 1)
+            self.testWidget3.setColorChannel(QColor.Hsl, 2)
             
     def onOrientationChanged(self):
         if self.orientBox.isChecked():
@@ -150,19 +117,19 @@ class Dialog(QDialog):
             self.testWidget3.valueChanged.disconnect(self.onSlider3Changed)
         
     def onSlider1Changed(self, value):
-        component = self.testWidget1.component()
-        self.testWidget2.setComponentValue(component, value)
-        self.testWidget3.setComponentValue(component, value)
+        channel = self.testWidget1.colorChannel()
+        self.testWidget2.setChannelValue(channel, value)
+        self.testWidget3.setChannelValue(channel, value)
 
     def onSlider2Changed(self, value):
-        component = self.testWidget2.component()
-        self.testWidget1.setComponentValue(component, value)
-        self.testWidget3.setComponentValue(component, value)
+        channel = self.testWidget2.colorChannel()
+        self.testWidget1.setChannelValue(channel, value)
+        self.testWidget3.setChannelValue(channel, value)
 
     def onSlider3Changed(self, value):
-        component = self.testWidget3.component()
-        self.testWidget1.setComponentValue(component, value)
-        self.testWidget2.setComponentValue(component, value)
+        channel = self.testWidget3.colorChannel()
+        self.testWidget1.setChannelValue(channel, value)
+        self.testWidget2.setChannelValue(channel, value)
 
 
 if __name__ == '__main__':
