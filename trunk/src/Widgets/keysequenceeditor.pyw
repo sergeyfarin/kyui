@@ -127,7 +127,8 @@ class KeySequenceLineEdit(QLineEdit):
         if key in self.modState:
             self.modState[key] = False
         elif key in Keys:
-            self.currentKey = ''        
+            self.currentKey = ''
+        self.printKeys()
         event.accept()
     
     def focusInEvent(self, event):

@@ -6,7 +6,6 @@ from PyQt4.QtGui import *
 import sys
 
 from Widgets.colorslider import ColorSlider_Old
-from Widgets.debugbox import DebugBox
 
 from template_test import TemplateDialog
 
@@ -22,6 +21,9 @@ class Dialog(TemplateDialog):
         
     def setupUi(self):
         super().setupUi()
+        
+        self.debugBox.hide()
+        
         self.testBox = QGroupBox(self)
         self.testBox.setObjectName('testBox')
         self.testLayout = QBoxLayout(QBoxLayout.TopToBottom, self.testBox)

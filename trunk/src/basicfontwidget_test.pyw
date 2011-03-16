@@ -19,6 +19,9 @@ class Dialog(TemplateDialog):
         
     def setupUi(self):
         super().setupUi()
+        
+        self.debugBox.hide()
+        
         self.testWidget = KyBasicFontWidget(self.font(), self)
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
