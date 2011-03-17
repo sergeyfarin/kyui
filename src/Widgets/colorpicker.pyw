@@ -1,8 +1,13 @@
 #UTF-8
 #colorpicker.pyw
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt, pyqtSlot, pyqtSignal, pyqtProperty, qWarning
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import QWidget, QFrame
+from PyQt4.QtGui import QPainter, QStyle
+from PyQt4.QtGui import QStyleOptionFrameV3, QStyleOptionFocusRect
+from PyQt4.QtGui import QSizePolicy
+from PyQt4.QtGui import QPalette, QColor
 
 class ColorFrame(QFrame):
     #==================================================#

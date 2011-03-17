@@ -1,10 +1,10 @@
-from PyQt4.QtCore import Qt, QSize, QEvent
-from PyQt4.QtGui import QAbstractButton, QTabBar, QWidget
+from PyQt4.QtCore import Qt, QSize
+from PyQt4.QtGui import QAbstractButton, QTabBar
 from PyQt4.QtGui import QStyle, QStyleOption
 from PyQt4.QtGui import QPainter
 
 class CloseButton(QAbstractButton):
-    def __init__(self, parent : QWidget):
+    def __init__(self, parent):
         super().__init__(parent)
         self.setFocusPolicy(Qt.NoFocus)
         self.setCursor(Qt.ArrowCursor)
@@ -17,17 +17,17 @@ class CloseButton(QAbstractButton):
         height = self.style().pixelMetric(QStyle.PM_TabCloseIndicatorHeight, None, self)
         return QSize(width, height)
 
-    def enterEvent(self, ev : QEvent):
+    def enterEvent(self, ev):
         if self.isEnabled():
             self.update()
         super(QAbstractButton, self).enterEvent(ev)
 
-    def leaveEvent(self, ev : QEvent):
+    def leaveEvent(self, ev):
         if self.isEnabled():
             self.update()
         super(QAbstractButton, self).leaveEvent(ev)
 
-    def paintEvent(self, ev : QEvent):
+    def paintEvent(self, ev):
         p = QPainter(self)
         opt = QStyleOption()
         opt.init(self)

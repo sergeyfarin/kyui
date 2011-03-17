@@ -64,7 +64,6 @@ class ColorWidget(QFrame):
             qWarning('ColorWidget: Cmyk not supported')
 
 
-
 class ColorSliderWidget(QWidget):
     def __init__(self, 
                  parent : QWidget = None, 
@@ -80,55 +79,6 @@ class ColorSliderWidget(QWidget):
     def __createSliders(self) -> list:
         pass
         
-class HueSlider(QSlider):
-    def __init__(self, 
-                 orientation : Qt.Orientation = Qt.Horizontal, 
-                 parent : QWidget = None):
-        super().__init__(orientation, parent)
-        self._gradient = generateGradient(QColor.Hsv, 0, orientation)
-
-    #==================================================#
-    # Event Handling                                   #
-    #==================================================#
-    def paintEvent(self, pe):
-        p = QPainter(self)
-        opt = QStyleOptionSlider()
-        self.initStyleOption(opt)
-        opt.subControls |= ~QStyle.SC_SliderGroove
-        
-        center = opt.rect.center()
-        if self.orientation() == Qt.Horizontal:
-            rect = QRect(opt.rect.x() + 7, center.y() - 3, 
-                         opt.rect.width() - 14, 6)
-        else:
-            rect = QRect(center.x() - 3, opt.rect.y() + 7, 
-                         6, opt.rect.height() - 14)
-        p.setPen(QPen(Qt.black))
-        p.setBrush(QBrush(self._gradient))
-        p.drawRect(rect.adjusted(1, 1, -1, -1))
-        
-        self.style().drawComplexControl(QStyle.CC_Slider, opt, p, None)
-        p.end()
-
-    #==================================================#
-    # Reimplemented Public Methods                     #
-    #==================================================#
-    def sizeHint(self):
-        return self.minimumSizeHint()
-        
-    def minimumSizeHint(self):
-        if self.orientation() == Qt.Horizontal:
-            return QSize(200, 18) 
-        else:
-            return QSize(18, 200)
-
-    def setOrientation(self, orient):
-        super().setOrientation(orient)
-        self._gradient = generateGradient(QColor.Hsv, 0, orient)
-        self.update()
-
-class ColorSlider(): pass
-
 class ColorSlider_Old(QSlider):
     def __init__(self, 
                  spec : QColor.Spec = QColor.Rgb, 
@@ -316,90 +266,3 @@ class ColorSlider_Old(QSlider):
         
         self.style().drawComplexControl(QStyle.CC_Slider, opt, p, None)
         p.end()
-
-#class OldColorSlider(QSlider):
-#    Red = 0
-#    Green = 1
-#    Blue = 2
-#    
-#    HslHue = 3
-#    HslSat = 4
-#    HslLum = 5
-#    
-#    HsvHue = 6
-#    HsvSat = 7
-#    HsvVal = 8
-#    
-#    def __init__(self, 
-#                 orientation : Qt.Orientation = Qt.Horizontal, 
-#                 parent : QWidget = None, 
-#                 channel : int = 0):
-#        super().__init__(orientation, parent)
-#        self._color0 = QColor()
-#        self._color1 = QColor()
-#        self._channel = channel
-#        
-#        self.gradient = QLinearGradient()
-#        self.gradient.setCoordinateMode(QGradient.StretchToDeviceMode)
-#        if self.orientation() == Qt.Horizontal:
-#            self.gradient.setStart(0, 0)
-#            self.gradient.setFinalStop(1, 0)
-#        else:
-#            self.gradient.setStart(0, 1)
-#            self.gradient.setFinalStop(0, 0)
-#        self.setChannel(channel)
-#
-
-#
-#    #==================================================#
-#    # Setters                                          #
-#    #==================================================#
-#    def setChannelValue(self, idx, value):
-#        v = value / (self.maximum() - self.minimum())
-#        if idx == ColorSlider.Red:
-#            self._color0.setRedF(v)
-#            self._color1.setRedF(v)
-#        elif idx == ColorSlider.Green:
-#            self._color0.setGreenF(v)
-#            self._color1.setGreenF(v)
-#        elif idx == ColorSlider.Blue:
-#            self._color0.setBlueF(v)
-#            self._color1.setBlueF(v)
-#        else:
-#            if colors[idx][2] == QColor.Hsl:
-#                (h0, s0, l0, a0) = self._color0.getHslF()
-#                (h1, s1, l1, a1) = self._color1.getHslF()
-#            else:
-#                (h0, s0, l0, a0) = self._color0.getHsvF()
-#                (h1, s1, l1, a1) = self._color1.getHsvF()
-#            if idx == ColorSlider.HslHue or idx == ColorSlider.HsvHue:
-#                h0 = v
-#                h1 = v
-#            elif idx == ColorSlider.HslSat or idx == ColorSlider.HsvSat:
-#                s0 = v
-#                s1 = v
-#            elif idx == ColorSlider.HslLum or idx == ColorSlider.HsvVal:
-#                l0 = v
-#                l1 = v
-#            if colors[idx][2] == QColor.Hsl:
-#                self._color0.setHslF(h0, s0, l0, a0)
-#                self._color1.setHslF(h1, s1, l1, a1)
-#            else:
-#                self._color0.setHsvF(h0, s0, l0, a0)
-#                self._color1.setHsvF(h1, s1, l1, a1)
-#        self.__generateGradient()
-#        
-#    def setChannel(self, channel):
-#        spec = colors[channel][2]
-#        if spec == QColor.Rgb:
-#            self._color0.setRgbF(*colors[channel][0])
-#            self._color1.setRgbF(*colors[channel][1])
-#        elif spec == QColor.Hsl:
-#            self._color0.setHslF(*colors[channel][0])
-#            self._color1.setHslF(*colors[channel][1])
-#        elif spec == QColor.Hsv:
-#            self._color0.setHsvF(*colors[channel][0])
-#            self._color1.setHsvF(*colors[channel][1])
-#        self._channel = channel
-#        self.__generateGradient()
-#        
