@@ -3,19 +3,13 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-import sys
 
 from Widgets.debugbox import DebugBox
 
 class TemplateDialog(QDialog):
     def __init__(self, parent = None):
         super(QDialog, self).__init__(parent)
-        self.setObjectName('dialog')
-        
-        self.setupUi()
-        self.retranslateUi()
-        self.connectSignals()
-        
+    
     def setupUi(self):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
@@ -77,8 +71,25 @@ class TemplateDialog(QDialog):
     def changeStyle(self, style : str):
         qApp.setStyle(QStyleFactory.create(style))
 
+class Dialog(TemplateDialog):
+    def __init__(self, parent = None):
+        super().__init__(parent)
+        self.setupUi()
+        self.connectSignals()
+    
+    def setupUi(self):
+        super().setupUi()
+        self.retranslateUi()
+        
+    def retranslateUi(self):
+        super().retranslateUi()
+    
+    def connectSignals(self):
+        super().connectSignals()
+
 if __name__ == '__main__':
+    import sys
     app = QApplication(sys.argv)
-    dlg = TemplateDialog()
+    dlg = Dialog()
     dlg.show()
     sys.exit(app.exec_())
