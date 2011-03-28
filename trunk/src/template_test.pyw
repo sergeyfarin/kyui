@@ -1,15 +1,17 @@
 #UTF-8
 #template_test.pyw
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSysInfo, Qt, qInstallMsgHandler
+from PyQt4.QtGui import QApplication, qApp
+from PyQt4.QtGui import QWidget, QDialog, QGroupBox
+from PyQt4.QtGui import QFormLayout, QVBoxLayout
+from PyQt4.QtGui import QStyleFactory
+from PyQt4.QtGui import QLabel
+from PyQt4.QtGui import QComboBox, QPushButton
 
 from Widgets.debugbox import DebugBox
 
 class TemplateDialog(QDialog):
-    def __init__(self, parent = None):
-        super(QDialog, self).__init__(parent)
-    
     def setupUi(self):
         self.layout = QVBoxLayout(self)
         self.layout.setObjectName('layout')
@@ -44,6 +46,7 @@ class TemplateDialog(QDialog):
                                  Qt.AlignRight | Qt.AlignBottom)
         
         self.setupStyle()
+        self.retranslateUi()
     
     def setupStyle(self):
         version = QSysInfo.WindowsVersion
@@ -72,13 +75,18 @@ class TemplateDialog(QDialog):
         qApp.setStyle(QStyleFactory.create(style))
 
 class Dialog(TemplateDialog):
-    def __init__(self, parent = None):
+    def __init__(self, parent : QWidget = None):
         super().__init__(parent)
         self.setupUi()
         self.connectSignals()
     
     def setupUi(self):
         super().setupUi()
+        
+        self.testWidget = QWidget(self)
+        self.testWidget.setObjectName('testWidget')
+        self.layout.insertWidget(0, self.testWidget)
+        
         self.retranslateUi()
         
     def retranslateUi(self):

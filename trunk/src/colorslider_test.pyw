@@ -1,5 +1,5 @@
 #UTF-8
-#template_test.pyw
+#colorslider_test.pyw
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
