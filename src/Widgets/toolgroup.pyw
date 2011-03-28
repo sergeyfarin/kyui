@@ -8,6 +8,7 @@ class ToolGroupButton(QAbstractButton):
         super().__init__(parent)
         self.setFocusPolicy(Qt.NoFocus)
         self.setCheckable(False)
+        self.setIconSize(QSize(22, 22))
         self.__hover = False
         if icon:
             self.setIcon(icon)
@@ -56,9 +57,24 @@ class ToolGroupButton(QAbstractButton):
         bRect.setTop(tRect.bottom() + 1)
         
         if not self.icon().isNull():
-            icon = self.icon()
+            
             mode = QIcon.Normal if self.isEnabled() else QIcon.Disabled
-            icon.paint(p, tRect, Qt.AlignCenter, mode, QIcon.On)
+            iconpm = self.icon().pixmap(self.iconSize(), mode, QIcon.On)
+            iconRect = self.style().itemPixmapRect(self.rect(), Qt.AlignCenter, iconpm)
+            iconRect.moveTop(self.rect().top() + 10)
+            
+            iconOpt = QStyleOption()
+            iconOpt.initFrom(self)
+            iconOpt.state = QStyle.State_Raised
+            if self.isEnabled():
+                iconOpt.state |= QStyle.State_Enabled
+            iconOpt.rect = QRect(0, 0, 32, 32)
+            iconOpt.rect.moveCenter(self.rect().center())
+            iconOpt.rect.moveTop(self.rect().top() + 6)
+            
+            self.style().drawPrimitive(QStyle.PE_PanelButtonBevel, iconOpt, p, self)
+            self.style().drawItemPixmap(p, iconRect, Qt.AlignCenter, iconpm)
+            
         if self.text():
             self.style().drawItemText(p, bRect, Qt.AlignCenter, self.palette(), 
                                       self.isEnabled(), self.text(), 

@@ -40,7 +40,7 @@ class CloseButton(QAbstractButton):
         if self.isChecked():
             opt.state |= QStyle.State_On
         if self.isDown():
-            opt.state |= QStyle.State_Sunken;
+            opt.state |= QStyle.State_Sunken
 
         if isinstance(self.parent(), QTabBar):
             tb = self.parent()
