@@ -16,7 +16,23 @@ class ToolGroupButton(QAbstractButton):
             self.setText(text)
 
     def minimumSizeHint(self) -> QSize:
-        return QSize(86, 44)
+        minw = 44
+        minh = 86
+        opt = QStyleOptionButton()
+        self.initStyleOption(opt)
+        tsz = opt.fontMetrics.size(Qt.TextWordWrap, self.text())
+        width = tsz.width()
+        height = tsz.height()
+        isz = self.iconSize()
+        if isz.width() + 8 > width:
+            width = isz.width() + 8
+        height += (isz.height() + 8) if isz.height() + 8 > 32 else 32
+        height += 16 #6 on top, 10 on bottom
+        if width < minw:
+            width = minw
+        if height < minh:
+            height = minh
+        return QSize(width, height)
 
     def sizeHint(self) -> QSize:
         return self.minimumSizeHint()
@@ -35,6 +51,11 @@ class ToolGroupButton(QAbstractButton):
         
     def initStyleOption(self, opt):
         opt.initFrom(self)
+        opt.icon = self.icon()
+        opt.iconSize = self.iconSize()
+        opt.text = self.text()
+        opt.features = QStyleOptionButton.ButtonFeatures(0x00)
+        
         if self.isEnabled():
             if self.isHovered() and not self.isChecked() and not self.isDown():
                 opt.state |= QStyle.State_MouseOver
@@ -46,7 +67,7 @@ class ToolGroupButton(QAbstractButton):
 
     def paintEvent(self, ev):
         p = QPainter(self)
-        opt = QStyleOption()
+        opt = QStyleOptionButton()
         self.initStyleOption(opt)
         
         self.style().drawPrimitive(QStyle.PE_PanelButtonBevel, opt, p, self)
@@ -56,12 +77,11 @@ class ToolGroupButton(QAbstractButton):
         tRect.setHeight(tRect.height() * 0.4)
         bRect.setTop(tRect.bottom() + 1)
         
-        if not self.icon().isNull():
-            
+        if opt.icon and not opt.icon.isNull():
             mode = QIcon.Normal if self.isEnabled() else QIcon.Disabled
-            iconpm = self.icon().pixmap(self.iconSize(), mode, QIcon.On)
-            iconRect = self.style().itemPixmapRect(self.rect(), Qt.AlignCenter, iconpm)
-            iconRect.moveTop(self.rect().top() + 10)
+            iconpm = opt.icon.pixmap(self.iconSize(), mode, QIcon.On)
+            iconRect = self.style().itemPixmapRect(opt.rect, Qt.AlignCenter, iconpm)
+            iconRect.moveTop(opt.rect.top() + 10)
             
             iconOpt = QStyleOption()
             iconOpt.initFrom(self)
@@ -69,15 +89,15 @@ class ToolGroupButton(QAbstractButton):
             if self.isEnabled():
                 iconOpt.state |= QStyle.State_Enabled
             iconOpt.rect = QRect(0, 0, 32, 32)
-            iconOpt.rect.moveCenter(self.rect().center())
-            iconOpt.rect.moveTop(self.rect().top() + 6)
+            iconOpt.rect.moveCenter(opt.rect.center())
+            iconOpt.rect.moveTop(opt.rect.top() + 6)
             
             self.style().drawPrimitive(QStyle.PE_PanelButtonBevel, iconOpt, p, self)
             self.style().drawItemPixmap(p, iconRect, Qt.AlignCenter, iconpm)
             
-        if self.text():
-            self.style().drawItemText(p, bRect, Qt.AlignCenter, self.palette(), 
-                                      self.isEnabled(), self.text(), 
+        if opt.text:
+            self.style().drawItemText(p, bRect, Qt.AlignCenter, opt.palette, 
+                                      self.isEnabled(), opt.text, 
                                       QPalette.Text)
         
     def isHovered(self) -> bool:
