@@ -5,6 +5,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from .colors import Win7Color, Win7Color_Normal, Win7Color_Down, Win7Color_Hover
+from .painter import ToolGroupPopupColors, ToolGroupButtonColors, arrowPixmap
 
 def format_qrect(value : QSize) -> str:
     return '({}, {}), {} x {}'.format(value.x(), value.y(), value.width(), value.height())
@@ -12,161 +13,6 @@ def format_qrect(value : QSize) -> str:
 def format_qline(value : QSize) -> str:
     return '({}, {}), ({}, {})'.format(value.x1(), value.y1(), value.x2(), value.y2())
 
-testSizeHint = QSize(265, 95)
-
-def ToolGroupPopupColors():
-    gradient = QLinearGradient()
-    gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-    gradient.setColorAt(0.0, Win7Color.PopupFrameOuterUpper)
-    gradient.setColorAt(1.0, Win7Color.PopupFrameOuterLower)
-    gradient.setStart(0.5, 0.0)
-    gradient.setFinalStop(0.5, 1.0)
-    outerPen = QPen(QBrush(gradient), 1.0)
-    
-    gradient = QLinearGradient()
-    gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-    gradient.setColorAt(0.0, Win7Color.PopupFrameInnerUpper)
-    gradient.setColorAt(1.0, Win7Color.PopupFrameInnerLower)
-    gradient.setStart(0.5, 0.0)
-    gradient.setFinalStop(0.5, 1.0)
-    innerPen = QPen(QBrush(gradient), 1.0)
-
-    gradient = QLinearGradient()
-    gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-    gradient.setColorAt(0.0, Win7Color.ToolGroupUpper)
-    gradient.setColorAt(1.0, Win7Color.ToolGroupLower)
-    gradient.setStart(0.5, 0.0)
-    gradient.setFinalStop(0.5, 1.0)
-    brush = QBrush(gradient)
-    return (outerPen, innerPen, brush)
-    
-class ToolGroupButtonColors():
-    def __init__(self, state):
-        if state == QStyle.State_Sunken:
-            self.outerPen = QPen(Win7Color_Down.ToolButtonFrameOuter)
-            self.innerPen = QPen(Win7Color_Down.ToolButtonFrameInner)
-            gradient = QLinearGradient()
-            gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-            gradient.setColorAt(0.0, Win7Color_Down.ToolButtonTopUpper)
-            gradient.setColorAt(1.0, Win7Color_Down.ToolButtonTopLower)
-            gradient.setStart(0.5, 0.0)
-            gradient.setFinalStop(0.5, 1.0)
-            self.topBrush = QBrush(gradient)
-        
-            gradient = QRadialGradient(QPointF(0.5, 1.0), 0.5, QPointF(0.5, 1.25))
-            gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-            gradient.setColorAt(0.0, Win7Color_Down.ToolButtonBottomUpper)
-#            gradient.setColorAt(0.33, QColor(213, 229, 238))
-            gradient.setColorAt(1.0, Win7Color_Down.ToolButtonBottomLower)
-            self.bottomBrush = QBrush(gradient)
-            
-            self.cornerPixmap = QPixmap(2, 2)
-            self.cornerPixmap.fill(Qt.transparent)
-            color = QColor(Win7Color_Down.ToolButtonFrameOuter)
-            
-            p = QPainter()
-            p.begin(self.cornerPixmap)
-            
-            color.setAlphaF(0.85)
-            p.setPen(color)
-            p.drawPoint(QPoint(1, 0))
-            p.drawPoint(QPoint(0, 1))
-            
-            color.setAlphaF(0.6)
-            p.setPen(color)
-            p.drawPoint(QPoint(1, 1))
-            color.setAlphaF(0.10)
-            p.setPen(color)
-            p.drawPoint(QPoint(0, 0))
-            p.end()
-        elif state == QStyle.State_MouseOver:
-            self.outerPen = QPen(Win7Color_Hover.ToolButtonFrameOuter)
-            self.innerPen = QPen(Win7Color_Hover.ToolButtonFrameInner)
-            
-            gradient = QLinearGradient()
-            gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-            gradient.setColorAt(0.0, Win7Color_Hover.ToolButtonTopUpper)
-            gradient.setColorAt(1.0, Win7Color_Hover.ToolButtonTopLower)
-            gradient.setStart(0.5, 0.0)
-            gradient.setFinalStop(0.5, 1.0)
-            self.topBrush = QBrush(gradient)
-        
-            gradient = QRadialGradient(QPointF(0.5, 1.0), 0.66, QPointF(0.5, 1.66))
-            gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-            gradient.setColorAt(1.0, Win7Color_Hover.ToolButtonBottomLower)
-            gradient.setColorAt(0.0, Win7Color_Hover.ToolButtonBottomUpper)
-            self.bottomBrush = QBrush(gradient)
-            self.cornerPixmap = QPixmap(2, 2)
-            self.cornerPixmap.fill(Qt.transparent)
-            
-            color = QColor(Win7Color_Hover.ToolButtonFrameOuter)
-            p = QPainter()
-            p.begin(self.cornerPixmap)
-            p.setPen(color)
-            p.drawPoint(QPoint(1, 0))
-            p.drawPoint(QPoint(0, 1))
-            color.setAlphaF(0.33)
-            p.setPen(color)
-            p.drawPoint(QPoint(1, 1))
-            color.setAlphaF(0.10)
-            p.setPen(color)
-            p.drawPoint(QPoint(0, 0))
-            p.end()
-        else:
-            self.outerPen = QPen(Win7Color_Normal.ToolButtonFrameOuter)
-            self.innerPen = QPen(Win7Color_Normal.ToolButtonFrameInner)
-            
-            gradient = QLinearGradient()
-            gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-            gradient.setColorAt(0.0, Win7Color_Normal.ToolButtonTopUpper)
-            gradient.setColorAt(1.0, Win7Color_Normal.ToolButtonTopLower)
-            gradient.setStart(0.5, 0.0)
-            gradient.setFinalStop(0.5, 1.0)
-            self.topBrush = QBrush(gradient)
-        
-            gradient = QRadialGradient(QPointF(0.5, 1.0), 0.66, QPointF(0.5, 1.66))
-            gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
-            gradient.setColorAt(1.0, Win7Color_Normal.ToolButtonBottomLower)
-            gradient.setColorAt(0.0, Win7Color_Normal.ToolButtonBottomUpper)
-            self.bottomBrush = QBrush(gradient)
-            self.cornerPixmap = QPixmap(2, 2)
-            self.cornerPixmap.fill(Qt.transparent)
-            
-            color = QColor(Win7Color_Normal.ToolButtonFrameOuter)
-            p = QPainter()
-            p.begin(self.cornerPixmap)
-            p.setPen(color)
-            p.drawPoint(QPoint(1, 0))
-            p.drawPoint(QPoint(0, 1))
-            color.setAlphaF(0.33)
-            p.setPen(color)
-            p.drawPoint(QPoint(1, 1))
-            color.setAlphaF(0.10)
-            p.setPen(color)
-            p.drawPoint(QPoint(0, 0))
-            p.end()
-
-def arrowPixmap() -> QPixmap:
-    pixmap = QPixmapCache.find('ky_win7_arrow')
-    if pixmap:
-        return pixmap
-    pixmap = QPixmap(QSize(5, 4))
-    pixmap.fill(Qt.transparent)
-    p = QPainter()
-    p.begin(pixmap)
-    p.setPen(Win7Color_Normal.Text)
-    p.drawLine(QPoint(0, 0), QPoint(4, 0))
-    p.drawLine(QPoint(1, 1), QPoint(3, 1))
-    p.drawPoint(QPoint(2, 2))
-    p.setPen(Win7Color_Normal.Text_Transparent)
-    p.drawPoints(QPoint(0, 1), 
-                 QPoint(1, 2), 
-                 QPoint(2, 3), 
-                 QPoint(3, 2), 
-                 QPoint(4, 1))
-    p.end()
-    QPixmapCache.insert('ky_win7_arrow', pixmap)
-    return pixmap
 
 class ToolbarGradient(QWidget):
     def __init__(self, parent = None):
@@ -188,7 +34,7 @@ class ToolbarGradient(QWidget):
         self.pen = QPen(QBrush(gradient), 1.0)
         
     def minimumSizeHint(self):
-        return testSizeHint
+        return QSize(265, 95)
     
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -214,18 +60,22 @@ class ToolbarGradient(QWidget):
         p.setBrush(self.brush)
         p.drawRect(rect)
         p.end()
+        
+class ToolGroupBox(QWidget):
+    def __init__(self, parent = None):
+        super().__init__(parent)
+        
 
 class ToolGroupPopup(QWidget):
     aboutToHide = pyqtSignal()
     aboutToShow = pyqtSignal()
     
-    def __init__(self, parent = None):
+    def __init__(self, parent = None, toolgroup = None):
         super().__init__(parent, Qt.Popup)
-#        self.setWindowFlags(Qt.Popup)
-#        self.setParent(parent)
-#        self.setViewportMargins(2, 1, 2, 3)
-#        self.setViewport(QWidget(self))
         (self.outerPen, self.innerPen, self.brush) = ToolGroupPopupColors()
+        self.setAutoFillBackground(False)
+        if not toolgroup:
+            self.__toolgroup = QWidget()
         self.hide()
         
     def minimumSizeHint(self) -> QSize:
@@ -243,25 +93,27 @@ class ToolGroupPopup(QWidget):
         super().show()
         self.setGeometry(QRect(pos, self.sizeHint()))
         
-    def hide(self):
+    def keyPressEvent(self, ev):
+        if ev.key() == Qt.Key_Escape:
+            self.hide()
+            
+    def hideEvent(self, ev):
         self.aboutToHide.emit()
-        
-    def focusOutEvent(self, ev):
-        self.hide()
-        super().focusOutEvent(ev)
         
     def paintEvent(self, ev):
         p = QPainter(self)
-        rect = self.rect().adjusted(0, 0, -1, -1)
+        rect = self.rect()
         p.setPen(self.outerPen)
-        p.drawRect(rect)
-        p.setPen(QColor(Qt.transparent))
-        p.drawPoint(rect.topLeft())
-        p.drawPoint(rect.topRight())
-        p.drawPoint(rect.bottomLeft())
-        p.drawPoint(rect.bottomRight())
+        p.fillRect(rect, Qt.transparent)
+        (x1, y1, x2, y2) = rect.getCoords()
+#        p.drawRect(rect)
+        lines = [QLine(x1 + 1, y1, x2 - 1, y1), 
+                 QLine(x1 + 1, y2, x2 - 1, y2), 
+                 QLine(x1, y1 + 1, x1, y2 - 1), 
+                 QLine(x2, y1 + 1, x2, y2 - 1)]
+        p.drawLines(lines)
         p.setPen(QColor(206, 219, 235))
-        rect.adjust(1, 0, -1, -1)
+        rect.adjust(1, 0, -2, -2)
         p.drawLine(rect.bottomLeft(), rect.bottomRight())
         p.setPen(self.innerPen)
         rect.adjust(0, 1, 0, -1)
@@ -269,12 +121,21 @@ class ToolGroupPopup(QWidget):
         p.drawRect(rect)
         p.end()
         
+    def getToolGroup(self):
+        return self.__toolgroup
+        
+    def setToolGroup(self, toolgroup):
+        self.__toolgroup = toolgroup
+        
+    toolGroup = pyqtProperty(QWidget, fget=getToolGroup, fset=setToolGroup)
+        
 class ToolGroupButton(QAbstractButton):
     def __init__(self, parent, icon : QIcon = None, text : str = None):
         super().__init__(parent)
         self.setFocusPolicy(Qt.NoFocus)
         self.setCheckable(False)
         self.setIconSize(QSize(22, 22))
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.__hover = False
         pal = self.palette()
         pal.setColor(QPalette.ButtonText, QColor(76, 96, 122))
@@ -328,7 +189,7 @@ class ToolGroupButton(QAbstractButton):
         super(QAbstractButton, self).leaveEvent(ev)
         
     def mousePressEvent(self, ev):
-        if ev.button() == Qt.LeftButton:
+        if ev.button() == Qt.LeftButton and not self.isDown():
             self.__popupBox.show()
         super().mousePressEvent(ev)
         
@@ -394,6 +255,15 @@ class ToolGroupButton(QAbstractButton):
                      QLine(x1 + 1, y1 + 2, x1 + 1, y2 - 2), 
                      QLine(x2 - 1, y1 + 2, x2 - 1, y2 - 2)]
             p.drawLines(lines)
+            
+            # Inner Gradients
+            rect = self.rect().adjusted(1, 2, -1, -1)
+            rect2 = QRect(rect)
+            split = (rect.height() - 4) * 0.4
+            rect.setHeight(split)
+            rect2.setTop(rect.bottom() + 1)
+            p.fillRect(rect, self.hoverPalette.topBrush)
+            p.fillRect(rect2, self.hoverPalette.bottomBrush)
             
             # Corner pixmap
             pm = self.hoverPalette.cornerPixmap
