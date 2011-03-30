@@ -1,5 +1,19 @@
 from PyQt4.QtGui import QColor
 
+#Colors that remain the same regardless of state
+class Win7Color():
+    Text = QColor(76, 96, 122)
+    Text_Transparent = QColor(255, 255, 255, 84) #84 is about 33%
+    
+    PopupFrameOuterUpper = QColor(160, 165, 169)
+    PopupFrameOuterLower = QColor(129, 154, 187)
+    PopupFrameBottom = QColor(206, 219, 235)
+    PopupFrameInnerUpper = QColor(251, 253, 255)
+    PopupFrameInnerLower = QColor(229, 240, 251)
+    
+    ToolGroupUpper = QColor(247, 251, 255)
+    ToolGroupLower = QColor(220, 231, 245)
+
 class Win7Color_Normal():
     #Toolbar and toolbutton colors
     Text = QColor(76, 96, 122)

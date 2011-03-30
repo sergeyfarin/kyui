@@ -4,7 +4,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from .colors import Win7Color_Normal, Win7Color_Down, Win7Color_Hover
+from .colors import Win7Color, Win7Color_Normal, Win7Color_Down, Win7Color_Hover
 
 def format_qrect(value : QSize) -> str:
     return '({}, {}), {} x {}'.format(value.x(), value.y(), value.width(), value.height())
@@ -14,6 +14,32 @@ def format_qline(value : QSize) -> str:
 
 testSizeHint = QSize(265, 95)
 
+def ToolGroupPopupColors():
+    gradient = QLinearGradient()
+    gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
+    gradient.setColorAt(0.0, Win7Color.PopupFrameOuterUpper)
+    gradient.setColorAt(1.0, Win7Color.PopupFrameOuterLower)
+    gradient.setStart(0.5, 0.0)
+    gradient.setFinalStop(0.5, 1.0)
+    outerPen = QPen(QBrush(gradient), 1.0)
+    
+    gradient = QLinearGradient()
+    gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
+    gradient.setColorAt(0.0, Win7Color.PopupFrameInnerUpper)
+    gradient.setColorAt(1.0, Win7Color.PopupFrameInnerLower)
+    gradient.setStart(0.5, 0.0)
+    gradient.setFinalStop(0.5, 1.0)
+    innerPen = QPen(QBrush(gradient), 1.0)
+
+    gradient = QLinearGradient()
+    gradient.setCoordinateMode(QGradient.ObjectBoundingMode)
+    gradient.setColorAt(0.0, Win7Color.ToolGroupUpper)
+    gradient.setColorAt(1.0, Win7Color.ToolGroupLower)
+    gradient.setStart(0.5, 0.0)
+    gradient.setFinalStop(0.5, 1.0)
+    brush = QBrush(gradient)
+    return (outerPen, innerPen, brush)
+    
 class ToolGroupButtonColors():
     def __init__(self, state):
         if state == QStyle.State_Sunken:
@@ -119,25 +145,6 @@ class ToolGroupButtonColors():
             p.setPen(color)
             p.drawPoint(QPoint(0, 0))
             p.end()
-    
-#def toolButtonCorner() -> QPixmap:
-#    pixmap = QPixmapCache.find('ky_win7_toolbuttoncorner_normal')
-#    if pixmap:
-#        return pixmap
-#    pixmap = QPixmap(2, 2)
-#    pixmap.fill(Qt.transparent)
-#    p = QPainter()
-#    p.begin(pixmap)
-#    p.setPen(Win7Color_Normal.ToolButtonFrameOuter)
-#    p.drawPoint(QPoint(1, 0))
-#    p.drawPoint(QPoint(0, 1))
-#    p.setOpacity(0.33)
-#    p.drawPoint(QPoint(1, 1))
-#    p.setOpacity(0.10)
-#    p.drawPoint(QPoint(0, 0))
-#    p.end()
-#    QPixmapCache.insert('ky_win7_toolbuttoncorner_normal', pixmap)
-#    return pixmap
 
 def arrowPixmap() -> QPixmap:
     pixmap = QPixmapCache.find('ky_win7_arrow')
@@ -208,6 +215,60 @@ class ToolbarGradient(QWidget):
         p.drawRect(rect)
         p.end()
 
+class ToolGroupPopup(QWidget):
+    aboutToHide = pyqtSignal()
+    aboutToShow = pyqtSignal()
+    
+    def __init__(self, parent = None):
+        super().__init__(parent, Qt.Popup)
+#        self.setWindowFlags(Qt.Popup)
+#        self.setParent(parent)
+#        self.setViewportMargins(2, 1, 2, 3)
+#        self.setViewport(QWidget(self))
+        (self.outerPen, self.innerPen, self.brush) = ToolGroupPopupColors()
+        self.hide()
+        
+    def minimumSizeHint(self) -> QSize:
+        sz = super().minimumSizeHint()
+        return sz + QSize(4, 5)
+        
+    def sizeHint(self) -> QSize:
+        return QSize(100, 100)
+        return self.minimumSizeHint()
+        
+    def show(self):
+        self.aboutToShow.emit()
+        parent = self.parentWidget()
+        pos = parent.mapToGlobal(parent.rect().bottomLeft())
+        super().show()
+        self.setGeometry(QRect(pos, self.sizeHint()))
+        
+    def hide(self):
+        self.aboutToHide.emit()
+        
+    def focusOutEvent(self, ev):
+        self.hide()
+        super().focusOutEvent(ev)
+        
+    def paintEvent(self, ev):
+        p = QPainter(self)
+        rect = self.rect().adjusted(0, 0, -1, -1)
+        p.setPen(self.outerPen)
+        p.drawRect(rect)
+        p.setPen(QColor(Qt.transparent))
+        p.drawPoint(rect.topLeft())
+        p.drawPoint(rect.topRight())
+        p.drawPoint(rect.bottomLeft())
+        p.drawPoint(rect.bottomRight())
+        p.setPen(QColor(206, 219, 235))
+        rect.adjust(1, 0, -1, -1)
+        p.drawLine(rect.bottomLeft(), rect.bottomRight())
+        p.setPen(self.innerPen)
+        rect.adjust(0, 1, 0, -1)
+        p.setBrush(self.brush)
+        p.drawRect(rect)
+        p.end()
+        
 class ToolGroupButton(QAbstractButton):
     def __init__(self, parent, icon : QIcon = None, text : str = None):
         super().__init__(parent)
@@ -225,6 +286,12 @@ class ToolGroupButton(QAbstractButton):
         self.normalPalette = ToolGroupButtonColors(QStyle.State_On)
         self.hoverPalette = ToolGroupButtonColors(QStyle.State_MouseOver)
         self.downPalette = ToolGroupButtonColors(QStyle.State_Sunken)
+        
+        self.__popupBox = ToolGroupPopup(self)
+        self.__popupBox.aboutToHide.connect(self._popupHidden)
+        
+    def _popupHidden(self):
+        self.setDown(False)
         
     def minimumSizeHint(self) -> QSize:
         minw = 44
@@ -259,6 +326,11 @@ class ToolGroupButton(QAbstractButton):
             self.__hover = False
             self.update()
         super(QAbstractButton, self).leaveEvent(ev)
+        
+    def mousePressEvent(self, ev):
+        if ev.button() == Qt.LeftButton:
+            self.__popupBox.show()
+        super().mousePressEvent(ev)
         
     def initStyleOption(self, opt):
         opt.initFrom(self)

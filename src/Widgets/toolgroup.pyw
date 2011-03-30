@@ -1,6 +1,25 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+class ToolGroupBox(QWidget):
+    def __init__(self, parent, title : str = None):
+        super().__init__(parent)
+        self.title = title
+        
+    def minimumSizeHint(self) -> QSize:
+        sz = super().minimumSizeHint()
+        return sz + QSize(4, 5)
+        
+    def sizeHint(self) -> QSize:
+        return self.minimumSizeHint()
+        
+    def getTitle(self) -> str:
+        return self.__title
+        
+    def setTitle(self, title):
+        self.__title = title
+    title = pyqtProperty(str, fget=getTitle, fset=setTitle)
+    
 class ToolGroupButton(QAbstractButton):
     def __init__(self, parent, 
                  icon : QIcon = None, 
@@ -14,6 +33,7 @@ class ToolGroupButton(QAbstractButton):
             self.setIcon(icon)
         if text:
             self.setText(text)
+        self.__toolGroup = None
 
     def minimumSizeHint(self) -> QSize:
         minw = 44
@@ -41,13 +61,18 @@ class ToolGroupButton(QAbstractButton):
         if self.isEnabled():
             self.__hover = True
             self.update()
-        super(QAbstractButton, self).enterEvent(ev)
+        super().enterEvent(ev)
 
     def leaveEvent(self, ev):
         if self.isEnabled():
             self.__hover = False
             self.update()
-        super(QAbstractButton, self).leaveEvent(ev)
+        super().leaveEvent(ev)
+        
+    def mousePressEvent(self, ev):
+        if ev.button() == Qt.LeftButton:
+            pass
+        super().mousePressEvent(ev)
         
     def initStyleOption(self, opt):
         opt.initFrom(self)
@@ -66,7 +91,8 @@ class ToolGroupButton(QAbstractButton):
             opt.state |= QStyle.State_Sunken
 
     def paintEvent(self, ev):
-        p = QPainter(self)
+        p = QPainter()
+        p.begin(self)
         opt = QStyleOptionButton()
         self.initStyleOption(opt)
         
@@ -99,6 +125,7 @@ class ToolGroupButton(QAbstractButton):
             self.style().drawItemText(p, bRect, Qt.AlignCenter, opt.palette, 
                                       self.isEnabled(), opt.text, 
                                       QPalette.Text)
+        p.end()
         
     def isHovered(self) -> bool:
         return self.__hover

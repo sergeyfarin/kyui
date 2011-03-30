@@ -16,12 +16,12 @@ class Dialog(TemplateDialog):
         
         self.testWidget = ToolGroupButton(self)
         self.testWidget.setObjectName('testWidget')
-        self.layout.insertWidget(0, self.testWidget)
         self.testWidget.setFixedSize(48, 86)
-        
         self.testWidget.setText('Test')
         icon = self.style().standardIcon(QStyle.SP_DriveHDIcon).pixmap(self.testWidget.iconSize())
         self.testWidget.setIcon(QIcon(icon))
+        self.layout.insertWidget(0, self.testWidget)
+        
         self.retranslateUi()
         
     def retranslateUi(self):
