@@ -5,8 +5,22 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-from Widgets.propertyinfo import ClassPairs, FormattableTypes, FormatQType
+from Widgets.propertyinfo import FormattableTypes, FormatQType, CreatePropertyItem
+from Widgets.colorbutton import ColorButton
+from Widgets.colorpicker import ColorPicker
+
 from template_test import TemplateDialog
+
+ClassPairs = {'QWidget' : QWidget, 
+              'QPushButton' : QPushButton, 
+              'QToolButton' : QToolButton, 
+              'QDialog' : QDialog, 
+              'QMenu' : QMenu, 
+              'QComboBox' : QComboBox, 
+              'QFrame' : QFrame, 
+              'QSpinBox' : QSpinBox, 
+              'ColorButton' : ColorButton, 
+              'ColorPicker' : ColorPicker}
 
 class Dialog(TemplateDialog):
     def __init__(self, parent = None):
@@ -21,6 +35,12 @@ class Dialog(TemplateDialog):
         
     def setupUi(self):
         super().setupUi()
+        
+        self.colorButton = ColorButton(self)
+        self.colorButton.hide()
+        
+        self.colorPicker = ColorPicker(self)
+        self.colorPicker.hide()
         
         self.testWidget = None
         
@@ -37,15 +57,20 @@ class Dialog(TemplateDialog):
         self.classLabel.setObjectName('classLabel')
         self.classBox = QComboBox(self.settingsBox)
         self.classBox.setObjectName('classBox')
-        for key in ClassPairs.keys():
-            self.classBox.addItem(key, ClassPairs[key])
+        self.classBox.addItem('ColorButton', self.colorButton)
+        self.classBox.addItem('ColorPicker', self.colorPicker)
+        self.classBox.addItem('ComboBox', self.classBox)
+        self.classBox.addItem('DebugBox', self.debugBox)
+        self.classBox.addItem('Dialog', self)
+        self.classBox.addItem('Label', self.classLabel)
+        self.classBox.addItem('PushButton', self.closeButton)
+        self.classBox.addItem('TreeWidget', self.treeWidget)
+        self.classBox.addItem('')
+        
         self.classLabel.setBuddy(self.classBox)
         self.settingsLayout.addRow(self.classLabel, self.classBox)
         
         self.debugBox.setFixedHeight(100)
-        
-        self.retranslateUi()
-        self.connectSignals()
         
     def retranslateUi(self):
         super().retranslateUi()
@@ -57,70 +82,57 @@ class Dialog(TemplateDialog):
         
     def setupClassTree(self, index):
         self.treeWidget.clear()
-        if self.testWidget:
-            self.testWidget.setParent(None)
-        self.testWidget = self.classBox.itemData(index)(self)
-        self.testWidget.hide()
+        self.testWidget = self.classBox.itemData(index)
         mObject = self.testWidget.metaObject()
-        item = QTreeWidgetItem(self.treeWidget, [mObject.className()])
-        self.setupPropertyTree(item, mObject)
-        item.setExpanded(True)
+        propRootItem = QTreeWidgetItem(self.treeWidget, ['Properties'])
+        signalRootItem = QTreeWidgetItem(self.treeWidget, ['Signals'])
+        slotRootItem = QTreeWidgetItem(self.treeWidget, ['Slots'])
         while mObject.superClass():
+            propClassItem = QTreeWidgetItem(None, [mObject.className()])
+            signalClassItem = QTreeWidgetItem(None, [mObject.className()])
+            slotClassItem = QTreeWidgetItem(None, [mObject.className()])
+            self.setupPropertyTree(propClassItem, mObject)
+            if propClassItem.childCount() != 0:
+                propRootItem.insertChild(0, propClassItem)
+                propClassItem.setExpanded(True)
+            self.setupSignalSlotTree(signalClassItem, slotClassItem, mObject)
+            if signalClassItem.childCount() != 0:
+                signalRootItem.insertChild(0, signalClassItem)
+                signalClassItem.setExpanded(True)
+            if slotClassItem.childCount() != 0:
+                slotRootItem.insertChild(0, slotClassItem)
+                slotClassItem.setExpanded(True)
             mObject = mObject.superClass()
-            item = QTreeWidgetItem(None, [mObject.className()])
-            self.setupPropertyTree(item, mObject)
-            self.treeWidget.insertTopLevelItem(0, item)
-            item.setExpanded(True)
         
-    def setupPropertyTree(self, rootItem, mObject):
-        propItem = QTreeWidgetItem(rootItem, ['Properties'])
+    def setupPropertyTree(self, propItem, mObject):
         for index in range(mObject.propertyOffset(), mObject.propertyCount()):
             prop = mObject.property(index)
-            if (prop.isValid() and prop.isReadable() and prop.isDesignable()
-                    and prop.isWritable()):
-                value = prop.read(self.testWidget)
-                propType = prop.typeName()
-                if value == None or isinstance(value, QPyNullVariant):
-                    value = ''
-                elif prop.isEnumType():
-                    enum = prop.enumerator()
-                    propType = enum.name()
-                    if enum.isFlag():
-                        value = enum.valueToKeys(int(value)).data().decode()
-                    else:
-                        value = enum.valueToKey(int(value))
-                elif propType in FormattableTypes:
-                    value = FormatQType(value, propType)
-                else:
-                    value = str(value)
-                item = QTreeWidgetItem(propItem, [prop.name(), str(value), propType])
-                item.setToolTip(0, self.generatePropToolTip(prop))
+            CreatePropertyItem(prop, propItem, self.testWidget)
         propItem.setExpanded(True)
-            
-#    def setupEnumList(self, rootItem):
-#        enumRootItem = QTreeWidgetItem('Enumerators', rootItem)
-#        for index in range(self.mObject.enumeratorOffset(), self.mObject.enumeratorCount()):
-#            mEnum = self.mObject.enumerator(index)
-#            enumItem = QTreeWidgetItem(mEnum.name(), enumRootItem)
-
-    def formatQType(self, value, propType):
-        return value
     
-    def generatePropToolTip(self, prop : QMetaProperty) -> str:
-        tt = '<b>{}</b><br><br>'.format(prop.name())
-        tt += 'Constant:   {}<br>'.format(prop.isConstant())
-        tt += 'Designable:   {}<br>'.format(prop.isDesignable(self.testWidget))
-        tt += 'Enum:      {}<br>'.format(prop.isEnumType())
-        tt += 'Final:      {}<br>'.format(prop.isFinal())
-        tt += 'Flag:      {}<br>'.format(prop.isFlagType())
-        tt += 'Readable:   {}<br>'.format(prop.isReadable())
-        tt += 'Resettable:   {}<br>'.format(prop.isResettable())
-        tt += 'Scriptable:   {}<br>'.format(prop.isScriptable(self.testWidget))
-        tt += 'Stored:      {}<br>'.format(prop.isStored(self.testWidget))
-        tt += 'User:      {}<br>'.format(prop.isUser(self.testWidget))
-        tt += 'Valid:      {}<br>'.format(prop.isValid())
-        tt += 'Writable:   {}<br>'.format(prop.isWritable())
-        return tt
+    def setupSignalSlotTree(self, signalItem, slotItem, mObject):
+        def accessToStr(access):
+            if access == QMetaMethod.Public:
+                return 'Public'
+            elif access == QMetaMethod.Protected:
+                return 'Protected'
+            else:
+                return 'Private'
+        for index in range(mObject.methodOffset(), mObject.methodCount()):
+            method = mObject.method(index)
+            if method.methodType() == QMetaMethod.Signal:
+                item = QTreeWidgetItem(signalItem, 
+                                       [str(method.signature()), 
+                                       '', 
+                                       accessToStr(method.access())])
+            elif method.methodType() == QMetaMethod.Slot:
+                item = QTreeWidgetItem(slotItem, 
+                                       [str(method.signature()), 
+                                       '',
+                                       accessToStr(method.access())])
+        signalItem.setExpanded(True)
+        slotItem.setExpanded(True)
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     dlg = Dialog()
