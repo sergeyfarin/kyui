@@ -2,6 +2,7 @@
 #colorbutton.pyw
 
 from PyQt4.QtCore import Qt, pyqtSignal, pyqtSlot, pyqtProperty, qWarning
+from PyQt4.QtCore import QSize
 from PyQt4.QtGui import QWidget, QToolButton
 from PyQt4.QtGui import QColor
 from PyQt4.QtGui import QPainter
