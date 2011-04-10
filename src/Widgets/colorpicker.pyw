@@ -102,7 +102,7 @@ class ColorFrame(QFrame):
     #==================================================#
     # Private Methods                                  #
     #==================================================#
-    def paintEvent(self, pe : QPaintEvent):
+    def paintEvent(self, pe):
         painter = QPainter()
         painter.begin(self)
         opt = QStyleOptionFrameV3()
