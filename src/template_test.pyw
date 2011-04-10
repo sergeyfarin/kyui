@@ -46,7 +46,6 @@ class TemplateDialog(QDialog):
                                  Qt.AlignRight | Qt.AlignBottom)
         
         self.setupStyle()
-        self.retranslateUi()
     
     def setupStyle(self):
         version = QSysInfo.WindowsVersion
