@@ -12,6 +12,9 @@ def format_qrect(value : QSize) -> str:
 
 def format_qline(value : QSize) -> str:
     return '({}, {}), ({}, {})'.format(value.x1(), value.y1(), value.x2(), value.y2())
+    
+def format_qpoint(value : QPoint) -> str:
+    return '({}, {})'.format(value.x(), value.y())
 
 
 class ToolbarGradient(QWidget):

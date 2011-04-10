@@ -13,6 +13,10 @@ class Win7Color():
     
     ToolGroupUpper = QColor(247, 251, 255)
     ToolGroupLower = QColor(220, 231, 245)
+    
+    ToolTipInnerUpper = QColor(255, 255, 255)
+    ToolTipInnerLower = QColor(228, 236, 247)
+    ToolTipFrame = QColor(118, 118, 118)
 
 class Win7Color_Normal():
     #Toolbar and toolbutton colors
