@@ -14,21 +14,46 @@ class Dialog(TemplateDialog):
     def setupUi(self):
         super().setupUi()
         
+        self.toolBar = QToolBar(self)
+        self.toolBar.setObjectName('toolBar')
+        self.layout.insertWidget(0, self.toolBar)
+        
         self.testWidget = ToolGroupButton(self)
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setFixedSize(48, 86)
         self.testWidget.setText('Test')
-        icon = self.style().standardIcon(QStyle.SP_DriveHDIcon).pixmap(self.testWidget.iconSize())
-        self.testWidget.setIcon(QIcon(icon))
-        self.layout.insertWidget(0, self.testWidget)
+        icon = QIcon(self.style().standardIcon(QStyle.SP_DriveHDIcon).pixmap(self.testWidget.iconSize()))
+        self.testWidget.setIcon(icon)
+        self.testWidget.setToolTip('Testing Testing 123')
+        self.toolBar.addWidget(self.testWidget)
+        
+        self.fadeAnim = QPropertyAnimation(self, 'windowOpacity')
+        self.fadeAnim.setDuration(300)
+        self.fadeAnim.setStartValue(1.0)
+        self.fadeAnim.setKeyValueAt(0.5, 0.0)
+        self.fadeAnim.setEndValue(1.0)
+        
+        self.fadeButton = QPushButton(self.settingsBox)
+        self.fadeButton.setObjectName('fadeButton')
+        self.settingsLayout.addWidget(self.fadeButton)
         
         self.retranslateUi()
         
     def retranslateUi(self):
         super().retranslateUi()
+        self.fadeButton.setText(self.trUtf8('&Fade Effect'))
     
     def connectSignals(self):
         super().connectSignals()
+        self.fadeButton.clicked.connect(self.fadeButtonClicked)
+#        self.fadeAnim.finished.connect(self.fadeFinished)
+        
+    def fadeButtonClicked(self):
+        qDebug('Animation started')
+        self.fadeAnim.start()
+        
+    def fadeFinished(self):
+        self.setWindowOpacity(1.0)
         
 if __name__ == '__main__':
     import sys
