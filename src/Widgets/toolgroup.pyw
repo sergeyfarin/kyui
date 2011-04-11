@@ -3,15 +3,39 @@ from PyQt4.QtGui import *
 
 class ToolGroupBox(QWidget):
     def __init__(self, parent, title : str = None):
-        super().__init__(parent)
+        super().__init__(parent, Qt.Popup)
         self.title = title
         
     def minimumSizeHint(self) -> QSize:
-        sz = super().minimumSizeHint()
+        sz = QSize(100, 100)
         return sz + QSize(4, 5)
         
     def sizeHint(self) -> QSize:
         return self.minimumSizeHint()
+        
+    def show(self):
+        if not self.parent():
+            super().show()
+            return
+        if QApplication.isLeftToRight():
+            pos = self.parent().mapToGlobal(self.parent().rect().bottomLeft())
+        else:
+            pos = self.parent().mapToGlobal(self.parent().rect().bottomRight())
+        pos.setY(pos.y() + 1)
+        self.move(pos)
+        super().show()
+        
+    def paintEvent(self, ev):
+        p = QPainter()
+        p.begin(self)
+        p.setPen(QColor(Qt.gray))
+        p.setBrush(QColor(Qt.white))
+        p.drawRect(self.rect().adjusted(0, 0, -1, -1))
+        p.end()
+        
+    def hideEvent(self, ev):
+        if self.parent():
+            self.parent().setDown(False)
         
     def getTitle(self) -> str:
         return self.__title
@@ -25,7 +49,7 @@ class ToolGroupButton(QAbstractButton):
                  icon : QIcon = None, 
                  text : str = None):
         super().__init__(parent)
-        self.setFocusPolicy(Qt.NoFocus)
+#        self.setFocusPolicy(Qt.NoFocus)
         self.setCheckable(False)
         self.setIconSize(QSize(22, 22))
         self.__hover = False
@@ -33,7 +57,7 @@ class ToolGroupButton(QAbstractButton):
             self.setIcon(icon)
         if text:
             self.setText(text)
-        self.__toolGroup = None
+        self.toolGroup = ToolGroupBox(self)
 
     def minimumSizeHint(self) -> QSize:
         minw = 44
@@ -71,8 +95,18 @@ class ToolGroupButton(QAbstractButton):
         
     def mousePressEvent(self, ev):
         if ev.button() == Qt.LeftButton:
-            pass
+            self.toolGroup.show()
         super().mousePressEvent(ev)
+        
+    def keyPressEvent(self, ev):
+        key = ev.key()
+        if ev.modifiers() == Qt.NoModifier:
+            if ((key == Qt.Key_Space or key == Qt.Key_Enter 
+                or key == Qt.Key_Return) and not self.isDown()):
+                self.setDown(True)
+                self.toolGroup.show()
+        ev.accept()
+        return
         
     def initStyleOption(self, opt):
         opt.initFrom(self)
@@ -89,6 +123,8 @@ class ToolGroupButton(QAbstractButton):
             opt.state |= QStyle.State_On
         if self.isDown():
             opt.state |= QStyle.State_Sunken
+        if self.hasFocus():
+            opt.state |= QStyle.State_HasFocus
 
     def paintEvent(self, ev):
         p = QPainter()
@@ -125,6 +161,12 @@ class ToolGroupButton(QAbstractButton):
             self.style().drawItemText(p, bRect, Qt.AlignCenter, opt.palette, 
                                       self.isEnabled(), opt.text, 
                                       QPalette.Text)
+#        if opt.state & QStyle.State_HasFocus:
+#            fropt = QStyleOptionFocusRect()
+#            fropt.initFrom(self)
+#            fropt.backgroundColor = self.palette().button().color()
+#            fropt.rect = self.rect().adjusted(3, 3, -3, -3)
+#            self.style().drawPrimitive(QStyle.PE_FrameFocusRect, fropt, p, self)
         p.end()
         
     def isHovered(self) -> bool:
@@ -132,3 +174,11 @@ class ToolGroupButton(QAbstractButton):
     
     def setHovered(self, hover):
         self.__hover = hover
+    
+    def getToolGroup(self):
+        return self.__toolgroup
+        
+    def setToolGroup(self, toolgroup):
+        self.__toolgroup = toolgroup
+        
+    toolGroup = pyqtProperty(QWidget, fget=getToolGroup, fset=setToolGroup)
