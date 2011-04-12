@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="_ky__magslider">
+    <file alias="zoomout_down">resource/zoomout_down.png</file>
+    <file alias="zoomout_hover">resource/zoomout_hover.png</file>
+    <file alias="zoomout_normal">resource/zoomout_normal.png</file>
+    <file alias="zoomin_down">resource/zoomin_down.png</file>
+    <file alias="zoomin_hover">resource/zoomin_hover.png</file>
+    <file alias="zoomin_normal">resource/zoomin_normal.png</file>
+  </qresource>
+</RCC>
