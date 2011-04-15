@@ -48,6 +48,8 @@ class Dialog(TemplateDialog):
         self.testLayout.setAlignment(self.testButton, Qt.AlignLeft | Qt.AlignCenter)
         self.testLayout.setAlignment(self.testButton2, Qt.AlignLeft | Qt.AlignCenter)
         self.testLayout.addStretch(1)
+        
+        self.retranslateUi()
     
     def retranslateUi(self):
         super().retranslateUi()

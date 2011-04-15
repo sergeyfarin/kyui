@@ -3,7 +3,7 @@ from PyQt4.QtGui import *
 
 from template_test import TemplateDialog
 
-from Widgets.toolgroup import ToolGroupButton
+from Widgets.toolgroup2 import ToolGroupButton, ToolGroupBox
 
 class Dialog(TemplateDialog):
     def __init__(self):
@@ -18,14 +18,17 @@ class Dialog(TemplateDialog):
         self.toolBar.setObjectName('toolBar')
         self.layout.insertWidget(0, self.toolBar)
         
-        self.testWidget = ToolGroupButton(self)
+        icon = QIcon(self.style().standardIcon(QStyle.SP_DriveHDIcon).pixmap(QSize(22, 22)))
+        self.toolGroupBox = ToolGroupBox(self.toolBar, None, 'Test', icon)
+        self.toolGroupBox.setObjectName('toolGroupBox')
+        self.toolGroupBox.hide()
+        
+        self.testWidget = ToolGroupButton(self.toolBar, self.toolGroupBox)
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setFixedSize(48, 86)
-        self.testWidget.setText('Test')
-        icon = QIcon(self.style().standardIcon(QStyle.SP_DriveHDIcon).pixmap(self.testWidget.iconSize()))
-        self.testWidget.setIcon(icon)
-        self.testWidget.setToolTip('Testing Testing 123')
         self.toolBar.addWidget(self.testWidget)
+        
+        
         
         self.fadeAnim = QPropertyAnimation(self, 'windowOpacity')
         self.fadeAnim.setDuration(300)
