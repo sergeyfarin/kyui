@@ -5,20 +5,23 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from template_test import TemplateDialog
-from Widgets.magslider import MagSlider
+from Widgets.sysmsg import SystrayPopup
 
 class Dialog(TemplateDialog):
     def __init__(self, parent : QWidget = None):
         super().__init__(parent)
         self.setupUi()
         self.connectSignals()
+        qDebug(('Primary Screen: {}\nGeometry: {}\nAvailable: {}\nCorner: {}\nPos: {}'.format(
+               self.testWidget.primary, self.testWidget.geom,
+               self.testWidget.availGeom, self.testWidget.corner, 
+               self.testWidget.cornerPos)))
     
     def setupUi(self):
         super().setupUi()
         
-        self.testWidget = MagSlider(Qt.Horizontal, self)
+        self.testWidget = SystrayPopup(self)
         self.testWidget.setObjectName('testWidget')
-        self.layout.insertWidget(0, self.testWidget)
         
         self.retranslateUi()
         

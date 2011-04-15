@@ -1,8 +1,22 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from .magslider_pixmap import *
 from . import magslider_rc
+
+def directionFromOrientation(orientation) -> QBoxLayout.Direction:
+    if orientation == Qt.Vertical:
+        return QBoxLayout.TopToBottom
+    elif QApplication.isLeftToRight():
+        return QBoxLayout.LeftToRight
+    else:
+        return QBoxLayout.RightToLeft
+
+def orientationFromDirection(direction) -> Qt.Orientation:
+    if (direction == QBoxLayout.TopToBottom 
+        or direction == QBoxLayout.BottomToTop):
+        return Qt.Vertical
+    else:
+        return Qt.Horizontal
 
 class ZoomInButton(QAbstractButton):
     def __init__(self, parent):
@@ -24,7 +38,7 @@ class ZoomInButton(QAbstractButton):
         if not pm:
             pm = QPixmap(':/_ky__magslider/zoomin_hover')
             QPixmapCache.insert('_ky__magslider_zoomin_hover', pm)
-        pm = QPixmapCache.find('_ky_magslider_zoomin_down')
+        pm = QPixmapCache.find('_ky__magslider_zoomin_down')
         if not pm:
             pm = QPixmap(':/_ky__magslider/zoomin_down')
             QPixmapCache.insert('_ky__magslider_zoomin_down', pm)
@@ -78,7 +92,7 @@ class ZoomOutButton(QAbstractButton):
         if not pm:
             pm = QPixmap(':/_ky__magslider/zoomout_hover')
             QPixmapCache.insert('_ky__magslider_zoomout_hover', pm)
-        pm = QPixmapCache.find('_ky_magslider_zoomout_down')
+        pm = QPixmapCache.find('_ky__magslider_zoomout_down')
         if not pm:
             pm = QPixmap(':/_ky__magslider/zoomout_down')
             QPixmapCache.insert('_ky__magslider_zoomout_down', pm)
@@ -112,4 +126,36 @@ class ZoomOutButton(QAbstractButton):
         p.drawPixmap(self.rect().topLeft(), pm)
         p.end()
 
-class MagSlider(QWidget): pass
+class MagSlider(QWidget):
+    def __init__(self, orientation : Qt.Orientation, parent : QWidget):
+        super().__init__(parent)
+        self.__layout = QBoxLayout(directionFromOrientation(orientation), self)
+        
+        self.__slider = QSlider(orientation, self)
+        self.layout.addWidget(self.slider)
+        
+        self.__inbtn = ZoomInButton(self)
+        self.__outbtn = ZoomOutButton(self)
+        
+        if orientation == Qt.Vertical:
+            self.layout.insertWidget(0, self.zoomInButton)
+            self.layout.addWidget(self.zoomOutButton)
+        else:
+            self.layout.insertWidget(0, self.zoomOutButton)
+            self.layout.addWidget(self.zoomInButton)
+        
+    def setObjectName(self, name):
+        super().setObjectName(name)
+        self.layout.setObjectName(name + '_layout')
+        self.slider.setObjectName(name + '_slider')
+        self.zoomInButton.setObjectName(name + '_zoomInButton')
+        self.zoomOutButton.setObjectName(name + '_zoomOutButton')
+        
+    def getLayout(self):        return self.__layout
+    layout = property(fget=getLayout)
+    def getSlider(self):        return self.__slider
+    slider = property(fget=getSlider)
+    def getZoomInButton(self):  return self.__inbtn
+    zoomInButton = property(fget=getZoomInButton)
+    def getZoomOutButton(self): return self.__outbtn
+    zoomOutButton = property(fget=getZoomOutButton)
