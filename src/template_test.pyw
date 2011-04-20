@@ -6,29 +6,25 @@ from PyQt4.QtGui import QApplication, qApp
 from PyQt4.QtGui import QWidget, QDialog, QGroupBox
 from PyQt4.QtGui import QFormLayout, QVBoxLayout
 from PyQt4.QtGui import QStyleFactory
-from PyQt4.QtGui import QLabel
-from PyQt4.QtGui import QComboBox, QPushButton
+from PyQt4.QtGui import QFont
+from PyQt4.QtGui import QComboBox, QPushButton, QLabel
 
 from Widgets.debugbox import DebugBox
 
 class TemplateDialog(QDialog):
+    def __init__(self, parent = None):
+        super().__init__(parent, font=QFont('Segoe UI', 9), objectName='Dialog')
+    
     def setupUi(self):
-        self.layout = QVBoxLayout(self)
-        self.layout.setObjectName('layout')
+        self.layout = QVBoxLayout(self, objectName='layout')
         
-        self.settingsBox = QGroupBox(self)
-        self.settingsBox.setObjectName('settingsBox')
-        self.settingsLayout = QFormLayout(self.settingsBox)
-        self.settingsLayout.setObjectName('settingsLayout')
+        self.settingsBox = QGroupBox(self, objectName='settingsBox')
+        self.settingsLayout = QFormLayout(self.settingsBox, 
+                                          objectName='settingsLayout')
         
-        self.styleLabel = QLabel(self.settingsBox)
-        self.styleLabel.setObjectName('styleLabel')
-        self.styleBox = QComboBox(self.settingsBox)
-        self.styleBox.setObjectName('styleBox')
-        
-        self.styleBox.addItems(QStyleFactory.keys())
+        self.styleLabel = QLabel(self.settingsBox, objectName='styleLabel')
+        self.styleBox = QComboBox(self.settingsBox, objectName='styleBox')
         self.styleLabel.setBuddy(self.styleBox)
-        
         self.settingsLayout.addRow(self.styleLabel, self.styleBox)
         
         self.layout.addWidget(self.settingsBox)
@@ -38,12 +34,12 @@ class TemplateDialog(QDialog):
         self.layout.addWidget(self.debugBox)
         qInstallMsgHandler(self.debugBox.postMsg)
         
-        self.closeButton = QPushButton(self)
-        self.closeButton.setObjectName('closeButton')
-        self.closeButton.setDefault(True)
+        self.closeButton = QPushButton(self, default=True, objectName='closeButton')
         self.layout.addWidget(self.closeButton)
         self.layout.setAlignment(self.closeButton, 
                                  Qt.AlignRight | Qt.AlignBottom)
+        
+        self.styleBox.addItems(QStyleFactory.keys())
         
         self.setupStyle()
     
