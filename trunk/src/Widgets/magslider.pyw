@@ -18,6 +18,21 @@ def orientationFromDirection(direction) -> Qt.Orientation:
     else:
         return Qt.Horizontal
 
+def findNearestIndex(value, items):
+    if value in items:
+        return value
+    if value > items[-1]:
+        return items[-1]
+    if value < items[0]:
+        return items[0]
+    length = len(items)
+    current = (length - 1) // 2
+    closest = 0
+    
+
+defaultZoomLevels = [0.0, 0.125, 0.25, 0.5, 0.75, 0.9, 1.0, 1.25, 1.5, 2.0, 
+                     3.0, 4.0, 5.0, 8.0, 10.0]
+
 class ZoomInButton(QAbstractButton):
     def __init__(self, parent):
         super().__init__(parent)
@@ -127,6 +142,8 @@ class ZoomOutButton(QAbstractButton):
         p.end()
 
 class MagSlider(QWidget):
+    valueChanged = pyqtSignal(float)
+    
     def __init__(self, orientation : Qt.Orientation, parent : QWidget):
         super().__init__(parent)
         self.__layout = QBoxLayout(directionFromOrientation(orientation), self)
@@ -144,6 +161,17 @@ class MagSlider(QWidget):
             self.layout.insertWidget(0, self.zoomOutButton)
             self.layout.addWidget(self.zoomInButton)
         
+        self.__levels = defaultZoomLevels[:]
+        
+        self.zoomInButton.clicked.connect(self.zoomIn)
+        self.zoomOutButton.clicked.connect(self.zoomOut)
+
+#QStyle.sliderPositionFromValue(min : int, max : int, logicalValue : int, span : int, upsideDown : bool = false) -> int
+
+    def zoomIn(self):
+        value = float(self.slider.value()) / 100.0
+        
+    
     def setObjectName(self, name):
         super().setObjectName(name)
         self.layout.setObjectName(name + '_layout')
@@ -159,3 +187,9 @@ class MagSlider(QWidget):
     zoomInButton = property(fget=getZoomInButton)
     def getZoomOutButton(self): return self.__outbtn
     zoomOutButton = property(fget=getZoomOutButton)
+    def getZoomLevels(self):
+        return self.__levels
+    def setZoomLevels(self, levels : list):
+        self.__levels = levels[:]
+        self.__levels.sort() #just in case
+        self.update()
