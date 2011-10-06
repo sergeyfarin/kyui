@@ -1,13 +1,13 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from template_test import TemplateDialog
+from .Widgets.toolgroup2 import ToolGroupButton, ToolGroupBox
 
-from Widgets.toolgroup2 import ToolGroupButton, ToolGroupBox
+from .template_test import TemplateDialog
 
 class Dialog(TemplateDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.setupUi()
         self.connectSignals()
     

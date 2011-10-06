@@ -97,7 +97,8 @@ class NotifierDialog(TemplateDialog):
         
         self.testWidget = NotifierPopup(self)
         self.testWidget.hideStyle = None
-        self.testWidget.showStyle = None
+        self.showTypeBox.setCurrentIndex(1)
+        self.changeShowStyle(1)
         self.testWidget.setObjectName('testWidget')
         
         self.opacityLabel.setBuddy(self.opacityBox)
