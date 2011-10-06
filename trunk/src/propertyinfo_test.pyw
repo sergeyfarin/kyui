@@ -44,12 +44,12 @@ class Dialog(TemplateDialog):
         
         self.testWidget = None
         
-        self.treeWidget = QTreeWidget(self)
-        self.treeWidget.setObjectName('treeWidget')
+        self.treeWidget = QTreeWidget(self, objectName='treeWidget')
         self.treeWidget.setColumnCount(3)
+        self.treeWidget.setHeaderLabels(['Property', 'Value', 'Type'])
+#        self.treeWidget.setHorizontalHeaderLabels(['Property', 'Value', 'Type'])
         self.treeWidget.setColumnWidth(0, 150)
         self.treeWidget.setColumnWidth(1, 150)
-        self.treeWidget.setHeaderLabels(['Property', 'Value', 'Type'])
         self.treeWidget.setAlternatingRowColors(True)
         self.layout.insertWidget(0, self.treeWidget)
         
@@ -65,7 +65,6 @@ class Dialog(TemplateDialog):
         self.classBox.addItem('Label', self.classLabel)
         self.classBox.addItem('PushButton', self.closeButton)
         self.classBox.addItem('TreeWidget', self.treeWidget)
-        self.classBox.addItem('')
         
         self.classLabel.setBuddy(self.classBox)
         self.settingsLayout.addRow(self.classLabel, self.classBox)
