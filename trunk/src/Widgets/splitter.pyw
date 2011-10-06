@@ -3,69 +3,51 @@ from PyQt4.QtGui import *
 
 from .util import Util
 
-#from CleanLooks
-def drawDashedHandle(opt, painter):
-    button = opt.palette.button().color()
-    dark = QColor.fromHsv(button.hue(),
-                min((255, int(button.saturation()*1.9))), 
-                min((255, int(button.value()*0.7))))
+def drawCenteredDashedHandle(opt, painter):
+    mid = opt.palette.mid().color()
+    dark = opt.palette.shadow().color()
+    midlight = opt.palette.midlight().color()
     
     painter.save()
     
-    grooveColor = Util.mergedColors(dark.lighter(110), opt.palette.button().color(), 40)
-    #draw grips
-    if opt.state & QStyle.State_Horizontal: #horizontal
+    #horizontal
+    if opt.state & QStyle.State_Horizontal:
+        if opt.rect.width() < 4:
+            padding = 0
+        elif opt.rect.width() < 8:
+            padding = 1
+        elif opt.rect.width() < 12:
+            padding = 2
+        else:
+            padding = 3
         for i in range(-20, 20, 2):
-            painter.setPen(QPen(grooveColor.darker(110), 1))
+            painter.setPen(dark)
             painter.drawLine(
-                QPoint(opt.rect.left() + 4, opt.rect.center().y()+ i),
-                QPoint(opt.rect.right() - 4, opt.rect.center().y()+ i))
-            painter.setPen(QPen(opt.palette.light(), 1))
+                QPoint(opt.rect.left() + padding, opt.rect.center().y()+ i),
+                QPoint(opt.rect.right() - padding, opt.rect.center().y()+ i))
+            painter.setPen(midlight)
             painter.drawLine(
-                QPoint(opt.rect.left() + 4, opt.rect.center().y() + 1 + i),
-                QPoint(opt.rect.right() - 4, opt.rect.center().y() + 1 + i))
-    else: #vertical
+                QPoint(opt.rect.left() + padding, opt.rect.center().y() + 1 + i),
+                QPoint(opt.rect.right() - padding, opt.rect.center().y() + 1 + i))
+    #vertical
+    else:
+        if opt.rect.height() < 4:
+            padding = 0
+        elif opt.rect.height() < 8:
+            padding = 1
+        elif opt.rect.height() < 12:
+            padding = 2
+        else:
+            padding = 3
         for i in range(-20, 20, 2):
-            painter.setPen(QPen(grooveColor.darker(110), 1))
+            painter.setPen(dark)
             painter.drawLine(
-                QPoint(opt.rect.center().x() + i, opt.rect.top() + 4),
-                QPoint(opt.rect.center().x() + i, opt.rect.bottom() - 4))
-            painter.setPen(QPen(opt.palette.light(), 1))
+                QPoint(opt.rect.center().x() + i, opt.rect.top() + padding),
+                QPoint(opt.rect.center().x() + i, opt.rect.bottom() - padding))
+            painter.setPen(midlight)
             painter.drawLine(
-                QPoint(opt.rect.center().x() + i + 1, opt.rect.top() + 4),
-                QPoint(opt.rect.center().x() + i + 1, opt.rect.bottom() - 4))
-    painter.restore()
-
-def drawDashedHandle(opt, painter):
-    button = opt.palette.button().color()
-    dark = QColor.fromHsv(button.hue(),
-                min((255, int(button.saturation()*1.9))), 
-                min((255, int(button.value()*0.7))))
-    
-    painter.save()
-    
-    grooveColor = Util.mergedColors(dark.lighter(110), opt.palette.button().color(), 40)
-    #draw grips
-    if opt.state & QStyle.State_Horizontal: #horizontal
-        for i in range(-20, 20, 2):
-            painter.setPen(QPen(grooveColor.darker(110), 1))
-            painter.drawLine(
-                QPoint(opt.rect.left() + 4, opt.rect.center().y()+ i),
-                QPoint(opt.rect.right() - 4, opt.rect.center().y()+ i))
-            painter.setPen(QPen(opt.palette.light(), 1))
-            painter.drawLine(
-                QPoint(opt.rect.left() + 4, opt.rect.center().y() + 1 + i),
-                QPoint(opt.rect.right() - 4, opt.rect.center().y() + 1 + i))
-    else: #vertical
-        for i in range(-20, 20, 2):
-            painter.setPen(QPen(grooveColor.darker(110), 1))
-            painter.drawLine(
-                QPoint(opt.rect.center().x() + i, opt.rect.top() + 4),
-                QPoint(opt.rect.center().x() + i, opt.rect.bottom() - 4))
-            painter.setPen(QPen(opt.palette.light(), 1))
-            painter.drawLine(
-                QPoint(opt.rect.center().x() + i + 1, opt.rect.top() + 4),
-                QPoint(opt.rect.center().x() + i + 1, opt.rect.bottom() - 4))
+                QPoint(opt.rect.center().x() + i + 1, opt.rect.top() + padding),
+                QPoint(opt.rect.center().x() + i + 1, opt.rect.bottom() - padding))
     painter.restore()
 
 def paintBackground(opt, painter):
@@ -93,22 +75,44 @@ def paintBackground(opt, painter):
     
     painter.restore()
 
-def drawLongLineHandle(opt, painter):
+def drawParalellLineHandle(opt, painter):
     painter.save()
-    if not opt.state & QStyle.State_Horizontal:
-        x1 = opt.rect.left() + 4
-        x2 = opt.rect.right() - 4
-        y1 = opt.rect.center().y()
-        y2 = int(y1)
-    else:
+    if opt.state & QStyle.State_Horizontal:
         x1 = opt.rect.center().x()
         x2 = int(x1)
         y1 = opt.rect.top() + 4
         y2 = opt.rect.bottom() - 4
-    
-    painter.setPen(opt.palette.text().color())
+    else:
+        x1 = opt.rect.left() + 4
+        x2 = opt.rect.right() - 4
+        y1 = opt.rect.center().y()
+        y2 = int(y1)
+    painter.setPen(opt.palette.dark().color())
     painter.drawLine(x1, y1, x2, y2)
     
+    painter.restore()
+
+def drawParallelGroovedLineHandle(opt, painter):
+    if opt.state & QStyle.State_Horizontal:
+        if opt.rect.width() < 5:
+            drawParalellLineHandle(opt, painter)
+            return
+        else:
+            x = opt.rect.center().x() - 1
+            width = 3 if opt.rect.width() % 2 else 4
+            y = opt.rect.top() + 4
+            height = opt.rect.height() - y - 4
+    else:
+        if opt.rect.height() < 6:
+            drawParalellLineHandle(opt, painter)
+            return
+        else:
+            x = opt.rect.left() + 4
+            width = opt.rect.width() - x - 4
+            y = opt.rect.center().y() - 1
+            height = 3 if opt.rect.height() % 2 else 4
+    painter.save()
+    qDrawWinPanel(painter, x, y, width, height, opt.palette, False, None)
     painter.restore()
 
 class Splitter(QSplitter):
@@ -125,13 +129,12 @@ class Splitter(QSplitter):
                     CenteredDashes, CenteredDotted)
     
     #hover styles
-    NoHoverHint = 0x00
-    HoverHighlight = 0x02
-    HoverRaised = 0x04
+    NoHighlight = 0x00
+    PlainHighlight = 0x02
+    RaisedHighlight = 0x04
+    LocalHighlight = 0x08
     
-    LocalHover = 0x20
-    FullHover = 0x40
-    HoverStyles = (NoHoverHint, HoverHighlight, HoverRaised, LocalHover, FullHover)
+    HoverStyles = (NoHighlight, PlainHighlight, RaisedHighlight, LocalHighlight)
     
     def __init__(self, *args, **kwargs):
         if 'handleStyle' in kwargs:
@@ -142,7 +145,9 @@ class Splitter(QSplitter):
         self.handleStyle = h_style
         
     def createHandle(self) -> QSplitterHandle:
-        return SplitterHandle(self.orientation(), self)
+        h = SplitterHandle(self.orientation(), self)
+        h.setHandleStyle(self.handleStyle)
+        return h
         
     def handles(self):
         l = []
@@ -167,13 +172,12 @@ class Splitter(QSplitter):
     handleStyle = pyqtProperty(int, fget=getHandleStyle, fset=setHandleStyle)
 
 class SplitterHandle(QSplitterHandle):
-    
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__pressed = False
         self.__hovered = False
         self.__handleStyle = Splitter.Plain
+        self.__highlight = Splitter.PlainHighlight
         
     def handleStyle(self):
         return self.__handleStyle
@@ -186,6 +190,7 @@ class SplitterHandle(QSplitterHandle):
     def initStyleOption(self, opt):
         opt.palette = self.palette()
         opt.rect = self.contentsRect()
+        
         if self.orientation() == Qt.Horizontal:
             opt.state = QStyle.State_Horizontal
         else:
@@ -200,14 +205,15 @@ class SplitterHandle(QSplitterHandle):
     def paintEvent(self, ev):
         p = QPainter(self)
         opt = QStyleOption()
-#        opt.initFrom(self)
         
         self.initStyleOption(opt)
         paintBackground(opt, p)
         if self.__handleStyle == Splitter.ParallelLine:
-            drawLongLineHandle(opt, p)
+            drawParalellLineHandle(opt, p)
+        elif self.__handleStyle == Splitter.ParallelGroovedLine:
+            drawParallelGroovedLineHandle(opt, p)
         elif self.__handleStyle == Splitter.CenteredDashes:
-            drawDashedHandle(opt, p)
+            drawCenteredDashedHandle(opt, p)
     
     def enterEvent(self, ev):
         self.__hovered = True
