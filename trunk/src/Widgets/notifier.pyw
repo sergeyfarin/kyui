@@ -1,5 +1,5 @@
 #UTF-8
-#sysmsg.pyw
+#notifier.pyw
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -30,17 +30,13 @@ from .util import Util
 # Avail. Geom.: (0, 0), 1680 x 1004
 # Screen Geom.: (0, 0), 1680 x 1050
 
-class EffectDataNone():
-    def getEffectType(self): return 0
-    effectType = property(fget=getEffectType)
-    
-class EffectDataAnimate():
-    def getEffectType(self): return 1
-    effectType = property(fget=getEffectType)
-    
-class EffectDataFade():
-    def getEffectType(self): return 2
-    effectType = property(fget=getEffectType)
+styleText = {Qt.UI_AnimateMenu : 'Animate', 
+             Qt.UI_FadeMenu : 'Fade', 
+             None : 'None'}
+directionText = {QBoxLayout.LeftToRight : 'Left To Right', 
+                 QBoxLayout.RightToLeft : 'Right To Left', 
+                 QBoxLayout.TopToBottom : 'Top To Bottom', 
+                 QBoxLayout.BottomToTop : 'Bottom To Top'}
 
 #158 x 236
 
@@ -51,8 +47,8 @@ class NotifierPopup(QFrame):
     BottomToTop = QBoxLayout.BottomToTop
     
     def __init__(self, parent : QObject = None):
-        self.__hideStyle = None
-        self.__showStyle = None
+        self.__hideStyle = Qt.UI_General
+        self.__showStyle = Qt.UI_General
         self.__showAnim = None
         self.__hideAnim = None
         self.__opacity = 1.0
@@ -60,12 +56,13 @@ class NotifierPopup(QFrame):
         super().__init__(None, Qt.Window | Qt.FramelessWindowHint, visible=False)
         
         self.setWindowModality(False)
+        self.debug = False
         self.desktop = QApplication.desktop()
         self.updateDesktop()
         self.desktop.screenCountChanged.connect(self.screenCountChanged)
         self.desktop.workAreaResized.connect(self.workAreaResized)
         
-        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         self.setFocusPolicy(Qt.NoFocus)
         self.setFrameShape(QFrame.StyledPanel)
         self.setFrameShadow(QFrame.Sunken)
@@ -75,6 +72,42 @@ class NotifierPopup(QFrame):
             self.hideStyle = Qt.UI_FadeMenu
         else:
             self.hideStyle = None
+        self.setupDebugUi()
+        
+    def setupDebugUi(self):
+        self.debug = True
+        self.testLayout = QFormLayout(self, objectName='testLayout')
+        self.testLabel1 = QLabel('Widget', self, objectName='testLabel1')
+        self.testEdit1 = QPlainTextEdit(self, 
+                                        objectName='testEdit1', 
+                                        frameShape=QFrame.NoFrame, 
+                                        horizontalScrollBarPolicy=Qt.ScrollBarAlwaysOff, 
+                                        verticalScrollBarPolicy=Qt.ScrollBarAlwaysOff, 
+                                        readOnly=True)
+        self.testLayout.addRow(self.testLabel1, self.testEdit1)
+        self.testLabel2 = QLabel('Desktop', self, objectName='testLabel2')
+        self.testEdit2 = QPlainTextEdit(self, 
+                                        objectName='testEdit2', 
+                                        frameShape=QFrame.NoFrame, 
+                                        horizontalScrollBarPolicy=Qt.ScrollBarAlwaysOff, 
+                                        verticalScrollBarPolicy=Qt.ScrollBarAlwaysOff, 
+                                        readOnly=True)
+        self.testLayout.addRow(self.testLabel2, self.testEdit2)
+        self.updateDebugUi()
+        
+    def updateDebugUi(self):
+        wtext = 'ShowStyle: {}\nHideStyle: {}\nOpacity: {}\nDirection: '.format(\
+                        styleText[self.__showStyle], 
+                        styleText[self.__hideStyle], 
+                        self.opacity, 
+                        directionText[self.direction])
+        self.testEdit1.setPlainText(wtext)
+        dtext = 'Screen: {}\nScreen Geom: {}\nAvail Geom: {}\nCornerPos: {}'.format(\
+                        self.primary, 
+                        Util.format_qrect(self.geom), 
+                        Util.format_qrect(self.availGeom), 
+                        Util.format_qpoint(self.cornerPos))
+        self.testEdit2.setPlainText(dtext)
     
     def hide(self):
         self.setVisible(False)
@@ -92,7 +125,6 @@ class NotifierPopup(QFrame):
     
     def hideImmediately(self):
         super().setVisible(False)
-#        self.setWindowOpacity(self.opacity)
     
     #==================================================#
     # Reimplemented Methods                            #
@@ -118,10 +150,10 @@ class NotifierPopup(QFrame):
             super().setVisible(True)
             
     def minimumSizeHint(self):
-        return QSize(200, 100)
-        
+#        return QSize(200, 100)
+        return super().minimumSizeHint()
     def sizeHint(self):
-        return self.minimumSizeHint()
+        return super().sizeHint()
 
     #==================================================#
     # Property Getters                                 #
@@ -154,8 +186,6 @@ class NotifierPopup(QFrame):
         if style != Qt.UI_FadeMenu and style != Qt.UI_AnimateMenu and style is not None:
             qWarning('Use Qt.UIFadeMenu, Qt.UI_AnimateMenu, or None')
             return
-        if self.__showStyle == style:
-            return
         self.__showStyle = style
         duration = None
         if self.__showAnim:
@@ -178,9 +208,7 @@ class NotifierPopup(QFrame):
         
     def setHideStyle(self, style : Qt.UIEffect):
         if style != Qt.UI_FadeMenu and style != Qt.UI_AnimateMenu and style is not None:
-            qWarning('Use Qt.UIFadeMenu or Qt.UI_AnimateMenu, or None')
-            return
-        if self.__hideStyle == style:
+            qWarning('Use Qt.UI_FadeMenu or Qt.UI_AnimateMenu, or None')
             return
         self.__hideStyle = style
         duration = None
@@ -199,6 +227,7 @@ class NotifierPopup(QFrame):
             self.__hideAnim = QPropertyAnimation(self, 'geometry', self)
             self.hideAnim.setDuration(duration if duration else 300)
             self.generateSlideAnimation(self.hideAnim, True)
+            self.hideAnim.finished.connect(self.hideImmediately)
         else: #None
             self.__hideAnim = None
             
@@ -214,6 +243,8 @@ class NotifierPopup(QFrame):
         assert( opacity >= 0.0 and opacity <= 1.0 )
         self.stopAnimation()
         self.__opacity = opacity
+        if self.debug:
+            self.updateDebugUi()
 
     hideAnim = pyqtProperty(QAbstractAnimation, fget=getHideAnim)#, fset=setHideAnim)
     showAnim = pyqtProperty(QAbstractAnimation, fget=getShowAnim)#, fset=setShowAnim)
@@ -264,9 +295,13 @@ class NotifierPopup(QFrame):
             self.corner = Qt.BottomRightCorner
             self.cornerPos = self.availGeom.bottomRight()
             self.direction = QBoxLayout.BottomToTop
-#        qDebug('cornerPos: ' + Util.format_qpoint(self.cornerPos))
-#        qDebug('Avail. Geom.: ' + Util.format_qrect(self.availGeom))
-#        qDebug('Screen Geom.: ' + Util.format_qrect(self.geom))
+            
+        if self.showStyle == Qt.UI_AnimateMenu:
+            self.generateSlideAnimation(self.showAnim)
+        if self.hideStyle == Qt.UI_AnimateMenu:
+            self.generateSlideAnimation(self.hideAnim)
+        if self.debug:
+            self.updateDebugUi()
 
     def getFinalShowPosition(self) -> QPoint:
         hint = self.sizeHint()
@@ -302,8 +337,8 @@ class NotifierPopup(QFrame):
                         self.cornerPos.y())
         endPos = self.getFinalShowPosition()
         if reverse:
-            anim.setStartValue(QRect(startPos, hint))
-            anim.setEndValue(QRect(endPos, hint))
-        else:
             anim.setStartValue(QRect(endPos, hint))
             anim.setEndValue(QRect(startPos, hint))
+        else:
+            anim.setStartValue(QRect(startPos, hint))
+            anim.setEndValue(QRect(endPos, hint))

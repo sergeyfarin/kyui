@@ -171,7 +171,9 @@ class MagSlider(QWidget):
     def zoomIn(self):
         value = float(self.slider.value()) / 100.0
         
-    
+    def zoomOut(self):
+        pass
+        
     def setObjectName(self, name):
         super().setObjectName(name)
         self.layout.setObjectName(name + '_layout')
