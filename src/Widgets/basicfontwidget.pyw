@@ -7,10 +7,11 @@ from PyQt4.QtGui import QFontComboBox, QComboBox, QPushButton
 from PyQt4.QtGui import QHBoxLayout, QSizePolicy
 from PyQt4.QtGui import QFont, QFontDatabase, QIntValidator
 
-DefaultSizes = ['6', '7', '8', '9', '10', '11', '12', '14', '16', '18', 
-                '20', '22', '24', '26', '28', '30', '32','36', '48', '72']
+
 
 class KyBasicFontWidget(QWidget):
+    DefaultSizes = ['6', '7', '8', '9', '10', '11', '12', '14', '16', '18', 
+                '20', '22', '24', '26', '28', '30', '32','36', '48', '72']
     #==================================================#
     # Signals                                          #
     #==================================================#
@@ -45,7 +46,7 @@ class KyBasicFontWidget(QWidget):
         sizeBox.setInsertPolicy(QComboBox.NoInsert)
         sizeBox.setEditable(True)
         sizeBox.setValidator(QIntValidator(6, 72, sizeBox))
-        sizeBox.addItems(DefaultSizes)
+        sizeBox.addItems(KyBasicFontWidget.DefaultSizes)
         sizeBox.lineEdit().setText(str(font.pointSize()))
         
         boldButton = QPushButton(self)
