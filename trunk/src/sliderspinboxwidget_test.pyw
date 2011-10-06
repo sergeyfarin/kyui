@@ -18,8 +18,8 @@ class Defaults():
     value = 0
 
 class Dialog(QDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.setObjectName('dialog')
         self.setupUi()
         self.setDefaults()
