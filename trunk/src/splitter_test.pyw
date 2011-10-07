@@ -5,8 +5,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import sys
 
-from Widgets.splitter import Splitter, SplitterHandle
-from Widgets.divider import Divider
+from Widgets.splitter import Splitter
+#from Widgets.divider import Divider
 from template_test import TemplateDialog
 
 class Dialog(TemplateDialog):
@@ -47,11 +47,11 @@ class Dialog(TemplateDialog):
         self.testWidget.addWidget(widget1)
         self.testWidget.addWidget(widget2)
         
-        divider1 = Divider(Qt.Horizontal, 
-                               self.settingsBox,
-                               objectName='divider1', 
-                               thickness=3)
-        self.settingsLayout.addWidget(divider1)
+#        divider1 = Divider(Qt.Horizontal, 
+#                               self.settingsBox,
+#                               objectName='divider1', 
+#                               thickness=3)
+#        self.settingsLayout.addWidget(divider1)
         
         self.shapeBox = QComboBox(self.settingsBox, 
                                    objectName='shapeBox')
@@ -61,11 +61,11 @@ class Dialog(TemplateDialog):
                                    objectName='shapeBox')
         self.settingsLayout.addRow('Frame S&hadow', self.shadowBox)
         
-        divider2 = Divider(Qt.Horizontal, 
-                               self.settingsBox,
-                               objectName='divider2', 
-                               thickness=3)
-        self.settingsLayout.addWidget(divider2)
+#        divider2 = Divider(Qt.Horizontal, 
+#                               self.settingsBox,
+#                               objectName='divider2', 
+#                               thickness=3)
+#        self.settingsLayout.addWidget(divider2)
         
         self.handleBox = QComboBox(self.settingsBox, 
                                    objectName='handleBox')
@@ -108,10 +108,11 @@ class Dialog(TemplateDialog):
         self.shadowBox.addItem('Sunken', QFrame.Sunken)
         
         self.handleBox.addItem('Plain', Splitter.Plain)
-        self.handleBox.addItem('Parallel Line', Splitter.ParallelLine)
-        self.handleBox.addItem('Parallel Grooved Line', Splitter.ParallelGroovedLine)
         self.handleBox.addItem('Centered Dashes', Splitter.CenteredDashes)
         self.handleBox.addItem('Centered Dotted', Splitter.CenteredDotted)
+        self.handleBox.addItem('Parallel Dotted', Splitter.ParallelDotted)
+        self.handleBox.addItem('Parallel Line', Splitter.ParallelLine)
+        self.handleBox.addItem('Parallel Grooved Line', Splitter.ParallelGroovedLine)
         
         self.highlightBox.addItem('None', Splitter.NoHighlight)
         self.highlightBox.addItem('Plain', Splitter.PlainHighlight)
