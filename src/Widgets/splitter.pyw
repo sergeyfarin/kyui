@@ -49,6 +49,72 @@ def drawCenteredDashedHandle(opt, painter):
                 QPoint(opt.rect.center().x() + i + 1, opt.rect.top() + padding),
                 QPoint(opt.rect.center().x() + i + 1, opt.rect.bottom() - padding))
     painter.restore()
+    
+def drawCenteredDottedHandle(opt, p):
+    p.save()
+    
+    #horizontal
+    if opt.state & QStyle.State_Horizontal:
+        if opt.rect.height() < 44:
+            y = opt.rect.top() + 2
+            y2 = opt.rect.bottom() - 2
+            #pad a pixel if the height is not an even value
+            if opt.rect.height() % 2:
+                y1 += 1
+        else:
+            y1 = opt.rect.center().y() - 20
+            y2 = opt.rect.center().y() + 20
+        
+        #draw one line of dots for thin panels
+        if opt.rect.width() < 4:
+            x = opt.rect.center().x()
+            #pad a pixel if the width is not an even value
+            if opt.rect.width() % 2:
+                x += 1
+            #draw each color individually to avoid setting the pen over and over
+            p.setPen(opt.palette.light().color())
+            for y in range(y1, y2, 2):
+                p.drawPoint(x, y)
+            
+            p.setPen(opt.palette.shadow().color())
+            for y in range(y1, y2, 2):
+                p.drawPoint(x + 1, y + 1)
+            
+            p.setPen(opt.palette.midlight().color())
+            for y in range(y1, y2, 2):
+                p.drawPoint(x + 1, y)
+#            p.setPen(opt.palette.midlight().color())
+#            for y in range(y1, y2, 2):
+#                p.drawPoint(x, y + 1)
+        else:
+            x = opt.rect.center().x() - 2
+            if opt.rect.width() % 2:
+                x += 1
+            p.setPen(opt.palette.light().color())
+            left = True
+            for y in range(y1, y2, 2):
+                p.drawPoint(x, y) if left else p.drawPoint(x + 2, y)
+                left = not left
+            
+            p.setPen(opt.palette.shadow().color())
+            left = True
+            for y in range(y1, y2, 2):
+                p.drawPoint(x + 1, y + 1) if left else p.drawPoint(x + 3, y + 1)
+                left = not left
+            
+            p.setPen(opt.palette.mid().color())
+            left = True
+            for y in range(y1, y2, 2):
+                p.drawPoint(x + 1, y) if left else p.drawPoint(x + 3, y)
+            
+            p.setPen(opt.palette.midlight().color())
+            left = True
+            for y in range(y1, y2, 2):
+                p.drawPoint(x, y + 1) if left else p.drawPoint(x + 2, y + 1)
+    else:
+        pass
+    
+    p.restore()
 
 def paintBackground(opt, painter):
     painter.save()
@@ -214,6 +280,8 @@ class SplitterHandle(QSplitterHandle):
             drawParallelGroovedLineHandle(opt, p)
         elif self.__handleStyle == Splitter.CenteredDashes:
             drawCenteredDashedHandle(opt, p)
+        elif self.__handleStyle == Splitter.CenteredDotted:
+            drawCenteredDottedHandle(opt, p)
     
     def enterEvent(self, ev):
         self.__hovered = True
