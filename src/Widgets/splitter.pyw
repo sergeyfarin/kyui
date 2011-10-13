@@ -3,6 +3,8 @@ from PyQt4.QtGui import *
 
 from .util import Util
 
+
+
 def drawCenteredDashedHandle(opt, painter):
     mid = opt.palette.mid().color()
     dark = opt.palette.shadow().color()
@@ -210,19 +212,25 @@ class Splitter(QSplitter):
         super().__init__(*args, **kwargs)
         self.handleStyle = h_style
         
-    def createHandle(self) -> QSplitterHandle:
+    def createHandle(self):
         h = SplitterHandle(self.orientation(), self)
         h.setHandleStyle(self.handleStyle)
         return h
         
     def handles(self):
         l = []
-        if self.count() < 1:
-            return l
         for i in range(self.count()):
             h = self.handle(i)
             if h:
                 l.append(h)
+        return l
+        
+    def widgets(self):
+        l = []
+        for i in range(self.count()):
+            w = self.widget(i)
+            if w:
+                l.append(w)
         return l
     
     def getHandleStyle(self):
