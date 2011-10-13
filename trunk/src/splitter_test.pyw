@@ -6,7 +6,10 @@ from PyQt4.QtGui import *
 import sys
 
 from Widgets.splitter import Splitter
-#from Widgets.divider import Divider
+from Widgets.separator import Separator
+
+from Widgets.util import QTypeToString
+
 from template_test import TemplateDialog
 
 class Dialog(TemplateDialog):
@@ -18,26 +21,23 @@ class Dialog(TemplateDialog):
     def setupUi(self):
         super().setupUi()
         
-        self.testWidget = Splitter(Qt.Horizontal, 
-                                   self, 
-                                   objectName='testWidget', 
-                                   frameShape=QFrame.StyledPanel, 
-                                   frameShadow=QFrame.Plain)
-        self.testWidget.setFixedSize(QSize(400, 150))
+        self.testWidget = Splitter(parent=self, 
+                                   orientation=Qt.Horizontal, 
+                                   objectName='testWidget')
+        self.testWidget.setFixedSize(QSize(200, 100))
         self.layout.insertWidget(0, self.testWidget)
         
         #populate the splitter
         widget1 = QFrame(parent=self.testWidget, 
                          objectName='widget1', 
                          frameShape=QFrame.StyledPanel, 
+                         frameShadow=QFrame.Sunken, 
                          autoFillBackground = True)
         widget2 = QFrame(parent=self.testWidget, 
                          objectName='widget1', 
                          frameShape=QFrame.StyledPanel, 
+                         frameShadow=QFrame.Sunken, 
                          autoFillBackground = True)
-        widget1.setContentsMargins(2, 2, 2, 2)
-        widget2.setContentsMargins(2, 2, 2, 2)
-        
         #set the widget backgrounds to white
         pal = widget1.palette()
         pal.setColor(QPalette.Window, QColor(Qt.white))
@@ -47,48 +47,48 @@ class Dialog(TemplateDialog):
         self.testWidget.addWidget(widget1)
         self.testWidget.addWidget(widget2)
         
-#        divider1 = Divider(Qt.Horizontal, 
-#                               self.settingsBox,
-#                               objectName='divider1', 
-#                               thickness=3)
-#        self.settingsLayout.addWidget(divider1)
+        
+        #populate the settings box
+        sep1 = Separator(Qt.Horizontal, 
+                         self.settingsBox,
+                         objectName='separator1')
         
         self.shapeBox = QComboBox(self.settingsBox, 
                                    objectName='shapeBox')
-        self.settingsLayout.addRow('Frame &Shape', self.shapeBox)
-        
         self.shadowBox = QComboBox(self.settingsBox, 
                                    objectName='shapeBox')
-        self.settingsLayout.addRow('Frame S&hadow', self.shadowBox)
+        self.marginBox = QCheckBox(self.settingsBox, 
+                                   objectName='marginBox', 
+                                   checked=False)
         
-#        divider2 = Divider(Qt.Horizontal, 
-#                               self.settingsBox,
-#                               objectName='divider2', 
-#                               thickness=3)
-#        self.settingsLayout.addWidget(divider2)
+        sep2 = Separator(Qt.Horizontal, 
+                         self.settingsBox,
+                         objectName='divider2')
         
         self.handleBox = QComboBox(self.settingsBox, 
                                    objectName='handleBox')
-        self.settingsLayout.addRow('&Handle Style', self.handleBox)
-        
         self.highlightBox = QComboBox(self.settingsBox, 
                                       objectName='highlightBox')
-        self.settingsLayout.addRow('Ho&ver Highlight', self.highlightBox)
-        
         self.widthBox = QSpinBox(self.settingsBox,
                                  objectName='widthBox', 
                                  minimum = 2, 
                                  maximum = 20, 
                                  value = self.testWidget.handleWidth())
-        self.settingsLayout.addRow('Handle &Width', self.widthBox)
-        
         self.orientBox = QCheckBox(self.settingsBox, 
                                    objectName='orientBox')
-        self.settingsLayout.addWidget(self.orientBox)
-        
         self.opaqueResizeBox = QCheckBox(self.settingsBox, 
                                          objectName='opaqueResizeBox', 
                                          checked=True)
+        
+        self.settingsLayout.addWidget(sep1)
+        self.settingsLayout.addRow('Frame &Shape', self.shapeBox)
+        self.settingsLayout.addRow('Frame S&hadow', self.shadowBox)
+        self.settingsLayout.addWidget(self.marginBox)
+        self.settingsLayout.addWidget(sep2)
+        self.settingsLayout.addRow('&Handle Style', self.handleBox)
+        self.settingsLayout.addRow('Ho&ver Highlight', self.highlightBox)
+        self.settingsLayout.addRow('Handle &Width', self.widthBox)
+        self.settingsLayout.addWidget(self.orientBox)
         self.settingsLayout.addWidget(self.opaqueResizeBox)
         
         self.populateComboBoxes()
@@ -123,16 +123,21 @@ class Dialog(TemplateDialog):
     def retranslateUi(self):
         self.settingsLayout.labelForField(self.shapeBox).setText(self.trUtf8('Frame &Shape'))
         self.settingsLayout.labelForField(self.shadowBox).setText(self.trUtf8('Frame S&hadow'))
+        self.marginBox.setText(self.trUtf8('Pad Contents &Margins'))
+        
         self.settingsLayout.labelForField(self.handleBox).setText(self.trUtf8('&Handle Style'))
         self.settingsLayout.labelForField(self.highlightBox).setText(self.trUtf8('Ho&ver Highlight'))
         self.settingsLayout.labelForField(self.widthBox).setText(self.trUtf8('Handle &Width'))
         self.orientBox.setText(self.trUtf8('&Vertical Orientation'))
         self.opaqueResizeBox.setText(self.trUtf8('&Opaque Resize'))
+        
         super().retranslateUi()
         
     def connectSignals(self):
         self.shapeBox.currentIndexChanged[int].connect(self.changeSplitterShape)
         self.shadowBox.currentIndexChanged[int].connect(self.changeSplitterShadow)
+        self.marginBox.toggled.connect(self.changeMargins)
+        
         self.handleBox.currentIndexChanged[int].connect(self.changeHandleStyle)
         self.highlightBox.currentIndexChanged[int].connect(self.changeHighlightStyle)
         self.widthBox.valueChanged[int].connect(self.testWidget.setHandleWidth)
@@ -142,16 +147,26 @@ class Dialog(TemplateDialog):
         super().connectSignals()
     
     def changeSplitterShadow(self, idx):
-        self.testWidget.setFrameShadow(self.shadowBox.itemData(idx))
+        for widget in self.testWidget.widgets():
+            widget.setFrameShadow(self.shadowBox.itemData(idx))
 
     def changeSplitterShape(self, idx):
-        self.testWidget.setFrameShape(self.shapeBox.itemData(idx))
+        for widget in self.testWidget.widgets():
+            widget.setFrameShape(self.shapeBox.itemData(idx))
         
     def changeHandleStyle(self, idx):
         self.testWidget.setHandleStyle(self.handleBox.itemData(idx))
     
     def changeHighlightStyle(self, idx):
         pass
+    
+    def changeMargins(self, toggled):
+        if toggled:
+            for widget in self.testWidget.widgets():
+                widget.setContentsMargins(2, 2, 2, 2)
+        else:
+            for widget in self.testWidget.widgets():
+                widget.setContentsMargins(1, 1, 1, 1)
     
     def changeOrientation(self, vertical = False):
         self.testWidget.setOrientation(Qt.Vertical if vertical else Qt.Horizontal)
