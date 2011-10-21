@@ -164,7 +164,8 @@ class Dialog(TemplateDialog):
         
     def retranslateUi(self):
         super().retranslateUi()
-        self.settingsBox.setTitle(self.trUtf8('Options'))
+        
+        self.setWindowTitle(self.trUtf8('ColorPicker Test'))
         self.sizeLabel.setText(self.trUtf8('Frame Si&ze'))
         self.shapeLabel.setText(self.trUtf8('Frame Sha&pe'))
         self.sampleColorsLabel.setText(self.trUtf8('&Sample Colors'))

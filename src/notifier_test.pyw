@@ -7,7 +7,7 @@ from PyQt4.QtGui import *
 from template_test import TemplateDialog
 from Widgets.notifier import NotifierPopup
 
-class NotifierDialog(TemplateDialog):
+class Dialog(TemplateDialog):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.setupUi()
@@ -176,11 +176,12 @@ class NotifierDialog(TemplateDialog):
             
     def closeEvent(self, ev):
         super().closeEvent(ev)
-        QApplication.exit()
+        if not self.parentWidget():
+            QApplication.exit()
 
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
-    ui = NotifierDialog()
+    ui = Dialog()
     ui.show()
     sys.exit(app.exec_())

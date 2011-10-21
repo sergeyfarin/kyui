@@ -84,6 +84,8 @@ class Dialog(TemplateDialog):
         
     def retranslateUi(self):
         super().retranslateUi()
+        
+        self.setWindowTitle(self.trUtf8('ColorButton Test'))
         self.sizeLabel.setText(self.trUtf8('&Icon Size'))
         self.colorLabel.setText(self.trUtf8('C&olor'))
         self.textStyleLabel.setText(self.trUtf8('&Text Style'))

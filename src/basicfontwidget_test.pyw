@@ -93,14 +93,16 @@ class Dialog(TemplateDialog):
         
     def retranslateUi(self):
         super().retranslateUi()
-        tr = self.trUtf8
-        self.settingsBox.setTitle(tr('&Options'))
-        self.writingSysLabel.setText(tr('&Writing System'))
-        self.filterLabel.setText(tr('Font &Filter'))
-        self.sizeLabel.setText(tr('&Size List'))
-        self.boldBox.setText(tr('Show &Bold Button'))
-        self.italicBox.setText(tr('Show &Italic Button'))
-        self.underlineBox.setText(tr('Show &Underline Button'))
+        
+        self.setWindowTitle(self.trUtf8('BasicFontWidget Test'))
+        
+        self.settingsBox.setTitle(self.trUtf8('&Options'))
+        self.writingSysLabel.setText(self.trUtf8('&Writing System'))
+        self.filterLabel.setText(self.trUtf8('Font &Filter'))
+        self.sizeLabel.setText(self.trUtf8('&Size List'))
+        self.boldBox.setText(self.trUtf8('Show &Bold Button'))
+        self.italicBox.setText(self.trUtf8('Show &Italic Button'))
+        self.underlineBox.setText(self.trUtf8('Show &Underline Button'))
     
     def connectSignals(self):
         super().connectSignals()

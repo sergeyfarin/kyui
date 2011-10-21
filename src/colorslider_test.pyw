@@ -76,6 +76,8 @@ class Dialog(TemplateDialog):
         
     def connectSignals(self):
         super().connectSignals()
+        
+        self.setWindowTitle(self.trUtf8('ColorSlider Test'))
         self.specBox.currentIndexChanged[int].connect(self.onSpecChanged)
         self.orientBox.toggled.connect(self.onOrientationChanged)
         self.dynamicBox.toggled.connect(self.setDynamic)
