@@ -138,6 +138,8 @@ class Dialog(TemplateDialog):
         
     def retranslateUi(self):
         super().retranslateUi()
+        
+        self.setWindowTitle(self.trUtf8('ColorFrame Test'))
         self.settingsBox.setTitle(self.trUtf8('&Options'))
         self.sizeLabel.setText(self.trUtf8('Frame Si&ze'))
         self.shapeLabel.setText(self.trUtf8('Frame Sha&pe'))

@@ -22,12 +22,13 @@ class Dialog(TemplateDialog):
         
         self.debugBox.hide()
         
-        self.testWidget = KeySequenceLineEdit(self)
-        self.testWidget.setObjectName('testWidget')
+        self.testWidget = KeySequenceLineEdit(parent=self, 
+                                              objectName='testWidget')
         self.layout.insertWidget(0, self.testWidget)
     
     def retranslateUi(self):
         super().retranslateUi()
+        self.setWindowTitle(self.trUtf8('KeySequenceLineEdit Test'))
     
     def connectSignals(self):
         super().connectSignals()

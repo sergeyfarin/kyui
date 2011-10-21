@@ -1,9 +1,9 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from .Widgets.toolgroup2 import ToolGroupButton, ToolGroupBox
+from Widgets.toolgroup2 import ToolGroupButton, ToolGroupBox
 
-from .template_test import TemplateDialog
+from template_test import TemplateDialog
 
 class Dialog(TemplateDialog):
     def __init__(self, *args, **kwargs):
