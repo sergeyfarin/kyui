@@ -179,9 +179,3 @@ class QTypeToString():
         pixmap = QPixmap(size)
         pixmap.fill(value)
         return QIcon(pixmap)
-
-class FormatQType(QTypeToString):
-    #QCursor
-    @staticmethod
-    def icon_qcursor(value):
-        return QTypeToIcon(value)
