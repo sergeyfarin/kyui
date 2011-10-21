@@ -7,7 +7,7 @@ from PyQt4.QtGui import *
 #Qt.UI_AnimateMenu	1	Show animated menus.
 #Qt.UI_FadeMenu	    2	Show faded menus.
 
-from .util import Util
+from .util import QTypeToString
 
 ### Screen Positions:
 # Top of Screen
@@ -104,9 +104,9 @@ class NotifierPopup(QFrame):
         self.testEdit1.setPlainText(wtext)
         dtext = 'Screen: {}\nScreen Geom: {}\nAvail Geom: {}\nCornerPos: {}'.format(\
                         self.primary, 
-                        Util.format_qrect(self.geom), 
-                        Util.format_qrect(self.availGeom), 
-                        Util.format_qpoint(self.cornerPos))
+                        QTypeToString.rect(self.geom), 
+                        QTypeToString.rect(self.availGeom), 
+                        QTypeToString.point(self.cornerPos))
         self.testEdit2.setPlainText(dtext)
     
     def hide(self):

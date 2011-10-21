@@ -117,32 +117,7 @@ def drawCenteredDottedHandle(opt, p):
         pass
     
     p.restore()
-
-def paintBackground(opt, painter):
-    painter.save()
     
-    # hovered
-    if (opt.state & QStyle.State_MouseOver
-            and opt.state & QStyle.State_Enabled):
-        # set the pen
-        if opt.state & QStyle.State_Sunken:
-            painter.setPen(opt.palette.highlight().color())
-            painter.fillRect(opt.rect, opt.palette.highlight().color().lighter())
-        else:
-            painter.setPen(opt.palette.highlight().color().lighter())
-            
-        if opt.state & QStyle.State_Horizontal:
-            painter.drawLine(opt.rect.topLeft(), opt.rect.bottomLeft())
-            painter.drawLine(opt.rect.topRight(), opt.rect.bottomRight())
-        else:
-            painter.drawLine(opt.rect.topLeft(), opt.rect.topRight())
-            painter.drawLine(opt.rect.bottomLeft(), opt.rect.bottomRight())
-    #inactive
-    else:
-        painter.fillRect(opt.rect, opt.palette.window().color())
-    
-    painter.restore()
-
 def drawParalellLineHandle(opt, painter):
     painter.save()
     if opt.state & QStyle.State_Horizontal:
@@ -184,37 +159,23 @@ def drawParallelGroovedLineHandle(opt, painter):
     painter.restore()
 
 class Splitter(QSplitter):
-    #handle styles
-    Plain = 0
-    
-    ParallelLine = 1
-    ParallelGroovedLine = 2
-    ParallelDotted = 3
-    
-    CenteredDashes = 4
-    CenteredDotted = 5
-    HandleStyles = (Plain, ParallelLine, ParallelGroovedLine, ParallelDotted, 
-                    CenteredDashes, CenteredDotted)
-    
-    #hover styles
-    NoHighlight = 0x00
-    PlainHighlight = 0x02
-    RaisedHighlight = 0x04
-    LocalHighlight = 0x08
-    
-    HoverStyles = (NoHighlight, PlainHighlight, RaisedHighlight, LocalHighlight)
-    
     def __init__(self, *args, **kwargs):
-        if 'handleStyle' in kwargs:
-            h_style = int(kwargs.pop('handleStyle'))
+        if 'gripPainter' in kwargs:
+            p_func = kwargs.pop('gripPainter')
         else:
-            h_style = int(Splitter.Plain)
+            p_func = None
+        if 'hoverHint' in kwargs:
+            h_hint = True if kwargs.pop('hoverHint') else False
+        else:
+            h_hint = False
         super().__init__(*args, **kwargs)
-        self.handleStyle = h_style
+        self.__gripfunc = p_func
+        self.__highlight = h_hint
         
     def createHandle(self):
         h = SplitterHandle(self.orientation(), self)
-        h.setHandleStyle(self.handleStyle)
+        h.setGripPainter(self.__gripfunc)
+        h.hoverHint = self.hoverHint
         return h
         
     def handles(self):
@@ -233,63 +194,90 @@ class Splitter(QSplitter):
                 l.append(w)
         return l
     
-    def getHandleStyle(self):
-        return int(self.__handleStyle)
-    
-    def setHandleStyle(self, style):
-        assert(isinstance(style, int) and style in Splitter.HandleStyles)
-        self.__handleStyle = int(style)
+    def setGripPainter(self, func):
+        if func == self.__gripfunc:
+            return
+        self.__gripfunc = func
         for h in self.handles():
-            h.setHandleStyle(self.__handleStyle)
-        self.update()
-    
-    handleStyle = pyqtProperty(int, fget=getHandleStyle, fset=setHandleStyle)
+            h.setGripPainter(func)
+        
+    def getHoverHint(self):
+        return True & self.__highlight
+        
+    def setHoverHint(self, hint):
+        assert(isinstance(hint, bool))
+        if hint == self.__highlight:
+            return
+        self.__highlight = True if hint else False
+        for h in self.handles():
+            h.hoverHint = hint
+        
+    hoverHint = pyqtProperty(bool, fget=getHoverHint, fset=setHoverHint)
 
 class SplitterHandle(QSplitterHandle):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__pressed = False
         self.__hovered = False
-        self.__handleStyle = Splitter.Plain
-        self.__highlight = Splitter.PlainHighlight
-        
-    def handleStyle(self):
-        return self.__handleStyle
-        
-    def setHandleStyle(self, style):
-        assert(isinstance(style, int))
-        self.__handleStyle = int(style)
-        self.update()
+        self.__gripfunc = None
+        self.__highlight = False
         
     def initStyleOption(self, opt):
         opt.palette = self.palette()
         opt.rect = self.contentsRect()
         
-        if self.orientation() == Qt.Horizontal:
-            opt.state = QStyle.State_Horizontal
-        else:
-            opt.state = QStyle.State_None
-        if self.hovered():
-            opt.state |= QStyle.State_MouseOver
-        if self.pressed():
-            opt.state |= QStyle.State_Sunken
         if self.isEnabled():
             opt.state |= QStyle.State_Enabled
+        else:
+            opt.state = QStyle.State_None
+        if self.orientation() == Qt.Horizontal:
+            opt.state = QStyle.State_Horizontal
+        #only set these flags if the HoverHint property is set to true
+        if self.hoverHint:
+            if self.hovered():
+                opt.state |= QStyle.State_MouseOver
+            if self.pressed():
+                opt.state |= QStyle.State_Sunken
+        
     
     def paintEvent(self, ev):
         p = QPainter(self)
         opt = QStyleOption()
         
         self.initStyleOption(opt)
-        paintBackground(opt, p)
-        if self.__handleStyle == Splitter.ParallelLine:
-            drawParalellLineHandle(opt, p)
-        elif self.__handleStyle == Splitter.ParallelGroovedLine:
-            drawParallelGroovedLineHandle(opt, p)
-        elif self.__handleStyle == Splitter.CenteredDashes:
-            drawCenteredDashedHandle(opt, p)
-        elif self.__handleStyle == Splitter.CenteredDotted:
-            drawCenteredDottedHandle(opt, p)
+        p.save()
+        
+        #hovered
+        if (opt.state & QStyle.State_MouseOver
+                and opt.state & QStyle.State_Enabled):
+            #pad a pixel on the end to accomodate weird frame style issues
+            if opt.state & QStyle.State_Horizontal:
+                rect = opt.rect.adjusted(0, 1, 0, -1)
+            else:
+                rect = opt.rect.adjusted(1, 0, -1, 0)
+                
+            # set the pen and fill with highlight if mouse is down
+            if opt.state & QStyle.State_Sunken:
+                p.setPen(opt.palette.highlight().color())
+                p.fillRect(rect, opt.palette.highlight().color().lighter())
+            else:
+                p.setPen(opt.palette.highlight().color().lighter())
+            
+            #draw the edge highlights
+            if opt.state & QStyle.State_Horizontal:
+                p.drawLine(rect.topLeft(), rect.bottomLeft())
+                p.drawLine(rect.topRight(), rect.bottomRight())
+            else:
+                p.drawLine(rect.topLeft(), rect.topRight())
+                p.drawLine(rect.bottomLeft(), rect.bottomRight())
+        #inactive
+        else:
+            p.fillRect(opt.rect, opt.palette.window().color())
+        p.restore()
+        
+        #call the grip paint function/method if it has been set
+        if self.__gripfunc:
+            self.__gripfunc(opt, p)
     
     def enterEvent(self, ev):
         self.__hovered = True
@@ -317,3 +305,23 @@ class SplitterHandle(QSplitterHandle):
         return self.__hovered
     def pressed(self):
         return self.__pressed
+        
+    def getGripPainter(self):
+        return self.__gripfunc
+        
+    def setGripPainter(self, func):
+        if self.__gripfunc == func:
+            return
+        self.__gripfunc = func
+        self.update()
+
+    def getHoverHint(self):
+        return True & self.__highlight
+        
+    def setHoverHint(self, hint):
+        if hint == self.__highlight:
+            return
+        self.__highlight = True if hint else False
+        self.update()
+        
+    hoverHint = pyqtProperty(bool, fget=getHoverHint, fset=setHoverHint)
