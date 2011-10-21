@@ -47,7 +47,6 @@ class Dialog(TemplateDialog):
         self.treeWidget = QTreeWidget(self, objectName='treeWidget')
         self.treeWidget.setColumnCount(3)
         self.treeWidget.setHeaderLabels(['Property', 'Value', 'Type'])
-#        self.treeWidget.setHorizontalHeaderLabels(['Property', 'Value', 'Type'])
         self.treeWidget.setColumnWidth(0, 150)
         self.treeWidget.setColumnWidth(1, 150)
         self.treeWidget.setAlternatingRowColors(True)
@@ -73,6 +72,8 @@ class Dialog(TemplateDialog):
         
     def retranslateUi(self):
         super().retranslateUi()
+        
+        self.setWindowTitle(self.trUtf8('PropertyInfo Test'))
         self.classLabel.setText('Class &List')
         
     def connectSignals(self):
