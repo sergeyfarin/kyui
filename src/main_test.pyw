@@ -11,6 +11,7 @@ from colorframe_test import Dialog as ColorFrameDialog
 from colorpicker_test import Dialog as ColorPickerDialog
 from colorslider_test import Dialog as ColorSliderDialog
 from keysequence_test import Dialog as KeySequenceDialog
+from notifier_test import Dialog as NotifierDialog
 from sliderspinboxwidget_test import Dialog as SliderSpinBoxWidgetDialog
 from splitter_test import Dialog as SplitterDialog
 from propertyinfo_test import Dialog as PropertyInfoDialog
@@ -36,10 +37,11 @@ class Dialog(QDialog):
         self.widgetBox.addItem('BasicFontWidget', BasicFontWidgetDialog)
         self.widgetBox.addItem('ColorButton', ColorButtonDialog)
         self.widgetBox.addItem('ColorFrame', ColorFrameDialog)
-        self.widgetBox.addItem('ColorPicket', ColorPickerDialog)
+        self.widgetBox.addItem('ColorPicker', ColorPickerDialog)
         self.widgetBox.addItem('ColorSlider', ColorSliderDialog)
 #        self.widgetBox.addItem('ColorSliderWidget', ColorSliderWidgetDialog)
         self.widgetBox.addItem('KeySequenceLineEdit', KeySequenceDialog)
+        self.widgetBox.addItem('Notifier', NotifierDialog)
         self.widgetBox.addItem('PropertyInfo', PropertyInfoDialog)
         self.widgetBox.addItem('PropertyModel', PropertyModelDialog)
         self.widgetBox.addItem('SliderSpinBoxWidget', SliderSpinBoxWidgetDialog)
