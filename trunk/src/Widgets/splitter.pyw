@@ -3,8 +3,6 @@ from PyQt4.QtGui import *
 
 from .util import Util
 
-
-
 def drawCenteredDashedHandle(opt, painter):
     mid = opt.palette.mid().color()
     dark = opt.palette.shadow().color()
@@ -202,7 +200,7 @@ class Splitter(QSplitter):
             h.setGripPainter(func)
         
     def getHoverHint(self):
-        return True & self.__highlight
+        return True if self.__highlight else False
         
     def setHoverHint(self, hint):
         assert(isinstance(hint, bool))
@@ -227,11 +225,11 @@ class SplitterHandle(QSplitterHandle):
         opt.rect = self.contentsRect()
         
         if self.isEnabled():
-            opt.state |= QStyle.State_Enabled
+            opt.state = QStyle.State_Enabled
         else:
             opt.state = QStyle.State_None
         if self.orientation() == Qt.Horizontal:
-            opt.state = QStyle.State_Horizontal
+            opt.state |= QStyle.State_Horizontal
         #only set these flags if the HoverHint property is set to true
         if self.hoverHint:
             if self.hovered():
@@ -316,7 +314,7 @@ class SplitterHandle(QSplitterHandle):
         self.update()
 
     def getHoverHint(self):
-        return True & self.__highlight
+        return True if self.__highlight else False
         
     def setHoverHint(self, hint):
         if hint == self.__highlight:
