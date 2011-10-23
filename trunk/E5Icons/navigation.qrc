@@ -1,0 +1,33 @@
+<RCC>
+  <qresource prefix="goto">
+    <file alias="brace.png">gotoBrace.png</file>
+    <file alias="line.png">gotoLine.png</file>
+  </qresource>
+  <qresource prefix="error">
+    <file alias="next.png">gotoSyntaxError.png</file>
+    <file alias="error.png">syntaxError.png</file>
+    <file alias="clear.png">syntaxErrorClear.png</file>
+  </qresource>
+  <qresource prefix="bookmark">
+    <file alias="show.png">bookmark.png</file>
+    <file alias="add.png">bookmarkAdd.png</file>
+    <file alias="clear.png">bookmarkClear.png</file>
+    <file alias="edit.png">bookmarkEdit.png</file>
+    <file alias="next.png">bookmarkNext.png</file>
+    <file alias="prev.png">bookmarkPrevious.png</file>
+    <file alias="toggle.png">bookmarkToggle.png</file>
+  </qresource>
+  <qresource prefix="task">
+    <file alias="next.png">taskNext.png</file>
+    <file alias="prev.png">taskPrevious.png</file>
+  </qresource>
+  <qresource prefix="warning">
+    <file alias="clear.png">warningClear.png</file>
+    <file alias="next.png">warningNext.png</file>
+    <file alias="prev.png">warningPrev.png</file>
+  </qresource>
+  <qresource prefix="uncoveredline">
+    <file alias="next.png">flagNext.png</file>
+    <file alias="prev.png">flagPrevious.png</file>
+  </qresource>
+</RCC>

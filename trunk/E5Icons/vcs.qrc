@@ -1,0 +1,30 @@
+<RCC>
+  <qresource prefix="vcs">
+    <file alias="add.png">vcsAdd.png</file>
+    <file alias="analyze.png">vcsAnalyzeSource.png</file>
+    <file alias="branch.png">vcsBranch.png</file>
+    <file alias="browser.png">vcsBrowser.png</file>
+    <file alias="checkout.png">vcsCheckout.png</file>
+    <file alias="commit.png">vcsCommit.png</file>
+    <file alias="configure.png">vcsConfigure.png</file>
+    <file alias="properties_delete.png">vcsDeleteProperty.png</file>
+    <file alias="diff.png">vcsDiff.png</file>
+    <file alias="property_edit.png">vcsEditProperty.png</file>
+    <file alias="exec_command.png">vcsExecuteCommand.png</file>
+    <file alias="export.png">vcsExport.png</file>
+    <file alias="properties_list.png">vcsListProperties.png</file>
+    <file alias="lock.png">vcsLock.png</file>
+    <file alias="log.png">vcsLog.png</file>
+    <file alias="login.png">vcsLogin.png</file>
+    <file alias="logout.png">vcsLogout.png</file>
+    <file alias="merge.png">vcsMerge.png</file>
+    <file alias="properties.png">vcsProperties.png</file>
+    <file alias="remove.png">vcsRemove.png</file>
+    <file alias="resolve.png">vcsResolve.png</file>
+    <file alias="revert.png">vcsRevert.png</file>
+    <file alias="status.png">vcsStatus.png</file>
+    <file alias="tag.png">vcsTag.png</file>
+    <file alias="unlock.png">vcsUnlock.png</file>
+    <file alias="update.png">vcsUpdate.png</file>
+  </qresource>
+</RCC>

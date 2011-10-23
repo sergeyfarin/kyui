@@ -1,0 +1,40 @@
+<RCC>
+  <qresource prefix="run">
+    <file alias="cover_project.png">runCoverageProject.png</file>
+    <file alias="cover_script.png">runCoverageScript.png</file>
+    <file alias="debug_project.png">runDebugProject.png</file>
+    <file alias="debug_script.png">runDebugScript.png</file>
+    <file alias="profile_project.png">runProfileProject.png</file>
+    <file alias="profile_script.png">runProfileScript.png</file>
+    <file alias="project.png">runProject.png</file>
+    <file alias="restart.png">runRestart.png</file>
+    <file alias="script.png">runScript.png</file>
+    <file alias="stop.png">runStop.png</file>
+  </qresource>
+  <qresource prefix="control">
+    <file alias="step.png">debugStep.png</file>
+    <file alias="step_out.png">debugStepOut.png</file>
+    <file alias="step_over.png">debugStepOver.png</file>
+    <file alias="stop.png">debugStop.png</file>
+    <file alias="continue.png">debugContinue.png</file>
+    <file alias="to_cursor.png">debugContinueToCursor.png</file>
+    <file alias="context_exec.png">debugContextExecute.png</file>
+    <file alias="filter.png">debugFilter.png</file>
+    <file alias="exceptions.png">filterExceptions.png</file>
+    <file alias="variables.png">filterVariables.png</file>
+    <file alias="ignored.png">ignoredExceptions.png</file>
+  </qresource>
+  <qresource prefix="breakpoint">
+    <file alias="clear.png">breakpointClear.png</file>
+    <file alias="edit.png">breakpointEdit.png</file>
+    <file alias="next.png">breakpointNext.png</file>
+    <file alias="prev.png">breakpointPrevious.png</file>
+    <file alias="toggle.png">breakpointToggle.png</file>
+  </qresource>
+  <qresource prefix="unittest">
+    <file alias="project.png">unittestProject.png</file>
+    <file alias="restart.png">unittestRestart.png</file>
+    <file alias="run.png">unittestRun.png</file>
+    <file alias="script.png">unittestScript.png</file>
+  </qresource>
+</RCC>
