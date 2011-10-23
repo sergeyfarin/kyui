@@ -3,11 +3,27 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-import sys
 
 from Widgets.colorbutton import ColorButton
-
 from template_test import TemplateDialog
+
+colorPairs = (('White', QColor(Qt.white)),
+            ('Black', QColor(Qt.black)),
+            ('Red', QColor(Qt.red)),
+            ('Dark Red', QColor(Qt.darkRed)),
+            ('Green', QColor(Qt.green)),
+            ('Dark Green', QColor(Qt.darkGreen)),
+            ('Blue', QColor(Qt.blue)),
+            ('Dark Blue', QColor(Qt.darkBlue)),
+            ('Cyan', QColor(Qt.cyan)),
+            ('Dark Cyan', QColor(Qt.darkCyan)),
+            ('Magenta', QColor(Qt.magenta)),
+            ('Dark Magenta', QColor(Qt.darkMagenta)),
+            ('Yellow', QColor(Qt.yellow)),
+            ('Dark Yellow', QColor(Qt.darkYellow)),
+            ('Gray', QColor(Qt.gray)),
+            ('Dark Gray', QColor(Qt.darkGray)),
+            ('Light Gray', QColor(Qt.lightGray)))
 
 class Dialog(TemplateDialog):
     def __init__(self, parent = None):
@@ -20,113 +36,102 @@ class Dialog(TemplateDialog):
         
     def setupUi(self):
         super().setupUi()
-        self.debugBox.hide()
         
         self.testWidget = ColorButton(color=Qt.white, 
                                       text='Test', 
-                                      parent=self)
-        self.testWidget.setObjectName('testWidget')
-        self.testWidget.setIconSize(QSize(16, 16))
+                                      parent=self, 
+                                      toolButtonStyle=Qt.ToolButtonTextBesideIcon, 
+                                      objectName='testWidget', 
+                                      iconSize=QSize(16, 16))
         self.layout.insertWidget(0, self.testWidget)
         
-        self.sizeLabel = QLabel(self.settingsBox)
-        self.sizeLabel.setObjectName('sizeLabel')
-        self.sizeBox = QComboBox(self.settingsBox)
-        self.sizeBox.setObjectName('sizeBox')
+        self.sizeBox = QComboBox(self.settingsBox, 
+                                 objectName='sizeBox')
+        self.settingsLayout.addRow('&Icon Size', self.sizeBox)
+        
+        self.colorBox = QComboBox(self.settingsBox, 
+                                  objectName='colorBox')
+        self.settingsLayout.addRow('C&olor', self.colorBox)
+        
+        self.frameColorBox = QComboBox(self.settingsBox, 
+                                       objectName='frameColorBox')
+        self.settingsLayout.addRow('&Frame Color', self.frameColorBox)
+        
+        self.textStyleBox = QComboBox(self.settingsBox, 
+                                      objectName = 'textStyleBox')
+        self.settingsLayout.addRow('&Text Style', self.textStyleBox)
+        
+        self.populateComboBoxes()
+        self.textStyleBox.setCurrentIndex(1)
+        
+    def populateComboBoxes(self):
         self.sizeBox.addItem('16 x 16', QSize(16, 16))
         self.sizeBox.addItem('22 x 22', QSize(22, 22))
         self.sizeBox.addItem('24 x 24', QSize(24, 24))
         self.sizeBox.addItem('32 x 32', QSize(32, 32))
-        self.settingsLayout.addRow(self.sizeLabel, self.sizeBox)
-        self.sizeLabel.setBuddy(self.sizeBox)
         
-        self.colorLabel = QLabel(self.settingsBox)
-        self.colorLabel.setObjectName('colorLabel')
-        self.colorBox = QComboBox(self.settingsBox)
-        self.colorBox.setObjectName('colorBox')
-        self.colorBox.addItem('White', QColor(Qt.white))
-        self.colorBox.addItem('Black', QColor(Qt.black))
-        self.colorBox.addItem('Red', QColor(Qt.red))
-        self.colorBox.addItem('Dark Red', QColor(Qt.darkRed))
-        self.colorBox.addItem('Green', QColor(Qt.green))
-        self.colorBox.addItem('Dark Green', QColor(Qt.darkGreen))
-        self.colorBox.addItem('Blue', QColor(Qt.blue))
-        self.colorBox.addItem('Dark Blue', QColor(Qt.darkBlue))
-        self.colorBox.addItem('Cyan', QColor(Qt.cyan))
-        self.colorBox.addItem('Dark Cyan', QColor(Qt.darkCyan))
-        self.colorBox.addItem('Magenta', QColor(Qt.magenta))
-        self.colorBox.addItem('Dark Magenta', QColor(Qt.darkMagenta))
-        self.colorBox.addItem('Yellow', QColor(Qt.yellow))
-        self.colorBox.addItem('Dark Yellow', QColor(Qt.darkYellow))
-        self.colorBox.addItem('Gray', QColor(Qt.gray))
-        self.colorBox.addItem('Dark Gray', QColor(Qt.darkGray))
-        self.colorBox.addItem('Light Gray', QColor(Qt.lightGray))
-        self.settingsLayout.addRow(self.colorLabel, self.colorBox)
-        self.colorLabel.setBuddy(self.colorBox)
-        
-        self.textStyleLabel = QLabel(self.settingsBox)
-        self.textStyleLabel.setObjectName('textStyleLabel')
-        self.textStyleBox = QComboBox(self.settingsBox)
-        self.textStyleBox.setObjectName('textStyleBox')
         self.textStyleBox.addItem('Icon Only', Qt.ToolButtonIconOnly)
         self.textStyleBox.addItem('Text Beside Icon', Qt.ToolButtonTextBesideIcon)
         self.textStyleBox.addItem('Text Under Icon', Qt.ToolButtonTextUnderIcon)
         self.textStyleBox.setCurrentIndex(1)
-        self.settingsLayout.addRow(self.textStyleLabel, self.textStyleBox)
-        self.textStyleLabel.setBuddy(self.textStyleBox)
         
+        for name, color in colorPairs:
+            self.colorBox.addItem(name, color)
+            self.frameColorBox.addItem(name, color)
+        self.frameColorBox.setCurrentIndex(1)
+        
+    def retranslateUi(self):
+        super().retranslateUi()
+        tr = self.trUtf8
+        self.setWindowTitle(tr('ColorButton Test'))
+        self.settingsLayout.labelForField(self.sizeBox).setText(tr('&Icon Size'))
+        self.settingsLayout.labelForField(self.colorBox).setText(tr('C&olor'))
+        self.settingsLayout.labelForField(self.frameColorBox).setText(tr('&Frame Color'))
+        self.settingsLayout.labelForField(self.textStyleBox).setText(tr('&Text Style'))
+        
+        self.sizeBox.setItemText(0, tr('16 x 16'))
+        self.sizeBox.setItemText(1, tr('22 x 22'))
+        self.sizeBox.setItemText(2, tr('24 x 24'))
+        self.sizeBox.setItemText(3, tr('32 x 32'))
+        
+        self.textStyleBox.setItemText(0, tr('Icon Only'))
+        self.textStyleBox.setItemText(1, tr('Text Beside Icon'))
+        self.textStyleBox.setItemText(2, tr('Text Under Icon'))
+        
+        for idx in range(len(colorPairs)):
+            self.colorBox.setItemText(idx, tr(colorPairs[idx][0]))
+            self.frameColorBox.setItemText(idx, tr(colorPairs[idx][0]))
+
     def connectSignals(self):
         super().connectSignals()
         self.sizeBox.currentIndexChanged[int].connect(self.onSizeChanged)
         self.colorBox.currentIndexChanged[int].connect(self.onColorChanged)
+        self.frameColorBox.currentIndexChanged[int].connect(self.onFrameColorChanged)
         self.textStyleBox.currentIndexChanged[int].connect(self.onStyleChanged)
         self.testWidget.clicked.connect(self.onColorButtonClicked)
-        
-    def retranslateUi(self):
-        super().retranslateUi()
-        
-        self.setWindowTitle(self.trUtf8('ColorButton Test'))
-        self.sizeLabel.setText(self.trUtf8('&Icon Size'))
-        self.colorLabel.setText(self.trUtf8('C&olor'))
-        self.textStyleLabel.setText(self.trUtf8('&Text Style'))
-        
-        self.sizeBox.setItemText(0, self.trUtf8('16 x 16'))
-        self.sizeBox.setItemText(1, self.trUtf8('22 x 22'))
-        self.sizeBox.setItemText(2, self.trUtf8('24 x 24'))
-        self.sizeBox.setItemText(3, self.trUtf8('32 x 32'))
-        
-        self.colorBox.setItemText(0, self.trUtf8('White'))
-        self.colorBox.setItemText(1, self.trUtf8('Black'))
-        self.colorBox.setItemText(2, self.trUtf8('Red'))
-        self.colorBox.setItemText(3, self.trUtf8('Dark Red'))
-        self.colorBox.setItemText(4, self.trUtf8('Green'))
-        self.colorBox.setItemText(5, self.trUtf8('Dark Green'))
-        self.colorBox.setItemText(6, self.trUtf8('Blue'))
-        self.colorBox.setItemText(7, self.trUtf8('Dark Blue'))
-        self.colorBox.setItemText(8, self.trUtf8('Cyan'))
-        self.colorBox.setItemText(9, self.trUtf8('Dark Cyan'))
-        self.colorBox.setItemText(10, self.trUtf8('Magenta'))
-        self.colorBox.setItemText(11, self.trUtf8('Dark Magenta'))
-        self.colorBox.setItemText(12, self.trUtf8('Yellow'))
-        self.colorBox.setItemText(13, self.trUtf8('Dark Yellow'))
-        self.colorBox.setItemText(14, self.trUtf8('Gray'))
-        self.colorBox.setItemText(15, self.trUtf8('Dark Gray'))
-        self.colorBox.setItemText(16, self.trUtf8('Light Gray'))
 
-    def onSizeChanged(self, index : int):
-        self.testWidget.setIconSize(self.sizeBox.itemData(index, Qt.UserRole))
+    def onSizeChanged(self, idx : int):
+        self.testWidget.setIconSize(self.sizeBox.itemData(idx, Qt.UserRole))
 
-    def onColorChanged(self, index : int):
-        self.testWidget.setColor(self.colorBox.itemData(index, Qt.UserRole))
+    def onColorChanged(self, idx : int):
+        self.testWidget.setColor(self.colorBox.itemData(idx, Qt.UserRole))
         
-    def onStyleChanged(self, index : int):
-        self.testWidget.setToolButtonStyle(self.textStyleBox.itemData(index, Qt.UserRole))
+    def onFrameColorChanged(self, idx : int):
+        self.testWidget.setFrameColor(self.frameColorBox.itemData(idx, Qt.UserRole))
+        
+    def onStyleChanged(self, idx : int):
+        self.testWidget.setToolButtonStyle(self.textStyleBox.itemData(idx, Qt.UserRole))
     
     def onColorButtonClicked(self):
         color = QColorDialog.getColor(self.testWidget.color, self)
         self.testWidget.setColor(color)
-
+        idx = self.colorBox.findData(color)
+        self.colorBox.blockSignals(True)
+        self.colorBox.setCurrentIndex(idx)
+        self.colorBox.blockSignals(False)
+        
 if __name__ == '__main__':
+    import sys
     app = QApplication(sys.argv)
     dlg = Dialog()
     dlg.show()
