@@ -6,9 +6,13 @@ from PyQt4.QtGui import *
 import sys
 
 from Widgets.splitter import Splitter
+from Widgets.splitter import drawCenteredDashedHandle
+from Widgets.splitter import drawCenteredDottedHandle
+from Widgets.splitter import drawParalellLineHandle
+from Widgets.splitter import drawParallelGroovedLineHandle
 from Widgets.separator import Separator
 
-from Widgets.util import QTypeToString
+#from Widgets.util import QTypeToString
 
 from template_test import TemplateDialog
 
@@ -23,7 +27,9 @@ class Dialog(TemplateDialog):
         
         self.testWidget = Splitter(parent=self, 
                                    orientation=Qt.Horizontal, 
-                                   objectName='testWidget')
+                                   objectName='testWidget', 
+                                   gripPainter=None, 
+                                   hoverHint=True)
         self.testWidget.setFixedSize(QSize(200, 100))
         self.layout.insertWidget(0, self.testWidget)
         
@@ -67,8 +73,9 @@ class Dialog(TemplateDialog):
         
         self.handleBox = QComboBox(self.settingsBox, 
                                    objectName='handleBox')
-        self.highlightBox = QComboBox(self.settingsBox, 
-                                      objectName='highlightBox')
+        self.highlightBox = QCheckBox(self.settingsBox, 
+                                      objectName='highlightBox', 
+                                      checked=True)
         self.widthBox = QSpinBox(self.settingsBox,
                                  objectName='widthBox', 
                                  minimum = 2, 
@@ -86,8 +93,9 @@ class Dialog(TemplateDialog):
         self.settingsLayout.addWidget(self.marginBox)
         self.settingsLayout.addWidget(sep2)
         self.settingsLayout.addRow('&Handle Style', self.handleBox)
-        self.settingsLayout.addRow('Ho&ver Highlight', self.highlightBox)
         self.settingsLayout.addRow('Handle &Width', self.widthBox)
+        self.settingsLayout.addWidget(self.highlightBox)
+        
         self.settingsLayout.addWidget(self.orientBox)
         self.settingsLayout.addWidget(self.opaqueResizeBox)
         
@@ -106,45 +114,42 @@ class Dialog(TemplateDialog):
         self.shadowBox.addItem('Plain', QFrame.Plain)
         self.shadowBox.addItem('Raised', QFrame.Raised)
         self.shadowBox.addItem('Sunken', QFrame.Sunken)
+        self.shadowBox.setCurrentIndex(2)
         
-        self.handleBox.addItem('Plain', Splitter.Plain)
-        self.handleBox.addItem('Centered Dashes', Splitter.CenteredDashes)
-        self.handleBox.addItem('Centered Dotted', Splitter.CenteredDotted)
-        self.handleBox.addItem('Parallel Dotted', Splitter.ParallelDotted)
-        self.handleBox.addItem('Parallel Line', Splitter.ParallelLine)
-        self.handleBox.addItem('Parallel Grooved Line', Splitter.ParallelGroovedLine)
-        
-        self.highlightBox.addItem('None', Splitter.NoHighlight)
-        self.highlightBox.addItem('Plain', Splitter.PlainHighlight)
-        self.highlightBox.addItem('Raised', Splitter.RaisedHighlight)
-        self.highlightBox.addItem('Local', Splitter.LocalHighlight)
-        
+        self.handleBox.addItem('Plain', None)
+        self.handleBox.addItem('Centered Dashes', drawCenteredDashedHandle)
+        self.handleBox.addItem('Centered Dotted', drawCenteredDottedHandle)
+        self.handleBox.addItem('Parallel Line', drawParalellLineHandle)
+        self.handleBox.addItem('Parallel Grooved Line', drawParallelGroovedLineHandle)
     
     def retranslateUi(self):
+        super().retranslateUi()
+        
+        self.setWindowTitle('Splitter & SplitterHandle Test')
         self.settingsLayout.labelForField(self.shapeBox).setText(self.trUtf8('Frame &Shape'))
         self.settingsLayout.labelForField(self.shadowBox).setText(self.trUtf8('Frame S&hadow'))
         self.marginBox.setText(self.trUtf8('Pad Contents &Margins'))
         
-        self.settingsLayout.labelForField(self.handleBox).setText(self.trUtf8('&Handle Style'))
-        self.settingsLayout.labelForField(self.highlightBox).setText(self.trUtf8('Ho&ver Highlight'))
+        self.settingsLayout.labelForField(self.handleBox).setText(self.trUtf8('Handle &Grip'))
+        self.highlightBox.setText(self.trUtf8('Show ho&ver hint'))
         self.settingsLayout.labelForField(self.widthBox).setText(self.trUtf8('Handle &Width'))
-        self.orientBox.setText(self.trUtf8('&Vertical Orientation'))
+        self.orientBox.setText(self.trUtf8('Vertical &Orientation'))
         self.opaqueResizeBox.setText(self.trUtf8('&Opaque Resize'))
         
-        super().retranslateUi()
+        
         
     def connectSignals(self):
+        super().connectSignals()
+        
         self.shapeBox.currentIndexChanged[int].connect(self.changeSplitterShape)
         self.shadowBox.currentIndexChanged[int].connect(self.changeSplitterShadow)
         self.marginBox.toggled.connect(self.changeMargins)
         
-        self.handleBox.currentIndexChanged[int].connect(self.changeHandleStyle)
-        self.highlightBox.currentIndexChanged[int].connect(self.changeHighlightStyle)
+        self.handleBox.currentIndexChanged[int].connect(self.changeGripPainter)
+        self.highlightBox.toggled.connect(self.testWidget.setHoverHint)
         self.widthBox.valueChanged[int].connect(self.testWidget.setHandleWidth)
         self.orientBox.toggled.connect(self.changeOrientation)
         self.opaqueResizeBox.toggled.connect(self.testWidget.setOpaqueResize)
-        
-        super().connectSignals()
     
     def changeSplitterShadow(self, idx):
         for widget in self.testWidget.widgets():
@@ -154,8 +159,8 @@ class Dialog(TemplateDialog):
         for widget in self.testWidget.widgets():
             widget.setFrameShape(self.shapeBox.itemData(idx))
         
-    def changeHandleStyle(self, idx):
-        self.testWidget.setHandleStyle(self.handleBox.itemData(idx))
+    def changeGripPainter(self, idx):
+        self.testWidget.setGripPainter(self.handleBox.itemData(idx))
     
     def changeHighlightStyle(self, idx):
         pass
