@@ -1,0 +1,27 @@
+<RCC>
+  <qresource prefix="groups">
+    <file alias="goto.png">groupGoto.png</file>
+    <file alias="profile.png">groupProfile.png</file>
+    <file alias="toolbox.png">groupToolbox.png</file>
+    <file alias="vcs_local.png">groupVcsLocalCopy.png</file>
+    <file alias="vcs_files.png">groupVcsFiles.png</file>
+    <file alias="bookmark.png">groupBookmark.png</file>
+    <file alias="breakpoint.png">groupBreakpoint.png</file>
+    <file alias="control.png">groupControl.png</file>
+    <file alias="edit.png">groupEdit.png</file>
+    <file alias="find.png">groupFind.png</file>
+    <file alias="flag.png">groupFlag.png</file>
+    <file alias="macro.png">groupMacro.png</file>
+    <file alias="multiproject.png">groupMultiproject.png</file>
+    <file alias="project_add.png">groupProjectAdd.png</file>
+    <file alias="project_file.png">groupProjectFile.png</file>
+    <file alias="run.png">groupRun.png</file>
+    <file alias="split.png">groupSplit.png</file>
+    <file alias="task.png">groupTask.png</file>
+    <file alias="tools.png">groupTools.png</file>
+    <file alias="vcs_info.png">groupVcsInfo.png</file>
+    <file alias="vcs_manage.png">groupVcsManage.png</file>
+    <file alias="warning.png">groupWarning.png</file>
+    <file alias="zoom.png">groupZoom.png</file>
+  </qresource>
+</RCC>

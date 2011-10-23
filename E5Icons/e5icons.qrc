@@ -1,26 +1,9 @@
 <RCC>
-  <qresource prefix="Run">
-    <file>runCoverageScript.png</file>
-    <file>runDebugProject.png</file>
-    <file>runDebugScript.png</file>
-    <file>runProfileProject.png</file>
-    <file>runProfileScript.png</file>
-    <file>runProject.png</file>
-    <file>runRestart.png</file>
-    <file>runScript.png</file>
-    <file>runStop.png</file>
-  </qresource>
   <qresource prefix="Mime">
     <file>mimeDesigner.png</file>
     <file>mimeLinguist.png</file>
     <file>mimePython.png</file>
     <file>mimeRuby.png</file>
-  </qresource>
-  <qresource prefix="Unittest">
-    <file>unittestProject.png</file>
-    <file>unittestRestart.png</file>
-    <file>unittestRun.png</file>
-    <file>unittestScript.png</file>
   </qresource>
   <qresource prefix="File">
     <file>fileSaveToProject.png</file>
@@ -39,67 +22,6 @@
     <file>fileSaveAll.png</file>
     <file>fileSaveAs.png</file>
   </qresource>
-  <qresource prefix="Project">
-    <file>projectAddFile.png</file>
-    <file>projectAddFolder.png</file>
-    <file>projectDebug.png</file>
-    <file>projectClose.png</file>
-    <file>projectConfigure.png</file>
-    <file>projectDiagram.png</file>
-    <file>projectDocs.png</file>
-    <file>projectFind.png</file>
-    <file>projectNew.png</file>
-    <file>projectOpen.png</file>
-    <file>projectProperties.png</file>
-    <file>projectSave.png</file>
-    <file>projectSaveAs.png</file>
-    <file>projectSession.png</file>
-    <file>projectUserProperties.png</file>
-  </qresource>
-  <qresource prefix="Edit">
-    <file>editSpellcheck.png</file>
-    <file>editAutoSpellcheck.png</file>
-    <file>editDelete.png</file>
-    <file>editAutocomplete.png</file>
-    <file>editComment.png</file>
-    <file>editCopy.png</file>
-    <file>editCut.png</file>
-    <file>editPaste.png</file>
-    <file>editRedo.png</file>
-    <file>editRevert.png</file>
-    <file>editStreamComment.png</file>
-    <file>editUncomment.png</file>
-    <file>editUndo.png</file>
-  </qresource>
-  <qresource prefix="Bookmark">
-    <file>bookmark.png</file>
-    <file>bookmarkAdd.png</file>
-    <file>bookmarkEdit.png</file>
-    <file>bookmarkNext.png</file>
-    <file>bookmarkPrevious.png</file>
-    <file>bookmarkToggle.png</file>
-    <file>bookmarkClear.png</file>
-  </qresource>
-  <qresource prefix="Breakpoint">
-    <file>breakpointClear.png</file>
-    <file>breakpointEdit.png</file>
-    <file>breakpointNext.png</file>
-    <file>breakpointPrevious.png</file>
-    <file>breakpointToggle.png</file>
-  </qresource>
-  <qresource prefix="Tools">
-    <file>toolsCompareFiles.png</file>
-    <file>toolsDiff.png</file>
-    <file>toolsBrowser.png</file>
-    <file>toolsIconEditor.png</file>
-    <file>toolsMiniEditor.png</file>
-    <file>toolsSqlBrowser.png</file>
-    <file>toolsAssistant.png</file>
-    <file>toolsDesigner.png</file>
-    <file>toolsLinguist.png</file>
-    <file>toolsQtExtended.png</file>
-    <file>toolsWizard.png</file>
-  </qresource>
   <qresource prefix="Macro">
     <file>macro.png</file>
     <file>macroDelete.png</file>
@@ -108,94 +30,5 @@
     <file>macroSave.png</file>
     <file>macroStartRecording.png</file>
     <file>macroStopRecording.png</file>
-  </qresource>
-  <qresource prefix="Goto">
-    <file>syntaxErrorClear.png</file>
-    <file>warningClear.png</file>
-    <file>taskNext.png</file>
-    <file>taskPrevious.png</file>
-    <file>warningNext.png</file>
-    <file>warningPrev.png</file>
-    <file>flagNext.png</file>
-    <file>flagPrevious.png</file>
-    <file>gotoBrace.png</file>
-    <file>gotoLine.png</file>
-    <file>gotoSyntaxError.png</file>
-  </qresource>
-  <qresource prefix="View">
-    <file>arrangeLeftRight.png</file>
-    <file>arrangeTopBottom.png</file>
-    <file>splitNew.png</file>
-    <file>splitNext.png</file>
-    <file>splitPrev.png</file>
-    <file>splitRemove.png</file>
-    <file>zoomIn.png</file>
-    <file>zoomout.png</file>
-    <file>zoomReset.png</file>
-    <file>zoomTo.png</file>
-  </qresource>
-  <qresource prefix="Doc">
-    <file>docEric.png</file>
-    <file>docPySide.png</file>
-    <file>docPython.png</file>
-    <file>docQt.png</file>
-  </qresource>
-  <qresource prefix="Help">
-    <file>whatsThis.png</file>
-    <file>helpViewer.png</file>
-  </qresource>
-  <qresource prefix="Debug">
-    <file>ignoredExceptions.png</file>
-    <file>filterExceptions.png</file>
-    <file>filterVariables.png</file>
-    <file>debugContextExecute.png</file>
-    <file>debugContextExecute2.png</file>
-    <file>debugFilter.png</file>
-  </qresource>
-  <qresource prefix="Find">
-    <file>find.png</file>
-    <file>findClear.png</file>
-    <file>findNext.png</file>
-    <file>findPrevious.png</file>
-  </qresource>
-  <qresource prefix="Multiproject">
-    <file>multiProjectAdd.png</file>
-    <file>multiProjectClose.png</file>
-    <file>multiProjectConfigure.png</file>
-    <file>multiProjectNew.png</file>
-    <file>multiProjectOpen.png</file>
-    <file>multiProjectProperties.png</file>
-    <file>multiProjectSave.png</file>
-    <file>multiProjectSaveAs.png</file>
-  </qresource>
-  <qresource prefix="Package">
-    <file>package.png</file>
-    <file>packageArchive.png</file>
-    <file>packageList.png</file>
-    <file>packageSnapshot.png</file>
-  </qresource>
-  <qresource prefix="VCS">
-    <file>vcsAdd.png</file>
-    <file>vcsBranch.png</file>
-    <file>vcsBrowser.png</file>
-    <file>vcsCheckout.png</file>
-    <file>vcsCommit.png</file>
-    <file>vcsConfigure.png</file>
-    <file>vcsDeleteProperty.png</file>
-    <file>vcsEditProperty.png</file>
-    <file>vcsExecuteCommand.png</file>
-    <file>vcsExport.png</file>
-    <file>vcsListProperties.png</file>
-    <file>vcsLock.png</file>
-    <file>vcsLog.png</file>
-    <file>vcsLogin.png</file>
-    <file>vcsLogout.png</file>
-    <file>vcsMerge.png</file>
-    <file>vcsProperties.png</file>
-    <file>vcsRemove.png</file>
-    <file>vcsRevert.png</file>
-    <file>vcsStatus.png</file>
-    <file>vcsUnlock.png</file>
-    <file>vcsUpdate.png</file>
   </qresource>
 </RCC>

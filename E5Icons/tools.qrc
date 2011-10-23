@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="tools">
+    <file alias="assistant.png">toolsAssistant.png</file>
+    <file alias="browser.png">toolsBrowser.png</file>
+    <file alias="comparefiles.png">toolsCompareFiles.png</file>
+    <file alias="designer.png">toolsDesigner.png</file>
+    <file alias="diff.png">toolsDiff.png</file>
+    <file alias="iconeditor.png">toolsIconEditor.png</file>
+    <file alias="linquist.png">toolsLinguist.png</file>
+    <file alias="minieditor.png">toolsMiniEditor.png</file>
+    <file alias="extended.png">toolsQtExtended.png</file>
+    <file alias="sqlbrowser.png">toolsSqlBrowser.png</file>
+    <file alias="wizard.png">toolsWizard.png</file>
+  </qresource>
+</RCC>

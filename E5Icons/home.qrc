@@ -1,0 +1,23 @@
+<RCC>
+  <qresource prefix="edit">
+    <file alias="autocomplete.png">editAutocomplete.png</file>
+    <file alias="autospellcheck.png">editAutoSpellcheck.png</file>
+    <file alias="comment.png">editComment.png</file>
+    <file alias="copy.png">editCopy.png</file>
+    <file alias="cut.png">editCut.png</file>
+    <file alias="delete.png">editDelete.png</file>
+    <file alias="paste.png">editPaste.png</file>
+    <file alias="redo.png">editRedo.png</file>
+    <file alias="revert.png">editRevert.png</file>
+    <file alias="spellcheck.png">editSpellcheck.png</file>
+    <file alias="comment_stream.png">editStreamComment.png</file>
+    <file alias="uncomment.png">editUncomment.png</file>
+    <file alias="undo.png">editUndo.png</file>
+  </qresource>
+  <qresource prefix="find">
+    <file>find.png</file>
+    <file>findClear.png</file>
+    <file>findNext.png</file>
+    <file>findPrevious.png</file>
+  </qresource>
+</RCC>

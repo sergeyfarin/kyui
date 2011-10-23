@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="split">
+    <file alias="horizontal.png">splitHorizontal.png</file>
+    <file alias="new.png">splitNew.png</file>
+    <file alias="next.png">splitNext.png</file>
+    <file alias="prev.png">splitPrev.png</file>
+    <file alias="remove.png">splitRemove.png</file>
+    <file alias="vertical.png">SplitVertical.png</file>
+  </qresource>
+  <qresource prefix="zoom">
+    <file>zoomin.png</file>
+    <file>zoomout.png</file>
+    <file>zoomreset.png</file>
+    <file>zoomTo.png</file>
+  </qresource>
+  <qresource prefix="profile">
+    <file alias="debug.png">profileDebug.png</file>
+    <file alias="edit.png">profileEdit.png</file>
+  </qresource>
+</RCC>

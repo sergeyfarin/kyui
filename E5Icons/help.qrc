@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="doc">
+    <file alias="eric.png">docEric.png</file>
+    <file alias="pyside.png">docPySide.png</file>
+    <file alias="python.png">docPython.png</file>
+    <file alias="qt.png">docQt.png</file>
+  </qresource>
+  <qresource prefix="help">
+    <file alias="viewer.png">helpViewer.png</file>
+    <file alias="whatsthis.png">whatsThis.png</file>
+  </qresource>
+</RCC>

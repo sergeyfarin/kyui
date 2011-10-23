@@ -1,0 +1,35 @@
+<RCC>
+  <qresource prefix="project">
+    <file alias="addfile.png">projectAddFile.png</file>
+    <file alias="addfolder.png">projectAddFolder.png</file>
+    <file alias="close.png">projectClose.png</file>
+    <file alias="configure.png">projectConfigure.png</file>
+    <file alias="debug.png">projectDebug.png</file>
+    <file alias="diagram.png">projectDiagram.png</file>
+    <file alias="docs.png">projectDocs.png</file>
+    <file alias="find.png">projectFind.png</file>
+    <file alias="new.png">projectNew.png</file>
+    <file alias="open.png">projectOpen.png</file>
+    <file alias="properties.png">projectProperties.png</file>
+    <file alias="save.png">projectSave.png</file>
+    <file alias="saveas.png">projectSaveAs.png</file>
+    <file alias="session.png">projectSession.png</file>
+    <file alias="userprops.png">projectUserProperties.png</file>
+  </qresource>
+  <qresource prefix="package">
+    <file>package.png</file>
+    <file alias="archive.png">packageArchive.png</file>
+    <file alias="list.png">packageList.png</file>
+    <file alias="snapshot.png">packageSnapshot.png</file>
+  </qresource>
+  <qresource prefix="multiproject">
+    <file alias="add.png">multiProjectAdd.png</file>
+    <file alias="close.png">multiProjectClose.png</file>
+    <file alias="configure.png">multiProjectConfigure.png</file>
+    <file alias="new.png">multiProjectNew.png</file>
+    <file alias="open.png">multiProjectOpen.png</file>
+    <file alias="properties.png">multiProjectProperties.png</file>
+    <file alias="save.png">multiProjectSave.png</file>
+    <file alias="saveas.png">multiProjectSaveAs.png</file>
+  </qresource>
+</RCC>
