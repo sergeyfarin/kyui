@@ -28,12 +28,8 @@ class Dialog(TemplateDialog):
         super().setupUi()
         self.debugBox.hide()
         self.testWidget = ColorPicker(parent=self, 
-                                     gridSize = QSize(2, 2), 
-                                     hoverColor = QColor(Qt.blue), 
-                                     frameColor = QColor(Qt.gray), 
-                                     shape = QFrame.Panel, 
-                                     flat = True, 
-                                     margin = 2, 
+                                     hoverColor = Qt.blue, 
+                                     frameColor = Qt.gray, 
                                      boxSize = QSize(22, 22), 
                                      spacing = QSize(3, 3))
         self.testWidget.setObjectName('testWidget')
