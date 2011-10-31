@@ -100,44 +100,55 @@ Modifiers = {Qt.Key_Shift   : 'Shift',
 
 class KeySequenceLineEdit(QLineEdit):
     
-    def __init__(self, parent = None):
-        super().__init__(parent)
-        self.setAcceptDrops(False)
-        self.setReadOnly(True)
-        self.setContextMenuPolicy(Qt.PreventContextMenu)
-        self.setFocusPolicy(Qt.ClickFocus)
-        self.setPlaceholderText('Click here to enter a key sequence')
-        self.currentKey = ''
+    def __init__(self, *args, **kwargs):
+        if len(args) == 2:
+            assert(isinstance(args[0], QKeySequence))
+            key = args[0]
+            parent = args[1]
+        elif len(args) == 1:
+            parent = args[0]
+            key = QKeySequence()
+        else:
+            parent = kwargs.pop('parent', None)
+            key = QKeySequence()
+        kwargs['acceptDrops'] = False
+        kwargs['readOnly'] = True
+        kwargs['contextMenuPolicy'] = Qt.PreventContextMenu
+        kwargs['focusPolicy'] = Qt.ClickFocus
+        super().__init__(parent, **kwargs)
+        
+        self.setPlaceholderText(self.trUtf8('Click here to enter a key sequence'))
+        self.currentKey = key.toString() if not key.isEmpty() else ''
         self.modState = {Qt.Key_Shift   : False, 
                          Qt.Key_Control : False, 
                          Qt.Key_Meta    : False, 
                          Qt.Key_Alt     : False}
         
-    def keyPressEvent(self, event):
-        key = event.key()
+    def keyPressEvent(self, ev):
+        key = ev.key()
         if key in self.modState:
             self.modState[key] = True
         elif key in Keys:
             self.currentKey = Keys[key]
         self.printKeys()
-        event.accept()
+        ev.accept()
         
-    def keyReleaseEvent(self, event):
-        key = event.key()
+    def keyReleaseEvent(self, ev):
+        key = ev.key()
         if key in self.modState:
             self.modState[key] = False
         elif key in Keys:
             self.currentKey = ''
         self.printKeys()
-        event.accept()
+        ev.accept()
     
-    def focusInEvent(self, event):
+    def focusInEvent(self, ev):
         self.grabKeyboard()
-        super().focusInEvent(event)
+        super().focusInEvent(ev)
     
-    def focusOutEvent(self, event):
+    def focusOutEvent(self, ev):
         self.releaseKeyboard()
-        super().focusOutEvent(event)
+        super().focusOutEvent(ev)
     
     def printKeys(self):
         keys = ''
