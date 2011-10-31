@@ -1,4 +1,4 @@
-#UTF-8
+#utf-8
 #colorpicker.pyw
 
 from PyQt4.QtCore import Qt, pyqtSlot, pyqtSignal, pyqtProperty, qWarning
@@ -10,10 +10,6 @@ from PyQt4.QtGui import QSizePolicy
 from PyQt4.QtGui import QPalette, QColor
 
 class ColorFrame(QFrame):
-    #==================================================#
-    # Signals                                          #
-    #==================================================#
-    
     def __init__(self, *args, **kwargs):
         if len(args) == 2:
             color = QColor(args[0])
@@ -75,13 +71,12 @@ class ColorFrame(QFrame):
         self.update()
 
     def setFlat(self, flat : bool):
-        super().setFrameShadow(QFrame.Plain if flat else QFrame.Sunken)
+        self.setFrameShadow(QFrame.Plain if flat else QFrame.Sunken)
 
-    def setFrameShadow(self, shadow):
-        qWarning('ColorFrame: use flat property instead of frameShadow.')
-
-    def setMargin(self, margin : int) -> None:
-        self.__margin = margin if margin > 1 else 1
+    def setMargin(self, margin):
+        if margin == self.__margin:
+            return
+        self.__margin = int(margin) if margin > 1 else 1
         self.update()
 
     #==================================================#
@@ -102,6 +97,7 @@ class ColorFrame(QFrame):
         opt = QStyleOptionFrameV3()
         opt.initFrom(self)
         opt.frameShape = self.frameShape()
+        opt.frameShadow = self.frameShadow()
         
         opt.lineWidth = 1
         opt.midLineWidth = 0
@@ -109,7 +105,7 @@ class ColorFrame(QFrame):
         outerRect = self.rect().adjusted(0, 0, -1, -1)
         innerRect = opt.rect.adjusted(self.margin, self.margin, 
                                       -self.margin, -self.margin)
-        if not self.flat:
+        if not opt.frameShadow == QFrame.Plain:
             opt.state |= QStyle.State_Sunken
             opt.rect = innerRect
             painter.fillRect(innerRect, self.color)

@@ -104,7 +104,7 @@ class TabBar(QWidget):
         
     def getCurrentIndex(self) -> int:
         if self.isValidIndex(self.__currentIndex):
-            return self.__currentIndex;
+            return self.__currentIndex
         return -1
         
     def getDocumentMode(self) -> bool:
@@ -122,7 +122,7 @@ class TabBar(QWidget):
     def getIconSize(self) -> QSize:
         if self.__iconSize().isValid():
             return self.__iconSize
-        size = style().pixelMetric(QStyle.PM_TabBarIconSize, None, self);
+        size = style().pixelMetric(QStyle.PM_TabBarIconSize, None, self)
         return QSize(size, size)
         
     def getMovable(self) -> bool:
@@ -152,7 +152,7 @@ class TabBar(QWidget):
         self.__currentIndex = index
         self.update()
         self._makeVisible(index)
-        self._tabList[index].lastTab = oldIndex;
+        self._tabList[index].lastTab = oldIndex
         if oldIndex >= 0 and oldIndex < self.count():
             self._layoutTab(oldIndex)
         self._layoutTab(index)
@@ -176,7 +176,7 @@ class TabBar(QWidget):
     def setExpanding(self, enabled : bool):
         if self.__expanding == enabled:
             return
-        self.__expanding = enabled;
+        self.__expanding = enabled
         self._layoutTabs()
 
     def setIconSize(self, size : QSize):
@@ -211,11 +211,11 @@ class TabBar(QWidget):
                     tab.rightWidget.deleteLater()
                     tab.rightWidget = None
         else:
-            newButtons = False;
+            newButtons = False
             for i in range(self.count):
                 if self.tabButton(i, closeSide):
                     continue
-                newButtons = True;
+                newButtons = True
                 closeButton = CloseButton(self)
                 closeButton.clicked.connect(self._closeTab())
                 self.setTabButton(i, closeSide, closeButton)
@@ -343,7 +343,7 @@ class TabBar(QWidget):
         end = max((start, end))
         width = self._tabList[start].rect.height() if vertical else self._tabList[start].rect.width()
         if start < end:
-            width *= -1;
+            width *= -1
         rtl = isRightToLeft()
         for tab in iter(self._tabList[start:end]):
             if i == start:
@@ -377,7 +377,7 @@ class TabBar(QWidget):
 
         # update lastTab locations
         for i in range(self.count):
-            self._tabList[i].lastTab = calculateNewPosition(start, end, self._tabList[i].lastTab);
+            self._tabList[i].lastTab = calculateNewPosition(start, end, self._tabList[i].lastTab)
 
         # update external variables
         self.currentIndex = calculateNewPosition(start, end, self.currentIndex)
@@ -470,7 +470,7 @@ class TabBar(QWidget):
         if not self.isValidIndex(index):
             return
         if widget:
-            widget.setParent(self);
+            widget.setParent(self)
             # make sure our left and right widgets stay on top
             widget.lower()
             widget.show()
@@ -612,14 +612,14 @@ class TabBar(QWidget):
         return ret
     
     def initStyleOption(self, opt : QStyleOptionTab, tabIndex : int):
-        totalTabs = self.count;
+        totalTabs = self.count
 
         if (not option or (tabIndex < 0 or tabIndex >= totalTabs)):
             return
 
         tab = self._tabList[tabIndex]
         opt.initFrom(self)
-        opt.state &= ~(QStyle.State_HasFocus | QStyle.State_MouseOver);
+        opt.state &= ~(QStyle.State_HasFocus | QStyle.State_MouseOver)
         opt.rect = self.tabRect(tabIndex)
         isCurrent = tabIndex == self.currentIndex
         opt.row = 0
@@ -674,9 +674,9 @@ class TabBar(QWidget):
     ###
     #    if (QTabWidget *tw = qobject_cast<QTabWidget *>(parentWidget())):
     #        if (tw.cornerWidget(Qt.TopLeftCorner) or tw.cornerWidget(Qt.BottomLeftCorner))
-    #            opt.cornerWidgets |= QStyleOptionTab.LeftCornerWidget;
+    #            opt.cornerWidgets |= QStyleOptionTab.LeftCornerWidget
     #        if (tw.cornerWidget(Qt.TopRightCorner) or tw.cornerWidget(Qt.BottomRightCorner))
-    #            opt.cornerWidgets |= QStyleOptionTab.RightCornerWidget;
+    #            opt.cornerWidgets |= QStyleOptionTab.RightCornerWidget
 
         textRect = style().subElementRect(QStyle.SE_TabBarTabText, opt, self)
         opt.text = fontMetrics().elidedText(opt.text, 
@@ -696,7 +696,7 @@ class TabBar(QWidget):
             rect = QRect()
             if (tabOverlap.shape == QTabBar.RoundedNorth
                 or tabOverlap.shape == QTabBar.TriangularNorth):
-                rect.setRect(0, sz.height()-overlap, sz.width(), overlap);
+                rect.setRect(0, sz.height()-overlap, sz.width(), overlap)
             elif (tabOverlap.shape == QTabBar.RoundedSouth
                   or tabOverlap.shape == QTabBar.TriangularSouth):
                 rect.setRect(0, 0, sz.width(), overlap)
@@ -757,12 +757,12 @@ class TabBar(QWidget):
                         self._hoverRect = area
                         break
                 if ev.oldPos() != QPoint(-1, -1):
-                    self.update(oldHoverRect);
-                self.update(self._hoverRect);
+                    self.update(oldHoverRect)
+                self.update(self._hoverRect)
             return True
         elif event.type() == QEvent.HoverLeave:
-            oldHoverRect = self._hoverRect;
-            self._hoverRect = QRect();
+            oldHoverRect = self._hoverRect
+            self._hoverRect = QRect()
             self.update(oldHoverRect)
             return True
 
@@ -829,13 +829,13 @@ class TabBar(QWidget):
                 self.update()
     #ifdef Q_WS_MAC
     #    elif (!self.documentMode and ev.buttons() == Qt.LeftButton and d.previousPressedIndex != -1):
-    #        int newPressedIndex = self.tabAt(ev.pos());
+    #        int newPressedIndex = self.tabAt(ev.pos())
     #        if (self._pressedIndex == -1 and d.previousPressedIndex == newPressedIndex):
-    #            self._pressedIndex = d.previousPressedIndex;
-    #            update(tabRect(self._pressedIndex));
+    #            self._pressedIndex = d.previousPressedIndex
+    #            update(tabRect(self._pressedIndex))
     #        elif(self._pressedIndex != newPressedIndex):
-    #            self._pressedIndex = -1;
-    #            update(tabRect(d.previousPressedIndex));
+    #            self._pressedIndex = -1
+    #            update(tabRect(d.previousPressedIndex))
     #        }
     #endif
         if (ev.buttons() != Qt.LeftButton):
@@ -867,16 +867,16 @@ class TabBar(QWidget):
 
         self._pressedIndex = self.tabAt(ev.pos())
     #ifdef Q_WS_MAC
-    #    d.previousPressedIndex = self._pressedIndex;
+    #    d.previousPressedIndex = self._pressedIndex
     #endif
         if self.isValidIndex(self._pressedIndex):
             optBase = QStyleOptionTabBarBaseV2()
             optBase.init(self)
-            optBase.documentMode = self.documentMode;
+            optBase.documentMode = self.documentMode
             if ev.type() == style().styleHint(QStyle.SH_TabBar_SelectMouseType, optBase, self):
                 self.currentIndex = self._pressedIndex
             else:
-                self.repaint(tabRect(self._pressedIndex));
+                self.repaint(tabRect(self._pressedIndex))
             if self.movable:
                 self._dragStartPosition = ev.pos()
     
@@ -885,7 +885,7 @@ class TabBar(QWidget):
             ev.ignore()
             return
         #ifdef Q_WS_MAC
-        #self._previousPressedIndex = -1;
+        #self._previousPressedIndex = -1
         #endif
         if (self.movable and self._dragInProgress 
                 and self.isValidIndex(self._pressedIndex)):
@@ -895,9 +895,9 @@ class TabBar(QWidget):
                      else tabRect(self._pressedIndex).width())
             duration = min((250, (abs(length) * 250) / width))
             self._tabList[self._pressedIndex].startAnimation(self, duration)
-            self._dragInProgress = False;
-            self._movingTab.setVisible(False);
-            self._dragStartPosition = QPoint();
+            self._dragInProgress = False
+            self._movingTab.setVisible(False)
+            self._dragStartPosition = QPoint()
         if self.tabAt(ev.pos()) == self._pressedIndex:
             i = self._pressedIndex
         else:
@@ -985,7 +985,7 @@ class TabBar(QWidget):
                 p.drawControl(QStyle.CE_TabBarTab, optTab)
             else:
                 overlap = style().pixelMetric(QStyle.PM_TabBarTabOverlap, None, self)
-                self._movingTab.setGeometry(tab.rect.adjusted(-overlap, 0, overlap, 0));
+                self._movingTab.setGeometry(tab.rect.adjusted(-overlap, 0, overlap, 0))
 
         # Only draw the tear indicator if necessary. Most of the time we don't need to.
         if (self._leftB.isVisible() and cut >= 0):
@@ -1011,7 +1011,7 @@ class TabBar(QWidget):
     #    self._updateMacBorderMetrics()
 
     def hideEvent(self, ev : QHideEvent):
-    #    d.updateMacBorderMetrics();
+    #    d.updateMacBorderMetrics()
         pass
 
     def _setNextEnabledIndex(self, offset : int):
@@ -1099,25 +1099,25 @@ class TabBar(QWidget):
             self._movingTab = QWidget(self)
 
         overlap = self.style().pixelMetric(QStyle.PM_TabBarTabOverlap, None, self)
-        grabRect = self.tabRect(self._pressedIndex);
+        grabRect = self.tabRect(self._pressedIndex)
         grabRect.adjust(0 - overlap, 0, overlap, 0)
 
-        grabImage = QPixmap(grabRect.size());
+        grabImage = QPixmap(grabRect.size())
         grabImage.fill(Qt.transparent)
         p = QStylePainter(grabImage, self)
         p.initFrom(self)
 
         opt = QStyleOptionTabV3()
-        self.initStyleOption(opt, self._pressedIndex);
-        opt.rect.moveTopLeft(QPoint(overlap, 0));
-        p.drawControl(QStyle.CE_TabBarTab, opt);
+        self.initStyleOption(opt, self._pressedIndex)
+        opt.rect.moveTopLeft(QPoint(overlap, 0))
+        p.drawControl(QStyle.CE_TabBarTab, opt)
         p.end()
 
         pal = QPalette()
-        pal.setBrush(QPalette.All, QPalette.Window, grabImage);
-        movingTab.setPalette(pal);
-        movingTab.setGeometry(grabRect);
-        movingTab.setAutoFillBackground(True);
+        pal.setBrush(QPalette.All, QPalette.Window, grabImage)
+        movingTab.setPalette(pal)
+        movingTab.setGeometry(grabRect)
+        movingTab.setAutoFillBackground(True)
         movingTab.raise_()
     
     def _refresh(self):
@@ -1228,7 +1228,7 @@ class TabBar(QWidget):
         self.setUpdatesEnabled(False)
         self.moveTab(start, end)
         self.setUpdatesEnabled(True)
-        postLocation = self.tabRect(end).y() if vertical else self.tabRect(end).x();
+        postLocation = self.tabRect(end).y() if vertical else self.tabRect(end).x()
         length = postLocation - preLocation
         tabList[end].dragOffset -= length
         tabList[end].startAnimation(self, 250)
@@ -1237,7 +1237,7 @@ class TabBar(QWidget):
         cleanup = (pressedIndex == index 
                    or pressedIndex == -1 
                    or not self.isValidIndex(index))
-        allAnimationsFinished = True;
+        allAnimationsFinished = True
         for tab in iter(self._tabList):
             if tab.animation and tab.animation.state() == QAbstractAnimation.Running:
                 allAnimationsFinished = False
@@ -1248,8 +1248,8 @@ class TabBar(QWidget):
             for tab in iter(self._tabList):
                 tab.dragOffset = 0
             if self._pressedIndex != -1 and self.movable:
-                self._pressedIndex = -1;
-                self._dragInProgress = False;
+                self._pressedIndex = -1
+                self._dragInProgress = False
                 self._dragStartPosition = QPoint()
             self._layoutWidgets()
         else:

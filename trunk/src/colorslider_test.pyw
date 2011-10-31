@@ -24,10 +24,10 @@ class Dialog(TemplateDialog):
         
         self.debugBox.hide()
         
-        self.testBox = QGroupBox(self)
-        self.testBox.setObjectName('testBox')
-        self.testLayout = QBoxLayout(QBoxLayout.TopToBottom, self.testBox)
-        self.testLayout.setObjectName('testLayout')
+        self.testBox = QGroupBox(self, objectName='testBox')
+        self.testLayout = QBoxLayout(QBoxLayout.TopToBottom, 
+                                     parent=self.testBox, 
+                                     objectName='testLayout')
         
         self.testWidget1 = ColorSlider_Old(QColor.Rgb, 0, 
                                            Qt.Horizontal, self.testBox)

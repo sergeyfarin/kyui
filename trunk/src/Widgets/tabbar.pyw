@@ -113,7 +113,7 @@ class TabBar(QWidget):
         
     def getCurrentIndex(self) -> int:
         if self.isValidIndex(self.__currentIndex):
-            return self.__currentIndex;
+            return self.__currentIndex
         return -1
         
     def getDocumentMode(self) -> bool:
@@ -131,7 +131,7 @@ class TabBar(QWidget):
     def getIconSize(self) -> QSize:
         if self.__iconSize.isValid():
             return self.__iconSize
-        size = style().pixelMetric(QStyle.PM_TabBarIconSize, None, self);
+        size = style().pixelMetric(QStyle.PM_TabBarIconSize, None, self)
         return QSize(size, size)
         
     def getMovable(self) -> bool:
@@ -166,8 +166,8 @@ class TabBar(QWidget):
         self.__currentIndex = index
         self.update()
 #        self._makeVisible(index)
-#        self._tabList[index].lastTab = oldIndex;
-#        if oldIndex >= 0 and oldIndex < self.count():
+#        self._tabList[index].lastTab = oldIndex
+#        if oldIndex >= 0 and oldIndex < self.count()
 #            self._layoutTab(oldIndex)
 #        self._layoutTab(index)
         self.currentChanged.emit(index)
@@ -194,7 +194,7 @@ class TabBar(QWidget):
     def setExpanding(self, enabled : bool):
         if self.__expanding == enabled:
             return
-        self.__expanding = enabled;
+        self.__expanding = enabled
         self._layoutTabs()
 
     def setIconSize(self, size : QSize):
@@ -229,7 +229,7 @@ class TabBar(QWidget):
         if not self.isValidIndex(index):
             return
         if widget:
-            widget.setParent(self);
+            widget.setParent(self)
             # make sure our left and right widgets stay on top
             widget.lower()
             widget.show()
@@ -264,7 +264,7 @@ class TabBar(QWidget):
             for i in range(self.count):
                 if self.tabButton(i, closeSide):
                     continue
-                newButtons = True;
+                newButtons = True
                 closeButton = CloseButton(self)
                 closeButton.clicked.connect(self._closeTab)
                 self.setTabButton(i, closeSide, closeButton)
@@ -544,9 +544,9 @@ class TabBar(QWidget):
     ###
     #    if (QTabWidget *tw = qobject_cast<QTabWidget *>(parentWidget())):
     #        if (tw.cornerWidget(Qt.TopLeftCorner) or tw.cornerWidget(Qt.BottomLeftCorner))
-    #            opt.cornerWidgets |= QStyleOptionTab.LeftCornerWidget;
+    #            opt.cornerWidgets |= QStyleOptionTab.LeftCornerWidget
     #        if (tw.cornerWidget(Qt.TopRightCorner) or tw.cornerWidget(Qt.BottomRightCorner))
-    #            opt.cornerWidgets |= QStyleOptionTab.RightCornerWidget;
+    #            opt.cornerWidgets |= QStyleOptionTab.RightCornerWidget
 
         textRect = self.style().subElementRect(QStyle.SE_TabBarTabText, opt, self)
         opt.text = self.fontMetrics().elidedText(opt.text, self.elideMode, 
@@ -565,7 +565,7 @@ class TabBar(QWidget):
         if widget and overlap > 0:
             rect = QRect()
             if tabOverlap.shape == QTabWidget.North:
-                rect.setRect(0, sz.height()-overlap, sz.width(), overlap);
+                rect.setRect(0, sz.height()-overlap, sz.width(), overlap)
             elif tabOverlap.shape == QTabWidget.South:
                 rect.setRect(0, 0, sz.width(), overlap)
             elif tabOverlap.shape == QTabWidget.East:
@@ -625,7 +625,7 @@ class TabBar(QWidget):
 #        cleanup = (pressedIndex == index 
 #                   or pressedIndex == -1 
 #                   or not self.isValidIndex(index))
-#        allAnimationsFinished = True;
+#        allAnimationsFinished = True
 #        for tab in iter(self._tabList):
 #            if tab.animation and tab.animation.state() == QAbstractAnimation.Running:
 #                allAnimationsFinished = False
@@ -636,8 +636,8 @@ class TabBar(QWidget):
 #            for tab in iter(self._tabList):
 #                tab.dragOffset = 0
 #            if self._pressedIndex != -1 and self.movable:
-#                self._pressedIndex = -1;
-#                self._dragInProgress = False;
+#                self._pressedIndex = -1
+#                self._dragInProgress = False
 #                self._dragStartPosition = QPoint()
 #            self._layoutWidgets()
 #        else:
