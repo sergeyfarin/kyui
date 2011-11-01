@@ -6,13 +6,17 @@ from PyQt4.QtGui import QPlainTextEdit, QFrame
 
 
 class DebugBox(QPlainTextEdit):
-    """DebugBox
-    A class to print Qt debug messages inside a GUI
+    """
+    @brief Class to print Qt debug messages inside a GUI window.
+    Use qInstallMsgHandler() with the DebugBox instance's postMsg() method
+    to enable DebugBox to print debug output. Critical and Fatal errors will
+    be shunted to the console. Warning messages will be prepended with 'Warning: '
+    to differentiate them from debug messages.
     """
     
     def __init__(self, *args, **kwargs):
         """
-        @brief 
+        @brief Uses the same argument options as QPlainTextEdit's constructor.
         """
         if len(args) == 2:
             kwargs['plainText'] = args[0]
@@ -29,10 +33,12 @@ class DebugBox(QPlainTextEdit):
             kwargs['frameShadow'] = QFrame.Sunken
         super().__init__(parent, **kwargs)
     
-    ## \fn postMsg(msgType, text : str = None)
-    # @param msgType Message type
-    # @param text Message text
-    def postMsg(self, msgType = QtDebugMsg, text : str = None) -> None:
+    def postMsg(self, msgType = QtDebugMsg, text : str = None):
+        """
+        @brief Processes debug messages.
+        @param msgType QtMsgType Message type
+        @param text str Contents of the generated message
+        """
         if msgType == QtDebugMsg:
             self.appendPlainText(bytes.decode(text))
         elif msgType == QtWarningMsg:
