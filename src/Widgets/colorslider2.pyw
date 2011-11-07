@@ -6,6 +6,8 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from .util import QTypeToString
+
 def sliderPosition(opt):
     return QStyle.sliderPositionFromValue(
                 opt.minimum, 
@@ -25,8 +27,9 @@ class ColorSlider(QSlider):
     NativeStyle = 0
     PhotoshopStyle = 1
     TriangleStyle = 2
+    Win7Style = 3
     
-    SliderStyles = (NativeStyle, PhotoshopStyle, TriangleStyle)
+    SliderStyles = (NativeStyle, PhotoshopStyle, TriangleStyle, Win7Style)
     
     def __init__(self, *args, **kwargs):
         if len(args) == 2:
@@ -39,65 +42,117 @@ class ColorSlider(QSlider):
         super().__init__(parent, **kwargs)
         self.__style = ColorSlider.NativeStyle
 
-    ### Reimplemented Methods ###
     def sizeHint(self):
+        """
+        Reimplemented from parent class. Returns value from minimumSizeHint.
+        @returns QSize
+        """
         return self.minimumSizeHint()
         
     def minimumSizeHint(self):
+        """
+        Reimplemented from parent class.
+        @returns QSize
+        """
         if self.orientation() == Qt.Horizontal:
-            return QSize(212, 18) 
+            return QSize(212, 19) 
         else:
-            return QSize(18, 212)
+            return QSize(19, 212)
 
-    ### Private Methods ###
+
+
     def paintEvent(self, pe):
+        """
+        Reimplemented from parent class.
+        """
+        style = self.style()
         p = QPainter(self)
         opt = QStyleOptionSlider()
         self.initStyleOption(opt)
-        #don't draw the groove; we'll do that.
-        opt.subControls |= ~QStyle.SC_SliderGroove
         
-        thickness = self.style().pixelMetric(QStyle.PM_SliderControlThickness, opt, self)
-        len = self.style().pixelMetric(QStyle.PM_SliderLength, opt, self)
-        grooveRect = self.style().subControlRect(QStyle.CC_Slider, opt, QStyle.SC_SliderGroove, self)
-        handleRect = self.style().subControlRect(QStyle.CC_Slider, opt, QStyle.SC_SliderHandle, self)
+        gRect = style.subControlRect(QStyle.CC_Slider, opt, QStyle.SC_SliderGroove, self)
+        hRect = style.subControlRect(QStyle.CC_Slider, opt, QStyle.SC_SliderHandle, self)
+        len = style.pixelMetric(QStyle.PM_SliderLength, opt, self)
+        offset = style.pixelMetric(QStyle.PM_SliderTickmarkOffset, opt, self)
+        thickness = style.pixelMetric(QStyle.PM_SliderControlThickness, opt, self)
+#        mid = int(thickness / 2)
         
-        center = opt.rect.center()
         if opt.orientation == Qt.Horizontal:
-            rect = QRect(opt.rect.x() + 6, center.y() - 3, 
-                         opt.rect.width() - 12, 6)
+            sliderPos = style.sliderPositionFromValue(opt.minimum, 
+                                                      opt.maximum,
+                                                      opt.sliderPosition,
+                                                      opt.rect.width() - len, 
+                                                      opt.upsideDown)
+            hRect = QRect(opt.rect.x() + sliderPos, 
+                          opt.rect.y() + offset, 
+                          len, thickness)
+#            gRect.setY(gRect.y() + mid)
+#            gRect.setHeight(thickness)
+            gRect.adjust(0, 4, -1, -5)
         else:
-            rect = QRect(center.x() - 3, opt.rect.y() + 6, 
-                         6, opt.rect.height() - 12)
+            sliderPos = style.sliderPositionFromValue(opt.minimum, 
+                                                      opt.maximum,
+                                                      opt.sliderPosition,
+                                                      opt.rect.height() - len, 
+                                                      opt.upsideDown)
+            hRect = QRect(opt.rect.x() + offset, 
+                          opt.rect.y() + sliderPos, 
+                          thickness, len)
+            gRect.adjust(4, 0, -5, -1)
+
+#        center = opt.rect.center()
+#        if opt.orientation == Qt.Horizontal:
+#            rect = QRect(opt.rect.x() + 6, center.y() - 3, 
+#                         opt.rect.width() - 12, 6)
+#        else:
+#            rect = QRect(center.x() - 3, opt.rect.y() + 6, 
+#                         6, opt.rect.height() - 12)
         p.setPen(QPen(Qt.black))
-#        p.drawRect(rect.adjusted(1, 1, -1, -1))
-        p.drawRect(grooveRect)
+        p.drawRect(gRect)
 
         if self.sliderStyle == ColorSlider.NativeStyle:
-            self.style().drawComplexControl(QStyle.CC_Slider, opt, p, None)
+            #just draw the handle
+            opt.subControls = QStyle.SC_SliderHandle
+            style.drawComplexControl(QStyle.CC_Slider, opt, p, None)
         elif self.sliderStyle == ColorSlider.TriangleStyle:
             if opt.orientation == Qt.Horizontal:
-                x = sliderPosition(opt) + 6 + 1
-                y = (rect.bottom() + 1) if not opt.upsideDown else (rect.top() - 1)
-                p1 = QPoint(x, y)
-                p2 = QPoint(x + 3, y + 3)
-                p3 = QPoint(x - 3, y + 3)
+                x = hRect.center().x()
+                y = gRect.bottom() + 2
+                tr1 = (QPoint(x, y), 
+                       QPoint(x - 3, y + 3), 
+                       QPoint(x + 3, y + 3))
+                y = gRect.top() - 1
+                tr2 = (QPoint(x, y), 
+                       QPoint(x - 3, y - 3), 
+                       QPoint(x + 3, y - 3))
             else:
-                x = (rect.right() + 1) if not opt.upsideDown else (rect.left() - 1)
-                y = sliderPosition(opt) + 6 + 1
-                p1 = QPoint(x, y)
-                p2 = QPoint(x + 3, y + 3)
-                p3 = QPoint(x - 3, y + 3)
+                y = hRect.center().y()
+                x = hRect.right() + 2
+                tr1 = (QPoint(x, y), 
+                      QPoint(x + 3, y + 3), 
+                      QPoint(x + 3, y - 3))
+                x = hRect.left() - 1
+                tr2 = (QPoint(x, y), 
+                      QPoint(x - 3, y + 3), 
+                      QPoint(x - 3, y - 3))
             p.setPen(opt.palette.windowText().color())
             p.setBrush(opt.palette.windowText())
-            p.drawPolygon(p1, p2, p3)
-                
-        p.end()
+            p.drawPolygon(*tr1)
+            p.drawPolygon(*tr2)
 
     def getSliderStyle(self):
+        """
+        Getter for sliderStyle QProperty.
+        @returns int The current slider style, from ColorSlider.SliderStyles
+        """
         return self.__style
         
     def setSliderStyle(self, style):
+        """
+        Setter for the sliderStyle QProperty.
+        @param style int: Must be one of the values in ColorSlider.SliderStyles
+        @see SliderStyles
+        """
         if style not in ColorSlider.SliderStyles:
             return
         self.__style = int(style)
