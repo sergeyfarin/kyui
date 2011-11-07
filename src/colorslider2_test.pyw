@@ -42,9 +42,9 @@ class Dialog(TemplateDialog):
 #        self.specLabel.setBuddy(self.specBox)
 #        self.settingsLayout.addRow(self.specLabel, self.specBox)
 #        
-#        self.orientBox = QCheckBox(self)
-#        self.orientBox.setObjectName('orientBox')
-#        self.settingsLayout.addWidget(self.orientBox)
+        self.orientBox = QCheckBox(self)
+        self.orientBox.setObjectName('orientBox')
+        self.settingsLayout.addWidget(self.orientBox)
 #        
 #        self.dynamicBox = QCheckBox(self)
 #        self.dynamicBox.setObjectName('dynamicBox')
@@ -63,7 +63,7 @@ class Dialog(TemplateDialog):
         
 #        self.testBox.setTitle(self.trUtf8('&Test'))
 #        self.specLabel.setText(self.trUtf8('&Spec'))
-#        self.orientBox.setText('&Vertical Sliders')
+        self.orientBox.setText('&Vertical Sliders')
 #        self.dynamicBox.setText('&Dynamic Gradients')
 
     def populateComboBoxes(self):
@@ -76,13 +76,15 @@ class Dialog(TemplateDialog):
         
         
         self.handleBox.currentIndexChanged[int].connect(self.changeHandleStyle)
-#        self.orientBox.toggled.connect(self.onOrientationChanged)
+        self.orientBox.toggled.connect(self.changeOrientation)
 #        self.dynamicBox.toggled.connect(self.setDynamic)
 #        self.setDynamic(True)
             
     def changeHandleStyle(self, style):
         self.testWidget.sliderStyle = self.handleBox.itemData(style)
 
+    def changeOrientation(self, vertical):
+        self.testWidget.setOrientation(Qt.Vertical if vertical else Qt.Horizontal)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
