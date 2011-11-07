@@ -37,17 +37,41 @@ Cursors = { Qt.ArrowCursor : 'ArrowCursor',
             Qt.BitmapCursor : 'BitmapCursor'}
 
 class Util():
+    """
+    A collection of methods useful for various purposes bundled in one class
+    """
     __slots__ = []
     
     @staticmethod
-    def mergedColors(colorA : QColor, colorB : QColor, factor = 50) -> QColor:
+    def mergedColors(colorA, colorB, factor = 50):
+        """
+        Python version of internal QPlastiqueStyle to blend two colors
+        @brief Blends two colors.
+        @param colorA QColor
+        @param colorB QColor
+        @param factor int: Balance between the two colors. Must be between 0 and 100.
+        @returns QColor
+        """
         return QColor(
             (colorA.red() * factor) / 100 + (colorB.red() * (100 - factor)) / 100, 
             (colorA.green() * factor) / 100 + (colorB.green() * (100 - factor)) / 100, 
             (colorA.blue() * factor) / 100 + (colorB.blue() * (100 - factor)) / 100)
     
     @staticmethod
-    def directionFromOrientation(orientation : Qt.Orientation):
+    def directionFromOrientation(orientation):
+        """
+        Determines the direction to set a QBoxLayout layout based on the
+        orientation of  widget. This method takes into account right-to-left locales.
+        
+        This method is useful when a layout is dependant on the orientation of
+        a widget like a QSlider. If the orientation of the slider changes,
+        labels or other associated widgets in the layout will need re-arranging.
+        
+        @brief Determines direction for a layout based on widget orientation.
+        @param orientation Qt.Orientation
+        @returns QBoxLayout.Direction
+        @see orientationFromDirection
+        """
         if orientation == Qt.Vertical:
             return QBoxLayout.TopToBottom
         elif QApplication.isLeftToRight():
@@ -57,6 +81,16 @@ class Util():
     
     @staticmethod
     def orientationFromDirection(direction : QBoxLayout.Direction):
+        """
+        Determines the orienation a widget should have based on the direction
+        used in a layout. This can be useful for QSliders or other 
+        Qt.Orientation-dependant widgets inside of a QBoxLayout
+        
+        @brief Determines orientation for a widget based on layout direction.
+        @param direction QBoxLayout.Direction
+        @returns Qt.Orientation
+        @see directionFromOrientation
+        """
         if (direction == QBoxLayout.TopToBottom 
             or direction == QBoxLayout.BottomToTop):
             return Qt.Vertical
@@ -64,32 +98,67 @@ class Util():
             return Qt.Horizontal
 
 class QTypeToIcon():
-    __slots__ = []
+    """
+    @brief Class of static methods to create icons representing QMetaType instances.
+    QTypeToIcon is a class of static methods that can be used in conjunction 
+    with QTypeToString for displaying information about different QMetaType 
+    instances within a model view. QTypeToIcon is specifically meant for
+    incorporation into a model/view framework. QtDesigner performs scaling with
+    icons and QCursors, but this class works with more object classes.
+    @see QTypeToString
+    """
     
     @staticmethod
-    def noneType(value):
-        return ''
+    def noneType(value, size = QSize(16, 16)):
+        """
+        Convenience method for unknown types.
+        @param value Any object
+        @param size QSize: Unused
+        @returns QIcon
+        """
+        return QIcon()
 
-    #QIcon
     @staticmethod
-    def icon(value):
+    def icon(value, size = QSize(16, 16)):
+        """
+        Convenience method for QIcons.
+        @param value QIcon
+        @param size QSize: Unused
+        @returns QIcon
+        """
         return value
     
-    #QPixmap
-    @staticmethod
-    def pixmap(value):
-        return QIcon(value)
     
-    #QColor
+    @staticmethod
+    def pixmap(value, size = QSize(16, 16)):
+        """
+        Creates an icon of a QPixmap
+        @param value QPixmap
+        @param size QSize: Unused
+        @returns QIcon
+        """
+        return QIcon(value)
+
     @staticmethod
     def color(value, size = QSize(16, 16)):
+        """
+        Creates an icon representing a QColor.
+        @param value QIcon
+        @param size QSize: Size of the icon to generate.
+        @returns QIcon
+        """
         pixmap = QPixmap(size)
         pixmap.fill(value)
         return QIcon(pixmap)
     
-    #QCursor
     @staticmethod
-    def cursor(value):
+    def cursor(value, size = QSize(16, 16)):
+        """
+        Creates an icon representing a QCursor.
+        @param value QIcon
+        @param size QSize: Size of the icon to generate.
+        @returns QIcon
+        """
         pixmap = value.pixmap()
         if not pixmap.isNull():
             icon = QIcon(pixmap)
@@ -100,7 +169,6 @@ class QTypeToIcon():
 class QTypeToString():
     """
     @brief A class of static methods to create string representations of QMetaTypes.
-    
     QTypeToString is useful when information is needed regarding an object that 
     does not support introspection, or when data about an object that <em>does</em>
     support introspection needs dumping to a user-readable format.
@@ -111,20 +179,19 @@ class QTypeToString():
     @see DebugBox
     """
     
-    __slots__ = []
     @staticmethod
     def noneType(value):
         """
-        @brief Convenience function for unknown types
-        @param value Anything
-        @returns Empty string
+        Convenience function for unknown types.
+        @param value Any object
+        @returns str: Empty string
         """
         return ''
     
     @staticmethod
     def cursor(value):
         """
-        @brief Returns the enum value of a QCursor.
+        Returns the enum value of a QCursor.
         @param value QCursor
         @returns str
         """
@@ -133,7 +200,7 @@ class QTypeToString():
     @staticmethod
     def sizepolicy(value):
         """
-        @brief Returns a string representation of a QSizePolicy.
+        Returns a string representation of a QSizePolicy.
         @param value QSizePolicy
         @returns str
         """
@@ -147,30 +214,32 @@ class QTypeToString():
     @staticmethod
     def font(value):
         """
-        @brief Returns a string describing various attributes of a QFont.
+        Returns a string describing various attributes of a QFont.
         @param value QFont
         @returns str
         """
-        return '{}, {}pt, Bold: {}, Italic: {}'.format(value.family(), 
-                                                       value.pointSize(), 
-                                                       value.bold(), 
-                                                       value.italic())
+        retval = '{}, {}pt'.format(value.family(), value.pointSize())
+        if value.bold():
+            retval.append(', Bold')
+        if value.italic():
+            retval.append(', Italic')
+        return retval
     
     @staticmethod
     def keysequence(value):
         """
-        @brief Returns a string representation of a QKeySequence
+        Returns a string representation of a QKeySequence
         @param value QKeySequence
-        @returns str
+        @returns str: Formatted using QKeySequence::toString
         """
         return value.toString()
     
     @staticmethod
     def locale(value):
         """
-        @brief Returns a a string with information about a QLocale.
+        Returns a a string with information about a QLocale.
         @param value QLocale
-        @returns str
+        @returns str: Formatted as 'language, country'
         """
         return '{}, {}'.format(QLocale.languageToString(value.language()), 
                                QLocale.countryToString(value.country()))
@@ -178,9 +247,9 @@ class QTypeToString():
     @staticmethod
     def margins(value):
         """
-        @brief Returns a string representation of a QMargins
+        Returns a string representation of a QMargins
         @param value QMargin
-        @returns str
+        @returns str: Formated as '(left, top, right, bottom)'
         """
         if value.isNull():
             return '(Null)'
@@ -189,9 +258,10 @@ class QTypeToString():
     @staticmethod
     def size(value):
         """
-        @brief Returns a string representation of a QSize or QSizeF.
+        Returns a string representation of a QSize or QSizeF.
+        This method does a check that the object contains valid values.
         @param value QSize or QSizeF
-        @returns str
+        @returns str: Formatted as '(x, y)'
         """
         if not value.isValid():
             return '0.0 x 0.0' if isinstance(value, QSizeF) else '0 x 0'
@@ -200,38 +270,37 @@ class QTypeToString():
     @staticmethod
     def point(value):
         """
-        @brief Returns a string representation of a QPoint or QPointF.
+        Returns a string representation of a QPoint or QPointF.
         @param value QPoint or QPointF
-        @returns str
+        @returns str: Formatted as '(x, y)'
         """
         return '({}, {})'.format(value.x(), value.y())
     
     @staticmethod
     def line(value):
         """
-        @brief Returns a string representation of a QLine or QLineF.
+        Returns a string representation of a QLine or QLineF.
         @param value QLine or QLineF
-        @returns str
+        @returns str: Formatted as '(x1, y1), (x2, y2)'
         """
         return '({}, {}), ({}, {})'.format(value.x1(), value.y1(), value.x2(), value.y2())
 
     @staticmethod
     def rect(value):
         """
-        @brief Returns a string representation of a QRect or QRectF.
+        Returns a string representation of a QRect or QRectF.
         @param value QRect or QRectF
-        @returns str
+        @returns str: Formatted as '(x, y), width x height'
         """
         return '({}, {}), {} x {}'.format(value.x(), value.y(), value.width(), value.height())
 
     @staticmethod
     def icon(value):
         """
-        @brief Returns the available sizes of a QIcon in string format.
+        Returns the available sizes of a QIcon in string format.
         @param value QIcon
-        @returns str The list of sizes in the format '[(x, y), (x, y)]'
-        
-        @see QTypeToIcon::icon()
+        @returns str: The list of sizes in the format '[(x, y), (x, y)]'
+        @see QTypeToIcon::icon
         """
         if value.isNull():
             return '[]'
@@ -246,18 +315,43 @@ class QTypeToString():
     @staticmethod
     def pixmap(value):
         """
-        @brief Accepts a pixmap and returns its size in string format.
+        Accepts a pixmap and returns its size in string format.
+        
         Typically this method will be used in conjunction with QTypeToIcon.pixmap()
         to display an icon of the pixmap itself.
         
         @param value QPixmap
         @returns str
-        
-        @see QTypeToIcon::pixmap()
+        @see QTypeToIcon::pixmap
         """
         return QTypeToString(value.size())
     
-    #QColor
     @staticmethod
     def color(value):
+        """
+        Returns a string representation of a QColor's RGB values.
+        @param value QColor
+        @returns str
+        """
         return 'RGB({}, {}, {})'.format(value.red(), value.blue(), value.green())
+
+FormattableIcons = {'QIcon' : QTypeToIcon.icon, 
+                    'QPixmap' : QTypeToIcon.pixmap, 
+                    'QColor' : QTypeToIcon.color, 
+                    'QCursor' : QTypeToIcon.cursor}
+
+FormattableStrings = {  'QRect'  : QTypeToString.rect, 
+                        'QRectF' : QTypeToString.rect, 
+                        'QSize'  : QTypeToString.size, 
+                        'QSizeF' : QTypeToString.size,
+                        'QPoint' : QTypeToString.point, 
+                        'QPointF': QTypeToString.point, 
+                        'QLine'  : QTypeToString.line, 
+                        'QLineF' : QTypeToString.line, 
+                        'QSizePolicy' : QTypeToString.sizepolicy, 
+                        'QFont' : QTypeToString.font, 
+                        'QLocale' : QTypeToString.locale, 
+                        'QIcon' : QTypeToString.icon, 
+                        'QColor' : QTypeToString.color, 
+                        'QKeySequence' : QTypeToString.keysequence, 
+                        'QCursor' : QTypeToString.cursor}

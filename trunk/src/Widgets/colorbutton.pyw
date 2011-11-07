@@ -7,20 +7,32 @@ from PyQt4.QtGui import QColor
 from PyQt4.QtGui import QPainter, QStyleOptionToolButton, QStyle
 from PyQt4.QtGui import QPixmap, QIcon
 
-#TODO: add property for drawing outside rect
 class ColorButton(QToolButton):
-    #==================================================#
-    # Signals                                          #
-    #==================================================#
+    """
+    @brief QToolButton that displays a color selection.
+    
+    This class is specifically meant for use in settings dialogs and toolbars
+    for setting and displaying a color selection (e.g., window background
+    color or text color). Refer to the test file for an example of its usage.
+    
+    @see ColorFrame
+    @see ColorWidget
+    """
+    
+    ##@name Qt Signals
+    ##@{
     colorChanged = pyqtSignal(QColor)
+    ##@}
     
     def __init__(self, *args, **kwargs):
-        """args:"""
-        """color : QColor = Qt.transparent, text : str = None, parent : QObject = None"""
-        """color : QColor = Qt.transparent, parent : QObject = None"""
-        """parent : QObject = None"""
-        """color may be any type the QColor constructor accepts"""
+        """
+        Initializer.
         
+        @param color QColor: Any value the QColor constructor accepts.
+        @param text str: Optional display text.
+        @param parent QObject: Parent object.
+        """
+
         if len(args) == 3:
             color = QColor(args[0])
             kwargs['text'] = args[1]
@@ -47,11 +59,15 @@ class ColorButton(QToolButton):
         self.__color = color
         self._regenerateIcon()
     
-    #==================================================#
-    # Setters                                          #
-    #==================================================#
+    ##@name Qt Properties
+    ##@{
     @pyqtSlot(QColor)
     def setColor(self, color):
+        """
+        @brief Setter for the Color property.
+        Accepts any value the QColor constructor will accept.
+        @param color QColor
+        """
         #use QColor(color) to allow QRgb values, Qt.GlobalColor et cetera
         if self.__color == QColor(color):
             return
@@ -61,6 +77,11 @@ class ColorButton(QToolButton):
         
     @pyqtSlot(QColor)
     def setFrameColor(self, color):
+        """
+        @brief Setter for the FrameColor property.
+        Accepts any value the QColor constructor will accept.
+        @param color QColor
+        """
         if self.__frameColor == QColor(color):
             return
         self.__frameColor = QColor(color)
@@ -69,34 +90,42 @@ class ColorButton(QToolButton):
     def setIcon(self, icon):
         qWarning('ColorButton.setIcon: Use setColor(QColor).')
 
-    #==================================================#
-    # Getters                                          #
-    #==================================================#
-    def color(self): 
+    def getColor(self): 
+        """
+        @brief Getter for Color property.
+        @returns QColor
+        """
         return QColor(self.__color)
     
-    def frameColor(self):
+    def getFrameColor(self):
+        """
+        @brief Getter for the FrameColor property.
+        @returns QColor
+        """
         return QColor(self.__frameColor)
     
-    #==================================================#
-    # Properties                                       #
-    #==================================================#
-    color = pyqtProperty(QColor, fget=color, fset=setColor)
-    frameColor = pyqtProperty(QColor, fget=frameColor, fset=setFrameColor)
+    color = pyqtProperty(QColor, fget=getColor, fset=setColor)
+    frameColor = pyqtProperty(QColor, fget=getFrameColor, fset=setFrameColor)
+    ##@}
     
     def paintEvent(self, ev):
-        #check and see if the icon size has changed
+        """
+        @private
+        Reimplemented from parent class.
+        """
         if self.__isz != self.iconSize():
             self._regenerateIcon()
             return
-        
-        #using 
         p = QPainter(self)
         opt = QStyleOptionToolButton()
         self.initStyleOption(opt)
         self.style().drawComplexControl(QStyle.CC_ToolButton, opt, p, self)
 
     def _regenerateIcon(self):
+        """
+        @private
+        Creates a new icon when the color property or icon size changes.
+        """
         self.__isz = self.iconSize()
         pixmap = QPixmap(self.iconSize())
         pixmap.fill(Qt.transparent)

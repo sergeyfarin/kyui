@@ -35,7 +35,7 @@ class ColorFrame(QFrame):
         self.frameColor = frameColor
         self.hoverColor = hoverColor
         self.flat = flat
-        self.margin = margin
+        self.__margin = margin
         self.boxSize = boxSize
 
     #==================================================#
@@ -79,19 +79,23 @@ class ColorFrame(QFrame):
         self.__margin = int(margin) if margin > 1 else 1
         self.update()
 
-    #==================================================#
-    # Public Methods                                   #
-    #==================================================#
     def sizeHint(self):
+        """
+        Reimplemented from parent class.
+        """
         return self.minimumSizeHint()
     
     def minimumSizeHint(self):
+        """
+        Reimplemented from parent class.
+        """
         return QSize(self.boxSize)
 
-    #==================================================#
-    # Private Methods                                  #
-    #==================================================#
     def paintEvent(self, pe):
+        """
+        Reimplemented from parent class.
+        @private
+        """
         painter = QPainter()
         painter.begin(self)
         opt = QStyleOptionFrameV3()
@@ -133,26 +137,38 @@ class ColorFrame(QFrame):
         painter.end()
 
     def enterEvent(self, ev):
+        """
+        Reimplemented from parent class.
+        @private
+        """
         super().enterEvent(ev)
         self.setForegroundRole(QPalette.Highlight)
         
     def leaveEvent(self, ev):
+        """
+        Reimplemented from parent class.
+        @private
+        """
         super().enterEvent(ev)
         self.setForegroundRole(QPalette.WindowText)
-        
-    def mouseReleaseEvent(self, ev):
-        super().mouseReleaseEvent(ev)
 
-    #==================================================#
-    # Properties                                       #
-    #==================================================#
+    ##@name Qt Properties
+    ##@{
     boxSize = pyqtProperty(QSize, fget=getBoxSize, fset=setBoxSize)
     color = pyqtProperty(QColor, fget=getColor, fset=setColor)
     flat = pyqtProperty(bool, fget=getFlat, fset=setFlat)
     margin = pyqtProperty(int, fget=getMargin, fset=setMargin)
-
-#TODO: Keypad navigation, currentColorChanged, mouse events
+    ##@}
+    
 class ColorPicker(QWidget):
+    """
+    @brief: Emulates the functionality of the Windows color selection gallery.
+    ColorPicker is configurable to be embedded in a dialog, like QColorDialog, 
+    or embedding in a palette toolbar.
+    
+    
+    @todo Keypad navigation, mouse events
+    """
     #==================================================#
     # Signals                                          #
     #==================================================#
@@ -186,9 +202,9 @@ class ColorPicker(QWidget):
         self.__grid = []
         
         if not frameColor.isValid(): 
-            frameColor = self.palette().windowText()
+            frameColor = self.palette().windowText().color()
         if not hoverColor.isValid():
-            hoverColor = self.palette().highlight()
+            hoverColor = self.palette().highlight().color()
         
         self.__cfpalette = self.palette()
         self.__cfpalette.setColor(QPalette.Window, Qt.transparent)
@@ -307,7 +323,7 @@ class ColorPicker(QWidget):
     def getFlat(self) -> bool:
         return self.__flat == True
     def getFrameColor(self) -> QColor:
-        return self.__frameColor
+        return self.__cfpalette.color(QPalette.WindowText)
     def getFrameShape(self) -> QFrame.Shape:
         return self.__shape
     def getGridSize(self) -> QSize:
@@ -315,7 +331,7 @@ class ColorPicker(QWidget):
         if rows != 0:
             return QSize(len(self.__grid[0]), rows)
     def getHoverColor(self) -> QColor:
-        return self.__hoverColor
+        return self.__cfpalette.color(QPalette.Highlight)
     def getMargin(self) -> int:
         return self.__margin
     def getSpacing(self) -> QSize:
