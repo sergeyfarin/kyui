@@ -214,7 +214,7 @@ class Dialog(TemplateDialog):
         self.testWidget.gridSize = colordata.size
         for row in range(colordata.size.height()):
             for column in range(colordata.size.width()):
-                self.testWidget.setColor(row, column, QColor(colordata.colors[row][column]))
+                self.testWidget.setColorAt(row, column, QColor(colordata.colors[row][column]))
         
     def shapeChanged(self, index : int):
         self.testWidget.setFrameShape(self.shapeBox.itemData(index, Qt.UserRole))

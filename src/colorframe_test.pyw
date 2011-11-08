@@ -28,10 +28,9 @@ class Dialog(TemplateDialog):
                                      color = QColor(Qt.white), 
                                      hoverColor = QColor(Qt.blue), 
                                      frameColor = QColor(Qt.gray), 
-                                     shape = QFrame.Panel, 
-                                     flat = True, 
-                                     margin = 2, 
-                                     boxSize = QSize(22, 22))
+                                     frameShape = QFrame.Panel, 
+                                     frameShadow = QFrame.Plain, 
+                                     margin = 2)
         self.testWidget.setObjectName('testWidget')
         self.testWidget.setFocusPolicy(Qt.StrongFocus)
         self.layout.insertWidget(0, self.testWidget)
@@ -177,7 +176,7 @@ class Dialog(TemplateDialog):
         self.testWidget.margin = self.marginBox.value()
     
     def sizeChanged(self, index : int):
-        self.testWidget.boxSize = self.sizeBox.itemData(index, Qt.UserRole)
+        self.testWidget.setFixedSize(self.sizeBox.itemData(index, Qt.UserRole))
     
     def hoverColorChanged(self, index : int):
         self.testWidget.hoverColor = self.hoverColorBox.itemData(index, Qt.UserRole)
@@ -192,7 +191,7 @@ class Dialog(TemplateDialog):
         self.testWidget.setFrameShape(self.shapeBox.itemData(index, Qt.UserRole))
         
     def flatToggled(self, flat : bool):
-        self.testWidget.flat = flat
+        self.testWidget.setFrameShadow(QFrame.Plain if flat else QFrame.Sunken)
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
