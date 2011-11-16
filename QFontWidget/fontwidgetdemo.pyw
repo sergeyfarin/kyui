@@ -1,6 +1,6 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from qsimplefontwidget import QSimpleFontWidget
+from qsimplefontwidget import KySimpleFontWidget
 from qfontpreviewwidget import QFontPreviewWidget
 
 class GenericDialog(QDialog):
@@ -18,10 +18,10 @@ class GenericDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.setObjectName('layout')
         
-        fontWidget = QSimpleFontWidget(self.font(), self)
-        fontWidget.showBoldButton(True)
-        fontWidget.showItalicButton(True)
-        fontWidget.showUnderlineButton(True)
+        fontWidget = KySimpleFontWidget(self.font(), self)
+        fontWidget.setBoldButtonVisible(True)
+        fontWidget.setItalicButtonVisible(True)
+        fontWidget.setUnderlineButtonVisible(True)
         layout.addWidget(fontWidget)
         
         text = 'Sample 123'

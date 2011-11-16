@@ -3,7 +3,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from qsimplefontwidget import QSimpleFontWidget
+from qsimplefontwidget import KySimpleFontWidget
 
 class MainWindow(QMainWindow):
     def __init__(self, parent = None):
@@ -41,10 +41,10 @@ class MainWindow(QMainWindow):
         self.toolBar = QToolBar(self)
         self.toolBar.setObjectName("toolBar")
         
-        fontWidget = QSimpleFontWidget(self.font())
-        fontWidget.showBoldButton(True)
-        fontWidget.showItalicButton(True)
-        fontWidget.showUnderlineButton(True)        
+        fontWidget = KySimpleFontWidget(self.font())
+        fontWidget.setBoldButtonVisible(True)
+        fontWidget.setItalicButtonVisible(True)
+        fontWidget.setUnderlineButtonVisible(True)        
         self.actionFont = self.toolBar.addWidget(fontWidget)
         
         self.addToolBar(Qt.ToolBarArea(Qt.TopToolBarArea), self.toolBar)
