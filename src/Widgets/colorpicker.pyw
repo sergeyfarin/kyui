@@ -10,7 +10,20 @@ from PyQt4.QtGui import QSizePolicy
 from PyQt4.QtGui import QPalette, QColor
 
 class ColorFrame(QFrame):
+    """
+    \todo Focus frame painting.
+    \todo Remove margins property; use contentsMargins property instead.
+    """
     def __init__(self, *args, **kwargs):
+        """
+        Initializer.
+        \param args \c tuple: See valid signatures below.
+        \param kwargs \c dict: Property keyword arguments.
+        
+        \sigs
+        \li<tt>ColorFrame(color : QColor = Qt.transparent, parent : QObject = None, **kwargs)</tt>
+        \li<tt>ColorFrame(parent : QObject = None, **kwargs)</tt>
+        """
         if len(args) == 2:
             color = QColor(args[0])
             parent = args[1]
@@ -22,8 +35,6 @@ class ColorFrame(QFrame):
             parent = kwargs.pop('parent', None)
         #extract kwargs values won't go into super().__init__() call
         margin = kwargs.pop('margin', 2)
-        frameColor = QColor(kwargs.pop('frameColor', Qt.black))
-        hoverColor = QColor(kwargs.pop('hoverColor', Qt.blue))
         
         kwargs['focusPolicy'] = Qt.StrongFocus
         kwargs['sizePolicy'] = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -32,23 +43,22 @@ class ColorFrame(QFrame):
         self.setFixedSize(QSize(22, 22))
         
         self.__color = color
-        self.frameColor = frameColor
-        self.hoverColor = hoverColor
         self.__margin = margin
 
-    ##@name Qt Property Methods
-    ##{
+    ##\name Property Access Methods
+    ##\{
+    
     def getColor(self):
         """
-        Getter for color QProperty.
-        @returns QColor The currently selected color.
+        Getter for color Property.
+        \returns QColor
         """
         return self.__color
     
     def getMargin(self):
         """
-        Getter for margin QProperty.
-        @returns int The margin for 
+        Getter for margin Property.
+        \returns int
         """
         return self.__margin
 
@@ -64,12 +74,12 @@ class ColorFrame(QFrame):
             return
         self.__margin = int(margin) if margin > 1 else 1
         self.update()
-    ##}
+    
+    ##\}
 
     def paintEvent(self, pe):
         """
         Reimplemented from parent class.
-        @private
         """
         painter = QPainter()
         painter.begin(self)
@@ -98,12 +108,12 @@ class ColorFrame(QFrame):
                                            fropt, painter, self)
         else:
             if opt.state & QStyle.State_MouseOver or opt.state & QStyle.State_HasFocus:
-                painter.setPen(self.hoverColor)
-                fill = QColor(self.hoverColor)
+                painter.setPen(opt.palette.color(QPalette.Highlight))
+                fill = opt.palette.color(QPalette.Highlight)
                 fill.setAlpha(63)
                 painter.setBrush(fill)
             else:
-                painter.setPen(self.frameColor)
+                painter.setPen(opt.palette.color(QPalette.WindowText))
             if opt.frameShape == QFrame.NoFrame:
                 painter.fillRect(self.rect(), self.color)
             else:
@@ -114,7 +124,6 @@ class ColorFrame(QFrame):
     def enterEvent(self, ev):
         """
         Reimplemented from parent class.
-        @private
         """
         super().enterEvent(ev)
         self.setForegroundRole(QPalette.Highlight)
@@ -122,31 +131,34 @@ class ColorFrame(QFrame):
     def leaveEvent(self, ev):
         """
         Reimplemented from parent class.
-        @private
         """
         super().enterEvent(ev)
         self.setForegroundRole(QPalette.WindowText)
 
-    ##@name Qt Properties
-    ##@{
+    ##\name Properties
+    ##\{
+    
     color = pyqtProperty(QColor, fget=getColor, fset=setColor)
     margin = pyqtProperty(int, fget=getMargin, fset=setMargin)
-    ##@}
+    
+    ##\}
     
 class ColorPicker(QWidget):
     """
-    @brief: Emulates the functionality of the Windows color selection gallery.
+    \brief Emulates the functionality of the Windows color selection gallery.
     ColorPicker is configurable to be embedded in a dialog, like QColorDialog, 
     or embedding in a palette toolbar.
     
-    
-    @todo Keypad navigation, mouse events
+    \todo Keypad navigation, mouse events
     """
-    ##@name Qt Signals
-    ##{
+    
+    ##\name Signals
+    ##\{
+    
     currentColorChanged = pyqtSignal([QColor], [int, int])
     colorHovered = pyqtSignal([QColor], [int, int])
-    ##}
+    
+    ##\}
 
     def __init__(self, *args, **kwargs):
         if len(args) == 2:
@@ -214,9 +226,9 @@ class ColorPicker(QWidget):
     def colorAt(self, row, column):
         """
         Returns the QColor of an index.
-        @param row int
-        @param column int
-        @returns QColor: Null QColor if the parameters are invalid.
+        \param row int
+        \param column int
+        \returns QColor: Null QColor if the parameters are invalid.
         """
         widget = self.index(row, column)
         return widget.color if widget else QColor()
@@ -224,7 +236,7 @@ class ColorPicker(QWidget):
     def columnCount(self):
         """
         Returns the grid's column count.
-        @returns int
+        \returns int
         """
         if len(self.__grid) != 0:
             return len(self.__grid[0])
@@ -233,14 +245,14 @@ class ColorPicker(QWidget):
     def rowCount(self):
         """
         Returns the grid's row count.
-        @returns int
+        \returns int
         """
         return len(self.__grid)
         
-    def widgetAt(self, row, column) -> ColorFrame:
+    def widgetAt(self, row, column):
         """
-        Retrieves the ColorFrame widget in an index.
-        @returns ColorFrame or None: None is returned if the row/column is invalid.
+        Retrieves a grid location's widget, if it exists. If not, returns None.
+        \returns ColorFrame
         """
         if row < self.rowCount() and column < self.columnCount():
             return self.__grid[row][column]
@@ -248,164 +260,18 @@ class ColorPicker(QWidget):
         
     def setColorAt(self, row, column, color):
         """
-        Sets the color of an index.
-        @param row int
-        @param column int
-        @param color QColor
+        Sets the color of a grid item.
+        \param row int
+        \param column int
+        \param color QColor: new item color
         """
         widget = self.widgetAt(row, column)
         if widget:
             widget.color = color
         
-    ##@name Qt Property Methods
-    ##{
-    def getBoxSize(self):
-        """
-        Returns size of the grid's ColorFrame widgets.
-        @returns QSize
-        """
-        return self.__boxSize
-        
-    def getFlat(self):
-        """
-        Returns if the frames have a flat appearance.
-        
-        When true, the flat property sets the grid's widgets to use QFrame.Plain
-        as their frameShadow and the margin property to 
-        @returns int Number of columns
-        """
-        return self.__flat
-        
-    def getFrameColor(self):
-        """
-        Returns the color of inactive ColorFrame boxes.
-        @returns QColor
-        """
-        return self.__cfpalette.color(QPalette.WindowText)
-        
-    def getFrameShape(self) -> QFrame.Shape:
-        """
-        Returns size of the grid's ColorFrame widgets.
-        @returns QSize
-        """
-        return self.__shape
-        
-    def getGridSize(self):
-        """
-        Returns size of the ColorFrame grid.
-        @returns QSize
-        """
-        rows = len(self.__grid)
-        if rows != 0:
-            return QSize(len(self.__grid[0]), rows)
-            
-    def getHoverColor(self):
-        """
-        Returns the color of a ColorFrame box when hovered or down.
-        @returns QColor
-        """
-        return self.__cfpalette.color(QPalette.Highlight)
-    
-    def getMargin(self) -> int:
-        """
-        Returns the margin between the frame and contents of the ColorFrame grid.
-        
-        This property is only used when the flat property is true.
-        @returns int: Margin in pixels
-        @see flat
-        """
-        return self.__margin
-        
-    def getSpacing(self) -> QSize:
-        """
-        Returns the spacing between widgets in the grid.
-        @returns QSize: Grid spacing, horizontally and vertically.
-        """
-        return self.__spacing
-
-    def setBoxSize(self, size):
-        """
-        Sets the size for all ColorFrames in the grid.
-        @param QSize: New grid size.
-        """
-        if size == self.__boxSize or not size.isValid():
-            return
-        self.__boxSize = QSize(size)
-        for row in iter(self.__grid):
-            for cf in iter(row):
-                cf.boxSize = self.__boxSize
-        self.updateGeometry()
-        
-    def setFlat(self, flat):
-        """
-        
-        """
-        if flat == self.__flat:
-            return
-        self.__flat = flat == True
-        for row in iter(self.__grid):
-            for cf in iter(row):
-                cf.flat = self.__flat
-    
-    def setFrameColor(self, color : QColor):
-        
-        color = QColor(color)
-        if color == self.__cfpalette.color(QPalette.WindowText):
-            return
-        self.__cfpalette.setColor(QPalette.WindowText, color)
-        for row in iter(self.__grid):
-            for cf in iter(row):
-                cf.setPalette(self.__cfpalette)
-    
-    def setFrameShape(self, shape : QFrame.Shape):
-        shape = QFrame.Shape(shape)
-        if shape == self.__shape:
-            return
-        self.__shape = QFrame.Shape(shape)
-        for row in iter(self.__grid):
-            for cf in iter(row):
-                cf.setFrameShape(self.__shape)
-
-    def setHoverColor(self, color):
-        
-        color = QColor(color)
-        if color == self.__cfpalette.color(QPalette.Highlight):
-            return
-        self.__cfpalette.setColor(QPalette.Highlight, color)
-        for row in iter(self.__grid):
-            for cf in iter(row):
-                cf.setPalette(self.__cfpalette)
-    
-    def setGridSize(self, size : QSize):
-        self.__initGrid(size)
-        
-    def setMargin(self, margin : int):
-        self.__margin = int(margin)
-        for row in iter(self.__grid):
-            for cf in iter(row):
-                cf.margin = margin
-            
-    def setSpacing(self, spacing : QSize):
-        self.__spacing = QSize(spacing)
-        self.updateGeometry()
-    ##}
-
-    ##@name Qt Properties
-    ##{
-    boxSize = pyqtProperty(QSize, fget=getBoxSize, fset=setBoxSize)
-    flat = pyqtProperty(bool, fget=getFlat, fset=setFlat)
-    frameColor = pyqtProperty(QColor, fget=getFrameColor, fset=setFrameColor)
-    frameShape = pyqtProperty(QFrame.Shape, fget=getFrameShape, fset=setFrameShape)
-    gridSize = pyqtProperty(QSize, fget=getGridSize, fset=setGridSize)
-    hoverColor = pyqtProperty(QColor, fget=getHoverColor, fset=setHoverColor)
-    margin = pyqtProperty(int, fget=getMargin, fset=setMargin)
-    spacing = pyqtProperty(QSize, fget=getSpacing, fset=setSpacing)
-    ##}
-    
     def __initGrid(self, size):
         """
-        @Generates the grid of ColorFrames.
-        @private
+        Generates the grid of ColorFrames.
         """
         if self.__grid != []:
             for row in iter(self.__grid):
@@ -432,7 +298,6 @@ class ColorPicker(QWidget):
     def resizeEvent(self, ev):
         """
         Reimplimented from parent class.
-        @private
         """
         (left, top, right, bottom) = self.getContentsMargins()
         rect = self.rect()
@@ -459,6 +324,158 @@ class ColorPicker(QWidget):
     def keyPressEvent(self, ev):
         """
         Reimplimented from parent class.
-        @private
         """
         super().keyPressEvent(ev)
+        
+    ##\name Property Access Methods
+    ##\{
+    
+    def getBoxSize(self):
+        """
+        Returns the size of the an individual item.
+        \returns QSize
+        """
+        return self.__boxSize
+        
+    def getFlat(self):
+        """
+        Returns if item frames have a flat appearance.
+        
+        When true, the flat property sets the grid's widgets to use QFrame.Plain
+        as their frameShadow and the margin property to 
+        \returns int Number of columns
+        """
+        return self.__flat
+        
+    def getFrameColor(self):
+        """
+        Returns the color of inactive item frames.
+        \returns QColor
+        """
+        return self.__cfpalette.color(QPalette.WindowText)
+        
+    def getFrameShape(self):
+        """
+        Returns the FrameShape of grid items.
+        \returns QFrame.FrameShape
+        """
+        return self.__shape
+        
+    def getGridSize(self):
+        """
+        Returns width and height of the grid.
+        \returns QSize
+        """
+        rows = len(self.__grid)
+        if rows != 0:
+            return QSize(len(self.__grid[0]), rows)
+            
+    def getHoverColor(self):
+        """
+        Returns the color of items when hovered or down.
+        \returns QColor
+        """
+        return self.__cfpalette.color(QPalette.Highlight)
+    
+    def getMargin(self):
+        """
+        Returns the margin between frame and contents of grid items.
+        
+        This property is only used when the flat property is true.
+        \returns int: Margin in pixels
+        @see flat
+        """
+        return self.__margin
+        
+    def getSpacing(self):
+        """
+        Returns the spacing between items.
+        \returns QSize: Grid spacing, horizontally and vertically.
+        """
+        return self.__spacing
+    
+    def setBoxSize(self, size):
+        """
+        \brief Sets the size for grid items.
+        Calls QWidget.setFixedSize() on each item.
+        \param size QSize
+        """
+        if size == self.__boxSize or not size.isValid():
+            return
+        self.__boxSize = QSize(size)
+        for row in iter(self.__grid):
+            for cf in iter(row):
+                cf.boxSize = self.__boxSize
+        self.updateGeometry()
+        
+    def setFlat(self, flat):
+        """
+        \brief Sets the flat property.
+        \param flat int
+        """
+        if flat == self.__flat:
+            return
+        self.__flat = flat == True
+        for row in iter(self.__grid):
+            for cf in iter(row):
+                cf.flat = self.__flat
+    
+    def setFrameColor(self, color : QColor):
+        """
+        \brief Sets the frameColor property.
+        \param color QColor
+        """
+        color = QColor(color)
+        if color == self.__cfpalette.color(QPalette.WindowText):
+            return
+        self.__cfpalette.setColor(QPalette.WindowText, color)
+        for row in iter(self.__grid):
+            for cf in iter(row):
+                cf.setPalette(self.__cfpalette)
+    
+    def setFrameShape(self, shape : QFrame.Shape):
+        shape = QFrame.Shape(shape)
+        if shape == self.__shape:
+            return
+        self.__shape = QFrame.Shape(shape)
+        for row in iter(self.__grid):
+            for cf in iter(row):
+                cf.setFrameShape(self.__shape)
+
+    def setHoverColor(self, color):
+        color = QColor(color)
+        if color == self.__cfpalette.color(QPalette.Highlight):
+            return
+        self.__cfpalette.setColor(QPalette.Highlight, color)
+        for row in iter(self.__grid):
+            for cf in iter(row):
+                cf.setPalette(self.__cfpalette)
+    
+    def setGridSize(self, size : QSize):
+        self.__initGrid(size)
+        
+    def setMargin(self, margin : int):
+        self.__margin = int(margin)
+        for row in iter(self.__grid):
+            for cf in iter(row):
+                cf.margin = margin
+            
+    def setSpacing(self, spacing : QSize):
+        self.__spacing = QSize(spacing)
+        self.updateGeometry()
+    
+    ##\}
+
+    ##\name Properties
+    ##\{
+    
+    boxSize = pyqtProperty(QSize, fget=getBoxSize, fset=setBoxSize)
+    flat = pyqtProperty(bool, fget=getFlat, fset=setFlat)
+    frameColor = pyqtProperty(QColor, fget=getFrameColor, fset=setFrameColor)
+    frameShape = pyqtProperty(QFrame.Shape, fget=getFrameShape, fset=setFrameShape)
+    gridSize = pyqtProperty(QSize, fget=getGridSize, fset=setGridSize)
+    hoverColor = pyqtProperty(QColor, fget=getHoverColor, fset=setHoverColor)
+    margin = pyqtProperty(int, fget=getMargin, fset=setMargin)
+    spacing = pyqtProperty(QSize, fget=getSpacing, fset=setSpacing)
+    
+    ##\}

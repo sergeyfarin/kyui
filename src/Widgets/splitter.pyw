@@ -4,7 +4,6 @@ from PyQt4.QtGui import *
 from .util import Util
 
 def drawCenteredDashedHandle(opt, painter):
-    mid = opt.palette.mid().color()
     dark = opt.palette.shadow().color()
     midlight = opt.palette.midlight().color()
     
@@ -51,6 +50,11 @@ def drawCenteredDashedHandle(opt, painter):
     painter.restore()
     
 def drawCenteredDottedHandle(opt, p):
+    """
+    Sample grip painter.
+    \see Splitter
+    \todo Implement State_Horizontal painting.
+    """
     p.save()
     
     #horizontal
@@ -117,6 +121,10 @@ def drawCenteredDottedHandle(opt, p):
     p.restore()
     
 def drawParalellLineHandle(opt, painter):
+    """
+    Sample grip painter.
+    \see Splitter
+    """
     painter.save()
     if opt.state & QStyle.State_Horizontal:
         x1 = opt.rect.center().x()
@@ -134,6 +142,10 @@ def drawParalellLineHandle(opt, painter):
     painter.restore()
 
 def drawParallelGroovedLineHandle(opt, painter):
+    """
+    Sample grip painter.
+    \see Splitter
+    """
     if opt.state & QStyle.State_Horizontal:
         if opt.rect.width() < 5:
             drawParalellLineHandle(opt, painter)
@@ -158,9 +170,17 @@ def drawParallelGroovedLineHandle(opt, painter):
 
 class Splitter(QSplitter):
     def __init__(self, *args, **kwargs):
+        """
+        Constructor. Accepts the same arguments as QSplitter. Allows passing a
+        gripPainter keyword argument in addition to normal property keyword
+        arguments.
+        \see SplitterHandle
+        """
         if 'gripPainter' in kwargs:
+            #make my func the p_func, i wants my func func'd up...
             p_func = kwargs.pop('gripPainter')
         else:
+            #i want the booomb, i want the p_func.
             p_func = None
         if 'hoverHint' in kwargs:
             h_hint = True if kwargs.pop('hoverHint') else False
@@ -171,12 +191,21 @@ class Splitter(QSplitter):
         self.__highlight = h_hint
         
     def createHandle(self):
+        """
+        Re-implemented from QSplitter.
+        \protected
+        """
         h = SplitterHandle(self.orientation(), self)
         h.setGripPainter(self.__gripfunc)
         h.hoverHint = self.hoverHint
         return h
         
     def handles(self):
+        """
+        Returns a list of each SplitterHandle in the Splitter. This is used for 
+        debug purposes.
+        @returns list-of-SplitterHandle
+        """
         l = []
         for i in range(self.count()):
             h = self.handle(i)
@@ -185,6 +214,10 @@ class Splitter(QSplitter):
         return l
         
     def widgets(self):
+        """
+        Returns a list of each widget in the Splitter.
+        @returns list
+        """
         l = []
         for i in range(self.count()):
             w = self.widget(i)
@@ -193,6 +226,13 @@ class Splitter(QSplitter):
         return l
     
     def setGripPainter(self, func):
+        """
+        \brief Sets the method used to draw each SplitterHandle grip.
+        See the source file splitter.pyw for several sample methods.
+        The method \em must accept following arguments:
+        <code>function_name(QStyleOption, QPainter)</code>
+        \see SplitterHandle
+        """
         if func == self.__gripfunc:
             return
         self.__gripfunc = func
@@ -200,13 +240,23 @@ class Splitter(QSplitter):
             h.setGripPainter(func)
         
     def getHoverHint(self):
-        return True if self.__highlight else False
+        """
+        Getter for the hoverHint property.
+        \returns bool
+        \getter hoverHint
+        """
+        return self.__highlight
         
     def setHoverHint(self, hint):
+        """
+        Setter for the hoverHint property.
+        \param hint bool
+        \setter hoverHint
+        """
         assert(isinstance(hint, bool))
         if hint == self.__highlight:
             return
-        self.__highlight = True if hint else False
+        self.__highlight = hint
         for h in self.handles():
             h.hoverHint = hint
         

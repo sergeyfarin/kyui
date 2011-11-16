@@ -9,28 +9,31 @@ from PyQt4.QtGui import QPixmap, QIcon
 
 class ColorButton(QToolButton):
     """
-    @brief QToolButton that displays a color selection.
+    \brief QToolButton that displays a color selection.
     
     This class is specifically meant for use in settings dialogs and toolbars
     for setting and displaying a color selection (e.g., window background
     color or text color). Refer to the test file for an example of its usage.
     
-    @see ColorFrame
-    @see ColorWidget
+    \see ColorFrame
+    \see ColorWidget
     """
     
-    ##@name Qt Signals
-    ##@{
+    ##\name Signals
+    ##\{
     colorChanged = pyqtSignal(QColor)
-    ##@}
+    ##\}
     
     def __init__(self, *args, **kwargs):
         """
         Initializer.
+        \param args \c tuple: See valid signatures below.
+        \param kwargs \c dict: Property keyword arguments.
         
-        @param color QColor: Any value the QColor constructor accepts.
-        @param text str: Optional display text.
-        @param parent QObject: Parent object.
+        \sigs
+        \li ColorButton(color : QColor, text : str, parent : QWidget, **kwargs)
+        \li ColorButton(color : QColor, parent : QWidget, **kwargs)
+        \li ColorButton(parent : QWidget, **kwargs)
         """
 
         if len(args) == 3:
@@ -59,14 +62,12 @@ class ColorButton(QToolButton):
         self.__color = color
         self._regenerateIcon()
     
-    ##@name Qt Properties
-    ##@{
     @pyqtSlot(QColor)
     def setColor(self, color):
         """
-        @brief Setter for the Color property.
-        Accepts any value the QColor constructor will accept.
-        @param color QColor
+        Setter for the Color property.
+        \note Accepts any value the QColor constructor will accept.
+        \param color QColor
         """
         #use QColor(color) to allow QRgb values, Qt.GlobalColor et cetera
         if self.__color == QColor(color):
@@ -75,12 +76,11 @@ class ColorButton(QToolButton):
         self._regenerateIcon()
         self.colorChanged.emit(self.__color)
         
-    @pyqtSlot(QColor)
     def setFrameColor(self, color):
         """
-        @brief Setter for the FrameColor property.
+        \brief Setter for the FrameColor property.
         Accepts any value the QColor constructor will accept.
-        @param color QColor
+        \param color QColor
         """
         if self.__frameColor == QColor(color):
             return
@@ -92,26 +92,22 @@ class ColorButton(QToolButton):
 
     def getColor(self): 
         """
-        @brief Getter for Color property.
-        @returns QColor
+        \brief Getter for Color property.
+        \returns QColor
         """
         return QColor(self.__color)
     
     def getFrameColor(self):
         """
-        @brief Getter for the FrameColor property.
-        @returns QColor
+        \brief Getter for the FrameColor property.
+        \returns QColor
         """
         return QColor(self.__frameColor)
     
-    color = pyqtProperty(QColor, fget=getColor, fset=setColor)
-    frameColor = pyqtProperty(QColor, fget=getFrameColor, fset=setFrameColor)
-    ##@}
-    
     def paintEvent(self, ev):
         """
-        @private
-        Reimplemented from parent class.
+        \brief Reimplemented from parent class.
+        \param ev QPaintEvent
         """
         if self.__isz != self.iconSize():
             self._regenerateIcon()
@@ -123,8 +119,7 @@ class ColorButton(QToolButton):
 
     def _regenerateIcon(self):
         """
-        @private
-        Creates a new icon when the color property or icon size changes.
+        \brief Creates a new icon when the color property or icon size changes.
         """
         self.__isz = self.iconSize()
         pixmap = QPixmap(self.iconSize())
@@ -139,3 +134,10 @@ class ColorButton(QToolButton):
             painter.fillRect(pixmap.rect(), self.color)
         painter.end()
         super().setIcon(QIcon(pixmap))
+
+    ##\name Properties
+    ##\{
+    
+    color = pyqtProperty(QColor, fget=getColor, fset=setColor)
+    frameColor = pyqtProperty(QColor, fget=getFrameColor, fset=setFrameColor)
+    ##\}
