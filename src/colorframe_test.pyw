@@ -26,8 +26,6 @@ class Dialog(TemplateDialog):
         super().setupUi()
         self.testWidget = ColorFrame(parent=self, 
                                      color = QColor(Qt.white), 
-                                     hoverColor = QColor(Qt.blue), 
-                                     frameColor = QColor(Qt.gray), 
                                      frameShape = QFrame.Panel, 
                                      frameShadow = QFrame.Plain, 
                                      margin = 2)
@@ -120,7 +118,7 @@ class Dialog(TemplateDialog):
             icon = createColorIcon(QColor(Qt.yellow), QSize(16, 16))
             box.addItem(icon, 'Yellow', QColor(Qt.yellow))
             
-        self.frameColorBox.setCurrentIndex(3)
+        self.frameColorBox.setCurrentIndex(0)
         self.hoverColorBox.setCurrentIndex(1)
         self.sampleColorBox.setCurrentIndex(7)
         
@@ -179,10 +177,16 @@ class Dialog(TemplateDialog):
         self.testWidget.setFixedSize(self.sizeBox.itemData(index, Qt.UserRole))
     
     def hoverColorChanged(self, index : int):
-        self.testWidget.hoverColor = self.hoverColorBox.itemData(index, Qt.UserRole)
+        pal = self.testWidget.palette()
+        pal.setColor(QPalette.Highlight, 
+                     self.hoverColorBox.itemData(index, Qt.UserRole))
+        self.testWidget.setPalette(pal)
         
     def frameColorChanged(self, index : int):
-        self.testWidget.frameColor = self.frameColorBox.itemData(index, Qt.UserRole)
+        pal = self.testWidget.palette()
+        pal.setColor(QPalette.WindowText, 
+                     self.frameColorBox.itemData(index, Qt.UserRole))
+        self.testWidget.setPalette(pal)
     
     def sampleColorChanged(self, index : int):
         self.testWidget.color = self.sampleColorBox.itemData(index, Qt.UserRole)
