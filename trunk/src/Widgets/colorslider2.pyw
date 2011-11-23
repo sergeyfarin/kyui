@@ -1,20 +1,5 @@
-"""
-@module colorslider2
-@brief Cleaner implementation of ColorSlider_Old from colorslider.py.
-"""
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-
-from .util import QTypeToString
-
-def sliderPosition(opt):
-    return QStyle.sliderPositionFromValue(
-                opt.minimum, 
-                opt.maximum, 
-                opt.sliderValue, 
-                opt.rect.width(), # if opt.orientation == Qt.Horizontal else opt.rect.height() - 12, 
-                opt.upsideDown)
 
 class ColorSlider(QSlider):
     """
@@ -143,14 +128,14 @@ class ColorSlider(QSlider):
     def getSliderStyle(self):
         """
         Getter for sliderStyle QProperty.
-        @returns int The current slider style, from ColorSlider.SliderStyles
+        @returns int
         """
         return self.__style
         
     def setSliderStyle(self, style):
         """
         Setter for the sliderStyle QProperty.
-        @param style int: Must be one of the values in ColorSlider.SliderStyles
+        @param style int
         @see SliderStyles
         """
         if style not in ColorSlider.SliderStyles:

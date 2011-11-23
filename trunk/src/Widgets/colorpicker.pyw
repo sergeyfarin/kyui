@@ -1,7 +1,7 @@
 #utf-8
 #colorpicker.pyw
 
-from PyQt4.QtCore import Qt, pyqtSlot, pyqtSignal, pyqtProperty, qWarning
+from PyQt4.QtCore import Qt, pyqtSlot, pyqtSignal, pyqtProperty
 from PyQt4.QtCore import QSize
 from PyQt4.QtGui import QWidget, QFrame
 from PyQt4.QtGui import QPainter, QStyle
@@ -11,6 +11,8 @@ from PyQt4.QtGui import QPalette, QColor
 
 class ColorFrame(QFrame):
     """
+    \brief A class for displaying a color within a frame.
+    
     \todo Focus frame painting.
     \todo Remove margins property; use contentsMargins property instead.
     """
@@ -64,19 +66,32 @@ class ColorFrame(QFrame):
 
     @pyqtSlot(QColor)
     def setColor(self, color : QColor):
+        """
+        Setter for the color Property.
+        \param color QColor
+        \slot
+        """
         if QColor(color) == self.__color:
             return
         self.__color = QColor(color)
         self.update()
 
     def setMargin(self, margin):
+        """
+        Setter for the margin Property.
+        \param margin int
+        \note This will be replaced by QWidget.setContentsMargins()
+        """
         if margin == self.__margin:
             return
-        self.__margin = int(margin) if margin > 1 else 1
+        self.__margin = margin if margin > 1 else 1
         self.update()
     
     ##\}
-
+    
+    ##\name Reimplemented Methods
+    ##\{
+    
     def paintEvent(self, pe):
         """
         Reimplemented from parent class.
@@ -91,7 +106,7 @@ class ColorFrame(QFrame):
         opt.lineWidth = 1
         opt.midLineWidth = 0
         
-        outerRect = self.rect().adjusted(0, 0, -1, -1)
+        outerRect = opt.rect.adjusted(0, 0, -1, -1)
         innerRect = opt.rect.adjusted(self.margin, self.margin, 
                                       -self.margin, -self.margin)
         if not opt.frameShadow == QFrame.Plain:
@@ -134,7 +149,9 @@ class ColorFrame(QFrame):
         """
         super().enterEvent(ev)
         self.setForegroundRole(QPalette.WindowText)
-
+    
+    ##\}
+    
     ##\name Properties
     ##\{
     
@@ -410,19 +427,19 @@ class ColorPicker(QWidget):
         
     def setFlat(self, flat):
         """
-        \brief Sets the flat property.
-        \param flat int
+        \brief Setter for the flat property.
+        \param flat bool
         """
         if flat == self.__flat:
             return
-        self.__flat = flat == True
+        self.__flat = flat
         for row in iter(self.__grid):
             for cf in iter(row):
                 cf.flat = self.__flat
     
     def setFrameColor(self, color : QColor):
         """
-        \brief Sets the frameColor property.
+        \brief Setter for the frameColor property.
         \param color QColor
         """
         color = QColor(color)
@@ -433,7 +450,11 @@ class ColorPicker(QWidget):
             for cf in iter(row):
                 cf.setPalette(self.__cfpalette)
     
-    def setFrameShape(self, shape : QFrame.Shape):
+    def setFrameShape(self, shape):
+        """
+        Setter for the frameShape Property.
+        \param shape QFrame.Shape
+        """
         shape = QFrame.Shape(shape)
         if shape == self.__shape:
             return
@@ -443,6 +464,10 @@ class ColorPicker(QWidget):
                 cf.setFrameShape(self.__shape)
 
     def setHoverColor(self, color):
+        """
+        Setter for the hoverColor Property.
+        \param color QColor
+        """
         color = QColor(color)
         if color == self.__cfpalette.color(QPalette.Highlight):
             return
@@ -451,16 +476,32 @@ class ColorPicker(QWidget):
             for cf in iter(row):
                 cf.setPalette(self.__cfpalette)
     
-    def setGridSize(self, size : QSize):
+    def setGridSize(self, size):
+        """
+        Setter for the gridSize Property.
+        \param size QSize
+        """
+        if self.gridSize == size:
+            return
         self.__initGrid(size)
         
-    def setMargin(self, margin : int):
-        self.__margin = int(margin)
+    def setMargin(self, margin):
+        """
+        \brief Setter for the margin Property.
+        Essentially, calling this method calls setContentsMargins on each widget
+        in the grid.
+        \param margin int
+        """
+        if margin == self.__margin:
+            return
+        self.__margin = margin
         for row in iter(self.__grid):
             for cf in iter(row):
                 cf.margin = margin
             
     def setSpacing(self, spacing : QSize):
+        if self.__spacing == spacing:
+            return
         self.__spacing = QSize(spacing)
         self.updateGeometry()
     
