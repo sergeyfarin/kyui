@@ -1,9 +1,9 @@
-#summary Key points of kyui's widgets
+#summary Key points of KyUI's widgets
 #labels Featured,Phase-Design
 
 = Introduction =
 
-Kyui is composed of a series of widget sets and related code to ease development and provide reusable code.
+KyUI is composed of a series of widget sets and related code to ease development and provide reusable code.
 
 = Functional Widgets =
 
@@ -12,10 +12,6 @@ Kyui is composed of a series of widget sets and related code to ease development
 BasicFontWidget provides the familiar Font combobox font size combobox pair, with optional bold, italic, and underline buttons. This functionality is commonly used in toolbars. BasicFontWidget allows developers to simply add it to a toolbar or dialog and rely on a single `currentFontChanged(QFont)` signal rather than those of five independant widgets.
 
 FontPreviewWidget requires no real explanation. It has a `setFont(QFont)` slot and appropriately displays a preview of the font. The sample text is, of course, changeable.
-
-== SliderSpinBoxWidget ==
-
-This widget is a relatively simple pairing of a QSlider and QSpinBox with an optional label.
 
 == CloseButton ==
 
