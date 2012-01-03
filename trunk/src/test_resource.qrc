@@ -1,10 +1,10 @@
 <RCC>
   <qresource prefix="test">
-    <file>../Icons/email.png</file>
-    <file>../Icons/exit.png</file>
-    <file>../Icons/favorite.png</file>
-    <file>../Icons/favoritesfolder.png</file>
-    <file>../Icons/find.png</file>
-    <file>../Icons/qtlogo.png</file>
+    <file alias="email.png">../Icons/email.png</file>
+    <file alias="exit.png">../Icons/exit.png</file>
+    <file alias="favorite.png">../Icons/favorite.png</file>
+    <file alias="folder.png">../Icons/favoritesfolder.png</file>
+    <file alias="find.png">../Icons/find.png</file>
+    <file alias="qtlogo.png">../Icons/qtlogo.png</file>
   </qresource>
 </RCC>
