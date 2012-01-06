@@ -87,26 +87,26 @@ class Dialog(TemplateDialog):
     def retranslateUi(self):
         super().retranslateUi()
         tr = self.trUtf8
-        self.setWindowTitle(tr('ColorButton Test'))
+        self.setWindowTitle(tr('PathLineEdit Test'))
         self.settingsLayout.labelForField(self.pathBox).setText(tr('&Path'))
         self.settingsLayout.labelForField(self.iconBox).setText(tr('Button &Icon'))
         self.settingsLayout.labelForField(self.textBox).setText(tr('Button &Text'))
         self.settingsLayout.labelForField(self.buttonStyleBox).setText(tr('&ToolButtonStyle'))
         
-        self.buttonStyleBox.setItemText(0, 'Qt::ToolButtonIconOnly')
-        self.buttonStyleBox.setItemText(1, 'Qt::ToolButtonTextOnly')
-        self.buttonStyleBox.setItemText(2, 'Qt::ToolButtonTextBesideIcon')
-        self.buttonStyleBox.setItemText(3, 'Qt::ToolButtonTextUnderIcon')
-        self.buttonStyleBox.setItemText(4, 'Qt::ToolButtonFollowStyle')
+        self.buttonStyleBox.setItemText(0, tr('Qt::ToolButtonIconOnly'))
+        self.buttonStyleBox.setItemText(1, tr('Qt::ToolButtonTextOnly'))
+        self.buttonStyleBox.setItemText(2, tr('Qt::ToolButtonTextBesideIcon'))
+        self.buttonStyleBox.setItemText(3, tr('Qt::ToolButtonTextUnderIcon'))
+        self.buttonStyleBox.setItemText(4, tr('Qt::ToolButtonFollowStyle'))
         
-        self.iconBox.setItemText(0, '(None)')
-        self.iconBox.setItemText(1, 'find.png')
-        self.iconBox.setItemText(2, 'folder.png')
-        self.iconBox.setItemText(3, 'qtlogo.png')
+        self.iconBox.setItemText(0, tr('(None)'))
+        self.iconBox.setItemText(1, tr('find.png'))
+        self.iconBox.setItemText(2, tr('folder.png'))
+        self.iconBox.setItemText(3, tr('qtlogo.png'))
         
-        self.textBox.setItemText(0, '(None)')
-        self.textBox.setItemText(1, 'Browse')
-        self.textBox.setItemText(2, '...')
+        self.textBox.setItemText(0, tr('(None)'))
+        self.textBox.setItemText(1, tr('Browse'))
+        self.textBox.setItemText(2, tr('...'))
 
     def connectSignals(self):
         super().connectSignals()
@@ -127,14 +127,6 @@ class Dialog(TemplateDialog):
         
     def onStyleChanged(self, idx : int):
         self.testWidget.setToolButtonStyle(self.buttonStyleBox.itemData(idx, Qt.UserRole))
-    
-#    def onColorButtonClicked(self):
-#        color = QColorDialog.getColor(self.testWidget.color, self)
-#        self.testWidget.setColor(color)
-#        idx = self.iconBox.findData(color)
-#        self.iconBox.blockSignals(True)
-#        self.iconBox.setCurrentIndex(idx)
-#        self.iconBox.blockSignals(False)
         
 if __name__ == '__main__':
     import sys
