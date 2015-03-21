@@ -1,0 +1,7 @@
+KyUI (pronounced KYOO-ee) is a loose collection of widgets to keep Qt developers from "rolling-their-own" common interface components when developing new applications. Qt includes the power to build flexible interfaces, but doesn't restrain the developer with template solutions to problems. KyUI bridges this gap with working--but readily modifiable--UI components, such as font settings and preview widgets for toolbars and dialogs, a class to catch and display an entered key combination/hotkey and accompanying widgets for modifying/saving QKeyShortcuts with actions, and numerous proof-of-concepts to provide ideas and possible solutions for developers. All of these widgets have example dialogs containing the widget to display its functionality.
+
+There are numerous prototype, work-in-progress, and proof-of-concept widgets that developers can adapt code or ideas from to jumpstart their own work. This includes QDesigner .ui files, screenshots of similar solutions in common applications, and unpolished solutions or approaches for developers to build upon.
+
+KyUI's code is not intended to be completely production-ready, and an assumption is made that the developer will have to modify the code to suit their project's coding style, API, and so forth. Python/PyQt were chosen over C++/Qt to increase the pace of development.
+
+The code is meant to be relatively easy for C++ developer to follow for their own projects, and eventually KyUI will include more stable, polished C++ ports.
